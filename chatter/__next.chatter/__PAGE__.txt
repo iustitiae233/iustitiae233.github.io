@@ -1,10 +1,49 @@
 1:"$Sreact.fragment"
-2:I[62319,["/_next/static/chunks/11j-ov1h2ou1-.js","/_next/static/chunks/016xjkgc1-~p..js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/00lpu-ow1x7yy.js"],"default"]
-3:I[66357,["/_next/static/chunks/11j-ov1h2ou1-.js","/_next/static/chunks/016xjkgc1-~p..js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/00lpu-ow1x7yy.js"],"default"]
-4:I[9434,["/_next/static/chunks/11j-ov1h2ou1-.js","/_next/static/chunks/016xjkgc1-~p..js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/00lpu-ow1x7yy.js"],"default"]
-11:I[97367,["/_next/static/chunks/11j-ov1h2ou1-.js","/_next/static/chunks/016xjkgc1-~p..js","/_next/static/chunks/00-csyj9a6t-x.js"],"OutletBoundary"]
-12:"$Sreact.suspense"
-5:T1010,
+2:I[62319,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0ax3i1vtp52xq.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/00lpu-ow1x7yy.js"],"default"]
+3:I[66357,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0ax3i1vtp52xq.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/00lpu-ow1x7yy.js"],"default"]
+4:I[9434,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0ax3i1vtp52xq.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/00lpu-ow1x7yy.js"],"default"]
+12:I[97367,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0ax3i1vtp52xq.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js"],"OutletBoundary"]
+13:"$Sreact.suspense"
+5:Tce2,
+### **第一周：练“画面感”与“意象”（用动词代替形容词）**
+
+很多新手写景喜欢堆砌“美丽的、灿烂的、金黄色的”，这是无效描写。**高手写画面，靠的是“动词”和“具体的名词”。**
+
+* **训练法：“盲人摸象”法**：每天抽10分钟，观察你周围的一个静态物体（比如桌上的水杯、一把雨伞）。闭上眼睛，想象你从没见过它，用手“摸”它的轮廓。然后写下来，**禁用“像”字，禁用形容词**，只用“动词+名词”。
+
+  + *错误示范*：杯子是白色的，很光滑。（无效）
+  + *正确示范*：杯壁凝着水珠，手指划过去，留下一道干净的痕。（这里有“凝”、“划”、“留”，画面自动出现）
+* **意象训练**：意象就是“情感+物体”的结合。比如“孤独”你看不见，但“一只在暴雨中打转的塑料袋”你就看见了。练习把“情绪”装进“破烂东西”里。
+
+### **第二周：练“比喻”（找不同事物的“内部逻辑”）**
+
+比喻的高级境界不是“月亮像圆盘”（这是外形像），而是“月亮像一枚冰冷的邮戳”（这是**功能和感觉**像）。
+
+* **训练法：“混搭超市”游戏**：在纸上写两列词。一列是【情绪/抽象】（如：愧疚、愤怒、时间），另一列是【厨房/厕所里的物件】（如：钢丝球、马桶搋子、冰箱）。随机连线，逼自己解释它们为什么像。
+* **刻意练习**：描写一个人生气，不要说“他很生气”，要说“他的呼吸像一把生锈的剪刀，在喉咙里一开一合。” **练够100个这样的“胡扯”，你的比喻直觉就通了。**
+
+### **第三周：练“极尽抒情”（去听“背景音”）**
+
+你发现了吗？厉害的抒情不是喊口号“我好痛苦”，而是写**环境的扭曲**。
+
+* **训练法：“通感日记”**：当你情绪波动时（兴奋、低落、疲惫），立刻拿出手机录音，说说你**耳朵**里听到的声音，或者**皮肤**上的触感。
+
+  + *写喜*：电话挂断的那一刻，冰箱的嗡嗡声突然变得震耳欲聋，地板瓷砖的凉意顺着脚心爬上来，整间屋子亮得让人想跳舞。
+  + *写悲*：窗外的蝉鸣像一根生锈的铁丝，戳进太阳穴。
+* **记住秘诀**：**抒情 = 物理感受 + 心理反应**。把“心”的感受，嫁接给“眼、耳、鼻、舌、身”。
+
+### **第四周：练“短促有力的断句”（这是最不需要天赋的）**
+
+短句不是把长句切短，而是**“主谓宾”的独立使用**。短句的目的是**制造停顿**，像拳头打出去要收回来。
+
+* **训练法：“电报体”改写**：把你以前写的啰嗦长句，或随便找一段新闻稿，强制要求每句话**不超过7个字**。
+
+  + *原句*：他因为错过了那班火车而感到非常懊悔和沮丧。
+  + *改*：他迟了。火车走了。铁轨空着。风很大。他站了很久。
+* **心法**：长句负责**流动性**（写景、写绵长的情绪），短句负责**力度**（写行动、写打击、写醒悟）。写的时候，默读，如果你觉得喘不过气，就切个短句让读者喘气。
+
+  
+‍6:T1010,
 ### **嵌入式产品的“产品编号”是什么？**
 
 嵌入式产品的**产品编号**通常指一个或多个用于标识设备身份的编号，常见的有：
@@ -95,7 +134,7 @@ const char* get_serial_number(void) {
    设备再次上电时，固件从 Flash 数据区读取序列号，用于显示、上报、授权等。
 
   
-‍6:T1d07,
+‍7:T1d07,
 ## **一、Flash 分区表 —— 给你的 Flash “划地盘”**
 
 ### **1. 为什么要分区？**
@@ -259,7 +298,7 @@ void jump_to_app(uint32_t app_addr) {
 * 执行 `SystemInit`，`SCB->VTOR` 再次被设为 `0x08010000`。
 * 程序正常运行，联网上报“升级成功”。
 
-**整个过程中，分区表提供了地址，中断向量偏移保证了 APP 的中断正常响应，OTA 机制通过暂存区和标志位安全地替换了固件。**7:T1c84,
+**整个过程中，分区表提供了地址，中断向量偏移保证了 APP 的中断正常响应，OTA 机制通过暂存区和标志位安全地替换了固件。**8:T1c84,
 ## 引言
 
 多任务操作系统中，任务不是孤岛——它们需要通信、需要同步、需要共享资源。如果说上一篇的"任务管理"让每个任务独立运行，那么本文的"信号量"就是任务之间对话的语言。
@@ -438,7 +477,7 @@ ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 > *交流创造秩序，共享需要规则。* —— Iustitiae
 
   
-‍8:T19b6,
+‍9:T19b6,
 ## 引言
 
 当你的嵌入式项目从"点个灯"进化到"同时处理显示屏刷新、传感器数据采集、WiFi通信和用户交互"时，裸机编程的超级循环（Super Loop）就捉襟见肘了。
@@ -599,7 +638,7 @@ FreeRTOS 的任务管理是实时操作系统的基石。掌握任务创建、�
 > *分而治之，各司其职。* —— 计算机科学的古老智慧
 
   
-‍9:T18d8,
+‍a:T18d8,
 ## 引言
 
 在嵌入式系统中，通信协议是各模块之间对话的语言。UART、I2C 和 SPI 是最常用的三种串行通信协议——它们各自有着鲜明的性格特点，适用的场景也截然不同。理解它们的差异，是选择正确协议的前提。
@@ -732,7 +771,7 @@ SPI（Serial Peripheral Interface）是一种**同步、全双工、主从架构
 
 > 没有最好的协议，只有最合适的协议。在实际项目中，三种协议往往是**配合使用**的——用 UART 调试通信，用 I²C 挂载传感器，用 SPI 驱动屏幕和存储。各取所长，才是正道。
 
-‍a:T13df,
+‍b:T13df,
 ## 引言
 
 现实世界是模拟的——温度、湿度、压力、光线、声音，都是连续变化的物理量。而单片机只认识 0 和 1。ADC（模数转换器）就是连接这两个世界的桥梁。
@@ -860,7 +899,7 @@ ADC 是单片机感知模拟世界的窗口。从 12 位到 16 位，从单次�
 > *世界是连续的，但理解世界的每一步，都是离散的。* —— Iustitiae
 
   
-‍b:T1515,
+‍c:T1515,
 ## 引言
 
 PWM（Pulse Width Modulation，脉冲宽度调制）是利用数字输出来模拟模拟电路控制的一种技术。它看似简单——只是控制高低电平的时间比例——但几乎是嵌入式系统中最常用的信号输出方式。从呼吸灯到电机调速，从舵机控制到音频合成，PWM 无处不在。
@@ -1000,7 +1039,7 @@ PWM 是输出比较最实用的形态。掌握了频率、占空比、分辨率�
 
 > *控制不在于力的强弱，而在于节奏的精妙。* —— Iustitiae
 
-‍c:T1576,
+‍d:T1576,
 ## 引言
 
 如果说定时器的基本定时功能是它的"心跳"，那么输出比较和输入捕获就是它的"双手"——一手创造信号，一手测量信号。理解这两个功能，是掌握 PWM、频率计、超声波测距等应用的前提。
@@ -1123,7 +1162,7 @@ CNT:  0 ──→ 30 ──→ 60 ──→ 90 ──→ ARR ──→ 0 ──�
 
 > *测量即是理解，输出即是创造。* —— Iustitiae
 
-‍d:T1477,
+‍e:T1477,
 ## 引言
 
 定时器和中断是嵌入式系统的"心跳"与"神经系统"。定时器让单片机感知时间的流逝，中断让单片机能够及时响应外部事件。两者结合，构成了实时嵌入式系统的核心基础。
@@ -1261,7 +1300,7 @@ void TIM2_IRQHandler(void)
 > *时间不在于你拥有多少，而在于你怎样使用。* —— 艾克
 
   
-‍e:T12dc,
+‍f:T12dc,
 ## 引言
 
 GPIO（General Purpose Input/Output，通用输入输出）是单片机最基础也最常用的外设。无论是点亮一颗LED、读取一个按键，还是驱动复杂的通信总线，都离不开对GPIO的理解。
@@ -1368,7 +1407,7 @@ GPIO 看似简单，但推挽与开漏的选择、上拉与下拉的理解、复
 > *工欲善其事，必先利其器。* —— 《论语》
 
   
-‍0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen relative pb-10","children":[["$","$L2",null,{}],["$","$L3",null,{"children":["$","$L4",null,{"chatters":[{"slug":"chatter_1783403941","title":"有关嵌入式产品编号烧录的必要性和相关流程","date":"2026-07-07 13:59:01","tags":[],"mood":"","cover":"https://bu.dusays.com/2026/07/07/6a4c9592ef24d.png","content":"$5"},{"slug":"chatter_1783068887","title":"flash分区表，中断向量偏移量和ota升级流程","date":"2026-07-03 16:54:47","tags":[],"mood":"","cover":"https://bu.dusays.com/2026/07/03/6a471c9052422.png","content":"$6"},{"slug":"freertos-semaphore-callback","title":"FreeRTOS信号量与回调函数——任务间的对话","date":"2026-06-27 17:00:00","tags":["FreeRTOS","STM32","RTOS","信号量","回调函数"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$7"},{"slug":"freertos-config-tasks","title":"FreeRTOS入门——配置与任务管理","date":"2026-06-27 16:00:00","tags":["FreeRTOS","STM32","RTOS","任务管理"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$8"},{"slug":"mcu-communication-protocols","title":"嵌入式通信协议UART、I2C、SPI对比详解","date":"2026-06-27 15:00:00","tags":["单片机","通信协议","UART","I2C","SPI"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$9"},{"slug":"mcu-adc","title":"ADC模数转换详解——从模拟信号到数字世界","date":"2026-06-27 14:00:00","tags":["单片机","STM32","ADC","模数转换"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$a"},{"slug":"mcu-pwm","title":"PWM脉冲宽度调制详解","date":"2026-06-27 13:00:00","tags":["单片机","STM32","PWM","舵机"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$b"},{"slug":"mcu-outputcompare-inputcapture","title":"输出比较与输入捕获","date":"2026-06-27 12:00:00","tags":["单片机","STM32","输出比较","输入捕获"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$c"},{"slug":"mcu-timer-interrupt","title":"单片机定时器与中断系统详解——从CNT到NVIC","date":"2026-06-27 11:00:00","tags":["单片机","STM32","定时器","中断","NVIC"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$d"},{"slug":"mcu-gpio","title":"单片机GPIO原理与实战——从寄存器到HAL库","date":"2026-06-27 10:00:00","tags":["单片机","STM32","GPIO"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$e"}]}]}]]}],["$Lf"],"$L10"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"HMmz9n2zQLldweVu4YLvO"}
-f:["$","script","script-0",{"src":"/_next/static/chunks/00lpu-ow1x7yy.js","async":true}]
-10:["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]
-13:null
+‍0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen relative pb-10","children":[["$","$L2",null,{}],["$","$L3",null,{"children":["$","$L4",null,{"chatters":[{"slug":"chatter_1783924113","title":"学写小说","date":"2026-07-13 14:28:33","tags":[],"mood":"","cover":"","content":"$5"},{"slug":"chatter_1783403941","title":"有关嵌入式产品编号烧录的必要性和相关流程","date":"2026-07-07 13:59:01","tags":[],"mood":"","cover":"https://bu.dusays.com/2026/07/07/6a4c9592ef24d.png","content":"$6"},{"slug":"chatter_1783068887","title":"flash分区表，中断向量偏移量和ota升级流程","date":"2026-07-03 16:54:47","tags":[],"mood":"","cover":"https://bu.dusays.com/2026/07/03/6a471c9052422.png","content":"$7"},{"slug":"freertos-semaphore-callback","title":"FreeRTOS信号量与回调函数——任务间的对话","date":"2026-06-27 17:00:00","tags":["FreeRTOS","STM32","RTOS","信号量","回调函数"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$8"},{"slug":"freertos-config-tasks","title":"FreeRTOS入门——配置与任务管理","date":"2026-06-27 16:00:00","tags":["FreeRTOS","STM32","RTOS","任务管理"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$9"},{"slug":"mcu-communication-protocols","title":"嵌入式通信协议UART、I2C、SPI对比详解","date":"2026-06-27 15:00:00","tags":["单片机","通信协议","UART","I2C","SPI"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$a"},{"slug":"mcu-adc","title":"ADC模数转换详解——从模拟信号到数字世界","date":"2026-06-27 14:00:00","tags":["单片机","STM32","ADC","模数转换"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$b"},{"slug":"mcu-pwm","title":"PWM脉冲宽度调制详解","date":"2026-06-27 13:00:00","tags":["单片机","STM32","PWM","舵机"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$c"},{"slug":"mcu-outputcompare-inputcapture","title":"输出比较与输入捕获","date":"2026-06-27 12:00:00","tags":["单片机","STM32","输出比较","输入捕获"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$d"},{"slug":"mcu-timer-interrupt","title":"单片机定时器与中断系统详解——从CNT到NVIC","date":"2026-06-27 11:00:00","tags":["单片机","STM32","定时器","中断","NVIC"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$e"},{"slug":"mcu-gpio","title":"单片机GPIO原理与实战——从寄存器到HAL库","date":"2026-06-27 10:00:00","tags":["单片机","STM32","GPIO"],"mood":"","cover":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","content":"$f"}]}]}]]}],["$L10"],"$L11"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"9dcRm7ft-hmY4lrM7doth"}
+10:["$","script","script-0",{"src":"/_next/static/chunks/00lpu-ow1x7yy.js","async":true}]
+11:["$","$L12",null,{"children":["$","$13",null,{"name":"Next.MetadataOutlet","children":"$@14"}]}]
+14:null
