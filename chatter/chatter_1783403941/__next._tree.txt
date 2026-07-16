@@ -9,4 +9,4 @@
 :HL["/_next/static/chunks/0-y7.kz1~5qzw.css","style"]
 :HL["https://bu.dusays.com/2026/07/07/6a4c9592ef24d.png","image"]
 :HL["https://bu.dusays.com/2026/07/03/6a47641290190.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"chatter","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"chatter_1783403941","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"5Gyvbm4k5EvJ-ZazXqRSZ"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"chatter","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"chatter_1783403941","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"wLnJ7G7rCQo0tctlNXyUn"}
