@@ -1,0 +1,199 @@
+1:"$Sreact.fragment"
+2:I[62319,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+3:I[66357,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+4:I[1509,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+5:I[22016,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],""]
+11:I[24170,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+12:I[57592,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+13:I[55581,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+2d:I[97367,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js"],"OutletBoundary"]
+2e:"$Sreact.suspense"
+:HL["https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","image"]
+:HL["https://bu.dusays.com/2026/07/03/6a47641290190.png","image"]
+:HL["/_next/static/chunks/15cahw4d8-wp1.css","style"]
+:HL["/_next/static/chunks/0-y7.kz1~5qzw.css","style"]
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen relative pb-20","children":[["$","$L2",null,{}],["$","$L3",null,{"children":["$","main",null,{"className":"w-[95%] md:w-[90%] max-w-6xl mx-auto mt-24 md:mt-28 flex flex-col lg:flex-row gap-6 md:gap-8 relative z-10","children":[["$","article",null,{"className":"flex-1 bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-[40px] shadow-2xl border border-white/40 dark:border-white/10 overflow-hidden transition-colors duration-700","children":[["$","div",null,{"className":"w-full aspect-video bg-slate-200 dark:bg-slate-700 relative group","children":["$","img",null,{"src":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","alt":"封面","className":"w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"}]}],["$","div",null,{"className":"p-5 md:p-14 relative","children":[["$","$L4",null,{}],["$","div",null,{"className":"flex items-center gap-2 mb-4 text-xs font-bold text-slate-400 dark:text-slate-500","children":[["$","$L5",null,{"href":"/chatter","className":"hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors","children":"📓 笔记"}],["$","span",null,{"children":"/"}],["$","$L5",null,{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F","className":"hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors","children":["📁 ","嵌入式"]}],["$","span",null,{"children":"/"}],["$","span",null,{"className":"text-slate-600 dark:text-slate-300 truncate max-w-[150px]","children":"嵌入式通信协议UART、I2C、SPI对比详解"}]]}],["$","header",null,{"className":"mb-6 md:mb-10 border-b border-slate-300/30 dark:border-slate-700/50 pb-5 md:pb-8 relative","children":[["$","h1",null,{"className":"text-2xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 md:mb-6 tracking-tight transition-colors duration-700 pr-16 md:pr-24 leading-snug md:leading-tight","children":"嵌入式通信协议UART、I2C、SPI对比详解"}],["$","div",null,{"className":"flex flex-wrap items-center gap-2 md:gap-3","children":[["$","div",null,{"className":"flex items-center gap-1.5 md:gap-2 text-indigo-700 dark:text-indigo-400 font-bold bg-indigo-500/5 dark:bg-indigo-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-indigo-500/10","children":[["$","svg",null,{"className":"w-3 h-3 md:w-4 md:h-4","fill":"none","viewBox":"0 0 24 24","stroke":"currentColor","children":["$","path",null,{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":2.5,"d":"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"}]}],"2026-06-27 15:00:00"]}],"",[["$","div","单片机",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","单片机"]}],["$","div","通信协议",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","通信协议"]}],["$","div","UART",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","UART"]}],["$","div","I2C",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","I2C"]}],["$","div","SPI",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":["$L6"," ","SPI"]}]]]}]]}],"$L7","$L8"]}]]}],"$L9"]}]}]]}],["$La","$Lb","$Lc","$Ld"],"$Le"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"8LHJIef07O1q3XT8Kp2v5"}
+6:["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]
+f:T1ad2,
+                  .prose h1 { font-size: 1.8rem !important; font-weight: 900 !important; margin-bottom: 1.2rem !important; margin-top: 2rem !important; line-height: 1.3 !important; color: inherit !important; }
+                  .prose h2 { font-size: 1.5rem !important; font-weight: 800 !important; margin-bottom: 1rem !important; margin-top: 1.5rem !important; color: inherit !important; }
+                  .prose h3 { font-size: 1.2rem !important; font-weight: 700 !important; margin-bottom: 0.8rem !important; color: inherit !important; }
+                  .prose p { font-size: 0.95rem !important; line-height: 1.75 !important; color: inherit !important; }
+                  .prose a { color: #6366f1 !important; text-decoration: none !important; font-weight: 600 !important; border-bottom: 1px dashed #6366f1 !important; transition: all 0.3s ease !important; }
+                  .prose a:hover { color: #4f46e5 !important; border-bottom-style: solid !important; background-color: rgba(99, 102, 241, 0.1) !important; padding: 0 0.2rem !important; border-radius: 0.2rem !important; }
+                  .dark .prose a { color: #818cf8 !important; border-bottom-color: #818cf8 !important; }
+                  .dark .prose a:hover { color: #a5b4fc !important; background-color: rgba(129, 140, 248, 0.15) !important; }
+                  .prose ul { list-style-type: disc !important; padding-left: 1.5rem !important; font-size: 0.95rem !important; }
+                  .prose ol { list-style-type: decimal !important; padding-left: 1.5rem !important; font-size: 0.95rem !important; }
+                  .prose li { display: list-item !important; margin-bottom: 0.5rem !important; }
+                  .prose ul ul, .prose ol ul { list-style-type: circle !important; margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+                  .prose ol ol, .prose ul ol { list-style-type: lower-alpha !important; margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+                  .prose del { text-decoration-color: inherit !important; opacity: 0.6; }
+                  .prose blockquote { border-left: 4px solid #6366f1 !important; background-color: rgba(99, 102, 241, 0.05) !important; padding: 1rem 1.5rem !important; margin: 1.5rem 0 !important; border-radius: 0 1.25rem 1.25rem 0 !important; font-style: italic !important; color: #64748b !important; }
+                  .prose blockquote p { margin: 0 !important; color: inherit !important; }
+                  .dark .prose blockquote { border-left-color: #818cf8 !important; background-color: rgba(129, 140, 248, 0.1) !important; color: #94a3b8 !important; }
+                  .prose pre { background-color: #282c34 !important; color: #abb2bf !important; padding: 1rem !important; border-radius: 0.75rem !important; overflow-x: auto !important; box-shadow: inset 0 0 10px rgba(0,0,0,0.3) !important; margin-top: 1rem !important; margin-bottom: 1rem !important; }
+                  .prose pre code, .prose p code, .prose li code { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, ui-monospace, monospace !important; font-variant-ligatures: contextual !important; }
+                  .prose pre code { background-color: transparent !important; padding: 0 !important; color: inherit !important; font-size: 0.85em !important; }
+                  .prose code::before, .prose code::after { content: none !important; }
+                  .prose p code, .prose li code { background-color: rgba(99, 102, 241, 0.1) !important; color: #6366f1 !important; padding: 0.1rem 0.3rem !important; border-radius: 0.25rem !important; font-weight: 600 !important; font-size: 0.85em !important; }
+                  .dark .prose p code, .dark .prose li code { background-color: rgba(99, 102, 241, 0.2) !important; color: #818cf8 !important; }
+                  .prose img { display: block !important; margin: 1.5rem auto !important; border-radius: 1rem !important; box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important; max-width: 100% !important; height: auto !important; }
+                  .prose pre code .hljs-comment, .prose pre code .hljs-quote { color: #5c6370 !important; font-style: italic !important; }
+                  .prose pre code .hljs-doctag, .prose pre code .hljs-keyword, .prose pre code .hljs-formula { color: #c678dd !important; }
+                  .prose pre code .hljs-keyword.type_, .prose pre code .hljs-type { color: #c678dd !important; }
+                  .prose pre code .hljs-section, .prose pre code .hljs-name, .prose pre code .hljs-selector-tag, .prose pre code .hljs-deletion, .prose pre code .hljs-subst { color: #e06c75 !important; }
+                  .prose pre code .hljs-literal { color: #56b6c2 !important; }
+                  .prose pre code .hljs-string, .prose pre code .hljs-regexp, .prose pre code .hljs-addition, .prose pre code .hljs-attribute, .prose pre code .hljs-meta-string { color: #98c379 !important; }
+                  .prose pre code .hljs-built_in, .prose pre code .hljs-class .hljs-title, .prose pre code .hljs-title.class_ { color: #e6c07b !important; }
+                  .prose pre code .hljs-attr, .prose pre code .hljs-variable, .prose pre code .hljs-template-variable, .prose pre code .hljs-selector-class, .prose pre code .hljs-selector-attr, .prose pre code .hljs-selector-pseudo, .prose pre code .hljs-number { color: #d19a66 !important; }
+                  .prose pre code .hljs-symbol, .prose pre code .hljs-bullet, .prose pre code .hljs-link, .prose pre code .hljs-meta, .prose pre code .hljs-selector-id, .prose pre code .hljs-title, .prose pre code .hljs-title.function_ { color: #61aeee !important; }
+                  @media (min-width: 768px) {
+                    .prose h1 { font-size: 3rem !important; font-weight: 950 !important; margin-bottom: 2rem !important; margin-top: 3rem !important; line-height: 1.1 !important; }
+                    .prose h2 { font-size: 2.2rem !important; margin-bottom: 1.5rem !important; margin-top: 2rem !important; }
+                    .prose h3 { font-size: 1.5rem !important; margin-bottom: 1rem !important; }
+                    .prose p { font-size: 1.15rem !important; line-height: 1.85 !important; }
+                    .prose ul, .prose ol { padding-left: 2rem !important; font-size: 1.1rem !important; }
+                    .prose pre { padding: 1.25rem !important; margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+                    .prose pre code { font-size: 0.9em !important; }
+                    .prose p code, .prose li code { padding: 0.2rem 0.4rem !important; font-size: 0.9em !important; border-radius: 0.375rem !important;}
+                    .prose img { margin: 2rem auto !important; border-radius: 2rem !important; box-shadow: 0 20px 50px rgba(0,0,0,0.15) !important; }
+                  }
+                7:["$","div",null,{"className":"relative","children":[["$","style",null,{"children":"$f"}],"$L10"]}]
+8:["$","div",null,{"className":"mt-10 md:mt-12","children":["$","$L11",null,{}]}]
+9:["$","aside",null,{"className":"w-full lg:w-[320px] flex flex-col gap-6 flex-shrink-0","children":[["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl text-center","children":[["$","div",null,{"className":"w-20 h-20 mx-auto rounded-full p-1 bg-gradient-to-tr from-indigo-500 to-purple-500 shadow-md mb-4 hover:rotate-3 transition-transform","children":["$","img",null,{"src":"https://bu.dusays.com/2026/07/03/6a47641290190.png","alt":"avatar","className":"w-full h-full rounded-full object-cover bg-white"}]}],["$","h3",null,{"className":"text-xl font-bold text-slate-900 dark:text-white mb-2","children":"Iustitiae"}],["$","p",null,{"className":"text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium mb-4","children":"在代码、单片机，电机控制模拟间穿梭的普通人。近期正埋头于 freerots学习。"}],["$","$L12",null,{}]]}],["$","$L13",null,{}],["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl","children":[["$","div",null,{"className":"flex justify-between items-center mb-6","children":["$","h3",null,{"className":"text-lg font-black text-slate-800 dark:text-white tracking-wider","children":[2026,"年",6,"月"]}]}],["$","div",null,{"className":"grid grid-cols-7 gap-1 mb-4 text-center","children":[["$","div","一",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"一"}],["$","div","二",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"二"}],["$","div","三",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"三"}],["$","div","四",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"四"}],["$","div","五",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"五"}],["$","div","六",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"六"}],["$","div","日",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"日"}]]}],["$","div",null,{"className":"grid grid-cols-7 gap-y-3 gap-x-1 text-center","children":[["$","div","0",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":1}]}],["$","div","1",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":2}]}],["$","div","2",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":3}]}],["$","div","3",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":4}]}],["$","div","4",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":5}]}],["$","div","5",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":6}]}],"$L14","$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e","$L1f","$L20","$L21","$L22","$L23","$L24","$L25","$L26","$L27","$L28","$L29","$L2a","$L2b"]}]]}],"$L2c"]}]
+a:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/15cahw4d8-wp1.css","precedence":"next"}]
+b:["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/0-y7.kz1~5qzw.css","precedence":"next"}]
+c:["$","script","script-0",{"src":"/_next/static/chunks/0__.wr2yexpc~.js","async":true}]
+d:["$","script","script-1",{"src":"/_next/static/chunks/0iwhyxshj2rrg.js","async":true}]
+e:["$","$L2d",null,{"children":["$","$2e",null,{"name":"Next.MetadataOutlet","children":"$@2f"}]}]
+30:T2082,<h2>引言</h2>
+<p>在嵌入式系统中，通信协议是各模块之间对话的语言。UART、I2C 和 SPI 是最常用的三种串行通信协议——它们各自有着鲜明的性格特点，适用的场景也截然不同。理解它们的差异，是选择正确协议的前提。</p>
+<h2>一、UART —— 异步通信的经典</h2>
+<h3>基本原理</h3>
+<p>UART（Universal Asynchronous Receiver/Transmitter）是一种<strong>异步、全双工、点对点</strong>的串行通信协议。它不需要共享时钟信号，通信双方通过<strong>预先约定相同的波特率</strong>来同步。</p>
+<h3>硬件连接</h3>
+<ul>
+<li><strong>最少 2 根线</strong>：TX（发送）、RX（接收）</li>
+<li>可选硬件流控：RTS、CTS</li>
+</ul>
+<h3>数据帧格式</h3>
+<pre><code class="hljs language-cpp">┌─────────┬──────────────────┬──────────┬──────────┐
+│ 起始位   │  数据位(<span class="hljs-number">5</span>~<span class="hljs-number">9</span>位)   │  校验位   │  停止位   │
+│  (<span class="hljs-number">1</span>位)   │   (通常<span class="hljs-number">8</span>位)      │  (可选)   │ (<span class="hljs-number">1</span>/<span class="hljs-number">2</span>位)  │
+└─────────┴──────────────────┴──────────┴──────────┘
+</code></pre>
+<ul>
+<li><strong>起始位</strong>：数据线从高拉低，通知接收方开始传输</li>
+<li><strong>数据位</strong>：5~9 位（通常 8 位），LSB 先发</li>
+<li><strong>奇偶校验位</strong>：可选，用于错误检测</li>
+<li><strong>停止位</strong>：将数据线拉高，持续 1 位或 2 位时间</li>
+</ul>
+<h3>优缺点</h3>
+<p>优点缺点仅需 2 根线，简单易用仅支持点对点通信无需时钟信号数据帧最大 9 位有奇偶校验位两端波特率偏差不能超过约 10%可扩展为 RS-232/RS-485速度较慢（通常 ≤ 115200 bps）</p>
+<h2>二、I²C —— 多设备总线的优雅</h2>
+<h3>基本原理</h3>
+<p>I²C（Inter-Integrated Circuit）是一种<strong>同步、半双工、多主多从</strong>的串行通信协议。它通过<strong>地址寻址</strong>方式选择通信目标设备。</p>
+<h3>硬件连接</h3>
+<ul>
+<li><strong>仅 2 根线</strong>：SDA（数据）、SCL（时钟）</li>
+<li>两条线都需要<strong>上拉电阻</strong>（通常 4.7KΩ）</li>
+<li>总线为<strong>开漏输出</strong>设计，支持多设备共享</li>
+</ul>
+<h3>通信时序</h3>
+<pre><code class="hljs language-cpp">┌──────────────────────────────────────────────────────────────┐
+│ 起始条件 │ 从机地址(<span class="hljs-number">7</span>/<span class="hljs-number">10</span>位)+R/W位 │ ACK │ 数据帧 │ ACK │ ... │ 停止条件 │
+└──────────────────────────────────────────────────────────────┘
+</code></pre>
+<ul>
+<li><strong>起始条件</strong>：SCL 高电平时，SDA 由高→低</li>
+<li><strong>停止条件</strong>：SCL 高电平时，SDA 由低→高</li>
+<li><strong>地址帧</strong>：7 位或 10 位从机地址 + 1 位读写位</li>
+<li><strong>ACK/NACK</strong>：接收方拉低 SDA 表示确认</li>
+</ul>
+<h3>优缺点</h3>
+<p>优点缺点仅需 2 根线速度比 SPI 慢支持多主多从架构数据帧固定 8 位内置 ACK/NACK 确认协议复杂度较高地址寻址，节省 GPIO通信距离短（通常板内）</p>
+<h2>三、SPI —— 高速通信的王者</h2>
+<h3>基本原理</h3>
+<p>SPI（Serial Peripheral Interface）是一种<strong>同步、全双工、主从架构</strong>的串行通信协议。它通过**片选信号（CS）**来选择通信目标。</p>
+<h3>硬件连接</h3>
+<ul>
+<li><strong>4 根线</strong>：</li>
+<li><strong>SCLK/SCK</strong>：时钟线（主机产生）</li>
+<li><strong>MOSI</strong>：主机输出、从机输入</li>
+<li><strong>MISO</strong>：主机输入、从机输出</li>
+<li><strong>SS/CS</strong>：片选信号（每个从机一条独立线）</li>
+</ul>
+<h3>4 种工作模式</h3>
+<p>模式CPOLCPHA说明模式 000空闲时钟低，第一个边沿采样（最常用）模式 101空闲时钟低，第二个边沿采样模式 210空闲时钟高，第一个边沿采样模式 311空闲时钟高，第二个边沿采样</p>
+<h3>传输过程</h3>
+<ol>
+<li>主机输出时钟信号</li>
+<li>主机<strong>拉低目标从机的 CS 引脚</strong>，激活从机</li>
+<li>主机通过 MOSI 发送数据，同时从机通过 MISO 返回数据（全双工）</li>
+<li>传输完成后，主机<strong>拉高 CS</strong> 释放从机</li>
+</ol>
+<h3>优缺点</h3>
+<p>优点缺点速度最快（10~50 MHz）需要 4 根线，每增加从机多一根 CS全双工，可同时收发无内置错误检测和确认机制无起始/停止位，数据可连续流不支持多主机协议简单无标准协议层</p>
+<h2>四、三大协议全面对比</h2>
+<p>特性<strong>UARTI²CSPI通信方式</strong>异步同步同步<strong>双工模式</strong>全双工半双工全双工<strong>信号线数</strong>2 根2 根4 根<strong>拓扑结构</strong>点对点多主多从单主多从<strong>设备选择</strong>无（仅一对）地址寻址片选信号 CS<strong>典型速率</strong>9.6K<del>115.2K bps100K/400K/3.4M bps10M</del>50M bps<strong>数据帧大小</strong>5~9 位固定 8 位无限制（连续传输）<strong>错误检测</strong>奇偶校验位ACK/NACK无内置<strong>通信距离</strong>较长（RS-485 可达千米）短（板内 &#x3C;1m）短（&#x3C;0.5m）<strong>复杂度</strong>中等较高简单</p>
+<h2>五、选型指南 —— 什么时候选谁？</h2>
+<h3>🟢 选 UART 的场景</h3>
+<ul>
+<li><strong>调试与日志输出</strong>：嵌入式开发中最常用的调试手段</li>
+<li><strong>PC 与 MCU 通信</strong>：通过 USB 转串口连接</li>
+<li><strong>GPS/GSM/蓝牙模块</strong>：点对点无线通信模块</li>
+<li><strong>工业远距离通信</strong>：配合 RS-232/RS-485 电平转换</li>
+</ul>
+<h3>🔵 选 I²C 的场景</h3>
+<ul>
+<li><strong>多传感器网络</strong>：温湿度传感器（SHT30）、气压传感器（BMP280）</li>
+<li><strong>EEPROM 存储</strong>：AT24Cxx 系列</li>
+<li><strong>RTC 实时时钟</strong>：DS3231、PCF8563</li>
+<li><strong>GPIO 扩展/ADC/DAC</strong>：需要节省引脚资源</li>
+<li><strong>OLED 小屏幕</strong>：SSD1306 等</li>
+</ul>
+<h3>🔴 选 SPI 的场景</h3>
+<ul>
+<li><strong>高速数据存储</strong>：NOR Flash（W25Qxx）、SD 卡</li>
+<li><strong>TFT 彩屏驱动</strong>：ST7789、ILI9341</li>
+<li><strong>高速 ADC/DAC</strong>：音频采集、高速采样</li>
+<li><strong>WiFi 模块</strong>：部分高速无线模块</li>
+</ul>
+<h2>六、总结口诀</h2>
+<pre><code class="hljs language-cpp">速度排名：  SPI  >>  I²C  >  UART
+引脚数量：  <span class="hljs-built_in">SPI</span>(<span class="hljs-number">4</span>+) >  <span class="hljs-built_in">UART</span>(<span class="hljs-number">2</span>~<span class="hljs-number">4</span>)  >  I²<span class="hljs-built_in">C</span>(<span class="hljs-number">2</span>)
+设备扩展：  I²<span class="hljs-built_in">C</span>(地址寻址)  >  <span class="hljs-built_in">SPI</span>(片选)  >  <span class="hljs-built_in">UART</span>(仅点对点)
+协议复杂度：I²C  >  UART  >  SPI
+通信距离：  <span class="hljs-built_in">UART</span>(远)  >>  I²<span class="hljs-built_in">C</span>(短)  ≈  <span class="hljs-built_in">SPI</span>(短)
+可靠性：   I²<span class="hljs-built_in">C</span>(ACK)  >  <span class="hljs-built_in">UART</span>(校验)  >  <span class="hljs-built_in">SPI</span>(无内置)
+</code></pre>
+<blockquote>
+<p>没有最好的协议，只有最合适的协议。在实际项目中，三种协议往往是<strong>配合使用</strong>的——用 UART 调试通信，用 I²C 挂载传感器，用 SPI 驱动屏幕和存储。各取所长，才是正道。</p>
+</blockquote>10:["$","div",null,{"className":"prose prose-slate dark:prose-invert prose-base md:prose-lg max-w-none text-slate-800 dark:text-slate-200 font-serif transition-colors duration-700 leading-relaxed scroll-smooth","dangerouslySetInnerHTML":{"__html":"$30"}}]
+14:["$","div","6",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":7}]}]
+15:["$","div","7",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":8}]}]
+16:["$","div","8",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":9}]}]
+17:["$","div","9",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":10}]}]
+18:["$","div","10",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":11}]}]
+19:["$","div","11",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":12}]}]
+1a:["$","div","12",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":13}]}]
+1b:["$","div","13",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":14}]}]
+1c:["$","div","14",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":15}]}]
+1d:["$","div","15",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":16}]}]
+1e:["$","div","16",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":17}]}]
+1f:["$","div","17",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":18}]}]
+20:["$","div","18",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":19}]}]
+21:["$","div","19",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":20}]}]
+22:["$","div","20",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":21}]}]
+23:["$","div","21",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":22}]}]
+24:["$","div","22",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":23}]}]
+25:["$","div","23",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":24}]}]
+26:["$","div","24",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":25}]}]
+27:["$","div","25",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":26}]}]
+28:["$","div","26",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        bg-indigo-500 text-white shadow-lg shadow-indigo-500/40 scale-110","children":27}]}]
+29:["$","div","27",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":28}]}]
+2a:["$","div","28",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":29}]}]
+2b:["$","div","29",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":30}]}]
+2c:["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl","children":[["$","h3",null,{"className":"font-black text-slate-900 dark:text-white mb-4 border-l-4 border-indigo-500 pl-2 text-xs tracking-widest uppercase","children":"Recent Records"}],["$","div",null,{"className":"space-y-4","children":[["$","$L5","chatter_1783403941",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/chatter_1783403941","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"有关嵌入式产品编号烧录的必要性和相关流程"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-07-07 13:59:01"}]]}],["$","$L5","chatter_1783068887",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/chatter_1783068887","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"flash分区表，中断向量偏移量和ota升级流程"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-07-03 16:54:47"}]]}],["$","$L5","freertos-semaphore-callback",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/freertos-semaphore-callback","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"FreeRTOS信号量与回调函数——任务间的对话"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-06-27 17:00:00"}]]}]]}]]}]
+2f:null

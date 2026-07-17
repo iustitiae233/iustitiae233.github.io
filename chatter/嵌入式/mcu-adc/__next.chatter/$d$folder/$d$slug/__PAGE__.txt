@@ -1,0 +1,184 @@
+1:"$Sreact.fragment"
+2:I[62319,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+3:I[66357,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+4:I[1509,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+5:I[22016,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],""]
+11:I[24170,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+12:I[57592,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+13:I[55581,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+2d:I[97367,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js"],"OutletBoundary"]
+2e:"$Sreact.suspense"
+:HL["https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","image"]
+:HL["https://bu.dusays.com/2026/07/03/6a47641290190.png","image"]
+:HL["/_next/static/chunks/15cahw4d8-wp1.css","style"]
+:HL["/_next/static/chunks/0-y7.kz1~5qzw.css","style"]
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen relative pb-20","children":[["$","$L2",null,{}],["$","$L3",null,{"children":["$","main",null,{"className":"w-[95%] md:w-[90%] max-w-6xl mx-auto mt-24 md:mt-28 flex flex-col lg:flex-row gap-6 md:gap-8 relative z-10","children":[["$","article",null,{"className":"flex-1 bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-[40px] shadow-2xl border border-white/40 dark:border-white/10 overflow-hidden transition-colors duration-700","children":[["$","div",null,{"className":"w-full aspect-video bg-slate-200 dark:bg-slate-700 relative group","children":["$","img",null,{"src":"https://bu.dusays.com/2026/07/02/6a45f6d1706c6.jpg","alt":"封面","className":"w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"}]}],["$","div",null,{"className":"p-5 md:p-14 relative","children":[["$","$L4",null,{}],["$","div",null,{"className":"flex items-center gap-2 mb-4 text-xs font-bold text-slate-400 dark:text-slate-500","children":[["$","$L5",null,{"href":"/chatter","className":"hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors","children":"📓 笔记"}],["$","span",null,{"children":"/"}],["$","$L5",null,{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F","className":"hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors","children":["📁 ","嵌入式"]}],["$","span",null,{"children":"/"}],["$","span",null,{"className":"text-slate-600 dark:text-slate-300 truncate max-w-[150px]","children":"ADC模数转换详解——从模拟信号到数字世界"}]]}],["$","header",null,{"className":"mb-6 md:mb-10 border-b border-slate-300/30 dark:border-slate-700/50 pb-5 md:pb-8 relative","children":[["$","h1",null,{"className":"text-2xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 md:mb-6 tracking-tight transition-colors duration-700 pr-16 md:pr-24 leading-snug md:leading-tight","children":"ADC模数转换详解——从模拟信号到数字世界"}],["$","div",null,{"className":"flex flex-wrap items-center gap-2 md:gap-3","children":[["$","div",null,{"className":"flex items-center gap-1.5 md:gap-2 text-indigo-700 dark:text-indigo-400 font-bold bg-indigo-500/5 dark:bg-indigo-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-indigo-500/10","children":[["$","svg",null,{"className":"w-3 h-3 md:w-4 md:h-4","fill":"none","viewBox":"0 0 24 24","stroke":"currentColor","children":["$","path",null,{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":2.5,"d":"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"}]}],"2026-06-27 14:00:00"]}],"",[["$","div","单片机",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","单片机"]}],["$","div","STM32",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","STM32"]}],["$","div","ADC",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","ADC"]}],["$","div","模数转换",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","模数转换"]}]]]}]]}],["$","div",null,{"className":"relative","children":["$L6","$L7"]}],"$L8"]}]]}],"$L9"]}]}]]}],["$La","$Lb","$Lc","$Ld"],"$Le"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"8LHJIef07O1q3XT8Kp2v5"}
+f:T1ad2,
+                  .prose h1 { font-size: 1.8rem !important; font-weight: 900 !important; margin-bottom: 1.2rem !important; margin-top: 2rem !important; line-height: 1.3 !important; color: inherit !important; }
+                  .prose h2 { font-size: 1.5rem !important; font-weight: 800 !important; margin-bottom: 1rem !important; margin-top: 1.5rem !important; color: inherit !important; }
+                  .prose h3 { font-size: 1.2rem !important; font-weight: 700 !important; margin-bottom: 0.8rem !important; color: inherit !important; }
+                  .prose p { font-size: 0.95rem !important; line-height: 1.75 !important; color: inherit !important; }
+                  .prose a { color: #6366f1 !important; text-decoration: none !important; font-weight: 600 !important; border-bottom: 1px dashed #6366f1 !important; transition: all 0.3s ease !important; }
+                  .prose a:hover { color: #4f46e5 !important; border-bottom-style: solid !important; background-color: rgba(99, 102, 241, 0.1) !important; padding: 0 0.2rem !important; border-radius: 0.2rem !important; }
+                  .dark .prose a { color: #818cf8 !important; border-bottom-color: #818cf8 !important; }
+                  .dark .prose a:hover { color: #a5b4fc !important; background-color: rgba(129, 140, 248, 0.15) !important; }
+                  .prose ul { list-style-type: disc !important; padding-left: 1.5rem !important; font-size: 0.95rem !important; }
+                  .prose ol { list-style-type: decimal !important; padding-left: 1.5rem !important; font-size: 0.95rem !important; }
+                  .prose li { display: list-item !important; margin-bottom: 0.5rem !important; }
+                  .prose ul ul, .prose ol ul { list-style-type: circle !important; margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+                  .prose ol ol, .prose ul ol { list-style-type: lower-alpha !important; margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+                  .prose del { text-decoration-color: inherit !important; opacity: 0.6; }
+                  .prose blockquote { border-left: 4px solid #6366f1 !important; background-color: rgba(99, 102, 241, 0.05) !important; padding: 1rem 1.5rem !important; margin: 1.5rem 0 !important; border-radius: 0 1.25rem 1.25rem 0 !important; font-style: italic !important; color: #64748b !important; }
+                  .prose blockquote p { margin: 0 !important; color: inherit !important; }
+                  .dark .prose blockquote { border-left-color: #818cf8 !important; background-color: rgba(129, 140, 248, 0.1) !important; color: #94a3b8 !important; }
+                  .prose pre { background-color: #282c34 !important; color: #abb2bf !important; padding: 1rem !important; border-radius: 0.75rem !important; overflow-x: auto !important; box-shadow: inset 0 0 10px rgba(0,0,0,0.3) !important; margin-top: 1rem !important; margin-bottom: 1rem !important; }
+                  .prose pre code, .prose p code, .prose li code { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, ui-monospace, monospace !important; font-variant-ligatures: contextual !important; }
+                  .prose pre code { background-color: transparent !important; padding: 0 !important; color: inherit !important; font-size: 0.85em !important; }
+                  .prose code::before, .prose code::after { content: none !important; }
+                  .prose p code, .prose li code { background-color: rgba(99, 102, 241, 0.1) !important; color: #6366f1 !important; padding: 0.1rem 0.3rem !important; border-radius: 0.25rem !important; font-weight: 600 !important; font-size: 0.85em !important; }
+                  .dark .prose p code, .dark .prose li code { background-color: rgba(99, 102, 241, 0.2) !important; color: #818cf8 !important; }
+                  .prose img { display: block !important; margin: 1.5rem auto !important; border-radius: 1rem !important; box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important; max-width: 100% !important; height: auto !important; }
+                  .prose pre code .hljs-comment, .prose pre code .hljs-quote { color: #5c6370 !important; font-style: italic !important; }
+                  .prose pre code .hljs-doctag, .prose pre code .hljs-keyword, .prose pre code .hljs-formula { color: #c678dd !important; }
+                  .prose pre code .hljs-keyword.type_, .prose pre code .hljs-type { color: #c678dd !important; }
+                  .prose pre code .hljs-section, .prose pre code .hljs-name, .prose pre code .hljs-selector-tag, .prose pre code .hljs-deletion, .prose pre code .hljs-subst { color: #e06c75 !important; }
+                  .prose pre code .hljs-literal { color: #56b6c2 !important; }
+                  .prose pre code .hljs-string, .prose pre code .hljs-regexp, .prose pre code .hljs-addition, .prose pre code .hljs-attribute, .prose pre code .hljs-meta-string { color: #98c379 !important; }
+                  .prose pre code .hljs-built_in, .prose pre code .hljs-class .hljs-title, .prose pre code .hljs-title.class_ { color: #e6c07b !important; }
+                  .prose pre code .hljs-attr, .prose pre code .hljs-variable, .prose pre code .hljs-template-variable, .prose pre code .hljs-selector-class, .prose pre code .hljs-selector-attr, .prose pre code .hljs-selector-pseudo, .prose pre code .hljs-number { color: #d19a66 !important; }
+                  .prose pre code .hljs-symbol, .prose pre code .hljs-bullet, .prose pre code .hljs-link, .prose pre code .hljs-meta, .prose pre code .hljs-selector-id, .prose pre code .hljs-title, .prose pre code .hljs-title.function_ { color: #61aeee !important; }
+                  @media (min-width: 768px) {
+                    .prose h1 { font-size: 3rem !important; font-weight: 950 !important; margin-bottom: 2rem !important; margin-top: 3rem !important; line-height: 1.1 !important; }
+                    .prose h2 { font-size: 2.2rem !important; margin-bottom: 1.5rem !important; margin-top: 2rem !important; }
+                    .prose h3 { font-size: 1.5rem !important; margin-bottom: 1rem !important; }
+                    .prose p { font-size: 1.15rem !important; line-height: 1.85 !important; }
+                    .prose ul, .prose ol { padding-left: 2rem !important; font-size: 1.1rem !important; }
+                    .prose pre { padding: 1.25rem !important; margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+                    .prose pre code { font-size: 0.9em !important; }
+                    .prose p code, .prose li code { padding: 0.2rem 0.4rem !important; font-size: 0.9em !important; border-radius: 0.375rem !important;}
+                    .prose img { margin: 2rem auto !important; border-radius: 2rem !important; box-shadow: 0 20px 50px rgba(0,0,0,0.15) !important; }
+                  }
+                6:["$","style",null,{"children":"$f"}]
+10:T1b6a,<h2>引言</h2>
+<p>现实世界是模拟的——温度、湿度、压力、光线、声音，都是连续变化的物理量。而单片机只认识 0 和 1。ADC（模数转换器）就是连接这两个世界的桥梁。</p>
+<h2>一、ADC 基本概念</h2>
+<p>ADC（Analog to Digital Converter）将连续的模拟信号转换为离散的数字信号。转换过程包含四个核心步骤：</p>
+<p>步骤说明**采样（Sampling）<strong>以固定时间间隔获取模拟信号的瞬时值</strong>保持（Hold）<strong>用电容保持采样值，防止转换期间信号变化</strong>量化（Quantization）<strong>将连续的模拟值划分为离散的数字级别</strong>编码（Encoding）**将量化结果以二进制形式输出</p>
+<h2>二、核心参数详解</h2>
+<h3>1. 分辨率（Resolution）</h3>
+<ul>
+<li>STM32 F1/F4 系列：典型 <strong>12 位</strong>分辨率，输出范围 0 ~ 4095（2¹² - 1）</li>
+<li>STM32 H7 系列：最高 <strong>16 位</strong>分辨率，过采样可达 26 位</li>
+</ul>
+<p><strong>LSB（最低有效位）计算公式：</strong></p>
+<pre><code class="hljs language-cpp">LSB = Vref+ / <span class="hljs-number">2</span>^分辨率位数
+</code></pre>
+<p>以 12 位分辨率、参考电压 3.3V 为例：</p>
+<pre><code class="hljs language-cpp">LSB = <span class="hljs-number">3.3</span>V / <span class="hljs-number">4096</span> ≈ <span class="hljs-number">0.806</span>mV
+实际电压 = ADC转换值 × (<span class="hljs-number">3.3</span> / <span class="hljs-number">4096</span>)
+</code></pre>
+<h3>2. 采样率（Sampling Rate）</h3>
+<p>关键参数F1 系列典型值说明ADC 时钟最高14 MHz超过会降低精度常用分频配置PCLK2 的 8 分频 = 9 MHzADCCLK 必须 ≤ 14MHz最短采样周期1.5 个 ADCCLK 周期可编程范围：1.5 ~ 239.5 周期</p>
+<p><strong>总转换时间公式：</strong></p>
+<pre><code class="hljs language-cpp">Tconv = 采样时间 + <span class="hljs-number">12.5</span> 个周期（逐次逼近固定时间）
+</code></pre>
+<blockquote>
+<p>最快转换时间（F1）：Tconv = (1.5 + 12.5) × (1/12MHz) ≈ <strong>1.17 μs</strong></p>
+</blockquote>
+<h3>3. ADC 类型</h3>
+<p>STM32 采用<strong>逐次逼近型（SAR）ADC</strong>，在精度和速度之间取得良好平衡。</p>
+<h2>三、工作模式</h2>
+<h3>转换模式</h3>
+<p>模式说明<strong>单次转换</strong>触发一次，执行一次转换后停止<strong>连续转换</strong>一次触发后，不断循环转换<strong>扫描模式</strong>按预设顺序轮流采集多个通道<strong>间断模式</strong>分组间断地进行多通道转换</p>
+<h3>通道组</h3>
+<p>通道组通道数特点**规则通道组（Regular）<strong>最多 16 路正常运行，结果存于单个数据寄存器</strong>注入通道组（Injected）**最多 4 路类似中断，可打断规则通道转换</p>
+<h3>触发方式</h3>
+<ul>
+<li><strong>软件触发</strong>：代码直接启动转换</li>
+<li><strong>外部事件触发</strong>：定时器、EXTI 外部中断等</li>
+</ul>
+<h2>四、HAL 库配置示例</h2>
+<h3>单通道单次转换</h3>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">// 1. 使能时钟</span>
+__HAL_RCC_ADC1_CLK_ENABLE();
+__HAL_RCC_GPIOA_CLK_ENABLE();
+
+<span class="hljs-comment">// 2. GPIO 配置为模拟输入</span>
+GPIO_InitTypeDef GPIO_InitStruct = {<span class="hljs-number">0</span>};
+GPIO_InitStruct.Pin = GPIO_PIN_1;
+GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+<span class="hljs-built_in">HAL_GPIO_Init</span>(GPIOA, &#x26;GPIO_InitStruct);
+
+<span class="hljs-comment">// 3. ADC 初始化</span>
+ADC_HandleTypeDef hadc1;
+hadc<span class="hljs-number">1.</span>Instance = ADC1;
+hadc<span class="hljs-number">1.</span>Init.ScanConvMode = ADC_SCAN_DISABLE;
+hadc<span class="hljs-number">1.</span>Init.ContinuousConvMode = DISABLE;
+hadc<span class="hljs-number">1.</span>Init.DataAlign = ADC_DATAALIGN_RIGHT;
+hadc<span class="hljs-number">1.</span>Init.NbrOfConversion = <span class="hljs-number">1</span>;
+<span class="hljs-built_in">HAL_ADC_Init</span>(&#x26;hadc1);
+
+<span class="hljs-comment">// 4. 配置通道</span>
+ADC_ChannelConfTypeDef sConfig = {<span class="hljs-number">0</span>};
+sConfig.Channel = ADC_CHANNEL_1;
+sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+<span class="hljs-built_in">HAL_ADC_ConfigChannel</span>(&#x26;hadc1, &#x26;sConfig);
+
+<span class="hljs-comment">// 5. 读取转换值</span>
+<span class="hljs-built_in">HAL_ADC_Start</span>(&#x26;hadc1);
+<span class="hljs-built_in">HAL_ADC_PollForConversion</span>(&#x26;hadc1, <span class="hljs-number">10</span>);
+<span class="hljs-type">uint16_t</span> adc_value = <span class="hljs-built_in">HAL_ADC_GetValue</span>(&#x26;hadc1);
+<span class="hljs-type">float</span> voltage = adc_value * (<span class="hljs-number">3.3f</span> / <span class="hljs-number">4096</span>);
+</code></pre>
+<h2>五、DMA 模式 —— 多通道/高速采集</h2>
+<p>对于多通道或高速持续采集，推荐使用 <strong>DMA 循环传输模式</strong>，由 DMA 自动将 ADC 数据搬移到内存数组，无需 CPU 频繁干预：</p>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">// DMA 关键配置</span>
+DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;              <span class="hljs-comment">// 循环模式</span>
+DMA_InitStructure.DMA_PeripheralBaseAddr = ADC1_DR_Address;  <span class="hljs-comment">// ADC数据寄存器</span>
+DMA_InitStructure.DMA_MemoryBaseAddr = (<span class="hljs-type">uint32_t</span>)&#x26;adc_buffer; <span class="hljs-comment">// 内存数组</span>
+DMA_InitStructure.DMA_BufferSize = 通道数量;
+</code></pre>
+<p>这样 ADC 持续采集，DMA 自动搬运，CPU 只需在需要时读取 <code>adc_buffer</code> 即可。</p>
+<h2>六、常见问题与注意事项</h2>
+<p>问题原因解决方案<strong>外部阻抗过大导致误差</strong>分压电阻过大（MΩ 级），与内部 50kΩ 阻抗分压使用 ≤10kΩ 分压电阻，或加运放做阻抗变换<strong>多通道串扰</strong>采样电容在通道切换时残留电荷增大通道间采样延时<strong>引脚浮空</strong>外部无输入时引脚悬空加下拉电阻<strong>扫描模式数据覆盖</strong>规则组只有一个数据寄存器及时读取或使用 DMA<strong>ADC 时钟超频</strong>ADC 时钟 >14MHz正确配置分频因子</p>
+<h2>七、STM32 各系列 ADC 参数速查</h2>
+<p>指标STM32F1STM32F4STM32H7分辨率12 bit12 bit16 bitADC 时钟最高14 MHz36 MHz36 MHz最快转换时间≈ 1 μs≈ 0.5 μs更快参考电压3.3V3.3V2.5V / 3.3VLSB（<a href="mailto:12bit@3.3V">12bit@3.3V</a>）0.806 mV0.806 mV约 0.05 mV</p>
+<h2>总结</h2>
+<p>ADC 是单片机感知模拟世界的窗口。从 12 位到 16 位，从单次采样到 DMA 循环采集，理解分辨率、采样率与转换时间的关系，是设计可靠采样系统的基础。</p>
+<blockquote>
+<p><em>世界是连续的，但理解世界的每一步，都是离散的。</em> —— Iustitiae</p>
+</blockquote>
+<br>7:["$","div",null,{"className":"prose prose-slate dark:prose-invert prose-base md:prose-lg max-w-none text-slate-800 dark:text-slate-200 font-serif transition-colors duration-700 leading-relaxed scroll-smooth","dangerouslySetInnerHTML":{"__html":"$10"}}]
+8:["$","div",null,{"className":"mt-10 md:mt-12","children":["$","$L11",null,{}]}]
+9:["$","aside",null,{"className":"w-full lg:w-[320px] flex flex-col gap-6 flex-shrink-0","children":[["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl text-center","children":[["$","div",null,{"className":"w-20 h-20 mx-auto rounded-full p-1 bg-gradient-to-tr from-indigo-500 to-purple-500 shadow-md mb-4 hover:rotate-3 transition-transform","children":["$","img",null,{"src":"https://bu.dusays.com/2026/07/03/6a47641290190.png","alt":"avatar","className":"w-full h-full rounded-full object-cover bg-white"}]}],["$","h3",null,{"className":"text-xl font-bold text-slate-900 dark:text-white mb-2","children":"Iustitiae"}],["$","p",null,{"className":"text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium mb-4","children":"在代码、单片机，电机控制模拟间穿梭的普通人。近期正埋头于 freerots学习。"}],["$","$L12",null,{}]]}],["$","$L13",null,{}],["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl","children":[["$","div",null,{"className":"flex justify-between items-center mb-6","children":["$","h3",null,{"className":"text-lg font-black text-slate-800 dark:text-white tracking-wider","children":[2026,"年",6,"月"]}]}],["$","div",null,{"className":"grid grid-cols-7 gap-1 mb-4 text-center","children":[["$","div","一",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"一"}],["$","div","二",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"二"}],["$","div","三",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"三"}],["$","div","四",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"四"}],["$","div","五",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"五"}],["$","div","六",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"六"}],["$","div","日",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"日"}]]}],["$","div",null,{"className":"grid grid-cols-7 gap-y-3 gap-x-1 text-center","children":[["$","div","0",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":1}]}],["$","div","1",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":2}]}],["$","div","2",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":3}]}],["$","div","3",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":4}]}],["$","div","4",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":5}]}],["$","div","5",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":6}]}],"$L14","$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e","$L1f","$L20","$L21","$L22","$L23","$L24","$L25","$L26","$L27","$L28","$L29","$L2a","$L2b"]}]]}],"$L2c"]}]
+a:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/15cahw4d8-wp1.css","precedence":"next"}]
+b:["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/0-y7.kz1~5qzw.css","precedence":"next"}]
+c:["$","script","script-0",{"src":"/_next/static/chunks/0__.wr2yexpc~.js","async":true}]
+d:["$","script","script-1",{"src":"/_next/static/chunks/0iwhyxshj2rrg.js","async":true}]
+e:["$","$L2d",null,{"children":["$","$2e",null,{"name":"Next.MetadataOutlet","children":"$@2f"}]}]
+14:["$","div","6",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":7}]}]
+15:["$","div","7",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":8}]}]
+16:["$","div","8",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":9}]}]
+17:["$","div","9",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":10}]}]
+18:["$","div","10",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":11}]}]
+19:["$","div","11",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":12}]}]
+1a:["$","div","12",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":13}]}]
+1b:["$","div","13",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":14}]}]
+1c:["$","div","14",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":15}]}]
+1d:["$","div","15",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":16}]}]
+1e:["$","div","16",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":17}]}]
+1f:["$","div","17",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":18}]}]
+20:["$","div","18",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":19}]}]
+21:["$","div","19",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":20}]}]
+22:["$","div","20",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":21}]}]
+23:["$","div","21",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":22}]}]
+24:["$","div","22",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":23}]}]
+25:["$","div","23",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":24}]}]
+26:["$","div","24",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":25}]}]
+27:["$","div","25",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":26}]}]
+28:["$","div","26",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        bg-indigo-500 text-white shadow-lg shadow-indigo-500/40 scale-110","children":27}]}]
+29:["$","div","27",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":28}]}]
+2a:["$","div","28",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":29}]}]
+2b:["$","div","29",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":30}]}]
+2c:["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl","children":[["$","h3",null,{"className":"font-black text-slate-900 dark:text-white mb-4 border-l-4 border-indigo-500 pl-2 text-xs tracking-widest uppercase","children":"Recent Records"}],["$","div",null,{"className":"space-y-4","children":[["$","$L5","chatter_1783403941",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/chatter_1783403941","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"有关嵌入式产品编号烧录的必要性和相关流程"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-07-07 13:59:01"}]]}],["$","$L5","chatter_1783068887",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/chatter_1783068887","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"flash分区表，中断向量偏移量和ota升级流程"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-07-03 16:54:47"}]]}],["$","$L5","freertos-semaphore-callback",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/freertos-semaphore-callback","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"FreeRTOS信号量与回调函数——任务间的对话"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-06-27 17:00:00"}]]}]]}]]}]
+2f:null

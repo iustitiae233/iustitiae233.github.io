@@ -1,0 +1,233 @@
+1:"$Sreact.fragment"
+2:I[62319,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+3:I[66357,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+4:I[1509,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+5:I[22016,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],""]
+10:I[24170,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+11:I[57592,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+12:I[55581,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+2e:I[97367,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/0q32ym~sk1s7a.js","/_next/static/chunks/00-csyj9a6t-x.js"],"OutletBoundary"]
+2f:"$Sreact.suspense"
+:HL["https://bu.dusays.com/2026/07/03/6a471c9052422.png","image"]
+:HL["https://bu.dusays.com/2026/07/03/6a47641290190.png","image"]
+:HL["/_next/static/chunks/15cahw4d8-wp1.css","style"]
+:HL["/_next/static/chunks/0-y7.kz1~5qzw.css","style"]
+6:T1ad2,
+                  .prose h1 { font-size: 1.8rem !important; font-weight: 900 !important; margin-bottom: 1.2rem !important; margin-top: 2rem !important; line-height: 1.3 !important; color: inherit !important; }
+                  .prose h2 { font-size: 1.5rem !important; font-weight: 800 !important; margin-bottom: 1rem !important; margin-top: 1.5rem !important; color: inherit !important; }
+                  .prose h3 { font-size: 1.2rem !important; font-weight: 700 !important; margin-bottom: 0.8rem !important; color: inherit !important; }
+                  .prose p { font-size: 0.95rem !important; line-height: 1.75 !important; color: inherit !important; }
+                  .prose a { color: #6366f1 !important; text-decoration: none !important; font-weight: 600 !important; border-bottom: 1px dashed #6366f1 !important; transition: all 0.3s ease !important; }
+                  .prose a:hover { color: #4f46e5 !important; border-bottom-style: solid !important; background-color: rgba(99, 102, 241, 0.1) !important; padding: 0 0.2rem !important; border-radius: 0.2rem !important; }
+                  .dark .prose a { color: #818cf8 !important; border-bottom-color: #818cf8 !important; }
+                  .dark .prose a:hover { color: #a5b4fc !important; background-color: rgba(129, 140, 248, 0.15) !important; }
+                  .prose ul { list-style-type: disc !important; padding-left: 1.5rem !important; font-size: 0.95rem !important; }
+                  .prose ol { list-style-type: decimal !important; padding-left: 1.5rem !important; font-size: 0.95rem !important; }
+                  .prose li { display: list-item !important; margin-bottom: 0.5rem !important; }
+                  .prose ul ul, .prose ol ul { list-style-type: circle !important; margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+                  .prose ol ol, .prose ul ol { list-style-type: lower-alpha !important; margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+                  .prose del { text-decoration-color: inherit !important; opacity: 0.6; }
+                  .prose blockquote { border-left: 4px solid #6366f1 !important; background-color: rgba(99, 102, 241, 0.05) !important; padding: 1rem 1.5rem !important; margin: 1.5rem 0 !important; border-radius: 0 1.25rem 1.25rem 0 !important; font-style: italic !important; color: #64748b !important; }
+                  .prose blockquote p { margin: 0 !important; color: inherit !important; }
+                  .dark .prose blockquote { border-left-color: #818cf8 !important; background-color: rgba(129, 140, 248, 0.1) !important; color: #94a3b8 !important; }
+                  .prose pre { background-color: #282c34 !important; color: #abb2bf !important; padding: 1rem !important; border-radius: 0.75rem !important; overflow-x: auto !important; box-shadow: inset 0 0 10px rgba(0,0,0,0.3) !important; margin-top: 1rem !important; margin-bottom: 1rem !important; }
+                  .prose pre code, .prose p code, .prose li code { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, ui-monospace, monospace !important; font-variant-ligatures: contextual !important; }
+                  .prose pre code { background-color: transparent !important; padding: 0 !important; color: inherit !important; font-size: 0.85em !important; }
+                  .prose code::before, .prose code::after { content: none !important; }
+                  .prose p code, .prose li code { background-color: rgba(99, 102, 241, 0.1) !important; color: #6366f1 !important; padding: 0.1rem 0.3rem !important; border-radius: 0.25rem !important; font-weight: 600 !important; font-size: 0.85em !important; }
+                  .dark .prose p code, .dark .prose li code { background-color: rgba(99, 102, 241, 0.2) !important; color: #818cf8 !important; }
+                  .prose img { display: block !important; margin: 1.5rem auto !important; border-radius: 1rem !important; box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important; max-width: 100% !important; height: auto !important; }
+                  .prose pre code .hljs-comment, .prose pre code .hljs-quote { color: #5c6370 !important; font-style: italic !important; }
+                  .prose pre code .hljs-doctag, .prose pre code .hljs-keyword, .prose pre code .hljs-formula { color: #c678dd !important; }
+                  .prose pre code .hljs-keyword.type_, .prose pre code .hljs-type { color: #c678dd !important; }
+                  .prose pre code .hljs-section, .prose pre code .hljs-name, .prose pre code .hljs-selector-tag, .prose pre code .hljs-deletion, .prose pre code .hljs-subst { color: #e06c75 !important; }
+                  .prose pre code .hljs-literal { color: #56b6c2 !important; }
+                  .prose pre code .hljs-string, .prose pre code .hljs-regexp, .prose pre code .hljs-addition, .prose pre code .hljs-attribute, .prose pre code .hljs-meta-string { color: #98c379 !important; }
+                  .prose pre code .hljs-built_in, .prose pre code .hljs-class .hljs-title, .prose pre code .hljs-title.class_ { color: #e6c07b !important; }
+                  .prose pre code .hljs-attr, .prose pre code .hljs-variable, .prose pre code .hljs-template-variable, .prose pre code .hljs-selector-class, .prose pre code .hljs-selector-attr, .prose pre code .hljs-selector-pseudo, .prose pre code .hljs-number { color: #d19a66 !important; }
+                  .prose pre code .hljs-symbol, .prose pre code .hljs-bullet, .prose pre code .hljs-link, .prose pre code .hljs-meta, .prose pre code .hljs-selector-id, .prose pre code .hljs-title, .prose pre code .hljs-title.function_ { color: #61aeee !important; }
+                  @media (min-width: 768px) {
+                    .prose h1 { font-size: 3rem !important; font-weight: 950 !important; margin-bottom: 2rem !important; margin-top: 3rem !important; line-height: 1.1 !important; }
+                    .prose h2 { font-size: 2.2rem !important; margin-bottom: 1.5rem !important; margin-top: 2rem !important; }
+                    .prose h3 { font-size: 1.5rem !important; margin-bottom: 1rem !important; }
+                    .prose p { font-size: 1.15rem !important; line-height: 1.85 !important; }
+                    .prose ul, .prose ol { padding-left: 2rem !important; font-size: 1.1rem !important; }
+                    .prose pre { padding: 1.25rem !important; margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+                    .prose pre code { font-size: 0.9em !important; }
+                    .prose p code, .prose li code { padding: 0.2rem 0.4rem !important; font-size: 0.9em !important; border-radius: 0.375rem !important;}
+                    .prose img { margin: 2rem auto !important; border-radius: 2rem !important; box-shadow: 0 20px 50px rgba(0,0,0,0.15) !important; }
+                  }
+                0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen relative pb-20","children":[["$","$L2",null,{}],["$","$L3",null,{"children":["$","main",null,{"className":"w-[95%] md:w-[90%] max-w-6xl mx-auto mt-24 md:mt-28 flex flex-col lg:flex-row gap-6 md:gap-8 relative z-10","children":[["$","article",null,{"className":"flex-1 bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-[40px] shadow-2xl border border-white/40 dark:border-white/10 overflow-hidden transition-colors duration-700","children":[["$","div",null,{"className":"w-full aspect-video bg-slate-200 dark:bg-slate-700 relative group","children":["$","img",null,{"src":"https://bu.dusays.com/2026/07/03/6a471c9052422.png","alt":"封面","className":"w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"}]}],["$","div",null,{"className":"p-5 md:p-14 relative","children":[["$","$L4",null,{}],["$","div",null,{"className":"flex items-center gap-2 mb-4 text-xs font-bold text-slate-400 dark:text-slate-500","children":[["$","$L5",null,{"href":"/chatter","className":"hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors","children":"📓 笔记"}],["$","span",null,{"children":"/"}],["$","$L5",null,{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F","className":"hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors","children":["📁 ","嵌入式"]}],["$","span",null,{"children":"/"}],["$","span",null,{"className":"text-slate-600 dark:text-slate-300 truncate max-w-[150px]","children":"flash分区表，中断向量偏移量和ota升级流程"}]]}],["$","header",null,{"className":"mb-6 md:mb-10 border-b border-slate-300/30 dark:border-slate-700/50 pb-5 md:pb-8 relative","children":[["$","h1",null,{"className":"text-2xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 md:mb-6 tracking-tight transition-colors duration-700 pr-16 md:pr-24 leading-snug md:leading-tight","children":"flash分区表，中断向量偏移量和ota升级流程"}],["$","div",null,{"className":"flex flex-wrap items-center gap-2 md:gap-3","children":[["$","div",null,{"className":"flex items-center gap-1.5 md:gap-2 text-indigo-700 dark:text-indigo-400 font-bold bg-indigo-500/5 dark:bg-indigo-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-indigo-500/10","children":[["$","svg",null,{"className":"w-3 h-3 md:w-4 md:h-4","fill":"none","viewBox":"0 0 24 24","stroke":"currentColor","children":["$","path",null,{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":2.5,"d":"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"}]}],"2026-07-03 16:54:47"]}],"",[]]}]]}],["$","div",null,{"className":"relative","children":[["$","style",null,{"children":"$6"}],"$L7"]}],"$L8"]}]]}],"$L9"]}]}]]}],["$La","$Lb","$Lc","$Ld"],"$Le"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"8LHJIef07O1q3XT8Kp2v5"}
+f:T2a3f,<h2><strong>一、Flash 分区表 —— 给你的 Flash “划地盘”</strong></h2>
+<h3><strong>1. 为什么要分区？</strong></h3>
+<p>就像硬盘分 C 盘、D 盘，Flash 也得划出不同的功能区，<strong>让升级过程中新固件的下载、校验、搬移都不会破坏当前正在运行的程序</strong>。</p>
+<h3><strong>2. 一个最典型的 STM32F4 分区设计（1MB Flash）</strong></h3>
+<p>假设芯片 Flash 总大小 1MB，起始地址 <code>0x08000000</code>。</p>
+<p><strong>分区名起始地址大小作用Bootloader</strong><code>0x08000000</code>64KB上电第一行代码，负责验签、搬运固件、跳转<strong>App 主区</strong><code>0x08010000</code>448KB当前运行的应用程序 (APP)<strong>下载暂存区</strong><code>0x08080000</code>448KB接收 OTA 新固件，差分还原也在这里<strong>参数区</strong><code>0x080F0000</code>64KB存升级状态、版本号、断点续传偏移量等</p>
+<blockquote>
+<p>如果你做 <strong>A/B 面升级</strong>（更稳），那就不要暂存区，而是两个同样大小的 App 分区：<code>APP_A (0x08010000)</code> 和 <code>APP_B (0x08060000)</code>，互相切换。<br>
+上面的例子是 <strong>暂存区+还原</strong> 方案，适合差分升级，ROM 刚好够用。</p>
+</blockquote>
+<h3><strong>3. 分区表如何落地到代码里？</strong></h3>
+<p><strong>① 头文件中用宏定义地址和大小</strong>（bootloader、app 代码共用）</p>
+<p>c</p>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">// flash_partition.h</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> FLASH_BASE            0x08000000UL</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BOOTLOADER_SIZE       0x10000   <span class="hljs-comment">// 64KB</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> APP_SIZE              0x70000   <span class="hljs-comment">// 448KB</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> DOWNLOAD_SIZE         0x70000</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PARAM_SIZE            0x10000</span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BOOTLOADER_START      FLASH_BASE</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> APP_START             (FLASH_BASE + BOOTLOADER_SIZE)          <span class="hljs-comment">// 0x08010000</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> DOWNLOAD_START        (APP_START + APP_SIZE)                  <span class="hljs-comment">// 0x08080000</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PARAM_START           (DOWNLOAD_START + DOWNLOAD_SIZE)        <span class="hljs-comment">// 0x080F0000</span></span>
+</code></pre>
+<p><strong>② 链接脚本 .ld 文件里限制代码存放范围</strong><br>
+APP 的链接脚本必须告诉编译器：<strong>代码只能放在</strong> <code>APP_START</code> <strong>开始的区域</strong>。</p>
+<p>ld</p>
+<pre><code class="hljs language-cpp"><span class="hljs-comment">/* STM32F407VG_APP.ld */</span>
+MEMORY
+{
+  <span class="hljs-built_in">FLASH</span> (rx) : ORIGIN = <span class="hljs-number">0x08010000</span>, LENGTH = <span class="hljs-number">448</span>K
+  <span class="hljs-built_in">RAM</span>   (rwx) : ORIGIN = <span class="hljs-number">0x20000000</span>, LENGTH = <span class="hljs-number">128</span>K
+}
+</code></pre>
+<p>这样生成出来的 <code>app.bin</code>，最开头的中断向量表就天然在 <code>0x08010000</code>。</p>
+<hr>
+<h2><strong>二、中断向量偏移量 —— 让 CPU 找到“对的菜单”</strong></h2>
+<h3><strong>1. 为什么要设偏移量？</strong></h3>
+<p>CPU 响应中断时，会到一个固定的寄存器 <code>SCB->VTOR</code> 指明的地址去找<strong>中断服务函数入口表</strong>。</p>
+<ul>
+<li>芯片刚上电，<code>VTOR</code> 默认指向 <code>0x00000000</code>（映射到 <code>0x08000000</code>），那里是 <strong>Bootloader</strong> 的向量表。</li>
+<li>一旦我们要执行 APP，CPU 必须去 <code>0x08010000</code> 找 <strong>APP 自己的向量表</strong>，否则中断一来，设备就死机或乱跳。</li>
+</ul>
+<p>这就是“中断向量表重映射”：<strong>把 VTOR 的值从 Bootloader 的地址改成 APP 的地址</strong>。</p>
+<h3><strong>2. 配置位置：链接脚本 + 代码配合</strong></h3>
+<p><strong>第一步：链接脚本定义 APP 的基地址</strong></p>
+<p>上面 <code>.ld</code> 文件已经指定了 <code>FLASH</code> 起始地址 <code>0x08010000</code>，编译出来的第一个 32 位数（初始 SP）和第二个 32 位数（Reset_Handler）就在这个地址。<strong>向量表位置已经定了。</strong></p>
+<p><strong>第二步：代码里设置 VTOR 寄存器</strong></p>
+<p>必须在 APP 运行的第一时间设置，通常放在 <code>system_stm32f4xx.c</code> 里的 <code>SystemInit()</code>，或者在 <code>main()</code> 最开头手动加。</p>
+<p><strong>找到/修改</strong> <code>system_stm32f4xx.c</code> <strong>中的宏：</strong></p>
+<p>c</p>
+<pre><code class="hljs language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">define</span> VECT_TAB_OFFSET  0x10000   <span class="hljs-comment">/* 偏移 = APP_START - FLASH_BASE */</span></span>
+</code></pre>
+<p>这个宏会在 <code>SystemInit</code> 里被写到 <code>SCB->VTOR</code>：</p>
+<p>c</p>
+<pre><code class="hljs language-cpp">SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET;
+</code></pre>
+<p>等效于 <code>SCB->VTOR = 0x08000000 | 0x10000; // 0x08010000</code></p>
+<p><strong>对于 Keil 环境：</strong> 在 Target Options → Target → IROM1 里设好 <code>0x08010000</code>，再在代码里加 <code>SCB->VTOR = 0x08010000;</code>。</p>
+<p><strong>第三步：Bootloader 跳转前要不要设？</strong></p>
+<p>通常 <strong>Bootloader 只需要校验 APP，然后跳转</strong>，跳转前可以把 <code>SCB->VTOR</code> 设为 APP 的地址，但 APP 启动后仍会自己再设一次（安全起见）。所以 <strong>APP 自己必须设</strong>。</p>
+<p>跳转的典型代码（Bootloader）：</p>
+<p>c</p>
+<pre><code class="hljs language-cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">jump_to_app</span><span class="hljs-params">(<span class="hljs-type">uint32_t</span> app_addr)</span> </span>{
+    <span class="hljs-type">uint32_t</span> app_sp = *(<span class="hljs-keyword">volatile</span> <span class="hljs-type">uint32_t</span>*)app_addr;
+    <span class="hljs-type">uint32_t</span> app_reset_handler = *(<span class="hljs-keyword">volatile</span> <span class="hljs-type">uint32_t</span>*)(app_addr + <span class="hljs-number">4</span>);
+
+    <span class="hljs-comment">// 设置栈顶指针</span>
+    __set_MSP(app_sp);
+    <span class="hljs-comment">// 可选：将 VTOR 指向 APP 向量表</span>
+    SCB->VTOR = app_addr;
+    <span class="hljs-comment">// 跳转到 APP 的复位处理函数</span>
+    ((<span class="hljs-built_in">void</span>(*)())app_reset_handler)();
+}
+</code></pre>
+<blockquote>
+<p>注意：跳转前必须关中断、恢复时钟等，具体看正点原子等例程。</p>
+</blockquote>
+<hr>
+<h2><strong>三、OTA 升级架构（含差分、断点）—— 从头到尾跑一遍</strong></h2>
+<p>把上面“分区表 + 向量偏移”套进一个完整的静默升级流程里，你就能看到它们是如何联动工作的。</p>
+<h3><strong>设备正常运行时（APP 运行）</strong></h3>
+<ul>
+<li>APP 的向量表在 <code>0x08010000</code>，VTOR 已经设好。</li>
+<li>后台线程检测到服务器有更新，获取 <strong>差分包</strong> 的 URL、大小、签名。</li>
+</ul>
+<h3><strong>静默下载阶段（APP 仍在前台工作）</strong></h3>
+<ol>
+<li>APP 通过 HTTP Range 请求，从 0 开始下载差分包，<strong>边下载边写入下载暂存区</strong>（<code>0x08080000</code>）。</li>
+<li>每写 1KB 或一个扇区，就把 <strong>已接收长度</strong> 记录到参数区（掉电续传用）。</li>
+<li>如果下载中断重启，APP 会先读参数区，知道从哪个偏移量继续请求，实现断电续传。</li>
+<li>全部下载完毕后，对整个差分包做 <strong>SHA256</strong>，再用预置公钥验签。通过后，在参数区写 <strong>“升级包就绪”标志</strong>，并注明是差分包。</li>
+</ol>
+<h3><strong>触发升级（策略点）</strong></h3>
+<ul>
+<li>设备夜间重启，或用户关机后上电。</li>
+<li>芯片先跑 <strong>Bootloader</strong>（<code>0x08000000</code>）。</li>
+</ul>
+<h3><strong>Bootloader 阶段 —— 核心处理</strong></h3>
+<ol>
+<li>
+<p><strong>读取参数区</strong>，发现有升级就绪标志。</p>
+</li>
+<li>
+<p><strong>安全验证</strong>：再次校验下载区差分包签名，确保不是伪造（防止参数区被篡改）。</p>
+</li>
+<li>
+<p><strong>差分还原</strong>（如果包是差分类型）：</p>
+<ul>
+<li>Bootloader 读取当前 APP 区固件（<code>0x08010000</code>）作为旧版本。</li>
+<li>将差分包+旧固件通过差分算法还原成完整新固件，<strong>输出到下载暂存区自身，或是另一个临时缓冲</strong>（此处需要 RAM/Flash 空间规划，例如把暂存区后半部分当输出，小心覆盖）。</li>
+<li>还原完成后，新固件就放在下载暂存区（或指定地址）。</li>
+</ul>
+</li>
+<li>
+<p><strong>搬移/切换固件</strong>：</p>
+<ul>
+<li><strong>方案A（暂存区覆盖）</strong>：把下载暂存区的新固件按扇区擦写，拷贝到 APP 主区（<code>0x08010000</code>）。此时 APP 区被覆盖，这就是 <strong>OTA 最关键的“覆写”</strong>。</li>
+<li><strong>方案B（A/B分区）</strong>：假设有 APP_B 区（<code>0x08060000</code>），直接把新固件还原/解压到 APP_B，然后修改启动参数指向 B 区。</li>
+</ul>
+</li>
+<li>
+<p><strong>验签新固件</strong>（安全启动链）：对新写入的 APP 区做完整镜像签名校验，以防搬运过程中出错。</p>
+</li>
+<li>
+<p><strong>清除升级标志</strong>，设置启动标志（如果 A/B）或保持默认。</p>
+</li>
+<li>
+<p><strong>设置 VTOR =</strong> <code>APP_START</code>，跳转执行新 APP。</p>
+</li>
+</ol>
+<h3><strong>新 APP 启动</strong></h3>
+<ul>
+<li>执行 <code>SystemInit</code>，<code>SCB->VTOR</code> 再次被设为 <code>0x08010000</code>。</li>
+<li>程序正常运行，联网上报“升级成功”。</li>
+</ul>
+<p><strong>整个过程中，分区表提供了地址，中断向量偏移保证了 APP 的中断正常响应，OTA 机制通过暂存区和标志位安全地替换了固件。</strong></p>7:["$","div",null,{"className":"prose prose-slate dark:prose-invert prose-base md:prose-lg max-w-none text-slate-800 dark:text-slate-200 font-serif transition-colors duration-700 leading-relaxed scroll-smooth","dangerouslySetInnerHTML":{"__html":"$f"}}]
+8:["$","div",null,{"className":"mt-10 md:mt-12","children":["$","$L10",null,{}]}]
+9:["$","aside",null,{"className":"w-full lg:w-[320px] flex flex-col gap-6 flex-shrink-0","children":[["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl text-center","children":[["$","div",null,{"className":"w-20 h-20 mx-auto rounded-full p-1 bg-gradient-to-tr from-indigo-500 to-purple-500 shadow-md mb-4 hover:rotate-3 transition-transform","children":["$","img",null,{"src":"https://bu.dusays.com/2026/07/03/6a47641290190.png","alt":"avatar","className":"w-full h-full rounded-full object-cover bg-white"}]}],["$","h3",null,{"className":"text-xl font-bold text-slate-900 dark:text-white mb-2","children":"Iustitiae"}],["$","p",null,{"className":"text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium mb-4","children":"在代码、单片机，电机控制模拟间穿梭的普通人。近期正埋头于 freerots学习。"}],["$","$L11",null,{}]]}],["$","$L12",null,{}],["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl","children":[["$","div",null,{"className":"flex justify-between items-center mb-6","children":["$","h3",null,{"className":"text-lg font-black text-slate-800 dark:text-white tracking-wider","children":[2026,"年",7,"月"]}]}],["$","div",null,{"className":"grid grid-cols-7 gap-1 mb-4 text-center","children":[["$","div","一",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"一"}],["$","div","二",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"二"}],["$","div","三",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"三"}],["$","div","四",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"四"}],["$","div","五",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"五"}],["$","div","六",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"六"}],["$","div","日",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"日"}]]}],["$","div",null,{"className":"grid grid-cols-7 gap-y-3 gap-x-1 text-center","children":[["$","div","0",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8"}]}],["$","div","1",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8"}]}],["$","div","2",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":1}]}],["$","div","3",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":2}]}],["$","div","4",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        bg-indigo-500 text-white shadow-lg shadow-indigo-500/40 scale-110","children":3}]}],["$","div","5",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":4}]}],["$","div","6",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":5}]}],"$L13","$L14","$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e","$L1f","$L20","$L21","$L22","$L23","$L24","$L25","$L26","$L27","$L28","$L29","$L2a","$L2b","$L2c"]}]]}],"$L2d"]}]
+a:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/15cahw4d8-wp1.css","precedence":"next"}]
+b:["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/0-y7.kz1~5qzw.css","precedence":"next"}]
+c:["$","script","script-0",{"src":"/_next/static/chunks/0__.wr2yexpc~.js","async":true}]
+d:["$","script","script-1",{"src":"/_next/static/chunks/0iwhyxshj2rrg.js","async":true}]
+e:["$","$L2e",null,{"children":["$","$2f",null,{"name":"Next.MetadataOutlet","children":"$@30"}]}]
+13:["$","div","7",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":6}]}]
+14:["$","div","8",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":7}]}]
+15:["$","div","9",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":8}]}]
+16:["$","div","10",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":9}]}]
+17:["$","div","11",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":10}]}]
+18:["$","div","12",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":11}]}]
+19:["$","div","13",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":12}]}]
+1a:["$","div","14",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":13}]}]
+1b:["$","div","15",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":14}]}]
+1c:["$","div","16",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":15}]}]
+1d:["$","div","17",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":16}]}]
+1e:["$","div","18",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":17}]}]
+1f:["$","div","19",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":18}]}]
+20:["$","div","20",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":19}]}]
+21:["$","div","21",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":20}]}]
+22:["$","div","22",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":21}]}]
+23:["$","div","23",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":22}]}]
+24:["$","div","24",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":23}]}]
+25:["$","div","25",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":24}]}]
+26:["$","div","26",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":25}]}]
+27:["$","div","27",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":26}]}]
+28:["$","div","28",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":27}]}]
+29:["$","div","29",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":28}]}]
+2a:["$","div","30",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":29}]}]
+2b:["$","div","31",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":30}]}]
+2c:["$","div","32",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":31}]}]
+2d:["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl","children":[["$","h3",null,{"className":"font-black text-slate-900 dark:text-white mb-4 border-l-4 border-indigo-500 pl-2 text-xs tracking-widest uppercase","children":"Recent Records"}],["$","div",null,{"className":"space-y-4","children":[["$","$L5","chatter_1783403941",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/chatter_1783403941","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"有关嵌入式产品编号烧录的必要性和相关流程"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-07-07 13:59:01"}]]}],["$","$L5","freertos-semaphore-callback",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/freertos-semaphore-callback","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"FreeRTOS信号量与回调函数——任务间的对话"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-06-27 17:00:00"}]]}],["$","$L5","freertos-config-tasks",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/freertos-config-tasks","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"FreeRTOS入门——配置与任务管理"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-06-27 16:00:00"}]]}]]}]]}]
+30:null
