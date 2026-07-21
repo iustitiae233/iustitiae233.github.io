@@ -1,0 +1,556 @@
+1:"$Sreact.fragment"
+2:I[79520,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],""]
+3:I[80492,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"ThemeProvider"]
+4:I[22052,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"AnimationSettingsProvider"]
+5:I[61452,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+6:I[79674,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"MusicProvider"]
+7:I[38849,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+1b:I[68027,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default",1]
+:HL["/_next/static/chunks/145o.lsi86g0w.css","style"]
+:HL["/_next/static/chunks/066jf0nk75nic.css","style"]
+:HL["/_next/static/chunks/0~ydk.tni6snc.css","style"]
+:HL["/_next/static/chunks/0tfrc-m6pdzbp.css","style"]
+:HL["/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/caa3a2e1cccd8315-s.p.09~u27dqhyhd6.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/f112ed7f0b91582f-s.p.0xqqmnf1a3x8p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/chunks/15cahw4d8-wp1.css","style"]
+:HL["/_next/static/chunks/0-y7.kz1~5qzw.css","style"]
+0:{"P":null,"c":["","chatter","%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80","diode-basics",""],"q":"","i":false,"f":[[["",{"children":["chatter",{"children":[["folder","%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80","d",null],{"children":[["slug","diode-basics","d",null],{"children":["__PAGE__",{}]}]}]}]},"$undefined","$undefined",16],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/145o.lsi86g0w.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/066jf0nk75nic.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/0~ydk.tni6snc.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","3",{"rel":"stylesheet","href":"/_next/static/chunks/0tfrc-m6pdzbp.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/0eth2-x0x8z74.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/0._jywihkh2te.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0sloe3q.6y95c.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/00-csyj9a6t-x.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","className":"geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__variable noto_serif_sc_4b5b2b75-module__o_XRgq__variable h-full antialiased","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","style",null,{"suppressHydrationWarning":true,"dangerouslySetInnerHTML":{"__html":"\n              /* Splash Screen 初始隐藏内容，防止闪烁 */\n              #app-mount-root { opacity: 0; visibility: hidden; pointer-events: none; }\n\n              /* JS 正常：splash 动画完成后添加 splash-seen 类，内容显示 */\n              html.splash-seen #app-mount-root {\n                animation: none !important;\n                opacity: 1 !important;\n                visibility: visible !important;\n                pointer-events: auto !important;\n              }\n\n              /*\n               * 🔑 兜底机制：纯 CSS 超时自动显示\n               * 6 秒后强制显示内容（正常 splash 只需 2.7 秒）\n               * 即使 React 完全崩溃、JS 被禁用，内容也能自动恢复\n               * 注意：此动画仅在 splash-seen 类缺失时生效\n               */\n              @keyframes splashAutoReveal {\n                0%, 95% { visibility: hidden; pointer-events: none; }\n                100% { visibility: visible; pointer-events: auto; }\n              }\n              html:not(.splash-seen) #app-mount-root {\n                animation: splashAutoReveal 6s forwards;\n              }\n            "}}],["$","$L2",null,{"id":"handle-splash-logic","strategy":"beforeInteractive","children":"\n            try {\n              if (sessionStorage.getItem('hasSeenSplash') === 'true') {\n                document.documentElement.classList.add('splash-seen');\n              }\n            } catch (e) {}\n\n            // 🔑 兜底：4 秒后强制显示（即使 SplashScreen 组件崩溃）\n            setTimeout(function() {\n              if (!document.documentElement.classList.contains('splash-seen')) {\n                document.documentElement.classList.add('splash-seen');\n              }\n            }, 4000);\n          "}]]}],["$","body",null,{"className":"w-screen overflow-x-hidden min-h-full flex flex-col relative transition-colors duration-1000 bg-slate-50 dark:bg-slate-950 font-serif","children":["$","$L3",null,{"children":["$","$L4",null,{"children":[["$","$L5",null,{}],["$","$L6",null,{"children":[["$","div",null,{"id":"app-mount-root","className":"flex-1 flex flex-col transition-opacity duration-1000","children":[["$","div",null,{"className":"fixed inset-0 z-[-1] pointer-events-none overflow-hidden","children":[["$","$L7",null,{}],["$","div",null,{"className":"absolute inset-0 z-[-9] bg-white/5 dark:bg-slate-900/10 backdrop-blur-[2px] transition-colors duration-1000"}],"$L8","$L9","$La","$Lb"]}],"$Lc","$Ld","$Le","$Lf","$L10","$L11","$L12","$L13"]}],"$L14"]}]]}]}]}]]}]]}],{"children":["$L15",{"children":["$L16",{"children":["$L17",{"children":["$L18",{},null,false,null]},null,false,"$@19"]},null,false,"$@19"]},null,false,"$@19"]},null,false,null],"$L1a",false]],"m":"$undefined","G":["$1b",["$L1c","$L1d","$L1e","$L1f"]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"HQWZhLron5o3b5GVsX4NM"}
+20:I[74347,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+21:I[94798,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+22:I[63571,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+23:I[88138,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+24:I[39756,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+25:I[37457,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+26:I[94909,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+27:I[43173,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+28:I[38197,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+29:I[60567,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+2a:I[92471,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
+2c:I[97367,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"OutletBoundary"]
+2d:"$Sreact.suspense"
+30:I[97367,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"ViewportBoundary"]
+32:I[97367,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"MetadataBoundary"]
+8:["$","$L20",null,{}]
+9:["$","div",null,{"className":"absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/40 dark:bg-indigo-900/20 blur-[100px] rounded-full z-[-7] md:mix-blend-overlay"}]
+a:["$","div",null,{"className":"absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-400/30 dark:bg-purple-900/30 blur-[100px] rounded-full z-[-7] md:mix-blend-overlay"}]
+b:["$","div",null,{"className":"hidden md:block absolute inset-0 w-full h-full","children":["$","$L21",null,{}]}]
+c:["$","div",null,{"className":"hidden md:block","children":["$","$L22",null,{}]}]
+d:["$","div",null,{"className":"hidden md:block","children":["$","$L23",null,{}]}]
+e:["$","div",null,{"className":"relative z-10 flex-1 flex flex-col","children":["$","$L24",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L25",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]
+f:["$","div",null,{"className":"hidden md:block","children":["$","$L26",null,{}]}]
+10:["$","div",null,{"className":"hidden md:block","children":["$","$L27",null,{}]}]
+11:["$","div",null,{"className":"md:hidden block","children":["$","$L28",null,{}]}]
+12:["$","div",null,{"className":"hidden md:block","children":["$","$L29",null,{}]}]
+13:["$","$L2a",null,{}]
+14:["$","style",null,{"suppressHydrationWarning":true,"dangerouslySetInnerHTML":{"__html":"\n              @keyframes gradientMove {\n                0% { background-position: 0% 50%; }\n                50% { background-position: 100% 50%; }\n                100% { background-position: 0% 50%; }\n              }\n            "}}]
+15:["$","$1","c",{"children":[null,["$","$L24",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L25",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+16:["$","$1","c",{"children":[null,["$","$L24",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L25",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+17:["$","$1","c",{"children":[null,["$","$L24",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L25",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+18:["$","$1","c",{"children":["$L2b",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/15cahw4d8-wp1.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/0-y7.kz1~5qzw.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/0__.wr2yexpc~.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/0iwhyxshj2rrg.js","async":true,"nonce":"$undefined"}]],["$","$L2c",null,{"children":["$","$2d",null,{"name":"Next.MetadataOutlet","children":"$@2e"}]}]]}]
+2f:[]
+19:"$W2f"
+1a:["$","$1","h",{"children":[null,["$","$L30",null,{"children":"$L31"}],["$","div",null,{"hidden":true,"children":["$","$L32",null,{"children":["$","$2d",null,{"name":"Next.Metadata","children":"$L33"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+1c:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/145o.lsi86g0w.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+1d:["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/066jf0nk75nic.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+1e:["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/0~ydk.tni6snc.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+1f:["$","link","3",{"rel":"stylesheet","href":"/_next/static/chunks/0tfrc-m6pdzbp.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+34:I[62319,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+35:I[66357,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+36:I[1509,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+37:I[22016,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],""]
+:HL["https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png","image"]
+2b:["$","div",null,{"className":"min-h-screen relative pb-20","children":[["$","$L34",null,{}],["$","$L35",null,{"children":["$","main",null,{"className":"w-[95%] md:w-[90%] max-w-6xl mx-auto mt-24 md:mt-28 flex flex-col lg:flex-row gap-6 md:gap-8 relative z-10","children":[["$","article",null,{"className":"flex-1 bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-[40px] shadow-2xl border border-white/40 dark:border-white/10 overflow-hidden transition-colors duration-700","children":[["$","div",null,{"className":"w-full aspect-video bg-slate-200 dark:bg-slate-700 relative group","children":["$","img",null,{"src":"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png","alt":"封面","className":"w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"}]}],["$","div",null,{"className":"p-5 md:p-14 relative","children":[["$","$L36",null,{}],["$","div",null,{"className":"flex items-center gap-2 mb-4 text-xs font-bold text-slate-400 dark:text-slate-500","children":[["$","$L37",null,{"href":"/chatter","className":"hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors","children":"📓 笔记"}],["$","span",null,{"children":"/"}],["$","$L37",null,{"href":"/chatter/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80","className":"hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors","children":["📁 ","硬件基础"]}],["$","span",null,{"children":"/"}],["$","span",null,{"className":"text-slate-600 dark:text-slate-300 truncate max-w-[150px]","children":"二极管基础——从整流到稳压的通俗讲解"}]]}],["$","header",null,{"className":"mb-6 md:mb-10 border-b border-slate-300/30 dark:border-slate-700/50 pb-5 md:pb-8 relative","children":[["$","h1",null,{"className":"text-2xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 md:mb-6 tracking-tight transition-colors duration-700 pr-16 md:pr-24 leading-snug md:leading-tight","children":"二极管基础——从整流到稳压的通俗讲解"}],["$","div",null,{"className":"flex flex-wrap items-center gap-2 md:gap-3","children":[["$","div",null,{"className":"flex items-center gap-1.5 md:gap-2 text-indigo-700 dark:text-indigo-400 font-bold bg-indigo-500/5 dark:bg-indigo-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-indigo-500/10","children":[["$","svg",null,{"className":"w-3 h-3 md:w-4 md:h-4","fill":"none","viewBox":"0 0 24 24","stroke":"currentColor","children":["$","path",null,{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":2.5,"d":"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"}]}],"2026-07-21 12:00:00"]}],"",[["$","div","硬件基础",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","硬件基础"]}],["$","div","二极管",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","二极管"]}],["$","div","整流",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","整流"]}],["$","div","稳压",{"className":"flex items-center gap-1 text-slate-500 dark:text-slate-400 font-bold bg-slate-500/5 dark:bg-slate-400/10 px-3 md:px-4 py-1.5 md:py-2 rounded-2xl text-xs md:text-sm border border-slate-500/10","children":[["$","span",null,{"className":"text-[10px] md:text-xs opacity-70","children":"#"}]," ","稳压"]}]]]}]]}],["$","div",null,{"className":"relative","children":["$L38","$L39"]}],"$L3a"]}]]}],"$L3b"]}]}]]}]
+3e:I[24170,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+3f:I[57592,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+40:I[55581,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0__.wr2yexpc~.js","/_next/static/chunks/0iwhyxshj2rrg.js"],"default"]
+:HL["https://bu.dusays.com/2026/07/03/6a47641290190.png","image"]
+3c:T1ad2,
+                  .prose h1 { font-size: 1.8rem !important; font-weight: 900 !important; margin-bottom: 1.2rem !important; margin-top: 2rem !important; line-height: 1.3 !important; color: inherit !important; }
+                  .prose h2 { font-size: 1.5rem !important; font-weight: 800 !important; margin-bottom: 1rem !important; margin-top: 1.5rem !important; color: inherit !important; }
+                  .prose h3 { font-size: 1.2rem !important; font-weight: 700 !important; margin-bottom: 0.8rem !important; color: inherit !important; }
+                  .prose p { font-size: 0.95rem !important; line-height: 1.75 !important; color: inherit !important; }
+                  .prose a { color: #6366f1 !important; text-decoration: none !important; font-weight: 600 !important; border-bottom: 1px dashed #6366f1 !important; transition: all 0.3s ease !important; }
+                  .prose a:hover { color: #4f46e5 !important; border-bottom-style: solid !important; background-color: rgba(99, 102, 241, 0.1) !important; padding: 0 0.2rem !important; border-radius: 0.2rem !important; }
+                  .dark .prose a { color: #818cf8 !important; border-bottom-color: #818cf8 !important; }
+                  .dark .prose a:hover { color: #a5b4fc !important; background-color: rgba(129, 140, 248, 0.15) !important; }
+                  .prose ul { list-style-type: disc !important; padding-left: 1.5rem !important; font-size: 0.95rem !important; }
+                  .prose ol { list-style-type: decimal !important; padding-left: 1.5rem !important; font-size: 0.95rem !important; }
+                  .prose li { display: list-item !important; margin-bottom: 0.5rem !important; }
+                  .prose ul ul, .prose ol ul { list-style-type: circle !important; margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+                  .prose ol ol, .prose ul ol { list-style-type: lower-alpha !important; margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+                  .prose del { text-decoration-color: inherit !important; opacity: 0.6; }
+                  .prose blockquote { border-left: 4px solid #6366f1 !important; background-color: rgba(99, 102, 241, 0.05) !important; padding: 1rem 1.5rem !important; margin: 1.5rem 0 !important; border-radius: 0 1.25rem 1.25rem 0 !important; font-style: italic !important; color: #64748b !important; }
+                  .prose blockquote p { margin: 0 !important; color: inherit !important; }
+                  .dark .prose blockquote { border-left-color: #818cf8 !important; background-color: rgba(129, 140, 248, 0.1) !important; color: #94a3b8 !important; }
+                  .prose pre { background-color: #282c34 !important; color: #abb2bf !important; padding: 1rem !important; border-radius: 0.75rem !important; overflow-x: auto !important; box-shadow: inset 0 0 10px rgba(0,0,0,0.3) !important; margin-top: 1rem !important; margin-bottom: 1rem !important; }
+                  .prose pre code, .prose p code, .prose li code { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, ui-monospace, monospace !important; font-variant-ligatures: contextual !important; }
+                  .prose pre code { background-color: transparent !important; padding: 0 !important; color: inherit !important; font-size: 0.85em !important; }
+                  .prose code::before, .prose code::after { content: none !important; }
+                  .prose p code, .prose li code { background-color: rgba(99, 102, 241, 0.1) !important; color: #6366f1 !important; padding: 0.1rem 0.3rem !important; border-radius: 0.25rem !important; font-weight: 600 !important; font-size: 0.85em !important; }
+                  .dark .prose p code, .dark .prose li code { background-color: rgba(99, 102, 241, 0.2) !important; color: #818cf8 !important; }
+                  .prose img { display: block !important; margin: 1.5rem auto !important; border-radius: 1rem !important; box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important; max-width: 100% !important; height: auto !important; }
+                  .prose pre code .hljs-comment, .prose pre code .hljs-quote { color: #5c6370 !important; font-style: italic !important; }
+                  .prose pre code .hljs-doctag, .prose pre code .hljs-keyword, .prose pre code .hljs-formula { color: #c678dd !important; }
+                  .prose pre code .hljs-keyword.type_, .prose pre code .hljs-type { color: #c678dd !important; }
+                  .prose pre code .hljs-section, .prose pre code .hljs-name, .prose pre code .hljs-selector-tag, .prose pre code .hljs-deletion, .prose pre code .hljs-subst { color: #e06c75 !important; }
+                  .prose pre code .hljs-literal { color: #56b6c2 !important; }
+                  .prose pre code .hljs-string, .prose pre code .hljs-regexp, .prose pre code .hljs-addition, .prose pre code .hljs-attribute, .prose pre code .hljs-meta-string { color: #98c379 !important; }
+                  .prose pre code .hljs-built_in, .prose pre code .hljs-class .hljs-title, .prose pre code .hljs-title.class_ { color: #e6c07b !important; }
+                  .prose pre code .hljs-attr, .prose pre code .hljs-variable, .prose pre code .hljs-template-variable, .prose pre code .hljs-selector-class, .prose pre code .hljs-selector-attr, .prose pre code .hljs-selector-pseudo, .prose pre code .hljs-number { color: #d19a66 !important; }
+                  .prose pre code .hljs-symbol, .prose pre code .hljs-bullet, .prose pre code .hljs-link, .prose pre code .hljs-meta, .prose pre code .hljs-selector-id, .prose pre code .hljs-title, .prose pre code .hljs-title.function_ { color: #61aeee !important; }
+                  @media (min-width: 768px) {
+                    .prose h1 { font-size: 3rem !important; font-weight: 950 !important; margin-bottom: 2rem !important; margin-top: 3rem !important; line-height: 1.1 !important; }
+                    .prose h2 { font-size: 2.2rem !important; margin-bottom: 1.5rem !important; margin-top: 2rem !important; }
+                    .prose h3 { font-size: 1.5rem !important; margin-bottom: 1rem !important; }
+                    .prose p { font-size: 1.15rem !important; line-height: 1.85 !important; }
+                    .prose ul, .prose ol { padding-left: 2rem !important; font-size: 1.1rem !important; }
+                    .prose pre { padding: 1.25rem !important; margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+                    .prose pre code { font-size: 0.9em !important; }
+                    .prose p code, .prose li code { padding: 0.2rem 0.4rem !important; font-size: 0.9em !important; border-radius: 0.375rem !important;}
+                    .prose img { margin: 2rem auto !important; border-radius: 2rem !important; box-shadow: 0 20px 50px rgba(0,0,0,0.15) !important; }
+                  }
+                38:["$","style",null,{"children":"$3c"}]
+3d:T104dc,<h2>一、二极管的基本结构</h2>
+<p>二极管的核心是<strong>PN 结</strong>——一块半导体上做出两种不同掺杂的区域。</p>
+<h3>P 型半导体和 N 型半导体</h3>
+<p>纯硅（4 价元素）本身不导电——所有电子都被共价键绑死了。</p>
+<ul>
+<li><strong>N 型</strong>：在硅里掺入少量 5 价元素（如磷）。多出一个自由电子——这个电子可以到处跑，所以 N 型半导体靠<strong>电子</strong>导电。</li>
+<li><strong>P 型</strong>：在硅里掺入少量 3 价元素（如硼）。少了一个电子，留下一个"空穴"——相邻电子会跳过来填补这个空穴，原来的位置又形成新空穴。相当于空穴在反向移动，所以 P 型半导体靠<strong>空穴</strong>导电（等价于正电荷移动）。</li>
+</ul>
+<h3>PN 结的形成</h3>
+<p>把 P 型和 N 型做到一起，交界面处会发生：</p>
+<ol>
+<li>N 区的自由电子扩散到 P 区，P 区的空穴扩散到 N 区</li>
+<li>交界处 N 侧失去电子带<strong>正电</strong>，P 侧得到电子带<strong>负电</strong></li>
+<li>形成一个内建电场，阻止进一步扩散</li>
+<li>这个没有自由载流子的区域叫<strong>耗尽层</strong>（也叫空间电荷区）</li>
+</ol>
+<p>这个结构就是 PN 结——二极管的物理本质。</p>
+<blockquote>
+<p>💡 <strong>通俗理解</strong>：PN 结就像电路里的<strong>单向阀/止回阀</strong>。水只能从 P 往 N 方向流，反过来就会被堵死。</p>
+</blockquote>
+<hr>
+<h2>二、单向导电性——二极管的核心功能</h2>
+<h3>正向偏置（导通）</h3>
+<p>P 接正极，N 接负极：</p>
+<ul>
+<li>外加电场削弱了内建电场</li>
+<li>耗尽层变薄</li>
+<li>电子从 N 区穿越 PN 结到 P 区，空穴从 P 区到 N 区</li>
+<li>电流流过</li>
+</ul>
+<p><strong>但二极管不是随便给点正向电压就导通的</strong>。硅二极管存在一个<strong>门槛电压（导通电压）</strong>，约 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn mathvariant="bold">0.6</mn><mtext>V</mtext><mo>∼</mo><mn mathvariant="bold">0.7</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">\mathbf{0.6\text{V} \sim 0.7\text{V}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathbf">0.6</span><span class="mord text"><span class="mord">V</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathbf">0.7</span><span class="mord text"><span class="mord">V</span></span></span></span></span></span>（锗管约 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.2</mn><mtext>V</mtext><mo>∼</mo><mn>0.3</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">0.2\text{V} \sim 0.3\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0.2</span><span class="mord text"><span class="mord">V</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0.3</span><span class="mord text"><span class="mord">V</span></span></span></span></span>）。</p>
+<p>电压低于门槛值时，电流几乎为零。一旦超过门槛值，电流随电压指数级增长——微小的电压增加带来巨大的电流增加。</p>
+<p>正向导通后，二极管两端的压降基本锁定在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∼</mo><mn>0.7</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">\sim 0.7\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0.7</span><span class="mord text"><span class="mord">V</span></span></span></span></span>（硅管），不管电流多大（在额定范围内）变化都不大。</p>
+<h3>反向偏置（截止）</h3>
+<p>N 接正极，P 接负极：</p>
+<ul>
+<li>外加电场加强了内建电场</li>
+<li>耗尽层变宽</li>
+<li>几乎没有载流子能穿过</li>
+<li>电流约等于零</li>
+</ul>
+<blockquote>
+<p>🔑 这就是单向导电性——电流只能从 P→N（阳极→阴极），不能反向。</p>
+</blockquote>
+<hr>
+<h2>三、漏电特性</h2>
+<p>二极管反向偏置时不是绝对不导电——有微小的<strong>反向漏电流</strong>在流动。</p>
+<h3>漏电流的来源</h3>
+<ul>
+<li><strong>少子漂移</strong>：P 区里残留的少量电子被反向电场拉过 PN 结，N 区里残留的少量空穴被拉过去。这个电流非常小。</li>
+<li><strong>表面漏电</strong>：芯片表面污染、潮湿导致的沿表面漏电。</li>
+<li><strong>温度效应</strong>：温度每升高约 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mo>∘</mo></msup><mtext>C</mtext></mrow><annotation encoding="application/x-tex">10^\circ\text{C}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6741em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∘</span></span></span></span></span></span></span></span><span class="mord text"><span class="mord">C</span></span></span></span></span>，反向漏电流翻一倍。</li>
+</ul>
+<h3>量级</h3>
+<table>
+<thead>
+<tr>
+<th>二极管类型</th>
+<th align="center">典型反向漏电流</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通硅整流管 (1N4007)</td>
+<td align="center">nA ~ μA 级</td>
+</tr>
+<tr>
+<td>肖特基二极管</td>
+<td align="center">μA ~ mA 级（漏电比普通管大很多）</td>
+</tr>
+<tr>
+<td>小信号开关管 (1N4148)</td>
+<td align="center">几十 nA</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ 肖特基二极管的正向压降低（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∼</mo><mn>0.3</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">\sim 0.3\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0.3</span><span class="mord text"><span class="mord">V</span></span></span></span></span>）、开关速度快，但漏电流大很多。选型时要权衡。</p>
+</blockquote>
+<hr>
+<h2>四、半波整流电路</h2>
+<p>把交流电变成直流电，最简单的做法就是半波整流。</p>
+<h3>电路</h3>
+<blockquote>
+<p>交流输入 → 二极管 D → 负载电阻 R → 回到交流另一端</p>
+</blockquote>
+<h3>工作原理</h3>
+<p>交流电是正弦波——上半周电压为正，下半周电压为负。</p>
+<ul>
+<li><strong>正半周</strong>：二极管正向偏置 → 导通 → 电流流过负载 → 负载上有电压</li>
+<li><strong>负半周</strong>：二极管反向偏置 → 截止 → 没有电流 → 负载上电压为 0</li>
+</ul>
+<p>结果：输出只有正半周的波形——像正弦波被砍掉了一半，只剩一串半圆形凸起。</p>
+<h3>半波整流的特点</h3>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电路简单，仅需一个二极管</td>
+<td>浪费了一半的电能（负半周全丢了）</td>
+</tr>
+<tr>
+<td>成本最低</td>
+<td>输出电压脉动大，平均值只有峰值电压的约 <strong>31.8%</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>需要很大的滤波电容才能平滑</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>半波整流一般只用在功率极小、对纹波要求不高的场合。</p>
+</blockquote>
+<hr>
+<h2>五、全波整流电路</h2>
+<p>把交流电的两个半周都利用起来，效率翻倍。</p>
+<h3>桥式全波整流（最常用）</h3>
+<p>用 4 个二极管搭成一个"桥"：</p>
+<pre><code class="hljs language-cpp">        D1      D2
+交流 L ──┬──▶|───┬───|◀──┐
+         │        │        │
+         │        ├── 输出+ ──→ 负载 R
+         │        │        │
+交流 N ──┼──▶|───┼───|◀──┤
+        D3      D4      │
+         │               │
+         └─── 输出- ─────┘
+</code></pre>
+<h3>工作原理</h3>
+<p><strong>正半周</strong>（上正下负）：D1 和 D4 导通，D2 和 D3 截止。电流走 D1 → 负载 → D4。</p>
+<p><strong>负半周</strong>（上负下正）：D2 和 D3 导通，D1 和 D4 截止。电流走 D3 → 负载 → D2。</p>
+<p>注意：<strong>无论正半周还是负半周，流过负载的电流方向始终相同</strong>——这就是整流的核心。</p>
+<h3>输出波形</h3>
+<p>输出不再是"一半一半"，而是把负半周翻到了上面——一串连续的半圆形脉冲。每个交流周期变成两个直流脉冲，频率翻倍。</p>
+<h3>对比</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>半波整流</th>
+<th>桥式全波整流</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二极管数量</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>输出电压平均值</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>0.318</mn><mo>×</mo><msub><mi>V</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\approx 0.318 \times V_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0.318</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>0.637</mn><mo>×</mo><msub><mi>V</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\approx 0.637 \times V_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0.637</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td>脉动频率</td>
+<td>= 输入频率</td>
+<td>= <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo></mrow><annotation encoding="application/x-tex">2 \times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">2</span><span class="mord">×</span></span></span></span> 输入频率</td>
+</tr>
+<tr>
+<td>滤波难度</td>
+<td>难（需大电容）</td>
+<td>易（频率高，电容可更小）</td>
+</tr>
+<tr>
+<td>二极管承受反压</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">V_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">V_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>（每管只受一半周期）</td>
+</tr>
+</tbody>
+</table>
+<h3>实际应用</h3>
+<p>几乎所有电子设备的电源适配器内部都有桥式整流电路——<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>220</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">220\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">220</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 交流进来，先经变压器降压，再过桥式整流变脉动直流，最后用电容滤波得到平滑直流。</p>
+<hr>
+<h2>六、二极管钳位功能</h2>
+<p>钳位（Clamping），就是把信号的最高或最低电位"锁"在一个固定值上。</p>
+<h3>正向钳位</h3>
+<blockquote>
+<p>输入 → 电容 C → 输出 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，同时 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 经二极管 D（阳极朝 GND）到地。</p>
+</blockquote>
+<p><strong>原理</strong>：</p>
+<ul>
+<li>信号负半周时，二极管导通，电容被充电到信号的负峰值</li>
+<li>信号正半周时，二极管截止，输出 = 输入信号 + 电容上存的电压</li>
+<li>结果：整个波形被往上"抬"，最低点被钳在约 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>0.7</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">-0.7\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">0.7</span><span class="mord text"><span class="mord">V</span></span></span></span></span>（二极管导通压降）</li>
+</ul>
+<blockquote>
+<p>这个电路能把一个在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">0\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 上下振荡的交流信号整体向上平移，使最低点接近 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">0\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0</span><span class="mord text"><span class="mord">V</span></span></span></span></span>。常用于需要单电源供电的交流放大电路。</p>
+</blockquote>
+<h3>反向钳位</h3>
+<p>把二极管反过来（阴极朝外），就能把波形的最高点钳在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mn>0.7</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">+0.7\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord">+</span><span class="mord">0.7</span><span class="mord text"><span class="mord">V</span></span></span></span></span>。</p>
+<h3>应用场景</h3>
+<ul>
+<li><strong>ADC 输入保护</strong>：钳位二极管把输入电压限制在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mtext>V</mtext><mo>∼</mo><msub><mi>V</mi><mrow><mi>C</mi><mi>C</mi></mrow></msub><mo>+</mo><mn>0.7</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">0\text{V} \sim V_{CC}+0.7\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0</span><span class="mord text"><span class="mord">V</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0715em;">C</span><span class="mord mathnormal mtight" style="margin-right:0.0715em;">C</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0.7</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 之间，防止烧毁 ADC 引脚</li>
+<li><strong>电平移位</strong>：在不失真的前提下改变信号的直流偏置</li>
+<li><strong>ESD 保护</strong>：把静电放电的高压脉冲钳到安全范围</li>
+</ul>
+<hr>
+<h2>七、二极管控制电流方向——续流与防反接</h2>
+<h3>续流二极管</h3>
+<p>前面电感章节提过——在继电器线圈、电机、电磁阀等感性负载两端，<strong>反向并联一个二极管</strong>。</p>
+<p>正常工作时，二极管反偏不导通。关断瞬间，电感产生反电动势——这个电压恰好让二极管正向导通，给电感提供一个低阻抗续流回路。电流在线圈 → 二极管 → 线圈之间循环衰减，把磁能安全消耗掉。</p>
+<blockquote>
+<p><strong>没有续流二极管</strong>：关断瞬间反电动势直接击穿驱动三极管 / MOS 管。</p>
+</blockquote>
+<h3>防反接保护</h3>
+<p>把二极管串联在电源正极线上（阳极接电源，阴极接电路）：</p>
+<ul>
+<li>电源正接：二极管正向导通，电路正常工作（二极管上会消耗 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∼</mo><mn>0.7</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">\sim 0.7\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0.7</span><span class="mord text"><span class="mord">V</span></span></span></span></span>）</li>
+<li>电源反接：二极管反向截止，电流流不过去，电路不工作也不会烧</li>
+</ul>
+<blockquote>
+<p>大电流场合用 MOS 管代替二极管做防反接——MOS 管导通电阻毫欧级，几乎没有压降损耗。</p>
+</blockquote>
+<hr>
+<h2>八、最大反向耐压</h2>
+<p>每个二极管都有一个<strong>反向击穿电压</strong>（叫法很多：最大反向耐压、反向击穿电压、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>R</mi><mi>R</mi><mi>M</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{RRM}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0077em;">R</span><span class="mord mathnormal mtight" style="margin-right:0.0077em;">R</span><span class="mord mathnormal mtight" style="margin-right:0.109em;">M</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>B</mi><mi>R</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{BR}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0502em;">B</span><span class="mord mathnormal mtight" style="margin-right:0.0077em;">R</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>）。</p>
+<h3>含义</h3>
+<p>加上超过这个值的反向电压，PN 结的耗尽层会被强行"撕开"——发生<strong>雪崩击穿</strong>：反向电压加速了耗尽层中本来就有的少量载流子，它们撞出更多载流子，像雪崩一样指数级放大电流。</p>
+<h3>关键：击穿不等于损坏！</h3>
+<ul>
+<li><strong>普通二极管</strong>：击穿通常意味着永久损坏（热烧毁）</li>
+<li><strong>稳压二极管</strong>：专门设计在击穿区工作，它能承受击穿而不损坏（后文详解）</li>
+</ul>
+<h3>常用型号速查</h3>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th align="center">最大反向耐压</th>
+<th align="center">最大正向电流</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1N4148</td>
+<td align="center">100V</td>
+<td align="center">200mA</td>
+<td>小信号开关</td>
+</tr>
+<tr>
+<td>1N4007</td>
+<td align="center">1000V</td>
+<td align="center">1A</td>
+<td>工频整流</td>
+</tr>
+<tr>
+<td>1N5819</td>
+<td align="center">40V</td>
+<td align="center">1A</td>
+<td>肖特基，低压整流</td>
+</tr>
+<tr>
+<td>SS34</td>
+<td align="center">40V</td>
+<td align="center">3A</td>
+<td>肖特基，电源整流</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>选型时反向耐压至少留 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.5</mn><mo>∼</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1.5 \sim 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1.5</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span> 倍余量。比如 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>220</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">220\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">220</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 市电整流，峰值电压约 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>311</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">311\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">311</span><span class="mord text"><span class="mord">V</span></span></span></span></span>，至少用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>600</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">600\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">600</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 耐压的整流管。</p>
+</blockquote>
+<hr>
+<h2>九、稳压二极管（齐纳二极管）</h2>
+<p>把普通二极管的反向击穿这个"缺陷"，故意做成稳定可控的特性——这就是稳压二极管。</p>
+<h3>基本功能</h3>
+<p>稳压管<strong>反向接在电路中</strong>，工作在击穿区：</p>
+<ul>
+<li>当反向电压低于稳压值时，不导通（正常反向截止）</li>
+<li>当反向电压达到稳压值（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>z</mi></msub></mrow><annotation encoding="application/x-tex">V_z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>）时，二极管击穿导通，但<strong>不损坏</strong></li>
+<li>击穿后，流过管子的电流可以在很大范围内变化，而两端电压<strong>保持不变</strong>（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><msub><mi>V</mi><mi>z</mi></msub></mrow><annotation encoding="application/x-tex">\approx V_z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>）</li>
+</ul>
+<h3>最简单的稳压电路</h3>
+<blockquote>
+<p>电源 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{in}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> → 限流电阻 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span></span></span></span> → 输出 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><msub><mi>V</mi><mi>z</mi></msub></mrow><annotation encoding="application/x-tex">= V_z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>），同时 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 经稳压管 D（反向接，阴极朝 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{in}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>）到 GND。</p>
+</blockquote>
+<p><strong>工作原理</strong>：</p>
+<ol>
+<li>限流电阻 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span></span></span></span> 和稳压管 D 串联</li>
+<li>当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{in}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 稳定时，稳压管击穿，电流通过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span></span></span></span> 流入稳压管到地，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 被钳在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>z</mi></msub></mrow><annotation encoding="application/x-tex">V_z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+<li>当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{in}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 升高：多出来的电压全部落在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span></span></span></span> 上（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span></span></span></span> 两端电压变大），稳压管电流自动增大但电压不变 → <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 纹丝不动</li>
+<li>当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{in}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 略微降低（但不低于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>z</mi></msub></mrow><annotation encoding="application/x-tex">V_z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>）：稳压管电流减小，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span></span></span></span> 两端电压变小 → <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 依然纹丝不动</li>
+</ol>
+<blockquote>
+<p>限流电阻 <strong>必须要有</strong>——没有它，稳压管击穿后电流无限增大，立即烧毁。</p>
+</blockquote>
+<h3>稳压管的选型要点</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>标称稳压值 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>z</mi></msub></mrow><annotation encoding="application/x-tex">V_z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></strong></td>
+<td>反向击穿后的稳定电压</td>
+</tr>
+<tr>
+<td><strong>最小工作电流 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mrow><mi>z</mi><mo stretchy="false">(</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">I_{z(min)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0385em;vertical-align:-0.3552em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0785em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">min</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span></strong></td>
+<td>稳压管要进入击穿稳压区至少需要这个电流</td>
+</tr>
+<tr>
+<td><strong>最大耗散功率 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mrow><mi>z</mi><mo stretchy="false">(</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">P_{z(max)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0385em;vertical-align:-0.3552em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span></strong></td>
+<td>超过会烧毁管子，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>=</mo><msub><mi>P</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>÷</mo><msub><mi>V</mi><mi>z</mi></msub></mrow><annotation encoding="application/x-tex">I_{max} = P_{max} \div V_z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0785em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">÷</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+</tr>
+<tr>
+<td><strong>温度系数</strong></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>z</mi></msub><mo>&#x3C;</mo><mn>5.6</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">V_z &#x3C; 5.6\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&#x3C;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">5.6</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 时负温度系数，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>z</mi></msub><mo>></mo><mn>5.6</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">V_z > 5.6\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">5.6</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 时正温度系数</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🔧 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5.6</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">5.6\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">5.6</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 左右的稳压管温度系数接近于零——如果需要精准稳定、温度变化大的场合，优先选 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5.6</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">5.6\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">5.6</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 左右的稳压管。</p>
+</blockquote>
+<h3>稳压管 vs LDO（线性稳压器）</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>稳压二极管</th>
+<th>LDO (如 AMS1117)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>精度</td>
+<td>一般（5%~10%）</td>
+<td>很高（1%~2%）</td>
+</tr>
+<tr>
+<td>输出电流</td>
+<td>小（mA 级）</td>
+<td>大（几百 mA ~ 几 A）</td>
+</tr>
+<tr>
+<td>电路复杂度</td>
+<td>极简（一个电阻 + 一个管子）</td>
+<td>需要输入输出电容</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>参考电压、简易稳压</td>
+<td>芯片供电、大电流供电</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>稳压管适合给运放提供参考电压、给 MOS 管栅极做钳位保护、简易的过压保护电路。给芯片供电还是用 LDO。</p>
+</blockquote>
+<hr>
+<h2>总结</h2>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>结构</td>
+<td>PN 结——P 型（空穴导电）+ N 型（电子导电），交界面形成耗尽层</td>
+</tr>
+<tr>
+<td>核心功能</td>
+<td>单向导电：P→N 导通（需超 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.7</mn><mtext>V</mtext></mrow><annotation encoding="application/x-tex">0.7\text{V}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">0.7</span><span class="mord text"><span class="mord">V</span></span></span></span></span> 门槛），N→P 截止</td>
+</tr>
+<tr>
+<td>漏电流</td>
+<td>反向时微小的少子漂移电流，随温度升高急剧增大</td>
+</tr>
+<tr>
+<td>半波整流</td>
+<td>1 个二极管，只输出正半周，效率 31.8%</td>
+</tr>
+<tr>
+<td>全波整流</td>
+<td>4 个二极管组成桥式，正负半周都利用，效率 63.7%</td>
+</tr>
+<tr>
+<td>钳位</td>
+<td>电容 + 二极管把波形整体抬高或压低到固定电位</td>
+</tr>
+<tr>
+<td>续流</td>
+<td>感性负载反并联二极管，关断时提供安全放电路径</td>
+</tr>
+<tr>
+<td>反向耐压</td>
+<td>超过会雪崩击穿；普通管击穿 = 损坏，稳压管击穿 = 正常工作</td>
+</tr>
+<tr>
+<td>稳压二极管</td>
+<td>专门在反向击穿区工作，两端电压稳定在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>z</mi></msub></mrow><annotation encoding="application/x-tex">V_z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.044em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，需配合限流电阻使用</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>二极管的单向导电性看似简单，但只要理解透彻，就能组合出整流、钳位、续流、稳压、限幅、防反接等无数实用电路——一个器件，千万种用法。</em></p>
+</blockquote>39:["$","div",null,{"className":"prose prose-slate dark:prose-invert prose-base md:prose-lg max-w-none text-slate-800 dark:text-slate-200 font-serif transition-colors duration-700 leading-relaxed scroll-smooth","dangerouslySetInnerHTML":{"__html":"$3d"}}]
+3a:["$","div",null,{"className":"mt-10 md:mt-12","children":["$","$L3e",null,{}]}]
+3b:["$","aside",null,{"className":"w-full lg:w-[320px] flex flex-col gap-6 flex-shrink-0","children":[["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl text-center","children":[["$","div",null,{"className":"w-20 h-20 mx-auto rounded-full p-1 bg-gradient-to-tr from-indigo-500 to-purple-500 shadow-md mb-4 hover:rotate-3 transition-transform","children":["$","img",null,{"src":"https://bu.dusays.com/2026/07/03/6a47641290190.png","alt":"avatar","className":"w-full h-full rounded-full object-cover bg-white"}]}],["$","h3",null,{"className":"text-xl font-bold text-slate-900 dark:text-white mb-2","children":"Iustitiae"}],["$","p",null,{"className":"text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium mb-4","children":"在代码、单片机，电机控制模拟间穿梭的普通人。近期正埋头于 freerots学习。"}],["$","$L3f",null,{}]]}],["$","$L40",null,{}],["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl","children":[["$","div",null,{"className":"flex justify-between items-center mb-6","children":["$","h3",null,{"className":"text-lg font-black text-slate-800 dark:text-white tracking-wider","children":[2026,"年",7,"月"]}]}],["$","div",null,{"className":"grid grid-cols-7 gap-1 mb-4 text-center","children":[["$","div","一",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"一"}],["$","div","二",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"二"}],["$","div","三",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"三"}],["$","div","四",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"四"}],["$","div","五",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"五"}],["$","div","六",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"六"}],["$","div","日",{"className":"text-[10px] font-black text-slate-400 uppercase","children":"日"}]]}],["$","div",null,{"className":"grid grid-cols-7 gap-y-3 gap-x-1 text-center","children":[["$","div","0",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8"}]}],["$","div","1",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8"}]}],["$","div","2",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":1}]}],["$","div","3",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":2}]}],["$","div","4",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":3}]}],["$","div","5",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":4}]}],["$","div","6",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":5}]}],"$L41","$L42","$L43","$L44","$L45","$L46","$L47","$L48","$L49","$L4a","$L4b","$L4c","$L4d","$L4e","$L4f","$L50","$L51","$L52","$L53","$L54","$L55","$L56","$L57","$L58","$L59","$L5a"]}]]}],"$L5b"]}]
+41:["$","div","7",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":6}]}]
+42:["$","div","8",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":7}]}]
+43:["$","div","9",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":8}]}]
+44:["$","div","10",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":9}]}]
+45:["$","div","11",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":10}]}]
+46:["$","div","12",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":11}]}]
+47:["$","div","13",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":12}]}]
+48:["$","div","14",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":13}]}]
+49:["$","div","15",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":14}]}]
+4a:["$","div","16",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":15}]}]
+4b:["$","div","17",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":16}]}]
+4c:["$","div","18",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":17}]}]
+4d:["$","div","19",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":18}]}]
+4e:["$","div","20",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":19}]}]
+4f:["$","div","21",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":20}]}]
+50:["$","div","22",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        bg-indigo-500 text-white shadow-lg shadow-indigo-500/40 scale-110","children":21}]}]
+51:["$","div","23",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":22}]}]
+52:["$","div","24",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":23}]}]
+53:["$","div","25",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":24}]}]
+54:["$","div","26",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":25}]}]
+55:["$","div","27",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":26}]}]
+56:["$","div","28",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":27}]}]
+57:["$","div","29",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":28}]}]
+58:["$","div","30",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":29}]}]
+59:["$","div","31",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":30}]}]
+5a:["$","div","32",{"className":"flex justify-center items-center","children":["$","div",null,{"className":"w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black transition-all duration-300\n                        text-slate-600 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-700","children":31}]}]
+5b:["$","div",null,{"className":"bg-white/60 dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-white/40 dark:border-white/10 shadow-xl","children":[["$","h3",null,{"className":"font-black text-slate-900 dark:text-white mb-4 border-l-4 border-indigo-500 pl-2 text-xs tracking-widest uppercase","children":"Recent Records"}],["$","div",null,{"className":"space-y-4","children":[["$","$L37","inductor-basics",{"href":"/chatter/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80/inductor-basics","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"电感基础——从电磁感应到LC滤波的通俗讲解"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-07-21 11:00:00"}]]}],["$","$L37","capacitor-basics",{"href":"/chatter/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80/capacitor-basics","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"电容基础——从储能到滤波的通俗讲解"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-07-21 10:00:00"}]]}],["$","$L37","chatter_1783403941",{"href":"/chatter/%E5%B5%8C%E5%85%A5%E5%BC%8F/chatter_1783403941","className":"group block","children":[["$","h4",null,{"className":"text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2","children":"有关嵌入式产品编号烧录的必要性和相关流程"}],["$","p",null,{"className":"text-[10px] text-slate-400 dark:text-slate-500 mt-1 font-bold uppercase","children":"2026-07-07 13:59:01"}]]}]]}]]}]
+31:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+5c:I[27201,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"IconMark"]
+2e:null
+33:[["$","title","0",{"children":"Iustitiae の Blog"}],["$","meta","1",{"name":"description","content":"在代码、单片机，电机控制模拟间穿梭的普通人。近期正埋头于 freerots学习。"}],["$","link","2",{"rel":"icon","href":"https://bu.dusays.com/2026/07/03/6a47641290190.png"}],["$","link","3",{"rel":"apple-touch-icon","href":"https://bu.dusays.com/2026/07/03/6a47641290190.png"}],["$","$L5c","4",{}]]

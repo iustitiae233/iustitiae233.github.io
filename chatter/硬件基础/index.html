@@ -1,0 +1,814 @@
+<!DOCTYPE html><html lang="zh-CN" class="geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__variable noto_serif_sc_4b5b2b75-module__o_XRgq__variable h-full antialiased"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/_next/static/media/caa3a2e1cccd8315-s.p.09~u27dqhyhd6.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/_next/static/media/f112ed7f0b91582f-s.p.0xqqmnf1a3x8p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" as="image" href="https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png"/><link rel="stylesheet" href="/_next/static/chunks/145o.lsi86g0w.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/chunks/066jf0nk75nic.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/chunks/0~ydk.tni6snc.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/chunks/0tfrc-m6pdzbp.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/07tw6o_-xxc4_.js"/><script src="/_next/static/chunks/035q45a12g650.js" async=""></script><script src="/_next/static/chunks/0hik2ui___94s.js" async=""></script><script src="/_next/static/chunks/0rnfyhemmg~y5.js" async=""></script><script src="/_next/static/chunks/turbopack-0dy6t1ac.z4gd.js" async=""></script><script src="/_next/static/chunks/0eth2-x0x8z74.js" async=""></script><script src="/_next/static/chunks/0._jywihkh2te.js" async=""></script><script src="/_next/static/chunks/0sloe3q.6y95c.js" async=""></script><script src="/_next/static/chunks/00-csyj9a6t-x.js" async=""></script><script src="/_next/static/chunks/14v0a01oryfti.js" async=""></script><meta name="next-size-adjust" content=""/><title>Iustitiae の Blog</title><meta name="description" content="在代码、单片机，电机控制模拟间穿梭的普通人。近期正埋头于 freerots学习。"/><link rel="icon" href="https://bu.dusays.com/2026/07/03/6a47641290190.png"/><link rel="apple-touch-icon" href="https://bu.dusays.com/2026/07/03/6a47641290190.png"/><style>
+              /* Splash Screen 初始隐藏内容，防止闪烁 */
+              #app-mount-root { opacity: 0; visibility: hidden; pointer-events: none; }
+
+              /* JS 正常：splash 动画完成后添加 splash-seen 类，内容显示 */
+              html.splash-seen #app-mount-root {
+                animation: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+              }
+
+              /*
+               * 🔑 兜底机制：纯 CSS 超时自动显示
+               * 6 秒后强制显示内容（正常 splash 只需 2.7 秒）
+               * 即使 React 完全崩溃、JS 被禁用，内容也能自动恢复
+               * 注意：此动画仅在 splash-seen 类缺失时生效
+               */
+              @keyframes splashAutoReveal {
+                0%, 95% { visibility: hidden; pointer-events: none; }
+                100% { visibility: visible; pointer-events: auto; }
+              }
+              html:not(.splash-seen) #app-mount-root {
+                animation: splashAutoReveal 6s forwards;
+              }
+            </style><script>(self.__next_s=self.__next_s||[]).push([0,{"children":"\n            try {\n              if (sessionStorage.getItem('hasSeenSplash') === 'true') {\n                document.documentElement.classList.add('splash-seen');\n              }\n            } catch (e) {}\n\n            // 🔑 兜底：4 秒后强制显示（即使 SplashScreen 组件崩溃）\n            setTimeout(function() {\n              if (!document.documentElement.classList.contains('splash-seen')) {\n                document.documentElement.classList.add('splash-seen');\n              }\n            }, 4000);\n          ","id":"handle-splash-logic"}])</script><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="w-screen overflow-x-hidden min-h-full flex flex-col relative transition-colors duration-1000 bg-slate-50 dark:bg-slate-950 font-serif"><div hidden=""><!--$--><!--/$--></div><div class="invisible"><div id="app-mount-root" class="flex-1 flex flex-col transition-opacity duration-1000"><div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden"><div class="absolute inset-0 z-[-10] overflow-hidden"><div class="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out transform-gpu" style="background-image:url(https://bu.dusays.com/2026/07/03/6a476387badf4.jpg);background-size:cover;background-position:center;opacity:1;visibility:visible"></div><div class="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out transform-gpu" style="background-image:url(https://bu.dusays.com/2026/07/03/6a4764cba83e3.png);background-size:cover;background-position:center;opacity:0;visibility:visible"></div><div class="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out transform-gpu" style="background-image:url(https://bu.dusays.com/2026/07/03/6a4764cd53bd2.jpg);background-size:cover;background-position:center;opacity:0;visibility:visible"></div></div><div class="absolute inset-0 z-[-9] bg-white/5 dark:bg-slate-900/10 backdrop-blur-[2px] transition-colors duration-1000"></div><div class="absolute inset-0 z-[-8] opacity-60 dark:opacity-20 mix-blend-color transition-opacity duration-1000 transform-gpu" style="background:linear-gradient(-45deg, #a18cd1, #fbc2eb, #a1c4fd, #c2e9fb);background-size:400% 400%;animation:gradientMove 15s ease infinite"></div><div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/40 dark:bg-indigo-900/20 blur-[100px] rounded-full z-[-7] md:mix-blend-overlay"></div><div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-400/30 dark:bg-purple-900/30 blur-[100px] rounded-full z-[-7] md:mix-blend-overlay"></div><div class="hidden md:block absolute inset-0 w-full h-full"><div class="transition-opacity duration-1000 opacity-100"></div><div class="transition-opacity duration-1000 opacity-0"></div></div></div><div class="hidden md:block"></div><div class="hidden md:block"></div><div class="relative z-10 flex-1 flex flex-col"><div class="min-h-screen relative pb-10"><header class="hidden md:block w-full fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b translate-y-0 bg-white/40 dark:bg-slate-900/50 backdrop-blur-xl border-white/20 dark:border-white/5 shadow-sm"><div class="w-[90%] max-w-6xl mx-auto h-16 flex items-center justify-between px-4 sm:px-[30px] box-border"><a class="text-xl font-black text-slate-800 dark:text-white tracking-tighter hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300" href="/">Iustitiae<span class="text-indigo-500 mx-1">の</span>Blog</a><nav class="flex gap-8 text-sm font-bold"><a class="relative py-1 transition-colors text-slate-700 dark:text-slate-200 hover:text-indigo-600" href="/">首页</a><a class="relative py-1 transition-colors text-slate-700 dark:text-slate-200 hover:text-indigo-600" href="/projects/">项目</a><a class="relative py-1 transition-colors text-slate-700 dark:text-slate-200 hover:text-indigo-600" href="/timeline/">归档</a><a class="relative py-1 transition-colors text-slate-700 dark:text-slate-200 hover:text-indigo-600" href="/photowall/">照片墙</a><a class="relative py-1 transition-colors text-slate-700 dark:text-slate-200 hover:text-indigo-600" href="/music/">音乐</a><a class="relative py-1 transition-colors text-slate-700 dark:text-slate-200 hover:text-indigo-600" href="/moments/">说说</a><a class="relative py-1 transition-colors text-slate-700 dark:text-slate-200 hover:text-indigo-600" href="/chatter/">笔记</a><a class="relative py-1 transition-colors text-slate-700 dark:text-slate-200 hover:text-indigo-600" href="/about/">关于</a></nav></div></header><div class="md:hidden"><button class="fixed top-1/2 right-0 -translate-y-1/2 w-12 h-28 bg-indigo-500/80 backdrop-blur-xl rounded-l-full shadow-[-5px_0_20px_rgba(99,102,241,0.4)] z-[60] flex items-center justify-center transition-all duration-500 border-y border-l border-white/30 touch-none translate-x-0 opacity-100" draggable="false" style="transform:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:pan-x"><div class="flex flex-col gap-1.5 items-center justify-center mr-2"><div class="w-1.5 h-1.5 bg-white/90 rounded-full"></div><div class="w-1.5 h-1.5 bg-white/90 rounded-full"></div><div class="w-1.5 h-1.5 bg-white/90 rounded-full"></div></div></button></div><div style="opacity:0;transform:translateY(4px)"><div class="w-full max-w-7xl mx-auto px-3 sm:px-10 py-6 md:py-10 pt-24 md:pt-28 relative z-10"><div class="flex items-center justify-center gap-2 mb-3"><a class="text-xs md:text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors flex items-center gap-1" href="/chatter/"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg> 所有笔记本</a><span class="text-slate-300 dark:text-slate-600">/</span><span class="text-xs md:text-sm font-black text-indigo-600 dark:text-indigo-400 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-open" aria-hidden="true"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"></path></svg> <!-- -->硬件基础</span></div><div class="mb-8 md:mb-14 text-center"><h1 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-2 md:mb-4 tracking-tighter">硬件基础</h1></div><div class="mb-8 md:mb-12 flex flex-col items-center gap-5 md:gap-8"><div class="relative w-full max-w-lg group px-2 md:px-0"><input type="text" placeholder="搜寻被遗忘的思绪..." class="w-full bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/40 dark:border-white/5 rounded-xl md:rounded-2xl px-4 md:px-6 py-3 md:py-4 pl-10 md:pl-14 text-sm md:text-base text-slate-800 dark:text-white shadow-lg md:shadow-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder-slate-400 font-medium" value=""/><svg class="w-4 h-4 md:w-6 md:h-6 absolute left-5 md:left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div><div class="flex flex-wrap justify-center gap-1.5 md:gap-2 px-2 md:px-0"><button class="px-3 py-1.5 md:px-5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all duration-500 border bg-indigo-500 text-white border-indigo-500 shadow-md md:shadow-lg md:shadow-indigo-500/30 scale-105">全部</button><button class="px-3 py-1.5 md:px-5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all duration-500 border bg-white/30 dark:bg-slate-800/30 text-slate-600 dark:text-slate-400 border-white/20 dark:border-white/5 hover:bg-white/60 dark:hover:bg-slate-700/60"># 硬件基础</button><button class="px-3 py-1.5 md:px-5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all duration-500 border bg-white/30 dark:bg-slate-800/30 text-slate-600 dark:text-slate-400 border-white/20 dark:border-white/5 hover:bg-white/60 dark:hover:bg-slate-700/60"># 二极管</button><button class="px-3 py-1.5 md:px-5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all duration-500 border bg-white/30 dark:bg-slate-800/30 text-slate-600 dark:text-slate-400 border-white/20 dark:border-white/5 hover:bg-white/60 dark:hover:bg-slate-700/60"># 整流</button><button class="px-3 py-1.5 md:px-5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all duration-500 border bg-white/30 dark:bg-slate-800/30 text-slate-600 dark:text-slate-400 border-white/20 dark:border-white/5 hover:bg-white/60 dark:hover:bg-slate-700/60"># 稳压</button><button class="px-3 py-1.5 md:px-5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all duration-500 border bg-white/30 dark:bg-slate-800/30 text-slate-600 dark:text-slate-400 border-white/20 dark:border-white/5 hover:bg-white/60 dark:hover:bg-slate-700/60"># 电感</button><button class="px-3 py-1.5 md:px-5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all duration-500 border bg-white/30 dark:bg-slate-800/30 text-slate-600 dark:text-slate-400 border-white/20 dark:border-white/5 hover:bg-white/60 dark:hover:bg-slate-700/60"># LC滤波</button><button class="px-3 py-1.5 md:px-5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all duration-500 border bg-white/30 dark:bg-slate-800/30 text-slate-600 dark:text-slate-400 border-white/20 dark:border-white/5 hover:bg-white/60 dark:hover:bg-slate-700/60"># 电容</button><button class="px-3 py-1.5 md:px-5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all duration-500 border bg-white/30 dark:bg-slate-800/30 text-slate-600 dark:text-slate-400 border-white/20 dark:border-white/5 hover:bg-white/60 dark:hover:bg-slate-700/60"># 滤波</button></div></div><div class="columns-2 lg:columns-3 gap-3 md:gap-6 space-y-3 md:space-y-6"><div class="break-inside-avoid" style="opacity:0;transform:scale(0.9)"><a class="block rounded-2xl md:rounded-[32px] bg-white/40 dark:bg-slate-800/40 backdrop-blur-2xl border border-white/50 dark:border-white/5 shadow-md md:shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden" href="/chatter/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80/diode-basics/"><div class="w-full h-28 md:h-52 overflow-hidden relative"><img src="https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png" alt="cover" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"/><div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div></div><div class="p-3 md:p-7"><div class="flex items-center justify-between mb-2 md:mb-4"><div class="text-[8px] md:text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider md:tracking-[0.2em] bg-indigo-500/5 dark:bg-indigo-400/10 px-1.5 py-0.5 md:px-3 md:py-1 rounded-md md:rounded-lg border border-indigo-500/10">2026-07-21 12:00:00</div></div><h3 class="text-sm md:text-xl font-bold text-slate-800 dark:text-white mb-1.5 md:mb-4 leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 md:line-clamp-none">二极管基础——从整流到稳压的通俗讲解</h3><div class="text-[10px] md:text-sm text-slate-600 dark:text-slate-300 leading-snug md:leading-relaxed line-clamp-4 md:line-clamp-5 opacity-90 font-medium italic">
+
+二极管的核心是**PN 结**——一块半导体上做出两种不同掺杂的区域。
+
+### P 型半导体和 N 型半导体
+
+纯硅（4 价元素）本身不导电——所有电子都被共价键绑死了。
+
+- **N 型**：在硅里掺入少量 5 价元素（如磷）。多出一个自由电子——这个电子可以到处跑，所以 N 型半导体靠**电子**导电。
+- **P 型**：在硅里掺入少量 3 价元素（如硼）。少了一个电子，留下一个&quot;空穴&quot;——相邻电子会跳过来填补这个空穴，原来的位置又形成新空穴。相当于空穴在反向移动，所以 P 型半导体靠**空穴**导电（等价于正电荷移动）。
+
+### PN 结的形成
+
+把 P 型和 N 型做到一起，交界面处会发生：
+
+1. N 区的自由电子扩散到 P 区，P 区的空穴扩散到 N 区
+2. 交界处 N 侧失去电子带**正电**，P 侧得到电子带**负电**
+3. 形成一个内建电场，阻止进一步扩散
+4. 这个没有自由载流子的区域叫**耗尽层**（也叫空间电荷区）
+
+这个结构就是 PN 结——二极管的物理本质。
+
+&gt; 💡 **通俗理解**：PN 结就像电路里的**单向阀/止回阀**。水只能从 P 往 N 方向流，反过来就会被堵死。
+
+---
+
+## 二、单向导电性——二极管的核心功能
+
+### 正向偏置（导通）
+
+P 接正极，N 接负极：
+
+- 外加电场削弱了内建电场
+- 耗尽层变薄
+- 电子从 N 区穿越 PN 结到 P 区，空穴从 P 区到 N 区
+- 电流流过
+
+**但二极管不是随便给点正向电压就导通的**。硅二极管存在一个**门槛电压（导通电压）**，约 $\mathbf{0.6\text{V} \sim 0.7\text{V}}$（锗管约 $0.2\text{V} \sim 0.3\text{V}$）。
+
+电压低于门槛值时，电流几乎为零。一旦超过门槛值，电流随电压指数级增长——微小的电压增加带来巨大的电流增加。
+
+正向导通后，二极管两端的压降基本锁定在 $\sim 0.7\text{V}$（硅管），不管电流多大（在额定范围内）变化都不大。
+
+### 反向偏置（截止）
+
+N 接正极，P 接负极：
+
+- 外加电场加强了内建电场
+- 耗尽层变宽
+- 几乎没有载流子能穿过
+- 电流约等于零
+
+&gt; 🔑 这就是单向导电性——电流只能从 P→N（阳极→阴极），不能反向。
+
+---
+
+## 三、漏电特性
+
+二极管反向偏置时不是绝对不导电——有微小的**反向漏电流**在流动。
+
+### 漏电流的来源
+
+- **少子漂移**：P 区里残留的少量电子被反向电场拉过 PN 结，N 区里残留的少量空穴被拉过去。这个电流非常小。
+- **表面漏电**：芯片表面污染、潮湿导致的沿表面漏电。
+- **温度效应**：温度每升高约 $10^\circ\text{C}$，反向漏电流翻一倍。
+
+### 量级
+
+| 二极管类型 | 典型反向漏电流 |
+|-----------|:-----------:|
+| 普通硅整流管 (1N4007) | nA ~ μA 级 |
+| 肖特基二极管 | μA ~ mA 级（漏电比普通管大很多） |
+| 小信号开关管 (1N4148) | 几十 nA |
+
+&gt; ⚠️ 肖特基二极管的正向压降低（$\sim 0.3\text{V}$）、开关速度快，但漏电流大很多。选型时要权衡。
+
+---
+
+## 四、半波整流电路
+
+把交流电变成直流电，最简单的做法就是半波整流。
+
+### 电路
+
+&gt; 交流输入 → 二极管 D → 负载电阻 R → 回到交流另一端
+
+### 工作原理
+
+交流电是正弦波——上半周电压为正，下半周电压为负。
+
+- **正半周**：二极管正向偏置 → 导通 → 电流流过负载 → 负载上有电压
+- **负半周**：二极管反向偏置 → 截止 → 没有电流 → 负载上电压为 0
+
+结果：输出只有正半周的波形——像正弦波被砍掉了一半，只剩一串半圆形凸起。
+
+### 半波整流的特点
+
+| 优点 | 缺点 |
+|------|------|
+| 电路简单，仅需一个二极管 | 浪费了一半的电能（负半周全丢了） |
+| 成本最低 | 输出电压脉动大，平均值只有峰值电压的约 **31.8%** |
+| | 需要很大的滤波电容才能平滑 |
+
+&gt; 半波整流一般只用在功率极小、对纹波要求不高的场合。
+
+---
+
+## 五、全波整流电路
+
+把交流电的两个半周都利用起来，效率翻倍。
+
+### 桥式全波整流（最常用）
+
+用 4 个二极管搭成一个&quot;桥&quot;：
+
+```
+        D1      D2
+交流 L ──┬──▶|───┬───|◀──┐
+         │        │        │
+         │        ├── 输出+ ──→ 负载 R
+         │        │        │
+交流 N ──┼──▶|───┼───|◀──┤
+        D3      D4      │
+         │               │
+         └─── 输出- ─────┘
+```
+
+### 工作原理
+
+**正半周**（上正下负）：D1 和 D4 导通，D2 和 D3 截止。电流走 D1 → 负载 → D4。
+
+**负半周**（上负下正）：D2 和 D3 导通，D1 和 D4 截止。电流走 D3 → 负载 → D2。
+
+注意：**无论正半周还是负半周，流过负载的电流方向始终相同**——这就是整流的核心。
+
+### 输出波形
+
+输出不再是&quot;一半一半&quot;，而是把负半周翻到了上面——一串连续的半圆形脉冲。每个交流周期变成两个直流脉冲，频率翻倍。
+
+### 对比
+
+| | 半波整流 | 桥式全波整流 |
+|------|------|------|
+| 二极管数量 | 1 | 4 |
+| 输出电压平均值 | $\approx 0.318 \times V_p$ | $\approx 0.637 \times V_p$ |
+| 脉动频率 | = 输入频率 | = $2 \times$ 输入频率 |
+| 滤波难度 | 难（需大电容） | 易（频率高，电容可更小） |
+| 二极管承受反压 | $V_p$ | $V_p$（每管只受一半周期） |
+
+### 实际应用
+
+几乎所有电子设备的电源适配器内部都有桥式整流电路——$220\text{V}$ 交流进来，先经变压器降压，再过桥式整流变脉动直流，最后用电容滤波得到平滑直流。
+
+---
+
+## 六、二极管钳位功能
+
+钳位（Clamping），就是把信号的最高或最低电位&quot;锁&quot;在一个固定值上。
+
+### 正向钳位
+
+&gt; 输入 → 电容 C → 输出 $V_{out}$，同时 $V_{out}$ 经二极管 D（阳极朝 GND）到地。
+
+**原理**：
+
+- 信号负半周时，二极管导通，电容被充电到信号的负峰值
+- 信号正半周时，二极管截止，输出 = 输入信号 + 电容上存的电压
+- 结果：整个波形被往上&quot;抬&quot;，最低点被钳在约 $-0.7\text{V}$（二极管导通压降）
+
+&gt; 这个电路能把一个在 $0\text{V}$ 上下振荡的交流信号整体向上平移，使最低点接近 $0\text{V}$。常用于需要单电源供电的交流放大电路。
+
+### 反向钳位
+
+把二极管反过来（阴极朝外），就能把波形的最高点钳在 $+0.7\text{V}$。
+
+### 应用场景
+
+- **ADC 输入保护**：钳位二极管把输入电压限制在 $0\text{V} \sim V_{CC}+0.7\text{V}$ 之间，防止烧毁 ADC 引脚
+- **电平移位**：在不失真的前提下改变信号的直流偏置
+- **ESD 保护**：把静电放电的高压脉冲钳到安全范围
+
+---
+
+## 七、二极管控制电流方向——续流与防反接
+
+### 续流二极管
+
+前面电感章节提过——在继电器线圈、电机、电磁阀等感性负载两端，**反向并联一个二极管**。
+
+正常工作时，二极管反偏不导通。关断瞬间，电感产生反电动势——这个电压恰好让二极管正向导通，给电感提供一个低阻抗续流回路。电流在线圈 → 二极管 → 线圈之间循环衰减，把磁能安全消耗掉。
+
+&gt; **没有续流二极管**：关断瞬间反电动势直接击穿驱动三极管 / MOS 管。
+
+### 防反接保护
+
+把二极管串联在电源正极线上（阳极接电源，阴极接电路）：
+
+- 电源正接：二极管正向导通，电路正常工作（二极管上会消耗 $\sim 0.7\text{V}$）
+- 电源反接：二极管反向截止，电流流不过去，电路不工作也不会烧
+
+&gt; 大电流场合用 MOS 管代替二极管做防反接——MOS 管导通电阻毫欧级，几乎没有压降损耗。
+
+---
+
+## 八、最大反向耐压
+
+每个二极管都有一个**反向击穿电压**（叫法很多：最大反向耐压、反向击穿电压、$V_{RRM}$、$V_{BR}$）。
+
+### 含义
+
+加上超过这个值的反向电压，PN 结的耗尽层会被强行&quot;撕开&quot;——发生**雪崩击穿**：反向电压加速了耗尽层中本来就有的少量载流子，它们撞出更多载流子，像雪崩一样指数级放大电流。
+
+### 关键：击穿不等于损坏！
+
+- **普通二极管**：击穿通常意味着永久损坏（热烧毁）
+- **稳压二极管**：专门设计在击穿区工作，它能承受击穿而不损坏（后文详解）
+
+### 常用型号速查
+
+| 型号 | 最大反向耐压 | 最大正向电流 | 典型用途 |
+|------|:----------:|:----------:|------|
+| 1N4148 | 100V | 200mA | 小信号开关 |
+| 1N4007 | 1000V | 1A | 工频整流 |
+| 1N5819 | 40V | 1A | 肖特基，低压整流 |
+| SS34 | 40V | 3A | 肖特基，电源整流 |
+
+&gt; 选型时反向耐压至少留 $1.5 \sim 2$ 倍余量。比如 $220\text{V}$ 市电整流，峰值电压约 $311\text{V}$，至少用 $600\text{V}$ 耐压的整流管。
+
+---
+
+## 九、稳压二极管（齐纳二极管）
+
+把普通二极管的反向击穿这个&quot;缺陷&quot;，故意做成稳定可控的特性——这就是稳压二极管。
+
+### 基本功能
+
+稳压管**反向接在电路中**，工作在击穿区：
+
+- 当反向电压低于稳压值时，不导通（正常反向截止）
+- 当反向电压达到稳压值（$V_z$）时，二极管击穿导通，但**不损坏**
+- 击穿后，流过管子的电流可以在很大范围内变化，而两端电压**保持不变**（$\approx V_z$）
+
+### 最简单的稳压电路
+
+&gt; 电源 $V_{in}$ → 限流电阻 $R$ → 输出 $V_{out}$（$= V_z$），同时 $V_{out}$ 经稳压管 D（反向接，阴极朝 $V_{in}$）到 GND。
+
+**工作原理**：
+
+1. 限流电阻 $R$ 和稳压管 D 串联
+2. 当 $V_{in}$ 稳定时，稳压管击穿，电流通过 $R$ 流入稳压管到地，$V_{out}$ 被钳在 $V_z$
+3. 当 $V_{in}$ 升高：多出来的电压全部落在 $R$ 上（$R$ 两端电压变大），稳压管电流自动增大但电压不变 → $V_{out}$ 纹丝不动
+4. 当 $V_{in}$ 略微降低（但不低于 $V_z$）：稳压管电流减小，$R$ 两端电压变小 → $V_{out}$ 依然纹丝不动
+
+&gt; 限流电阻 **必须要有**——没有它，稳压管击穿后电流无限增大，立即烧毁。
+
+### 稳压管的选型要点
+
+| 参数 | 含义 |
+|------|------|
+| **标称稳压值 $V_z$** | 反向击穿后的稳定电压 |
+| **最小工作电流 $I_{z(min)}$** | 稳压管要进入击穿稳压区至少需要这个电流 |
+| **最大耗散功率 $P_{z(max)}$** | 超过会烧毁管子，$I_{max} = P_{max} \div V_z$ |
+| **温度系数** | $V_z &lt; 5.6\text{V}$ 时负温度系数，$V_z &gt; 5.6\text{V}$ 时正温度系数 |
+
+&gt; 🔧 $5.6\text{V}$ 左右的稳压管温度系数接近于零——如果需要精准稳定、温度变化大的场合，优先选 $5.6\text{V}$ 左右的稳压管。
+
+### 稳压管 vs LDO（线性稳压器）
+
+| | 稳压二极管 | LDO (如 AMS1117) |
+|------|------|------|
+| 精度 | 一般（5%~10%） | 很高（1%~2%） |
+| 输出电流 | 小（mA 级） | 大（几百 mA ~ 几 A） |
+| 电路复杂度 | 极简（一个电阻 + 一个管子） | 需要输入输出电容 |
+| 适用场景 | 参考电压、简易稳压 | 芯片供电、大电流供电 |
+
+&gt; 稳压管适合给运放提供参考电压、给 MOS 管栅极做钳位保护、简易的过压保护电路。给芯片供电还是用 LDO。
+
+---
+
+## 总结
+
+| 概念 | 要点 |
+|------|------|
+| 结构 | PN 结——P 型（空穴导电）+ N 型（电子导电），交界面形成耗尽层 |
+| 核心功能 | 单向导电：P→N 导通（需超 $0.7\text{V}$ 门槛），N→P 截止 |
+| 漏电流 | 反向时微小的少子漂移电流，随温度升高急剧增大 |
+| 半波整流 | 1 个二极管，只输出正半周，效率 31.8% |
+| 全波整流 | 4 个二极管组成桥式，正负半周都利用，效率 63.7% |
+| 钳位 | 电容 + 二极管把波形整体抬高或压低到固定电位 |
+| 续流 | 感性负载反并联二极管，关断时提供安全放电路径 |
+| 反向耐压 | 超过会雪崩击穿；普通管击穿 = 损坏，稳压管击穿 = 正常工作 |
+| 稳压二极管 | 专门在反向击穿区工作，两端电压稳定在 $V_z$，需配合限流电阻使用 |
+
+&gt; *二极管的单向导电性看似简单，但只要理解透彻，就能组合出整流、钳位、续流、稳压、限幅、防反接等无数实用电路——一个器件，千万种用法。*
+</div><div class="mt-3 md:mt-6 flex flex-wrap gap-1 md:gap-2"><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->硬件基础</span><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->二极管</span><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->整流</span><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->稳压</span></div></div></a></div><div class="break-inside-avoid" style="opacity:0;transform:scale(0.9)"><a class="block rounded-2xl md:rounded-[32px] bg-white/40 dark:bg-slate-800/40 backdrop-blur-2xl border border-white/50 dark:border-white/5 shadow-md md:shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden" href="/chatter/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80/inductor-basics/"><div class="w-full h-28 md:h-52 overflow-hidden relative"><img src="https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png" alt="cover" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"/><div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div></div><div class="p-3 md:p-7"><div class="flex items-center justify-between mb-2 md:mb-4"><div class="text-[8px] md:text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider md:tracking-[0.2em] bg-indigo-500/5 dark:bg-indigo-400/10 px-1.5 py-0.5 md:px-3 md:py-1 rounded-md md:rounded-lg border border-indigo-500/10">2026-07-21 11:00:00</div></div><h3 class="text-sm md:text-xl font-bold text-slate-800 dark:text-white mb-1.5 md:mb-4 leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 md:line-clamp-none">电感基础——从电磁感应到LC滤波的通俗讲解</h3><div class="text-[10px] md:text-sm text-slate-600 dark:text-slate-300 leading-snug md:leading-relaxed line-clamp-4 md:line-clamp-5 opacity-90 font-medium italic">
+
+电感就是把导线绕成线圈——一圈一圈地绕在磁芯或骨架上。它的物理结构就是这么简单。
+
+但这一绕，就绕出了一个**电磁感应**效应：
+
+- 电流通过线圈 → 产生磁场（电能变磁能）
+- 磁场变化 → 在线圈中感应出电压（磁能变电能）
+
+&gt; 💡 **通俗类比**：电感就像电路里的**惯性飞轮**。你推飞轮让它加速，它不肯立刻加速——有一股抗力；等它转起来了，你想让它停下来，它又不肯停——继续往前冲。电感对电流的态度一模一样：不让电流突变。
+
+### 电感的关键参数
+
+| 参数 | 含义 |
+|------|------|
+| **电感量 (L)** | 储存磁场能量的能力，单位亨利 (H)。常用毫亨 (mH)、微亨 (μH) |
+| **饱和电流** | 磁芯磁化到极限后电感量暴跌的临界电流，选型非常关键 |
+| **直流电阻 (DCR)** | 线圈本身的铜线电阻，越小越好 |
+| **品质因数 Q** | 衡量电感&quot;纯不纯&quot;的指标，$Q = \frac{\omega L}{R}$，越大越接近理想电感 |
+
+---
+
+## 二、核心特性：电感只限制电流变化速度，但不限制电流最大值
+
+这是电感最根本的特性，源自电磁感应定律：
+
+$$V = L \cdot \frac{dI}{dt}$$
+
+翻译成人话：**电感两端的电压，等于电感量乘以电流变化的速率。**
+
+### 对比电容（两个公式一定要对着看）
+
+| | 电容 | 电感 |
+|------|------|------|
+| **基本公式** | $I = C \cdot \frac{dV}{dt}$ | $V = L \cdot \frac{dI}{dt}$ |
+| **不能突变的是** | 电压 | 电流 |
+| **储能形式** | 电场能 | 磁场能 |
+| **稳态表现** | 断路（隔直） | 导线（通直） |
+| **瞬态表现** | 像导线 | 像断路（阻碍电流变化） |
+
+### &quot;只限速度，不限终点&quot;——这句话是关键
+
+电感反抗的是**电流的变化**，而不是**电流的大小**。
+
+举个直观例子——你把一个电感直接接到 $5\text{V}$ 电源两端：
+
+- 上电瞬间，电流从 $0$ 要开始增加，电感产生反向电压抵抗这个变化
+- 电流慢慢上升，上升的速度 $\frac{dI}{dt}$ 由 $\frac{V}{L}$ 决定
+- 只要你不切断电路，**电流会一直线性上升，直到被回路里唯一的电阻（导线电阻 + 电感自身 DCR）限制**
+- 最终稳态电流 $I = \frac{V}{R}$，和电感量 $L$ **完全无关**
+
+&gt; 🔑 **电感改变的是&quot;到达稳态的速度&quot;，不是&quot;稳态本身&quot;**。电感越大，电流上升越缓慢，但最终能达到的电流值完全由回路电阻决定。
+
+---
+
+## 三、电感回路的电阻突然变大——会发生什么？
+
+这是电感最&quot;凶猛&quot;的特性，也是开关电源和点火系统的核心原理。
+
+### 场景
+
+假设一个回路：$5\text{V}$ 电源 → 电感 $L$ → 开关 → 电阻 $R$ → GND。开关已经闭合很久，电感中流过稳定的电流 $I = 5\text{V}/R$。
+
+**突然把电阻换成一个极大的值**（或者直接把开关断开，相当于电阻变成无穷大）。
+
+### 发生了什么
+
+电感里面存储着磁场能量：
+
+$$E = \frac{1}{2} L I^2$$
+
+根据 $V = L \cdot \frac{dI}{dt}$：
+
+- 回路断开，电流要瞬间从 $I$ 变成 $0$
+- $\frac{dI}{dt}$ 趋近于**负无穷大**（电流变化速度极其恐怖）
+- 电感两端感应出的电压 $V = L \cdot \frac{dI}{dt}$ 也趋近于**无穷大**
+
+&gt; ⚡ 这就是为什么继电器线圈断开时会产生几百伏甚至上千伏的尖峰电压——能击穿半导体器件、打出电火花。
+
+### 这个特性不是坏事——恰恰是很多电路的核心
+
+- **Boost 升压电路**：故意利用这个特性。先让电流在线圈中建立起来，然后突然切断回路，电感&quot;不肯让电流消失&quot;，拼命在两端产生高电压把电流&quot;推出去&quot;，这股高压被引导到输出电容上，就实现了从低压到高压的转换。
+- **汽车点火系统**：$12\text{V}$ 电瓶通过点火线圈产生上万伏的高压，点燃汽油——靠的就是电感。
+
+### 保护措施：续流二极管
+
+在实际电路中，如果电感回路上有开关管（三极管、MOS 管），关断时电感的反电动势会击穿开关管。解决方案是在电感两端反向并联一个二极管——让电感在关断瞬间通过二极管形成低阻抗续流回路，把磁能安全消耗掉。
+
+---
+
+## 四、感抗计算公式
+
+在交流电路中，电感的&quot;阻抗&quot;叫**感抗**，记作 $X_L$：
+
+$$X_L = 2\pi f L$$
+
+| 符号 | 含义 | 单位 |
+|------|------|------|
+| $X_L$ | 感抗 | 欧姆 ($\Omega$) |
+| $f$ | 信号频率 | 赫兹 (Hz) |
+| $L$ | 电感量 | 亨利 (H) |
+
+### 与电容容抗的对比（反过来了！）
+
+| | 容抗 $X_c$ | 感抗 $X_L$ |
+|------|------|------|
+| **公式** | $X_c = \dfrac{1}{2\pi f C}$ | $X_L = 2\pi f L$ |
+| **频率升高** | 容抗 **减小** | 感抗 **增大** |
+| **频率降低** | 容抗 **增大** | 感抗 **减小** |
+| **直流 ($f = 0$)** | $\infty$（断路） | $0$（相当于导线） |
+
+&gt; 电感对高频是&quot;堵&quot;，电容对高频是&quot;通&quot;。电感和电容恰好是一对镜像。
+
+举个例子：一个 $1\text{mH}$ 的电感，对 $50\text{Hz}$ 交流电的感抗仅约 $0.31\Omega$——几乎就是根导线；对 $1\text{MHz}$ 高频信号的感抗高达约 $6283\Omega$——几乎不导电。
+
+---
+
+## 五、RL 低通滤波原理
+
+把电感和电阻组合，可以实现与 RC 电路相反的滤波拓扑。
+
+### 电路
+
+&gt; 输入 $V_{in}$ → 电感 $L$ → 输出 $V_{out}$，同时 $V_{out}$ 经电阻 $R$ 到 GND。
+
+### 原理
+
+**低频信号**：
+
+- 感抗 $X_L = 2\pi f L$ 很小
+- 电感基本不阻挡低频信号 → **低频通过**
+
+**高频信号**：
+
+- 感抗 $X_L$ 很大
+- 电感像一堵墙挡住高频 → 高频被电阻 $R$ 旁路到地 → **高频滤掉**
+
+&gt; 注意：**RC 低通用 R 串联 + C 到地；RL 低通用 L 串联 + R 到地**。串联元件换成了电感，但结果一样——低通。
+
+### 截止频率
+
+$$f_c = \frac{R}{2\pi L}$$
+
+### 应用场景
+
+- **D 类音频功放输出滤波**：滤除高频 PWM 载波，保留音频信号
+- **开关电源输出滤波（Buck 电路）**：电感和输出电容组成 LC 低通，平滑 PWM 方波变成直流
+
+---
+
+## 六、RL 高通滤波原理
+
+### 电路
+
+&gt; 输入 $V_{in}$ → 电阻 $R$ → 输出 $V_{out}$，同时 $V_{out}$ 经电感 $L$ 到 GND。
+
+### 原理
+
+**低频信号**：
+
+- 感抗小，电感相当于导线到地
+- 低频信号被从电阻后面短路到地 → **低频滤掉**
+
+**高频信号**：
+
+- 感抗大，电感相当于断路
+- 信号走向输出端 → **高频通过**
+
+&gt; 注意 RC 和 RL 的对称性：RC 高通是 C 串联 + R 到地；RL 高通是 R 串联 + L 到地。电容在 RC 中的串联位置等同于电感在 RL 中的到地位置。
+
+### 截止频率
+
+同样：
+
+$$f_c = \frac{R}{2\pi L}$$
+
+---
+
+## 七、LC 低通滤波原理
+
+这是最重要的滤波器——把电感和电容组合在一起，效果远超单独的 RC 或 RL。
+
+### 为什么需要 LC？
+
+RC 滤波器虽然简单，但有一个致命问题：**电阻本身消耗功率**。在大电流场合（如电源滤波），电阻上会发热、浪费能量、降低效率。
+
+而电感和电容都是**储能元件**，理论上是**不消耗功率**的——能量在电容的电场和电感的磁场之间来回转换，不变成热量。
+
+### 基本电路
+
+&gt; 输入 $V_{in}$ → 电感 $L$ → 输出 $V_{out}$，同时 $V_{out}$ 经电容 $C$ 到 GND。
+
+### 原理：取电容和电感各自的长处
+
+- 电感 $L$ 串联在信号通路中：低频时感抗小 → 畅通；高频时感抗大 → 阻挡
+- 电容 $C$ 并联到地：低频时容抗大 → 不往地漏；高频时容抗小 → 把残余高频短路到地
+
+&gt; 电感堵高频 + 电容放高频到地 = **双重截杀高频信号**。
+
+### 截止频率
+
+$$f_c = \frac{1}{2\pi\sqrt{LC}}$$
+
+### LC 滤波的独特之处：谐振
+
+LC 滤波器在截止频率附近会发生**谐振**——这是纯 LC 滤波器最需要注意的问题。
+
+在谐振频率处，电感的感抗和电容的容抗恰好相等，相互抵消：
+
+- **串联 LC**（L + C 串联在信号路径上）：谐振时阻抗为零，信号完全通过 → 形成**带通**
+- **并联 LC**（L 串联，C 并联到地）：谐振时阻抗无穷大，信号被完全堵住
+
+对于上面这种 LC 低通拓扑（L 串联 + C 到地），谐振频率恰好等于截止频率。如果信号刚好在这个频率附近，输出可能比输入还大（**电压过冲**）！
+
+&gt; 🔧 实际电源电路中，常在电容上串联一个小电阻（几 $\Omega$）来&quot;压制&quot;谐振，这叫阻尼。或者用更大的电容让谐振频率远低于工作频率。
+
+### 应用场景
+
+- **开关电源 Buck/Boost 输出滤波**：最核心的应用，把 PWM 高频方波平滑成平稳直流
+- **EMI 滤波**：电源输入端加 LC 滤波器，阻止设备的高频噪声串入电网
+- **射频电路选频**：利用 LC 谐振选出特定频率
+- **音响分频器**：低音扬声器前串电感（低通），高音扬声器前串电容（高通）
+
+---
+
+## 总结
+
+| 概念 | 要点 |
+|------|------|
+| 电感本质 | 绕成线圈的导线，利用电磁感应储能 |
+| 核心特性 | 电流不能突变，只限制变化速度不限制终点值 |
+| 对偶关系 | 电容电压不突变 ↔ 电感电流不突变；容抗随频率减小 ↔ 感抗随频率增大 |
+| 回路断开后果 | 电感产生极高反电动势（$V = L \cdot \frac{dI}{dt}$），可击穿器件 |
+| 感抗 | $X_L = 2\pi f L$，频率越高感抗越大 |
+| RL 低通 | L 串联 + R 到地，低频通过 |
+| RL 高通 | R 串联 + L 到地，高频通过 |
+| LC 低通 | L 串联 + C 到地，双重截杀高频，注意谐振 |
+| LC 截止频率 | $f_c = \dfrac{1}{2\pi\sqrt{LC}}$ |
+
+&gt; *电容和电感，一个守电压、一个守电流，一个通高频、一个通低频——它们就像衔尾蛇一样互相呼应，构成了模拟电路最优雅的双生子。*
+</div><div class="mt-3 md:mt-6 flex flex-wrap gap-1 md:gap-2"><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->硬件基础</span><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->电感</span><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->LC滤波</span></div></div></a></div><div class="break-inside-avoid" style="opacity:0;transform:scale(0.9)"><a class="block rounded-2xl md:rounded-[32px] bg-white/40 dark:bg-slate-800/40 backdrop-blur-2xl border border-white/50 dark:border-white/5 shadow-md md:shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden" href="/chatter/%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80/capacitor-basics/"><div class="w-full h-28 md:h-52 overflow-hidden relative"><img src="https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png" alt="cover" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"/><div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div></div><div class="p-3 md:p-7"><div class="flex items-center justify-between mb-2 md:mb-4"><div class="text-[8px] md:text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider md:tracking-[0.2em] bg-indigo-500/5 dark:bg-indigo-400/10 px-1.5 py-0.5 md:px-3 md:py-1 rounded-md md:rounded-lg border border-indigo-500/10">2026-07-21 10:00:00</div></div><h3 class="text-sm md:text-xl font-bold text-slate-800 dark:text-white mb-1.5 md:mb-4 leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 md:line-clamp-none">电容基础——从储能到滤波的通俗讲解</h3><div class="text-[10px] md:text-sm text-slate-600 dark:text-slate-300 leading-snug md:leading-relaxed line-clamp-4 md:line-clamp-5 opacity-90 font-medium italic">
+
+电容的物理结构其实非常简单——**两块导体板中间夹一层绝缘介质**。就像两块大铁板面对面放着，中间隔一层空气或塑料薄膜，这就是一个电容。
+
+电容的核心能力是**储存电荷**。当你给电容两端加上电压，正极板上会积累正电荷，负极板上会积累负电荷，中间隔着绝缘层，电荷跑不掉，于是电能就被&quot;锁&quot;在了电容里面。
+
+&gt; 💡 **通俗类比**：电容就像一个**弹性水袋**——你把水压进去，它鼓起来存着；你把外面的压力撤掉，它就慢慢把水放出来。刚灌水时水袋是空的，对水流几乎没有阻力（相当于导线）；灌满了就对水流彻底堵死（相当于断路）。
+
+电容储电是一个**物理过程**，不是化学反应。所以电容充放电速度极快，寿命也比电池长得多，但能存的能量远远不如电池。
+
+### 电容的关键参数
+
+| 参数 | 含义 |
+|------|------|
+| **容量 (C)** | 储电能力，单位法拉 (F)。常用的电容只有微法 (μF)、纳法 (nF)、皮法 (pF) |
+| **耐压值** | 电容能承受的最高电压，超了会击穿甚至爆炸 |
+| **ESR** | 等效串联电阻，越小越好，高频电路中很重要 |
+| **漏电流** | 电容两端有电压时，微小电流穿过介质的现象 |
+
+---
+
+## 二、核心特性：电容两端电压不能突变
+
+这是电容最根本、最重要的特性，源自电容的基本公式：
+
+$$I = C \cdot \frac{dV}{dt}$$
+
+翻译成人话：**流过电容的电流，等于容量乘以电压变化的速率。**
+
+这条公式推导出了一个重要结论：**电容两端的电压不能跳变（突变）**。
+
+为什么呢？如果电压瞬间跳变（$dt$ 趋近于 $0$），那么 $\frac{dV}{dt}$ 趋近于无穷大，意味着需要的电流也是无穷大——这在物理上是不可能的。
+
+### 刚上电瞬间，电容可以看作导线
+
+这是电容&quot;电压不能突变&quot;特性的直接推论。
+
+上电前，电容两端电压为 $0\text{V}$。上电瞬间：
+
+- 电源电压突然从 $0\text{V}$ 跳到 $5\text{V}$
+- 但电容电压依然是 $0\text{V}$（不能突变！）
+- 电容两端出现 $5\text{V}$ 的电压差
+- 此时电容表现得像**短路/导线**，电流猛冲进去给电容充电
+
+&gt; 这就是为什么电路板刚通电时会有瞬间大电流（**浪涌电流**），电路设计时必须考虑某个大电容上电时的冲击。
+
+随着充电进行，电容两端电压缓慢上升，电流逐渐减小。当电压充到接近电源电压时，电流趋于零，此时电容等效为**断路**。
+
+这个&quot;刚上电像导线，充满了像断路&quot;的特性，就是所谓的**隔直通交**：
+
+- **通交**：交流信号（电压不断变化）时，电容反复充放电，总有电流流过——相当于导通
+- **隔直**：直流稳定后，电容电压充到和电源一样，没有电压差就没有电流——相当于断开
+
+---
+
+## 三、上电延时和断电延时
+
+把电容和一个电阻串起来，就组成了最经典的 **RC 延时电路**。
+
+### 上电延时（充电过程）
+
+&gt; 电路：电源 $V_{CC}$ → 电阻 $R$ → 电容 $C$ → GND，输出从 $R$ 与 $C$ 之间取出。
+
+上电瞬间，电容电压为 $0\text{V}$。电源通过电阻 $R$ 给电容 $C$ 充电，电容电压慢慢上升：
+
+$$V_c(t) = V_{CC} \cdot \left(1 - e^{-\frac{t}{RC}}\right)$$
+
+画成图像是一条从 $0\text{V}$ 开始逐渐趋近 $V_{CC}$ 的上升曲线。
+
+**关键时间常数** $\tau = R \times C$：
+
+| 时间 | 充到电源电压的 |
+|------|:----------:|
+| $1\tau$（1 倍 RC） | **63.2%** |
+| $2\tau$ | **86.5%** |
+| $3\tau$ | **95%**（工程上认为基本充满） |
+| $5\tau$ | **99.3%**（认为完全充满） |
+
+### 断电延时（放电过程）
+
+把电源断开，让电容通过电阻 $R$ 放电：
+
+$$V_c(t) = V_{CC} \cdot e^{-\frac{t}{RC}}$$
+
+画成图像是一条从 $V_{CC}$ 开始缓慢下降到 $0\text{V}$ 的曲线。
+
+同样的 $3\tau \sim 5\tau$ 时间，电容电压降到接近 $0\text{V}$。
+
+### 实际应用
+
+- **延时灯**：用一个电容 + 电阻给三极管提供基极电压。关灯后，电容慢慢放电，灯不是立刻熄灭而是缓缓变暗。
+- **单片机复位电路**：上电瞬间给 RESET 脚一个短暂的低电平脉冲（电容刚上电像导线，把 RESET 拉低），等电容充满后 RESET 变高电平，芯片开始正常工作。
+- **消抖电路**：按键并联一个小电容，按键抖动产生的短暂毛刺被电容吸收掉，只有持续的高/低电平才能被识别。
+
+---
+
+## 四、电容稳压和滤波功能
+
+### 稳压（旁路/去耦）
+
+这就是每块电路板电源引脚旁边必备那个小电容（通常 $0.1\mu\text{F}$）的原因。
+
+芯片工作时，它会消耗电流，而且不是稳定消耗——有时多、有时少（比如 CPU 在密集运算时电流飙升）。这种电流的剧烈波动会在电源线上产生电压波动，因为导线本身有电阻和电感。
+
+这时，电源引脚旁的小电容就像一个**本地水库**：
+
+- 芯片突然多要电流 → 电容立刻放电补给，不用走远路去电源那边取
+- 芯片突然少要电流 → 电容吸收多余的电流
+
+相当于电容充当了一个**缓冲**，把电源的波动给&quot;压平&quot;了。
+
+&gt; 芯片电源引脚 $0.1\mu\text{F} + 10\mu\text{F}$ 组合：$0.1\mu\text{F}$ 处理高频瞬态噪声，$10\mu\text{F}$ 处理低频波动。
+
+### 滤波
+
+交流电经整流后得到的是脉动直流——它的大方向是直流，但电压一直在波动，波形像一串连续的半圆。
+
+在整流输出端并联一个足够大的电容：
+
+- 电压上升时，电容充电
+- 电压下降时，电容放电（靠存着的电维持输出电压）
+
+结果：原本的脉动波形被&quot;填平&quot;成带微小波纹的平稳直流。这就是**电容滤波**的基本原理。
+
+电容越大，能存越多电 → 放电时电压掉得越少 → 纹波越小。
+
+---
+
+## 五、容抗计算公式
+
+在交流电路中，电容不仅表现出储存能力，还表现出一种&quot;阻抗&quot;——叫**容抗**，记作 $X_c$。
+
+$$X_c = \frac{1}{2\pi f C}$$
+
+| 符号 | 含义 | 单位 |
+|------|------|------|
+| $X_c$ | 容抗 | 欧姆 ($\Omega$) |
+| $f$ | 信号频率 | 赫兹 (Hz) |
+| $C$ | 电容容量 | 法拉 (F) |
+
+**关键洞察**：
+
+- **频率越高，容抗越小** → 高频信号容易通过电容
+- **频率越低，容抗越大** → 低频信号难以通过电容
+- **频率为零（直流），容抗无穷大** → 直流完全通不过
+
+这就是&quot;隔直通交&quot;的数学表达。
+
+&gt; 举个例子：一个 $1\mu\text{F}$ 的电容，对 $50\text{Hz}$ 交流电的容抗约为 $3183\Omega$；对 $1\text{MHz}$ 高频信号的容抗仅约 $0.16\Omega$——差了近 2 万倍！
+
+---
+
+## 六、RC 低通滤波电路
+
+低通滤波器——让低频信号通过，把高频信号&quot;滤掉&quot;。
+
+### 基本电路
+
+&gt; 输入 $V_{in}$ → 电阻 $R$ → 输出 $V_{out}$，同时 $V_{out}$ 经电容 $C$ 到 GND。
+
+信号先是经过电阻，然后接一个电容到地，输出从电阻和电容的中间接出来。
+
+### 原理
+
+**高频信号来的时候**：
+
+- 电容的容抗 $X_c$ 非常小（频率高 → 容抗小）
+- 电容相当于把高频信号直接导到地（GND）
+- 输出端几乎没有高频信号 → **高频被滤掉了**
+
+**低频信号来的时候**：
+
+- 电容的容抗 $X_c$ 非常大（频率低 → 容抗大）
+- 信号基本走不过电容到地，老老实实走向输出端
+- 输出端低频信号完好 → **低频通过**
+
+### 关键频率：截止频率
+
+$$f_c = \frac{1}{2\pi R C}$$
+
+- 频率低于 $f_c$ 的信号 → 正常通过
+- 频率等于 $f_c$ 的信号 → 衰减到原来的 **70.7%**
+- 频率高于 $f_c$ 的信号 → 逐渐被滤掉，频率越高衰减越厉害
+
+### 应用场景
+
+- **音频电路**：滤掉高频噪声和嘶嘶声
+- **ADC 输入前端**：滤掉高于采样频率一半的噪声（抗混叠滤波）
+- **传感器信号调理**：过滤环境电磁干扰
+- **电源去噪**：滤除电源线上的高频纹波
+
+---
+
+## 七、RC 高通滤波电路
+
+与低通相反——高频通过，低频滤掉。
+
+### 基本电路
+
+&gt; 输入 $V_{in}$ → 电容 $C$ → 输出 $V_{out}$，同时 $V_{out}$ 经电阻 $R$ 到 GND。
+
+信号先经过电容，输出端接一个电阻到地。
+
+### 原理
+
+**高频信号来的时候**：
+
+- 电容容抗非常小，高频信号轻松穿过电容
+- 到达输出端，高频信号完好 → **高频通过**
+
+**低频信号来的时候**：
+
+- 电容容抗非常大，信号很难穿过电容
+- 输出端几乎收不到信号 → **低频被滤掉**
+
+直流信号：电容相当于断路，完全通不过。
+
+### 截止频率
+
+公式和低通一样：
+
+$$f_c = \frac{1}{2\pi R C}$$
+
+### 应用场景
+
+- **音频放大器输入耦合**：把前后级的直流工作点隔离开（只让音频交流信号通过，不让直流偏置电压传递）
+- **示波器 AC 耦合模式**：隔离被测信号的直流分量，只看交流部分
+- **去除传感器信号的直流漂移**：只保留变化的成分
+
+---
+
+## 总结
+
+| 概念 | 要点 |
+|------|------|
+| 电容本质 | 两块导体板 + 中间绝缘介质，储存电荷 |
+| 核心特性 | 两端电压不能突变；刚上电像导线，充满像断路 |
+| 隔直通交 | 直流稳定后电容断路，交流频率越高电容越导通 |
+| RC 延时 | $\tau = RC$，$3\tau$ 充电到 95%，$5\tau$ 几乎充满 |
+| 稳压 | 电容当本地水库，缓冲电流突变 |
+| 滤波 | 利用电容充放电填平脉动电压 |
+| 容抗 | $X_c = \frac{1}{2\pi f C}$，频率越高容抗越小 |
+| 低通 | R 串联 + C 到地，高频通过 C 入地，低频走向输出 |
+| 高通 | C 串联 + R 到地，高频穿过 C，低频被 C 挡住 |
+
+&gt; *理解电容，就是理解&quot;能量不能被瞬间制造或消灭，只能被储存和释放&quot;。* —— 硬件入门的第一个洞见
+</div><div class="mt-3 md:mt-6 flex flex-wrap gap-1 md:gap-2"><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->硬件基础</span><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->电容</span><span class="text-[8px] md:text-[9px] font-black text-slate-500 dark:text-slate-400 bg-slate-500/5 dark:bg-white/5 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-md border border-slate-500/10 dark:border-white/5 transition-all group-hover:bg-indigo-500/10 group-hover:text-indigo-500">#<!-- -->滤波</span></div></div></a></div></div></div></div></div><!--$--><!--/$--></div><div class="hidden md:block"></div><div class="hidden md:block"><div class="fixed bottom-6 left-6 z-[9999] flex flex-col items-start gap-3"><button class="w-12 h-12 rounded-full flex items-center justify-center shadow-xl backdrop-blur-xl border border-white/40 dark:border-white/10 transition-all duration-500 hover:scale-110 active:scale-95 z-50
+          bg-white/70 dark:bg-slate-800/80 text-slate-700 dark:text-white
+        "><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg></button></div></div><div class="md:hidden block"><button class="fixed bottom-24 right-4 z-[90] w-11 h-11 flex items-center justify-center bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-xl rounded-full text-slate-700 dark:text-slate-200 active:scale-90 transition-all" title="返回上一页"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button></div><div class="hidden md:block"><canvas class="fixed inset-0 pointer-events-none z-[9999]"></canvas></div></div><style>
+              @keyframes gradientMove {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+              }
+            </style></div><script src="/_next/static/chunks/07tw6o_-xxc4_.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[79520,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"\"]\n3:I[80492,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"ThemeProvider\"]\n4:I[22052,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"AnimationSettingsProvider\"]\n5:I[61452,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n6:I[79674,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"MusicProvider\"]\n7:I[38849,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n8:I[74347,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n19:I[68027,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\",1]\n:HL[\"/_next/static/chunks/145o.lsi86g0w.css\",\"style\"]\n:HL[\"/_next/static/chunks/066jf0nk75nic.css\",\"style\"]\n:HL[\"/_next/static/chunks/0~ydk.tni6snc.css\",\"style\"]\n:HL[\"/_next/static/chunks/0tfrc-m6pdzbp.css\",\"style\"]\n:HL[\"/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/media/caa3a2e1cccd8315-s.p.09~u27dqhyhd6.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/media/f112ed7f0b91582f-s.p.0xqqmnf1a3x8p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"chatter\",\"%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[\"chatter\",{\"children\":[[\"folder\",\"%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80\",\"d\",null],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",16],[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/145o.lsi86g0w.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/066jf0nk75nic.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"2\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/0~ydk.tni6snc.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"3\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/0tfrc-m6pdzbp.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0eth2-x0x8z74.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/0._jywihkh2te.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/_next/static/chunks/0sloe3q.6y95c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/_next/static/chunks/00-csyj9a6t-x.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"zh-CN\",\"className\":\"geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__variable noto_serif_sc_4b5b2b75-module__o_XRgq__variable h-full antialiased\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"style\",null,{\"suppressHydrationWarning\":true,\"dangerouslySetInnerHTML\":{\"__html\":\"\\n              /* Splash Screen 初始隐藏内容，防止闪烁 */\\n              #app-mount-root { opacity: 0; visibility: hidden; pointer-events: none; }\\n\\n              /* JS 正常：splash 动画完成后添加 splash-seen 类，内容显示 */\\n              html.splash-seen #app-mount-root {\\n                animation: none !important;\\n                opacity: 1 !important;\\n                visibility: visible !important;\\n                pointer-events: auto !important;\\n              }\\n\\n              /*\\n               * 🔑 兜底机制：纯 CSS 超时自动显示\\n               * 6 秒后强制显示内容（正常 splash 只需 2.7 秒）\\n               * 即使 React 完全崩溃、JS 被禁用，内容也能自动恢复\\n               * 注意：此动画仅在 splash-seen 类缺失时生效\\n               */\\n              @keyframes splashAutoReveal {\\n                0%, 95% { visibility: hidden; pointer-events: none; }\\n                100% { visibility: visible; pointer-events: auto; }\\n              }\\n              html:not(.splash-seen) #app-mount-root {\\n                animation: splashAutoReveal 6s forwards;\\n              }\\n            \"}}],[\"$\",\"$L2\",null,{\"id\":\"handle-splash-logic\",\"strategy\":\"beforeInteractive\",\"children\":\"\\n            try {\\n              if (sessionStorage.getItem('hasSeenSplash') === 'true') {\\n                document.documentElement.classList.add('splash-seen');\\n              }\\n            } catch (e) {}\\n\\n            // 🔑 兜底：4 秒后强制显示（即使 SplashScreen 组件崩溃）\\n            setTimeout(function() {\\n              if (!document.documentElement.classList.contains('splash-seen')) {\\n                document.documentElement.classList.add('splash-seen');\\n              }\\n            }, 4000);\\n          \"}]]}],[\"$\",\"body\",null,{\"className\":\"w-screen overflow-x-hidden min-h-full flex flex-col relative transition-colors duration-1000 bg-slate-50 dark:bg-slate-950 font-serif\",\"children\":[\"$\",\"$L3\",null,{\"children\":[\"$\",\"$L4\",null,{\"children\":[[\"$\",\"$L5\",null,{}],[\"$\",\"$L6\",null,{\"children\":[[\"$\",\"div\",null,{\"id\":\"app-mount-root\",\"className\":\"flex-1 flex flex-col transition-opacity duration-1000\",\"children\":[[\"$\",\"div\",null,{\"className\":\"fixed inset-0 z-[-1] pointer-events-none overflow-hidden\",\"children\":[[\"$\",\"$L7\",null,{}],[\"$\",\"div\",null,{\"className\":\"absolute inset-0 z-[-9] bg-white/5 dark:bg-slate-900/10 backdrop-blur-[2px] transition-colors duration-1000\"}],[\"$\",\"$L8\",null,{}],[\"$\",\"div\",null,{\"className\":\"absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/40 dark:bg-indigo-900/20 blur-[100px] rounded-full z-[-7] md:mix-blend-overlay\"}],\"$L9\",\"$La\"]}],\"$Lb\",\"$Lc\",\"$Ld\",\"$Le\",\"$Lf\",\"$L10\",\"$L11\",\"$L12\"]}],\"$L13\"]}]]}]}]}]]}]]}],{\"children\":[\"$L14\",{\"children\":[\"$L15\",{\"children\":[\"$L16\",{},null,false,null]},null,false,\"$@17\"]},null,false,\"$@17\"]},null,false,null],\"$L18\",false]],\"m\":\"$undefined\",\"G\":[\"$19\",[\"$L1a\",\"$L1b\",\"$L1c\",\"$L1d\"]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"HQWZhLron5o3b5GVsX4NM\"}\n"])</script><script>self.__next_f.push([1,"1e:I[94798,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n1f:I[63571,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n20:I[88138,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n21:I[39756,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n22:I[37457,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n23:I[94909,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n24:I[43173,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n25:I[38197,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n26:I[60567,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n27:I[92471,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"default\"]\n29:I[97367,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"OutletBoundary\"]\n2a:\"$Sreact.suspense\"\n2d:I[97367,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"ViewportBoundary\"]\n2f:I[97367,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"MetadataBoundary\"]\n9:[\"$\",\"div\",null,{\"className\":\"absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-400/30 dark:bg-purple-900/30 blur-[100px] rounded-full z-[-7] md:mix-blend-overlay\"}]\na:[\"$\",\"div\",null,{\"className\":\"hidden md:block absolute inset-0 w-full h-full\",\"children\":[\"$\",\"$L1e\",null,{}]}]\nb:[\"$\",\"div\",null,{\"className\":\"hidden md:block\",\"children\":[\"$\",\"$L1f\",null,{}]}]\nc:[\"$\",\"div\",null,{\"className\":\"hidden md:block\",\"children\":[\"$\",\"$L20\",null,{}]}]\n"])</script><script>self.__next_f.push([1,"d:[\"$\",\"div\",null,{\"className\":\"relative z-10 flex-1 flex flex-col\",\"children\":[\"$\",\"$L21\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L22\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]\n"])</script><script>self.__next_f.push([1,"e:[\"$\",\"div\",null,{\"className\":\"hidden md:block\",\"children\":[\"$\",\"$L23\",null,{}]}]\nf:[\"$\",\"div\",null,{\"className\":\"hidden md:block\",\"children\":[\"$\",\"$L24\",null,{}]}]\n10:[\"$\",\"div\",null,{\"className\":\"md:hidden block\",\"children\":[\"$\",\"$L25\",null,{}]}]\n11:[\"$\",\"div\",null,{\"className\":\"hidden md:block\",\"children\":[\"$\",\"$L26\",null,{}]}]\n12:[\"$\",\"$L27\",null,{}]\n13:[\"$\",\"style\",null,{\"suppressHydrationWarning\":true,\"dangerouslySetInnerHTML\":{\"__html\":\"\\n              @keyframes gradientMove {\\n                0% { background-position: 0% 50%; }\\n                50% { background-position: 100% 50%; }\\n                100% { background-position: 0% 50%; }\\n              }\\n            \"}}]\n14:[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L21\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L22\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}]\n15:[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L21\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L22\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}]\n16:[\"$\",\"$1\",\"c\",{\"children\":[\"$L28\",[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/14v0a01oryfti.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L29\",null,{\"children\":[\"$\",\"$2a\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@2b\"}]}]]}]\n2c:[]\n17:\"$W2c\"\n18:[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$L2d\",null,{\"children\":\"$L2e\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$L2f\",null,{\"children\":[\"$\",\"$2a\",null,{\"name\":\"Next.Metadata\",\"children\":\"$L30\"}]}]}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}]\n1a:[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/145o.lsi86g0w.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]\n1b:[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/066jf0nk75nic.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]\n1c:[\"$\",\"link\",\"2\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/0~ydk.tni6snc.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]\n1d:[\"$\",\"link\",\"3\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/0tfrc-m6pdzbp.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]\n"])</script><script>self.__next_f.push([1,"31:I[62319,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\",\"/_next/static/chunks/14v0a01oryfti.js\"],\"default\"]\n32:I[66357,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\",\"/_next/static/chunks/14v0a01oryfti.js\"],\"default\"]\n33:I[9434,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\",\"/_next/static/chunks/14v0a01oryfti.js\"],\"default\"]\n34:T312f,"])</script><script>self.__next_f.push([1,"\n\n二极管的核心是**PN 结**——一块半导体上做出两种不同掺杂的区域。\n\n### P 型半导体和 N 型半导体\n\n纯硅（4 价元素）本身不导电——所有电子都被共价键绑死了。\n\n- **N 型**：在硅里掺入少量 5 价元素（如磷）。多出一个自由电子——这个电子可以到处跑，所以 N 型半导体靠**电子**导电。\n- **P 型**：在硅里掺入少量 3 价元素（如硼）。少了一个电子，留下一个\"空穴\"——相邻电子会跳过来填补这个空穴，原来的位置又形成新空穴。相当于空穴在反向移动，所以 P 型半导体靠**空穴**导电（等价于正电荷移动）。\n\n### PN 结的形成\n\n把 P 型和 N 型做到一起，交界面处会发生：\n\n1. N 区的自由电子扩散到 P 区，P 区的空穴扩散到 N 区\n2. 交界处 N 侧失去电子带**正电**，P 侧得到电子带**负电**\n3. 形成一个内建电场，阻止进一步扩散\n4. 这个没有自由载流子的区域叫**耗尽层**（也叫空间电荷区）\n\n这个结构就是 PN 结——二极管的物理本质。\n\n\u003e 💡 **通俗理解**：PN 结就像电路里的**单向阀/止回阀**。水只能从 P 往 N 方向流，反过来就会被堵死。\n\n---\n\n## 二、单向导电性——二极管的核心功能\n\n### 正向偏置（导通）\n\nP 接正极，N 接负极：\n\n- 外加电场削弱了内建电场\n- 耗尽层变薄\n- 电子从 N 区穿越 PN 结到 P 区，空穴从 P 区到 N 区\n- 电流流过\n\n**但二极管不是随便给点正向电压就导通的**。硅二极管存在一个**门槛电压（导通电压）**，约 $\\mathbf{0.6\\text{V} \\sim 0.7\\text{V}}$（锗管约 $0.2\\text{V} \\sim 0.3\\text{V}$）。\n\n电压低于门槛值时，电流几乎为零。一旦超过门槛值，电流随电压指数级增长——微小的电压增加带来巨大的电流增加。\n\n正向导通后，二极管两端的压降基本锁定在 $\\sim 0.7\\text{V}$（硅管），不管电流多大（在额定范围内）变化都不大。\n\n### 反向偏置（截止）\n\nN 接正极，P 接负极：\n\n- 外加电场加强了内建电场\n- 耗尽层变宽\n- 几乎没有载流子能穿过\n- 电流约等于零\n\n\u003e 🔑 这就是单向导电性——电流只能从 P→N（阳极→阴极），不能反向。\n\n---\n\n## 三、漏电特性\n\n二极管反向偏置时不是绝对不导电——有微小的**反向漏电流**在流动。\n\n### 漏电流的来源\n\n- **少子漂移**：P 区里残留的少量电子被反向电场拉过 PN 结，N 区里残留的少量空穴被拉过去。这个电流非常小。\n- **表面漏电**：芯片表面污染、潮湿导致的沿表面漏电。\n- **温度效应**：温度每升高约 $10^\\circ\\text{C}$，反向漏电流翻一倍。\n\n### 量级\n\n| 二极管类型 | 典型反向漏电流 |\n|-----------|:-----------:|\n| 普通硅整流管 (1N4007) | nA ~ μA 级 |\n| 肖特基二极管 | μA ~ mA 级（漏电比普通管大很多） |\n| 小信号开关管 (1N4148) | 几十 nA |\n\n\u003e ⚠️ 肖特基二极管的正向压降低（$\\sim 0.3\\text{V}$）、开关速度快，但漏电流大很多。选型时要权衡。\n\n---\n\n## 四、半波整流电路\n\n把交流电变成直流电，最简单的做法就是半波整流。\n\n### 电路\n\n\u003e 交流输入 → 二极管 D → 负载电阻 R → 回到交流另一端\n\n### 工作原理\n\n交流电是正弦波——上半周电压为正，下半周电压为负。\n\n- **正半周**：二极管正向偏置 → 导通 → 电流流过负载 → 负载上有电压\n- **负半周**：二极管反向偏置 → 截止 → 没有电流 → 负载上电压为 0\n\n结果：输出只有正半周的波形——像正弦波被砍掉了一半，只剩一串半圆形凸起。\n\n### 半波整流的特点\n\n| 优点 | 缺点 |\n|------|------|\n| 电路简单，仅需一个二极管 | 浪费了一半的电能（负半周全丢了） |\n| 成本最低 | 输出电压脉动大，平均值只有峰值电压的约 **31.8%** |\n| | 需要很大的滤波电容才能平滑 |\n\n\u003e 半波整流一般只用在功率极小、对纹波要求不高的场合。\n\n---\n\n## 五、全波整流电路\n\n把交流电的两个半周都利用起来，效率翻倍。\n\n### 桥式全波整流（最常用）\n\n用 4 个二极管搭成一个\"桥\"：\n\n```\n        D1      D2\n交流 L ──┬──▶|───┬───|◀──┐\n         │        │        │\n         │        ├── 输出+ ──→ 负载 R\n         │        │        │\n交流 N ──┼──▶|───┼───|◀──┤\n        D3      D4      │\n         │               │\n         └─── 输出- ─────┘\n```\n\n### 工作原理\n\n**正半周**（上正下负）：D1 和 D4 导通，D2 和 D3 截止。电流走 D1 → 负载 → D4。\n\n**负半周**（上负下正）：D2 和 D3 导通，D1 和 D4 截止。电流走 D3 → 负载 → D2。\n\n注意：**无论正半周还是负半周，流过负载的电流方向始终相同**——这就是整流的核心。\n\n### 输出波形\n\n输出不再是\"一半一半\"，而是把负半周翻到了上面——一串连续的半圆形脉冲。每个交流周期变成两个直流脉冲，频率翻倍。\n\n### 对比\n\n| | 半波整流 | 桥式全波整流 |\n|------|------|------|\n| 二极管数量 | 1 | 4 |\n| 输出电压平均值 | $\\approx 0.318 \\times V_p$ | $\\approx 0.637 \\times V_p$ |\n| 脉动频率 | = 输入频率 | = $2 \\times$ 输入频率 |\n| 滤波难度 | 难（需大电容） | 易（频率高，电容可更小） |\n| 二极管承受反压 | $V_p$ | $V_p$（每管只受一半周期） |\n\n### 实际应用\n\n几乎所有电子设备的电源适配器内部都有桥式整流电路——$220\\text{V}$ 交流进来，先经变压器降压，再过桥式整流变脉动直流，最后用电容滤波得到平滑直流。\n\n---\n\n## 六、二极管钳位功能\n\n钳位（Clamping），就是把信号的最高或最低电位\"锁\"在一个固定值上。\n\n### 正向钳位\n\n\u003e 输入 → 电容 C → 输出 $V_{out}$，同时 $V_{out}$ 经二极管 D（阳极朝 GND）到地。\n\n**原理**：\n\n- 信号负半周时，二极管导通，电容被充电到信号的负峰值\n- 信号正半周时，二极管截止，输出 = 输入信号 + 电容上存的电压\n- 结果：整个波形被往上\"抬\"，最低点被钳在约 $-0.7\\text{V}$（二极管导通压降）\n\n\u003e 这个电路能把一个在 $0\\text{V}$ 上下振荡的交流信号整体向上平移，使最低点接近 $0\\text{V}$。常用于需要单电源供电的交流放大电路。\n\n### 反向钳位\n\n把二极管反过来（阴极朝外），就能把波形的最高点钳在 $+0.7\\text{V}$。\n\n### 应用场景\n\n- **ADC 输入保护**：钳位二极管把输入电压限制在 $0\\text{V} \\sim V_{CC}+0.7\\text{V}$ 之间，防止烧毁 ADC 引脚\n- **电平移位**：在不失真的前提下改变信号的直流偏置\n- **ESD 保护**：把静电放电的高压脉冲钳到安全范围\n\n---\n\n## 七、二极管控制电流方向——续流与防反接\n\n### 续流二极管\n\n前面电感章节提过——在继电器线圈、电机、电磁阀等感性负载两端，**反向并联一个二极管**。\n\n正常工作时，二极管反偏不导通。关断瞬间，电感产生反电动势——这个电压恰好让二极管正向导通，给电感提供一个低阻抗续流回路。电流在线圈 → 二极管 → 线圈之间循环衰减，把磁能安全消耗掉。\n\n\u003e **没有续流二极管**：关断瞬间反电动势直接击穿驱动三极管 / MOS 管。\n\n### 防反接保护\n\n把二极管串联在电源正极线上（阳极接电源，阴极接电路）：\n\n- 电源正接：二极管正向导通，电路正常工作（二极管上会消耗 $\\sim 0.7\\text{V}$）\n- 电源反接：二极管反向截止，电流流不过去，电路不工作也不会烧\n\n\u003e 大电流场合用 MOS 管代替二极管做防反接——MOS 管导通电阻毫欧级，几乎没有压降损耗。\n\n---\n\n## 八、最大反向耐压\n\n每个二极管都有一个**反向击穿电压**（叫法很多：最大反向耐压、反向击穿电压、$V_{RRM}$、$V_{BR}$）。\n\n### 含义\n\n加上超过这个值的反向电压，PN 结的耗尽层会被强行\"撕开\"——发生**雪崩击穿**：反向电压加速了耗尽层中本来就有的少量载流子，它们撞出更多载流子，像雪崩一样指数级放大电流。\n\n### 关键：击穿不等于损坏！\n\n- **普通二极管**：击穿通常意味着永久损坏（热烧毁）\n- **稳压二极管**：专门设计在击穿区工作，它能承受击穿而不损坏（后文详解）\n\n### 常用型号速查\n\n| 型号 | 最大反向耐压 | 最大正向电流 | 典型用途 |\n|------|:----------:|:----------:|------|\n| 1N4148 | 100V | 200mA | 小信号开关 |\n| 1N4007 | 1000V | 1A | 工频整流 |\n| 1N5819 | 40V | 1A | 肖特基，低压整流 |\n| SS34 | 40V | 3A | 肖特基，电源整流 |\n\n\u003e 选型时反向耐压至少留 $1.5 \\sim 2$ 倍余量。比如 $220\\text{V}$ 市电整流，峰值电压约 $311\\text{V}$，至少用 $600\\text{V}$ 耐压的整流管。\n\n---\n\n## 九、稳压二极管（齐纳二极管）\n\n把普通二极管的反向击穿这个\"缺陷\"，故意做成稳定可控的特性——这就是稳压二极管。\n\n### 基本功能\n\n稳压管**反向接在电路中**，工作在击穿区：\n\n- 当反向电压低于稳压值时，不导通（正常反向截止）\n- 当反向电压达到稳压值（$V_z$）时，二极管击穿导通，但**不损坏**\n- 击穿后，流过管子的电流可以在很大范围内变化，而两端电压**保持不变**（$\\approx V_z$）\n\n### 最简单的稳压电路\n\n\u003e 电源 $V_{in}$ → 限流电阻 $R$ → 输出 $V_{out}$（$= V_z$），同时 $V_{out}$ 经稳压管 D（反向接，阴极朝 $V_{in}$）到 GND。\n\n**工作原理**：\n\n1. 限流电阻 $R$ 和稳压管 D 串联\n2. 当 $V_{in}$ 稳定时，稳压管击穿，电流通过 $R$ 流入稳压管到地，$V_{out}$ 被钳在 $V_z$\n3. 当 $V_{in}$ 升高：多出来的电压全部落在 $R$ 上（$R$ 两端电压变大），稳压管电流自动增大但电压不变 → $V_{out}$ 纹丝不动\n4. 当 $V_{in}$ 略微降低（但不低于 $V_z$）：稳压管电流减小，$R$ 两端电压变小 → $V_{out}$ 依然纹丝不动\n\n\u003e 限流电阻 **必须要有**——没有它，稳压管击穿后电流无限增大，立即烧毁。\n\n### 稳压管的选型要点\n\n| 参数 | 含义 |\n|------|------|\n| **标称稳压值 $V_z$** | 反向击穿后的稳定电压 |\n| **最小工作电流 $I_{z(min)}$** | 稳压管要进入击穿稳压区至少需要这个电流 |\n| **最大耗散功率 $P_{z(max)}$** | 超过会烧毁管子，$I_{max} = P_{max} \\div V_z$ |\n| **温度系数** | $V_z \u003c 5.6\\text{V}$ 时负温度系数，$V_z \u003e 5.6\\text{V}$ 时正温度系数 |\n\n\u003e 🔧 $5.6\\text{V}$ 左右的稳压管温度系数接近于零——如果需要精准稳定、温度变化大的场合，优先选 $5.6\\text{V}$ 左右的稳压管。\n\n### 稳压管 vs LDO（线性稳压器）\n\n| | 稳压二极管 | LDO (如 AMS1117) |\n|------|------|------|\n| 精度 | 一般（5%~10%） | 很高（1%~2%） |\n| 输出电流 | 小（mA 级） | 大（几百 mA ~ 几 A） |\n| 电路复杂度 | 极简（一个电阻 + 一个管子） | 需要输入输出电容 |\n| 适用场景 | 参考电压、简易稳压 | 芯片供电、大电流供电 |\n\n\u003e 稳压管适合给运放提供参考电压、给 MOS 管栅极做钳位保护、简易的过压保护电路。给芯片供电还是用 LDO。\n\n---\n\n## 总结\n\n| 概念 | 要点 |\n|------|------|\n| 结构 | PN 结——P 型（空穴导电）+ N 型（电子导电），交界面形成耗尽层 |\n| 核心功能 | 单向导电：P→N 导通（需超 $0.7\\text{V}$ 门槛），N→P 截止 |\n| 漏电流 | 反向时微小的少子漂移电流，随温度升高急剧增大 |\n| 半波整流 | 1 个二极管，只输出正半周，效率 31.8% |\n| 全波整流 | 4 个二极管组成桥式，正负半周都利用，效率 63.7% |\n| 钳位 | 电容 + 二极管把波形整体抬高或压低到固定电位 |\n| 续流 | 感性负载反并联二极管，关断时提供安全放电路径 |\n| 反向耐压 | 超过会雪崩击穿；普通管击穿 = 损坏，稳压管击穿 = 正常工作 |\n| 稳压二极管 | 专门在反向击穿区工作，两端电压稳定在 $V_z$，需配合限流电阻使用 |\n\n\u003e *二极管的单向导电性看似简单，但只要理解透彻，就能组合出整流、钳位、续流、稳压、限幅、防反接等无数实用电路——一个器件，千万种用法。*\n"])</script><script>self.__next_f.push([1,"35:T26d2,"])</script><script>self.__next_f.push([1,"\n\n电感就是把导线绕成线圈——一圈一圈地绕在磁芯或骨架上。它的物理结构就是这么简单。\n\n但这一绕，就绕出了一个**电磁感应**效应：\n\n- 电流通过线圈 → 产生磁场（电能变磁能）\n- 磁场变化 → 在线圈中感应出电压（磁能变电能）\n\n\u003e 💡 **通俗类比**：电感就像电路里的**惯性飞轮**。你推飞轮让它加速，它不肯立刻加速——有一股抗力；等它转起来了，你想让它停下来，它又不肯停——继续往前冲。电感对电流的态度一模一样：不让电流突变。\n\n### 电感的关键参数\n\n| 参数 | 含义 |\n|------|------|\n| **电感量 (L)** | 储存磁场能量的能力，单位亨利 (H)。常用毫亨 (mH)、微亨 (μH) |\n| **饱和电流** | 磁芯磁化到极限后电感量暴跌的临界电流，选型非常关键 |\n| **直流电阻 (DCR)** | 线圈本身的铜线电阻，越小越好 |\n| **品质因数 Q** | 衡量电感\"纯不纯\"的指标，$Q = \\frac{\\omega L}{R}$，越大越接近理想电感 |\n\n---\n\n## 二、核心特性：电感只限制电流变化速度，但不限制电流最大值\n\n这是电感最根本的特性，源自电磁感应定律：\n\n$$V = L \\cdot \\frac{dI}{dt}$$\n\n翻译成人话：**电感两端的电压，等于电感量乘以电流变化的速率。**\n\n### 对比电容（两个公式一定要对着看）\n\n| | 电容 | 电感 |\n|------|------|------|\n| **基本公式** | $I = C \\cdot \\frac{dV}{dt}$ | $V = L \\cdot \\frac{dI}{dt}$ |\n| **不能突变的是** | 电压 | 电流 |\n| **储能形式** | 电场能 | 磁场能 |\n| **稳态表现** | 断路（隔直） | 导线（通直） |\n| **瞬态表现** | 像导线 | 像断路（阻碍电流变化） |\n\n### \"只限速度，不限终点\"——这句话是关键\n\n电感反抗的是**电流的变化**，而不是**电流的大小**。\n\n举个直观例子——你把一个电感直接接到 $5\\text{V}$ 电源两端：\n\n- 上电瞬间，电流从 $0$ 要开始增加，电感产生反向电压抵抗这个变化\n- 电流慢慢上升，上升的速度 $\\frac{dI}{dt}$ 由 $\\frac{V}{L}$ 决定\n- 只要你不切断电路，**电流会一直线性上升，直到被回路里唯一的电阻（导线电阻 + 电感自身 DCR）限制**\n- 最终稳态电流 $I = \\frac{V}{R}$，和电感量 $L$ **完全无关**\n\n\u003e 🔑 **电感改变的是\"到达稳态的速度\"，不是\"稳态本身\"**。电感越大，电流上升越缓慢，但最终能达到的电流值完全由回路电阻决定。\n\n---\n\n## 三、电感回路的电阻突然变大——会发生什么？\n\n这是电感最\"凶猛\"的特性，也是开关电源和点火系统的核心原理。\n\n### 场景\n\n假设一个回路：$5\\text{V}$ 电源 → 电感 $L$ → 开关 → 电阻 $R$ → GND。开关已经闭合很久，电感中流过稳定的电流 $I = 5\\text{V}/R$。\n\n**突然把电阻换成一个极大的值**（或者直接把开关断开，相当于电阻变成无穷大）。\n\n### 发生了什么\n\n电感里面存储着磁场能量：\n\n$$E = \\frac{1}{2} L I^2$$\n\n根据 $V = L \\cdot \\frac{dI}{dt}$：\n\n- 回路断开，电流要瞬间从 $I$ 变成 $0$\n- $\\frac{dI}{dt}$ 趋近于**负无穷大**（电流变化速度极其恐怖）\n- 电感两端感应出的电压 $V = L \\cdot \\frac{dI}{dt}$ 也趋近于**无穷大**\n\n\u003e ⚡ 这就是为什么继电器线圈断开时会产生几百伏甚至上千伏的尖峰电压——能击穿半导体器件、打出电火花。\n\n### 这个特性不是坏事——恰恰是很多电路的核心\n\n- **Boost 升压电路**：故意利用这个特性。先让电流在线圈中建立起来，然后突然切断回路，电感\"不肯让电流消失\"，拼命在两端产生高电压把电流\"推出去\"，这股高压被引导到输出电容上，就实现了从低压到高压的转换。\n- **汽车点火系统**：$12\\text{V}$ 电瓶通过点火线圈产生上万伏的高压，点燃汽油——靠的就是电感。\n\n### 保护措施：续流二极管\n\n在实际电路中，如果电感回路上有开关管（三极管、MOS 管），关断时电感的反电动势会击穿开关管。解决方案是在电感两端反向并联一个二极管——让电感在关断瞬间通过二极管形成低阻抗续流回路，把磁能安全消耗掉。\n\n---\n\n## 四、感抗计算公式\n\n在交流电路中，电感的\"阻抗\"叫**感抗**，记作 $X_L$：\n\n$$X_L = 2\\pi f L$$\n\n| 符号 | 含义 | 单位 |\n|------|------|------|\n| $X_L$ | 感抗 | 欧姆 ($\\Omega$) |\n| $f$ | 信号频率 | 赫兹 (Hz) |\n| $L$ | 电感量 | 亨利 (H) |\n\n### 与电容容抗的对比（反过来了！）\n\n| | 容抗 $X_c$ | 感抗 $X_L$ |\n|------|------|------|\n| **公式** | $X_c = \\dfrac{1}{2\\pi f C}$ | $X_L = 2\\pi f L$ |\n| **频率升高** | 容抗 **减小** | 感抗 **增大** |\n| **频率降低** | 容抗 **增大** | 感抗 **减小** |\n| **直流 ($f = 0$)** | $\\infty$（断路） | $0$（相当于导线） |\n\n\u003e 电感对高频是\"堵\"，电容对高频是\"通\"。电感和电容恰好是一对镜像。\n\n举个例子：一个 $1\\text{mH}$ 的电感，对 $50\\text{Hz}$ 交流电的感抗仅约 $0.31\\Omega$——几乎就是根导线；对 $1\\text{MHz}$ 高频信号的感抗高达约 $6283\\Omega$——几乎不导电。\n\n---\n\n## 五、RL 低通滤波原理\n\n把电感和电阻组合，可以实现与 RC 电路相反的滤波拓扑。\n\n### 电路\n\n\u003e 输入 $V_{in}$ → 电感 $L$ → 输出 $V_{out}$，同时 $V_{out}$ 经电阻 $R$ 到 GND。\n\n### 原理\n\n**低频信号**：\n\n- 感抗 $X_L = 2\\pi f L$ 很小\n- 电感基本不阻挡低频信号 → **低频通过**\n\n**高频信号**：\n\n- 感抗 $X_L$ 很大\n- 电感像一堵墙挡住高频 → 高频被电阻 $R$ 旁路到地 → **高频滤掉**\n\n\u003e 注意：**RC 低通用 R 串联 + C 到地；RL 低通用 L 串联 + R 到地**。串联元件换成了电感，但结果一样——低通。\n\n### 截止频率\n\n$$f_c = \\frac{R}{2\\pi L}$$\n\n### 应用场景\n\n- **D 类音频功放输出滤波**：滤除高频 PWM 载波，保留音频信号\n- **开关电源输出滤波（Buck 电路）**：电感和输出电容组成 LC 低通，平滑 PWM 方波变成直流\n\n---\n\n## 六、RL 高通滤波原理\n\n### 电路\n\n\u003e 输入 $V_{in}$ → 电阻 $R$ → 输出 $V_{out}$，同时 $V_{out}$ 经电感 $L$ 到 GND。\n\n### 原理\n\n**低频信号**：\n\n- 感抗小，电感相当于导线到地\n- 低频信号被从电阻后面短路到地 → **低频滤掉**\n\n**高频信号**：\n\n- 感抗大，电感相当于断路\n- 信号走向输出端 → **高频通过**\n\n\u003e 注意 RC 和 RL 的对称性：RC 高通是 C 串联 + R 到地；RL 高通是 R 串联 + L 到地。电容在 RC 中的串联位置等同于电感在 RL 中的到地位置。\n\n### 截止频率\n\n同样：\n\n$$f_c = \\frac{R}{2\\pi L}$$\n\n---\n\n## 七、LC 低通滤波原理\n\n这是最重要的滤波器——把电感和电容组合在一起，效果远超单独的 RC 或 RL。\n\n### 为什么需要 LC？\n\nRC 滤波器虽然简单，但有一个致命问题：**电阻本身消耗功率**。在大电流场合（如电源滤波），电阻上会发热、浪费能量、降低效率。\n\n而电感和电容都是**储能元件**，理论上是**不消耗功率**的——能量在电容的电场和电感的磁场之间来回转换，不变成热量。\n\n### 基本电路\n\n\u003e 输入 $V_{in}$ → 电感 $L$ → 输出 $V_{out}$，同时 $V_{out}$ 经电容 $C$ 到 GND。\n\n### 原理：取电容和电感各自的长处\n\n- 电感 $L$ 串联在信号通路中：低频时感抗小 → 畅通；高频时感抗大 → 阻挡\n- 电容 $C$ 并联到地：低频时容抗大 → 不往地漏；高频时容抗小 → 把残余高频短路到地\n\n\u003e 电感堵高频 + 电容放高频到地 = **双重截杀高频信号**。\n\n### 截止频率\n\n$$f_c = \\frac{1}{2\\pi\\sqrt{LC}}$$\n\n### LC 滤波的独特之处：谐振\n\nLC 滤波器在截止频率附近会发生**谐振**——这是纯 LC 滤波器最需要注意的问题。\n\n在谐振频率处，电感的感抗和电容的容抗恰好相等，相互抵消：\n\n- **串联 LC**（L + C 串联在信号路径上）：谐振时阻抗为零，信号完全通过 → 形成**带通**\n- **并联 LC**（L 串联，C 并联到地）：谐振时阻抗无穷大，信号被完全堵住\n\n对于上面这种 LC 低通拓扑（L 串联 + C 到地），谐振频率恰好等于截止频率。如果信号刚好在这个频率附近，输出可能比输入还大（**电压过冲**）！\n\n\u003e 🔧 实际电源电路中，常在电容上串联一个小电阻（几 $\\Omega$）来\"压制\"谐振，这叫阻尼。或者用更大的电容让谐振频率远低于工作频率。\n\n### 应用场景\n\n- **开关电源 Buck/Boost 输出滤波**：最核心的应用，把 PWM 高频方波平滑成平稳直流\n- **EMI 滤波**：电源输入端加 LC 滤波器，阻止设备的高频噪声串入电网\n- **射频电路选频**：利用 LC 谐振选出特定频率\n- **音响分频器**：低音扬声器前串电感（低通），高音扬声器前串电容（高通）\n\n---\n\n## 总结\n\n| 概念 | 要点 |\n|------|------|\n| 电感本质 | 绕成线圈的导线，利用电磁感应储能 |\n| 核心特性 | 电流不能突变，只限制变化速度不限制终点值 |\n| 对偶关系 | 电容电压不突变 ↔ 电感电流不突变；容抗随频率减小 ↔ 感抗随频率增大 |\n| 回路断开后果 | 电感产生极高反电动势（$V = L \\cdot \\frac{dI}{dt}$），可击穿器件 |\n| 感抗 | $X_L = 2\\pi f L$，频率越高感抗越大 |\n| RL 低通 | L 串联 + R 到地，低频通过 |\n| RL 高通 | R 串联 + L 到地，高频通过 |\n| LC 低通 | L 串联 + C 到地，双重截杀高频，注意谐振 |\n| LC 截止频率 | $f_c = \\dfrac{1}{2\\pi\\sqrt{LC}}$ |\n\n\u003e *电容和电感，一个守电压、一个守电流，一个通高频、一个通低频——它们就像衔尾蛇一样互相呼应，构成了模拟电路最优雅的双生子。*\n"])</script><script>self.__next_f.push([1,"36:T26da,"])</script><script>self.__next_f.push([1,"\n\n电容的物理结构其实非常简单——**两块导体板中间夹一层绝缘介质**。就像两块大铁板面对面放着，中间隔一层空气或塑料薄膜，这就是一个电容。\n\n电容的核心能力是**储存电荷**。当你给电容两端加上电压，正极板上会积累正电荷，负极板上会积累负电荷，中间隔着绝缘层，电荷跑不掉，于是电能就被\"锁\"在了电容里面。\n\n\u003e 💡 **通俗类比**：电容就像一个**弹性水袋**——你把水压进去，它鼓起来存着；你把外面的压力撤掉，它就慢慢把水放出来。刚灌水时水袋是空的，对水流几乎没有阻力（相当于导线）；灌满了就对水流彻底堵死（相当于断路）。\n\n电容储电是一个**物理过程**，不是化学反应。所以电容充放电速度极快，寿命也比电池长得多，但能存的能量远远不如电池。\n\n### 电容的关键参数\n\n| 参数 | 含义 |\n|------|------|\n| **容量 (C)** | 储电能力，单位法拉 (F)。常用的电容只有微法 (μF)、纳法 (nF)、皮法 (pF) |\n| **耐压值** | 电容能承受的最高电压，超了会击穿甚至爆炸 |\n| **ESR** | 等效串联电阻，越小越好，高频电路中很重要 |\n| **漏电流** | 电容两端有电压时，微小电流穿过介质的现象 |\n\n---\n\n## 二、核心特性：电容两端电压不能突变\n\n这是电容最根本、最重要的特性，源自电容的基本公式：\n\n$$I = C \\cdot \\frac{dV}{dt}$$\n\n翻译成人话：**流过电容的电流，等于容量乘以电压变化的速率。**\n\n这条公式推导出了一个重要结论：**电容两端的电压不能跳变（突变）**。\n\n为什么呢？如果电压瞬间跳变（$dt$ 趋近于 $0$），那么 $\\frac{dV}{dt}$ 趋近于无穷大，意味着需要的电流也是无穷大——这在物理上是不可能的。\n\n### 刚上电瞬间，电容可以看作导线\n\n这是电容\"电压不能突变\"特性的直接推论。\n\n上电前，电容两端电压为 $0\\text{V}$。上电瞬间：\n\n- 电源电压突然从 $0\\text{V}$ 跳到 $5\\text{V}$\n- 但电容电压依然是 $0\\text{V}$（不能突变！）\n- 电容两端出现 $5\\text{V}$ 的电压差\n- 此时电容表现得像**短路/导线**，电流猛冲进去给电容充电\n\n\u003e 这就是为什么电路板刚通电时会有瞬间大电流（**浪涌电流**），电路设计时必须考虑某个大电容上电时的冲击。\n\n随着充电进行，电容两端电压缓慢上升，电流逐渐减小。当电压充到接近电源电压时，电流趋于零，此时电容等效为**断路**。\n\n这个\"刚上电像导线，充满了像断路\"的特性，就是所谓的**隔直通交**：\n\n- **通交**：交流信号（电压不断变化）时，电容反复充放电，总有电流流过——相当于导通\n- **隔直**：直流稳定后，电容电压充到和电源一样，没有电压差就没有电流——相当于断开\n\n---\n\n## 三、上电延时和断电延时\n\n把电容和一个电阻串起来，就组成了最经典的 **RC 延时电路**。\n\n### 上电延时（充电过程）\n\n\u003e 电路：电源 $V_{CC}$ → 电阻 $R$ → 电容 $C$ → GND，输出从 $R$ 与 $C$ 之间取出。\n\n上电瞬间，电容电压为 $0\\text{V}$。电源通过电阻 $R$ 给电容 $C$ 充电，电容电压慢慢上升：\n\n$$V_c(t) = V_{CC} \\cdot \\left(1 - e^{-\\frac{t}{RC}}\\right)$$\n\n画成图像是一条从 $0\\text{V}$ 开始逐渐趋近 $V_{CC}$ 的上升曲线。\n\n**关键时间常数** $\\tau = R \\times C$：\n\n| 时间 | 充到电源电压的 |\n|------|:----------:|\n| $1\\tau$（1 倍 RC） | **63.2%** |\n| $2\\tau$ | **86.5%** |\n| $3\\tau$ | **95%**（工程上认为基本充满） |\n| $5\\tau$ | **99.3%**（认为完全充满） |\n\n### 断电延时（放电过程）\n\n把电源断开，让电容通过电阻 $R$ 放电：\n\n$$V_c(t) = V_{CC} \\cdot e^{-\\frac{t}{RC}}$$\n\n画成图像是一条从 $V_{CC}$ 开始缓慢下降到 $0\\text{V}$ 的曲线。\n\n同样的 $3\\tau \\sim 5\\tau$ 时间，电容电压降到接近 $0\\text{V}$。\n\n### 实际应用\n\n- **延时灯**：用一个电容 + 电阻给三极管提供基极电压。关灯后，电容慢慢放电，灯不是立刻熄灭而是缓缓变暗。\n- **单片机复位电路**：上电瞬间给 RESET 脚一个短暂的低电平脉冲（电容刚上电像导线，把 RESET 拉低），等电容充满后 RESET 变高电平，芯片开始正常工作。\n- **消抖电路**：按键并联一个小电容，按键抖动产生的短暂毛刺被电容吸收掉，只有持续的高/低电平才能被识别。\n\n---\n\n## 四、电容稳压和滤波功能\n\n### 稳压（旁路/去耦）\n\n这就是每块电路板电源引脚旁边必备那个小电容（通常 $0.1\\mu\\text{F}$）的原因。\n\n芯片工作时，它会消耗电流，而且不是稳定消耗——有时多、有时少（比如 CPU 在密集运算时电流飙升）。这种电流的剧烈波动会在电源线上产生电压波动，因为导线本身有电阻和电感。\n\n这时，电源引脚旁的小电容就像一个**本地水库**：\n\n- 芯片突然多要电流 → 电容立刻放电补给，不用走远路去电源那边取\n- 芯片突然少要电流 → 电容吸收多余的电流\n\n相当于电容充当了一个**缓冲**，把电源的波动给\"压平\"了。\n\n\u003e 芯片电源引脚 $0.1\\mu\\text{F} + 10\\mu\\text{F}$ 组合：$0.1\\mu\\text{F}$ 处理高频瞬态噪声，$10\\mu\\text{F}$ 处理低频波动。\n\n### 滤波\n\n交流电经整流后得到的是脉动直流——它的大方向是直流，但电压一直在波动，波形像一串连续的半圆。\n\n在整流输出端并联一个足够大的电容：\n\n- 电压上升时，电容充电\n- 电压下降时，电容放电（靠存着的电维持输出电压）\n\n结果：原本的脉动波形被\"填平\"成带微小波纹的平稳直流。这就是**电容滤波**的基本原理。\n\n电容越大，能存越多电 → 放电时电压掉得越少 → 纹波越小。\n\n---\n\n## 五、容抗计算公式\n\n在交流电路中，电容不仅表现出储存能力，还表现出一种\"阻抗\"——叫**容抗**，记作 $X_c$。\n\n$$X_c = \\frac{1}{2\\pi f C}$$\n\n| 符号 | 含义 | 单位 |\n|------|------|------|\n| $X_c$ | 容抗 | 欧姆 ($\\Omega$) |\n| $f$ | 信号频率 | 赫兹 (Hz) |\n| $C$ | 电容容量 | 法拉 (F) |\n\n**关键洞察**：\n\n- **频率越高，容抗越小** → 高频信号容易通过电容\n- **频率越低，容抗越大** → 低频信号难以通过电容\n- **频率为零（直流），容抗无穷大** → 直流完全通不过\n\n这就是\"隔直通交\"的数学表达。\n\n\u003e 举个例子：一个 $1\\mu\\text{F}$ 的电容，对 $50\\text{Hz}$ 交流电的容抗约为 $3183\\Omega$；对 $1\\text{MHz}$ 高频信号的容抗仅约 $0.16\\Omega$——差了近 2 万倍！\n\n---\n\n## 六、RC 低通滤波电路\n\n低通滤波器——让低频信号通过，把高频信号\"滤掉\"。\n\n### 基本电路\n\n\u003e 输入 $V_{in}$ → 电阻 $R$ → 输出 $V_{out}$，同时 $V_{out}$ 经电容 $C$ 到 GND。\n\n信号先是经过电阻，然后接一个电容到地，输出从电阻和电容的中间接出来。\n\n### 原理\n\n**高频信号来的时候**：\n\n- 电容的容抗 $X_c$ 非常小（频率高 → 容抗小）\n- 电容相当于把高频信号直接导到地（GND）\n- 输出端几乎没有高频信号 → **高频被滤掉了**\n\n**低频信号来的时候**：\n\n- 电容的容抗 $X_c$ 非常大（频率低 → 容抗大）\n- 信号基本走不过电容到地，老老实实走向输出端\n- 输出端低频信号完好 → **低频通过**\n\n### 关键频率：截止频率\n\n$$f_c = \\frac{1}{2\\pi R C}$$\n\n- 频率低于 $f_c$ 的信号 → 正常通过\n- 频率等于 $f_c$ 的信号 → 衰减到原来的 **70.7%**\n- 频率高于 $f_c$ 的信号 → 逐渐被滤掉，频率越高衰减越厉害\n\n### 应用场景\n\n- **音频电路**：滤掉高频噪声和嘶嘶声\n- **ADC 输入前端**：滤掉高于采样频率一半的噪声（抗混叠滤波）\n- **传感器信号调理**：过滤环境电磁干扰\n- **电源去噪**：滤除电源线上的高频纹波\n\n---\n\n## 七、RC 高通滤波电路\n\n与低通相反——高频通过，低频滤掉。\n\n### 基本电路\n\n\u003e 输入 $V_{in}$ → 电容 $C$ → 输出 $V_{out}$，同时 $V_{out}$ 经电阻 $R$ 到 GND。\n\n信号先经过电容，输出端接一个电阻到地。\n\n### 原理\n\n**高频信号来的时候**：\n\n- 电容容抗非常小，高频信号轻松穿过电容\n- 到达输出端，高频信号完好 → **高频通过**\n\n**低频信号来的时候**：\n\n- 电容容抗非常大，信号很难穿过电容\n- 输出端几乎收不到信号 → **低频被滤掉**\n\n直流信号：电容相当于断路，完全通不过。\n\n### 截止频率\n\n公式和低通一样：\n\n$$f_c = \\frac{1}{2\\pi R C}$$\n\n### 应用场景\n\n- **音频放大器输入耦合**：把前后级的直流工作点隔离开（只让音频交流信号通过，不让直流偏置电压传递）\n- **示波器 AC 耦合模式**：隔离被测信号的直流分量，只看交流部分\n- **去除传感器信号的直流漂移**：只保留变化的成分\n\n---\n\n## 总结\n\n| 概念 | 要点 |\n|------|------|\n| 电容本质 | 两块导体板 + 中间绝缘介质，储存电荷 |\n| 核心特性 | 两端电压不能突变；刚上电像导线，充满像断路 |\n| 隔直通交 | 直流稳定后电容断路，交流频率越高电容越导通 |\n| RC 延时 | $\\tau = RC$，$3\\tau$ 充电到 95%，$5\\tau$ 几乎充满 |\n| 稳压 | 电容当本地水库，缓冲电流突变 |\n| 滤波 | 利用电容充放电填平脉动电压 |\n| 容抗 | $X_c = \\frac{1}{2\\pi f C}$，频率越高容抗越小 |\n| 低通 | R 串联 + C 到地，高频通过 C 入地，低频走向输出 |\n| 高通 | C 串联 + R 到地，高频穿过 C，低频被 C 挡住 |\n\n\u003e *理解电容，就是理解\"能量不能被瞬间制造或消灭，只能被储存和释放\"。* —— 硬件入门的第一个洞见\n"])</script><script>self.__next_f.push([1,"28:[\"$\",\"div\",null,{\"className\":\"min-h-screen relative pb-10\",\"children\":[[\"$\",\"$L31\",null,{}],[\"$\",\"$L32\",null,{\"children\":[\"$\",\"$L33\",null,{\"chatters\":[{\"slug\":\"diode-basics\",\"title\":\"二极管基础——从整流到稳压的通俗讲解\",\"date\":\"2026-07-21 12:00:00\",\"tags\":[\"硬件基础\",\"二极管\",\"整流\",\"稳压\"],\"mood\":\"\",\"cover\":\"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png\",\"folder\":\"硬件基础\",\"content\":\"$34\"},{\"slug\":\"inductor-basics\",\"title\":\"电感基础——从电磁感应到LC滤波的通俗讲解\",\"date\":\"2026-07-21 11:00:00\",\"tags\":[\"硬件基础\",\"电感\",\"LC滤波\"],\"mood\":\"\",\"cover\":\"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png\",\"folder\":\"硬件基础\",\"content\":\"$35\"},{\"slug\":\"capacitor-basics\",\"title\":\"电容基础——从储能到滤波的通俗讲解\",\"date\":\"2026-07-21 10:00:00\",\"tags\":[\"硬件基础\",\"电容\",\"滤波\"],\"mood\":\"\",\"cover\":\"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png\",\"folder\":\"硬件基础\",\"content\":\"$36\"}],\"currentFolder\":\"硬件基础\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"2e:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"37:I[27201,[\"/_next/static/chunks/0eth2-x0x8z74.js\",\"/_next/static/chunks/0._jywihkh2te.js\",\"/_next/static/chunks/0sloe3q.6y95c.js\",\"/_next/static/chunks/00-csyj9a6t-x.js\"],\"IconMark\"]\n2b:null\n30:[[\"$\",\"title\",\"0\",{\"children\":\"Iustitiae の Blog\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"在代码、单片机，电机控制模拟间穿梭的普通人。近期正埋头于 freerots学习。\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"https://bu.dusays.com/2026/07/03/6a47641290190.png\"}],[\"$\",\"link\",\"3\",{\"rel\":\"apple-touch-icon\",\"href\":\"https://bu.dusays.com/2026/07/03/6a47641290190.png\"}],[\"$\",\"$L37\",\"4\",{}]]\n"])</script></body></html>

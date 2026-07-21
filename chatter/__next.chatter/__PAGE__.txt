@@ -1,8 +1,0 @@
-1:"$Sreact.fragment"
-2:I[62319,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/062fca~c1tbwu.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0114fqk6rkr32.js"],"default"]
-3:I[66357,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/062fca~c1tbwu.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0114fqk6rkr32.js"],"default"]
-4:I[79525,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/062fca~c1tbwu.js","/_next/static/chunks/00-csyj9a6t-x.js","/_next/static/chunks/0114fqk6rkr32.js"],"default"]
-5:I[97367,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0g1~1skfr3pzt.js","/_next/static/chunks/062fca~c1tbwu.js","/_next/static/chunks/00-csyj9a6t-x.js"],"OutletBoundary"]
-6:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen relative pb-10","children":[["$","$L2",null,{}],["$","$L3",null,{"children":["$","$L4",null,{"folders":[{"name":"其他","count":0,"updatedAt":1784287772676.3904,"cover":"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png"},{"name":"嵌入式","count":10,"updatedAt":1783403941465.683,"cover":"https://bu.dusays.com/2026/07/07/6a4c9592ef24d.png"}],"orphanCount":0}]}]]}],[["$","script","script-0",{"src":"/_next/static/chunks/0114fqk6rkr32.js","async":true}]],["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"ibtpIN848rpdBIdWF64SD"}
-7:null
