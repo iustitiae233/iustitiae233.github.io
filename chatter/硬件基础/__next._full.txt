@@ -14,7 +14,7 @@
 :HL["/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/caa3a2e1cccd8315-s.p.09~u27dqhyhd6.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/f112ed7f0b91582f-s.p.0xqqmnf1a3x8p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"P":null,"c":["","chatter","%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80",""],"q":"","i":false,"f":[[["",{"children":["chatter",{"children":[["folder","%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80","d",null],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",16],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/145o.lsi86g0w.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/066jf0nk75nic.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/0~ydk.tni6snc.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","3",{"rel":"stylesheet","href":"/_next/static/chunks/0tfrc-m6pdzbp.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/0eth2-x0x8z74.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/0._jywihkh2te.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0sloe3q.6y95c.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/00-csyj9a6t-x.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","className":"geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__variable noto_serif_sc_4b5b2b75-module__o_XRgq__variable h-full antialiased","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","style",null,{"suppressHydrationWarning":true,"dangerouslySetInnerHTML":{"__html":"\n              /* Splash Screen 初始隐藏内容，防止闪烁 */\n              #app-mount-root { opacity: 0; visibility: hidden; pointer-events: none; }\n\n              /* JS 正常：splash 动画完成后添加 splash-seen 类，内容显示 */\n              html.splash-seen #app-mount-root {\n                animation: none !important;\n                opacity: 1 !important;\n                visibility: visible !important;\n                pointer-events: auto !important;\n              }\n\n              /*\n               * 🔑 兜底机制：纯 CSS 超时自动显示\n               * 6 秒后强制显示内容（正常 splash 只需 2.7 秒）\n               * 即使 React 完全崩溃、JS 被禁用，内容也能自动恢复\n               * 注意：此动画仅在 splash-seen 类缺失时生效\n               */\n              @keyframes splashAutoReveal {\n                0%, 95% { visibility: hidden; pointer-events: none; }\n                100% { visibility: visible; pointer-events: auto; }\n              }\n              html:not(.splash-seen) #app-mount-root {\n                animation: splashAutoReveal 6s forwards;\n              }\n            "}}],["$","$L2",null,{"id":"handle-splash-logic","strategy":"beforeInteractive","children":"\n            try {\n              if (sessionStorage.getItem('hasSeenSplash') === 'true') {\n                document.documentElement.classList.add('splash-seen');\n              }\n            } catch (e) {}\n\n            // 🔑 兜底：4 秒后强制显示（即使 SplashScreen 组件崩溃）\n            setTimeout(function() {\n              if (!document.documentElement.classList.contains('splash-seen')) {\n                document.documentElement.classList.add('splash-seen');\n              }\n            }, 4000);\n          "}]]}],["$","body",null,{"className":"w-screen overflow-x-hidden min-h-full flex flex-col relative transition-colors duration-1000 bg-slate-50 dark:bg-slate-950 font-serif","children":["$","$L3",null,{"children":["$","$L4",null,{"children":[["$","$L5",null,{}],["$","$L6",null,{"children":[["$","div",null,{"id":"app-mount-root","className":"flex-1 flex flex-col transition-opacity duration-1000","children":[["$","div",null,{"className":"fixed inset-0 z-[-1] pointer-events-none overflow-hidden","children":[["$","$L7",null,{}],["$","div",null,{"className":"absolute inset-0 z-[-9] bg-white/5 dark:bg-slate-900/10 backdrop-blur-[2px] transition-colors duration-1000"}],["$","$L8",null,{}],["$","div",null,{"className":"absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/40 dark:bg-indigo-900/20 blur-[100px] rounded-full z-[-7] md:mix-blend-overlay"}],"$L9","$La"]}],"$Lb","$Lc","$Ld","$Le","$Lf","$L10","$L11","$L12"]}],"$L13"]}]]}]}]}]]}]]}],{"children":["$L14",{"children":["$L15",{"children":["$L16",{},null,false,null]},null,false,"$@17"]},null,false,"$@17"]},null,false,null],"$L18",false]],"m":"$undefined","G":["$19",["$L1a","$L1b","$L1c","$L1d"]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"HQWZhLron5o3b5GVsX4NM"}
+0:{"P":null,"c":["","chatter","%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80",""],"q":"","i":false,"f":[[["",{"children":["chatter",{"children":[["folder","%E7%A1%AC%E4%BB%B6%E5%9F%BA%E7%A1%80","d",null],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",16],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/145o.lsi86g0w.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/066jf0nk75nic.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","2",{"rel":"stylesheet","href":"/_next/static/chunks/0~ydk.tni6snc.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","3",{"rel":"stylesheet","href":"/_next/static/chunks/0tfrc-m6pdzbp.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/0eth2-x0x8z74.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/0._jywihkh2te.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0sloe3q.6y95c.js","async":true,"nonce":"$undefined"}],["$","script","script-3",{"src":"/_next/static/chunks/00-csyj9a6t-x.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","className":"geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__variable noto_serif_sc_4b5b2b75-module__o_XRgq__variable h-full antialiased","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","style",null,{"suppressHydrationWarning":true,"dangerouslySetInnerHTML":{"__html":"\n              /* Splash Screen 初始隐藏内容，防止闪烁 */\n              #app-mount-root { opacity: 0; visibility: hidden; pointer-events: none; }\n\n              /* JS 正常：splash 动画完成后添加 splash-seen 类，内容显示 */\n              html.splash-seen #app-mount-root {\n                animation: none !important;\n                opacity: 1 !important;\n                visibility: visible !important;\n                pointer-events: auto !important;\n              }\n\n              /*\n               * 🔑 兜底机制：纯 CSS 超时自动显示\n               * 6 秒后强制显示内容（正常 splash 只需 2.7 秒）\n               * 即使 React 完全崩溃、JS 被禁用，内容也能自动恢复\n               * 注意：此动画仅在 splash-seen 类缺失时生效\n               */\n              @keyframes splashAutoReveal {\n                0%, 95% { visibility: hidden; pointer-events: none; }\n                100% { visibility: visible; pointer-events: auto; }\n              }\n              html:not(.splash-seen) #app-mount-root {\n                animation: splashAutoReveal 6s forwards;\n              }\n            "}}],["$","$L2",null,{"id":"handle-splash-logic","strategy":"beforeInteractive","children":"\n            try {\n              if (sessionStorage.getItem('hasSeenSplash') === 'true') {\n                document.documentElement.classList.add('splash-seen');\n              }\n            } catch (e) {}\n\n            // 🔑 兜底：4 秒后强制显示（即使 SplashScreen 组件崩溃）\n            setTimeout(function() {\n              if (!document.documentElement.classList.contains('splash-seen')) {\n                document.documentElement.classList.add('splash-seen');\n              }\n            }, 4000);\n          "}]]}],["$","body",null,{"className":"w-screen overflow-x-hidden min-h-full flex flex-col relative transition-colors duration-1000 bg-slate-50 dark:bg-slate-950 font-serif","children":["$","$L3",null,{"children":["$","$L4",null,{"children":[["$","$L5",null,{}],["$","$L6",null,{"children":[["$","div",null,{"id":"app-mount-root","className":"flex-1 flex flex-col transition-opacity duration-1000","children":[["$","div",null,{"className":"fixed inset-0 z-[-1] pointer-events-none overflow-hidden","children":[["$","$L7",null,{}],["$","div",null,{"className":"absolute inset-0 z-[-9] bg-white/5 dark:bg-slate-900/10 backdrop-blur-[2px] transition-colors duration-1000"}],["$","$L8",null,{}],["$","div",null,{"className":"absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/40 dark:bg-indigo-900/20 blur-[100px] rounded-full z-[-7] md:mix-blend-overlay"}],"$L9","$La"]}],"$Lb","$Lc","$Ld","$Le","$Lf","$L10","$L11","$L12"]}],"$L13"]}]]}]}]}]]}]]}],{"children":["$L14",{"children":["$L15",{"children":["$L16",{},null,false,null]},null,false,"$@17"]},null,false,"$@17"]},null,false,null],"$L18",false]],"m":"$undefined","G":["$19",["$L1a","$L1b","$L1c","$L1d"]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"iszWY7oyUD83H-t82vzAv"}
 1e:I[94798,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
 1f:I[63571,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
 20:I[88138,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"default"]
@@ -587,7 +587,8 @@ LC 滤波器在截止频率附近会发生**谐振**——这是纯 LC 滤波器
 | LC 截止频率 | $f_c = \dfrac{1}{2\pi\sqrt{LC}}$ |
 
 > *电容和电感，一个守电压、一个守电流，一个通高频、一个通低频——它们就像衔尾蛇一样互相呼应，构成了模拟电路最优雅的双生子。*
-36:T26da,
+36:T2c33,
+## 一、电容是什么？
 
 电容的物理结构其实非常简单——**两块导体板中间夹一层绝缘介质**。就像两块大铁板面对面放着，中间隔一层空气或塑料薄膜，这就是一个电容。
 
@@ -599,12 +600,7 @@ LC 滤波器在截止频率附近会发生**谐振**——这是纯 LC 滤波器
 
 ### 电容的关键参数
 
-| 参数 | 含义 |
-|------|------|
-| **容量 (C)** | 储电能力，单位法拉 (F)。常用的电容只有微法 (μF)、纳法 (nF)、皮法 (pF) |
-| **耐压值** | 电容能承受的最高电压，超了会击穿甚至爆炸 |
-| **ESR** | 等效串联电阻，越小越好，高频电路中很重要 |
-| **漏电流** | 电容两端有电压时，微小电流穿过介质的现象 |
+参数含义**容量 (C)**储电能力，单位法拉 (F)。常用的电容只有微法 (μF)、纳法 (nF)、皮法 (pF)**耐压值**电容能承受的最高电压，超了会击穿甚至爆炸**ESR**等效串联电阻，越小越好，高频电路中很重要**漏电流**电容两端有电压时，微小电流穿过介质的现象
 
 ---
 
@@ -626,10 +622,10 @@ $$I = C \cdot \frac{dV}{dt}$$
 
 上电前，电容两端电压为 $0\text{V}$。上电瞬间：
 
-- 电源电压突然从 $0\text{V}$ 跳到 $5\text{V}$
-- 但电容电压依然是 $0\text{V}$（不能突变！）
-- 电容两端出现 $5\text{V}$ 的电压差
-- 此时电容表现得像**短路/导线**，电流猛冲进去给电容充电
+* 电源电压突然从 $0\text{V}$ 跳到 $5\text{V}$
+* 但电容电压依然是 $0\text{V}$（不能突变！）
+* 电容两端出现 $5\text{V}$ 的电压差
+* 此时电容表现得像**短路/导线**，电流猛冲进去给电容充电
 
 > 这就是为什么电路板刚通电时会有瞬间大电流（**浪涌电流**），电路设计时必须考虑某个大电容上电时的冲击。
 
@@ -637,8 +633,8 @@ $$I = C \cdot \frac{dV}{dt}$$
 
 这个"刚上电像导线，充满了像断路"的特性，就是所谓的**隔直通交**：
 
-- **通交**：交流信号（电压不断变化）时，电容反复充放电，总有电流流过——相当于导通
-- **隔直**：直流稳定后，电容电压充到和电源一样，没有电压差就没有电流——相当于断开
+* **通交**：交流信号（电压不断变化）时，电容反复充放电，总有电流流过——相当于导通
+* **隔直**：直流稳定后，电容电压充到和电源一样，没有电压差就没有电流——相当于断开
 
 ---
 
@@ -648,38 +644,33 @@ $$I = C \cdot \frac{dV}{dt}$$
 
 ### 上电延时（充电过程）
 
-> 电路：电源 $V_{CC}$ → 电阻 $R$ → 电容 $C$ → GND，输出从 $R$ 与 $C$ 之间取出。
+> 电路：电源 $V\_{CC}$ → 电阻 $R$ → 电容 $C$ → GND，输出从 $R$ 与 $C$ 之间取出。
 
 上电瞬间，电容电压为 $0\text{V}$。电源通过电阻 $R$ 给电容 $C$ 充电，电容电压慢慢上升：
 
-$$V_c(t) = V_{CC} \cdot \left(1 - e^{-\frac{t}{RC}}\right)$$
+$$V\_c(t) = V\_{CC} \cdot \left(1 - e^{-\frac{t}{RC}}\right)$$
 
-画成图像是一条从 $0\text{V}$ 开始逐渐趋近 $V_{CC}$ 的上升曲线。
+画成图像是一条从 $0\text{V}$ 开始逐渐趋近 $V\_{CC}$ 的上升曲线。
 
 **关键时间常数** $\tau = R \times C$：
 
-| 时间 | 充到电源电压的 |
-|------|:----------:|
-| $1\tau$（1 倍 RC） | **63.2%** |
-| $2\tau$ | **86.5%** |
-| $3\tau$ | **95%**（工程上认为基本充满） |
-| $5\tau$ | **99.3%**（认为完全充满） |
+时间充到电源电压的$1\tau$（1 倍 RC）**63.2%**$2\tau$**86.5%**$3\tau$**95%**（工程上认为基本充满）$5\tau$**99.3%**（认为完全充满）
 
 ### 断电延时（放电过程）
 
 把电源断开，让电容通过电阻 $R$ 放电：
 
-$$V_c(t) = V_{CC} \cdot e^{-\frac{t}{RC}}$$
+$$V\_c(t) = V\_{CC} \cdot e^{-\frac{t}{RC}}$$
 
-画成图像是一条从 $V_{CC}$ 开始缓慢下降到 $0\text{V}$ 的曲线。
+画成图像是一条从 $V\_{CC}$ 开始缓慢下降到 $0\text{V}$ 的曲线。
 
 同样的 $3\tau \sim 5\tau$ 时间，电容电压降到接近 $0\text{V}$。
 
 ### 实际应用
 
-- **延时灯**：用一个电容 + 电阻给三极管提供基极电压。关灯后，电容慢慢放电，灯不是立刻熄灭而是缓缓变暗。
-- **单片机复位电路**：上电瞬间给 RESET 脚一个短暂的低电平脉冲（电容刚上电像导线，把 RESET 拉低），等电容充满后 RESET 变高电平，芯片开始正常工作。
-- **消抖电路**：按键并联一个小电容，按键抖动产生的短暂毛刺被电容吸收掉，只有持续的高/低电平才能被识别。
+* **延时灯**：用一个电容 + 电阻给三极管提供基极电压。关灯后，电容慢慢放电，灯不是立刻熄灭而是缓缓变暗。
+* **单片机复位电路**：上电瞬间给 RESET 脚一个短暂的低电平脉冲（电容刚上电像导线，把 RESET 拉低），等电容充满后 RESET 变高电平，芯片开始正常工作。
+* **消抖电路**：按键并联一个小电容，按键抖动产生的短暂毛刺被电容吸收掉，只有持续的高/低电平才能被识别。
 
 ---
 
@@ -693,8 +684,8 @@ $$V_c(t) = V_{CC} \cdot e^{-\frac{t}{RC}}$$
 
 这时，电源引脚旁的小电容就像一个**本地水库**：
 
-- 芯片突然多要电流 → 电容立刻放电补给，不用走远路去电源那边取
-- 芯片突然少要电流 → 电容吸收多余的电流
+* 芯片突然多要电流 → 电容立刻放电补给，不用走远路去电源那边取
+* 芯片突然少要电流 → 电容吸收多余的电流
 
 相当于电容充当了一个**缓冲**，把电源的波动给"压平"了。
 
@@ -706,8 +697,8 @@ $$V_c(t) = V_{CC} \cdot e^{-\frac{t}{RC}}$$
 
 在整流输出端并联一个足够大的电容：
 
-- 电压上升时，电容充电
-- 电压下降时，电容放电（靠存着的电维持输出电压）
+* 电压上升时，电容充电
+* 电压下降时，电容放电（靠存着的电维持输出电压）
 
 结果：原本的脉动波形被"填平"成带微小波纹的平稳直流。这就是**电容滤波**的基本原理。
 
@@ -717,21 +708,17 @@ $$V_c(t) = V_{CC} \cdot e^{-\frac{t}{RC}}$$
 
 ## 五、容抗计算公式
 
-在交流电路中，电容不仅表现出储存能力，还表现出一种"阻抗"——叫**容抗**，记作 $X_c$。
+在交流电路中，电容不仅表现出储存能力，还表现出一种"阻抗"——叫**容抗**，记作 $X\_c$。
 
-$$X_c = \frac{1}{2\pi f C}$$
+$$X\_c = \frac{1}{2\pi f C}$$
 
-| 符号 | 含义 | 单位 |
-|------|------|------|
-| $X_c$ | 容抗 | 欧姆 ($\Omega$) |
-| $f$ | 信号频率 | 赫兹 (Hz) |
-| $C$ | 电容容量 | 法拉 (F) |
+符号含义单位$X\_c$容抗欧姆 ($\Omega$)$f$信号频率赫兹 (Hz)$C$电容容量法拉 (F)
 
 **关键洞察**：
 
-- **频率越高，容抗越小** → 高频信号容易通过电容
-- **频率越低，容抗越大** → 低频信号难以通过电容
-- **频率为零（直流），容抗无穷大** → 直流完全通不过
+* **频率越高，容抗越小** → 高频信号容易通过电容
+* **频率越低，容抗越大** → 低频信号难以通过电容
+* **频率为零（直流），容抗无穷大** → 直流完全通不过
 
 这就是"隔直通交"的数学表达。
 
@@ -745,7 +732,7 @@ $$X_c = \frac{1}{2\pi f C}$$
 
 ### 基本电路
 
-> 输入 $V_{in}$ → 电阻 $R$ → 输出 $V_{out}$，同时 $V_{out}$ 经电容 $C$ 到 GND。
+> 输入 $V\_{in}$ → 电阻 $R$ → 输出 $V\_{out}$，同时 $V\_{out}$ 经电容 $C$ 到 GND。
 
 信号先是经过电阻，然后接一个电容到地，输出从电阻和电容的中间接出来。
 
@@ -753,30 +740,36 @@ $$X_c = \frac{1}{2\pi f C}$$
 
 **高频信号来的时候**：
 
-- 电容的容抗 $X_c$ 非常小（频率高 → 容抗小）
-- 电容相当于把高频信号直接导到地（GND）
-- 输出端几乎没有高频信号 → **高频被滤掉了**
+* 电容的容抗 $X\_c$ 非常小（频率高 → 容抗小）
+* 电容相当于把高频信号直接导到地（GND）
+* 输出端几乎没有高频信号 → **高频被滤掉了**
 
 **低频信号来的时候**：
 
-- 电容的容抗 $X_c$ 非常大（频率低 → 容抗大）
-- 信号基本走不过电容到地，老老实实走向输出端
-- 输出端低频信号完好 → **低频通过**
+* 电容的容抗 $X\_c$ 非常大（频率低 → 容抗大）
+* 信号基本走不过电容到地，老老实实走向输出端
+* 输出端低频信号完好 → **低频通过**
 
 ### 关键频率：截止频率
 
-$$f_c = \frac{1}{2\pi R C}$$
+$$f\_c = \frac{1}{2\pi R C}$$
 
-- 频率低于 $f_c$ 的信号 → 正常通过
-- 频率等于 $f_c$ 的信号 → 衰减到原来的 **70.7%**
-- 频率高于 $f_c$ 的信号 → 逐渐被滤掉，频率越高衰减越厉害
+* 频率低于 $f\_c$ 的信号 → 正常通过
+* 频率等于 $f\_c$ 的信号 → 衰减到原来的 **70.7%**
+* 频率高于 $f\_c$ 的信号 → 逐渐被滤掉，频率越高衰减越厉害
+
+**肉眼可见的现象（示波器上怎么看？）**
+
+* **正弦波输入**：输入一个高频正弦波，你看到输出端**幅度大幅衰减**（变小）；输入一个低频正弦波，输出端幅度几乎**无损通过**。
+* **方波输入（最关键现象）**：给一个方波（棱角分明），输出端会变成**圆润的“梯形波”或“三角波”**。因为方波的“棱角”包含极其丰富的高频分量，都被电容“抹平”了。
+* **相移现象**：输出信号会比输入信号**滞后**（延迟）一个角度。频率越高，滞后越严重，最高接近-90°。
 
 ### 应用场景
 
-- **音频电路**：滤掉高频噪声和嘶嘶声
-- **ADC 输入前端**：滤掉高于采样频率一半的噪声（抗混叠滤波）
-- **传感器信号调理**：过滤环境电磁干扰
-- **电源去噪**：滤除电源线上的高频纹波
+* **音频电路**：滤掉高频噪声和嘶嘶声
+* **ADC 输入前端**：滤掉高于采样频率一半的噪声（抗混叠滤波）
+* **传感器信号调理**：过滤环境电磁干扰
+* **电源去噪**：滤除电源线上的高频纹波
 
 ---
 
@@ -786,7 +779,7 @@ $$f_c = \frac{1}{2\pi R C}$$
 
 ### 基本电路
 
-> 输入 $V_{in}$ → 电容 $C$ → 输出 $V_{out}$，同时 $V_{out}$ 经电阻 $R$ 到 GND。
+> 输入 $V\_{in}$ → 电容 $C$ → 输出 $V\_{out}$，同时 $V\_{out}$ 经电阻 $R$ 到 GND。
 
 信号先经过电容，输出端接一个电阻到地。
 
@@ -794,13 +787,13 @@ $$f_c = \frac{1}{2\pi R C}$$
 
 **高频信号来的时候**：
 
-- 电容容抗非常小，高频信号轻松穿过电容
-- 到达输出端，高频信号完好 → **高频通过**
+* 电容容抗非常小，高频信号轻松穿过电容
+* 到达输出端，高频信号完好 → **高频通过**
 
 **低频信号来的时候**：
 
-- 电容容抗非常大，信号很难穿过电容
-- 输出端几乎收不到信号 → **低频被滤掉**
+* 电容容抗非常大，信号很难穿过电容
+* 输出端几乎收不到信号 → **低频被滤掉**
 
 直流信号：电容相当于断路，完全通不过。
 
@@ -808,32 +801,30 @@ $$f_c = \frac{1}{2\pi R C}$$
 
 公式和低通一样：
 
-$$f_c = \frac{1}{2\pi R C}$$
+$$f\_c = \frac{1}{2\pi R C}$$
+
+**肉眼可见的现象（示波器上怎么看？）**
+
+* **正弦波输入**：输入一个高频正弦波，输出端**幅度基本不变**；输入一个低频正弦波，输出端**幅度急剧缩小**。频率越低，幅度越小，直流量直接归零。
+* **方波输入（最关键现象）**：给一个恒定的方波（比如0~3.3V），输出端会变成**正负对称的“尖峰”或“毛刺”**！方波的“平顶”（直流分量）被电容吃掉了，只剩下**上升沿和下降沿的瞬间跳变**（尖端放电）。这就是“求微分”的物理表现。
+* **相移现象**：输出信号比输入信号**超前**（提前）一个角度。频率越低，超前越明显，最高接近+90°。
 
 ### 应用场景
 
-- **音频放大器输入耦合**：把前后级的直流工作点隔离开（只让音频交流信号通过，不让直流偏置电压传递）
-- **示波器 AC 耦合模式**：隔离被测信号的直流分量，只看交流部分
-- **去除传感器信号的直流漂移**：只保留变化的成分
+* **音频放大器输入耦合**：把前后级的直流工作点隔离开（只让音频交流信号通过，不让直流偏置电压传递）
+* **示波器 AC 耦合模式**：隔离被测信号的直流分量，只看交流部分
+* **去除传感器信号的直流漂移**：只保留变化的成分
 
 ---
 
 ## 总结
 
-| 概念 | 要点 |
-|------|------|
-| 电容本质 | 两块导体板 + 中间绝缘介质，储存电荷 |
-| 核心特性 | 两端电压不能突变；刚上电像导线，充满像断路 |
-| 隔直通交 | 直流稳定后电容断路，交流频率越高电容越导通 |
-| RC 延时 | $\tau = RC$，$3\tau$ 充电到 95%，$5\tau$ 几乎充满 |
-| 稳压 | 电容当本地水库，缓冲电流突变 |
-| 滤波 | 利用电容充放电填平脉动电压 |
-| 容抗 | $X_c = \frac{1}{2\pi f C}$，频率越高容抗越小 |
-| 低通 | R 串联 + C 到地，高频通过 C 入地，低频走向输出 |
-| 高通 | C 串联 + R 到地，高频穿过 C，低频被 C 挡住 |
+概念要点电容本质两块导体板 + 中间绝缘介质，储存电荷核心特性两端电压不能突变；刚上电像导线，充满像断路隔直通交直流稳定后电容断路，交流频率越高电容越导通RC 延时$\tau = RC$，$3\tau$ 充电到 95%，$5\tau$ 几乎充满稳压电容当本地水库，缓冲电流突变滤波利用电容充放电填平脉动电压容抗$X\_c = \frac{1}{2\pi f C}$，频率越高容抗越小低通R 串联 + C 到地，高频通过 C 入地，低频走向输出高通C 串联 + R 到地，高频穿过 C，低频被 C 挡住
 
 > *理解电容，就是理解"能量不能被瞬间制造或消灭，只能被储存和释放"。* —— 硬件入门的第一个洞见
-28:["$","div",null,{"className":"min-h-screen relative pb-10","children":[["$","$L31",null,{}],["$","$L32",null,{"children":["$","$L33",null,{"chatters":[{"slug":"diode-basics","title":"二极管基础——从整流到稳压的通俗讲解","date":"2026-07-21 12:00:00","tags":["硬件基础","二极管","整流","稳压"],"mood":"","cover":"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png","folder":"硬件基础","content":"$34"},{"slug":"inductor-basics","title":"电感基础——从电磁感应到LC滤波的通俗讲解","date":"2026-07-21 11:00:00","tags":["硬件基础","电感","LC滤波"],"mood":"","cover":"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png","folder":"硬件基础","content":"$35"},{"slug":"capacitor-basics","title":"电容基础——从储能到滤波的通俗讲解","date":"2026-07-21 10:00:00","tags":["硬件基础","电容","滤波"],"mood":"","cover":"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png","folder":"硬件基础","content":"$36"}],"currentFolder":"硬件基础"}]}]]}]
+
+  
+‍28:["$","div",null,{"className":"min-h-screen relative pb-10","children":[["$","$L31",null,{}],["$","$L32",null,{"children":["$","$L33",null,{"chatters":[{"slug":"diode-basics","title":"二极管基础——从整流到稳压的通俗讲解","date":"2026-07-21 12:00:00","tags":["硬件基础","二极管","整流","稳压"],"mood":"","cover":"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png","folder":"硬件基础","content":"$34"},{"slug":"inductor-basics","title":"电感基础——从电磁感应到LC滤波的通俗讲解","date":"2026-07-21 11:00:00","tags":["硬件基础","电感","LC滤波"],"mood":"","cover":"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png","folder":"硬件基础","content":"$35"},{"slug":"capacitor-basics","title":"电容基础——从储能到滤波的通俗讲解","date":"2026-07-21 10:00:00","tags":["硬件基础","电容","滤波"],"mood":"","cover":"https://bu.dusays.com/2026/07/07/6a4c9590b4c27.png","folder":"硬件基础","content":"$36"}],"currentFolder":"硬件基础"}]}]]}]
 2e:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 37:I[27201,["/_next/static/chunks/0eth2-x0x8z74.js","/_next/static/chunks/0._jywihkh2te.js","/_next/static/chunks/0sloe3q.6y95c.js","/_next/static/chunks/00-csyj9a6t-x.js"],"IconMark"]
 2b:null
