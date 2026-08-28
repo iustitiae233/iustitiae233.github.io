@@ -1,0 +1,81 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+const { headings } = Astro.props;
+const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+{toc.length > 0 && (
+  <nav class="toc" aria-label="本页大纲">
+    <p class="toc-title">大纲</p>
+    <ul>
+      {toc.map((h) => (
+        <li class:list={["toc-item", `d${h.depth}`]}>
+          <a href={`#${h.slug}`}>{h.text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  .toc {
+    position: sticky;
+    top: 4.5rem;
+    align-self: start;
+    max-height: calc(100dvh - 6rem);
+    overflow-y: auto;
+    font-size: 0.83rem;
+  }
+  .toc-title {
+    color: var(--text-3);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  ul { list-style: none; padding: 0; display: grid; gap: 2px; }
+  .toc-item a {
+    display: block;
+    padding: 0.3rem 0.75rem;
+    border-left: 2px solid transparent;
+    color: var(--text-3);
+    line-height: 1.5;
+    transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+  }
+  .toc-item.d3 { padding-left: 0.75rem; font-size: 0.78rem; }
+  .toc-item a:hover { color: var(--text-1); }
+  .toc-item a.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+  }
+  @media (max-width: 1279px) {
+    .toc { display: none; }
+  }
+</style>
+
+<script>
+  const links = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>(".toc-item a"),
+  );
+  const map = new Map(
+    links
+      .map((a) => a.getAttribute("href")?.slice(1))
+      .filter((id): id is string => Boolean(id))
+      .map((id) => [id, document.getElementById(id)] as const),
+  );
+
+  const setActive = (id: string) => {
+    for (const a of links) a.classList.toggle("active", a.getAttribute("href") === `#${id}`);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      }
+    },
+    { rootMargin: "-15% 0px -70% 0px" },
+  );
+  for (const el of map.values()) if (el) observer.observe(el);
+</script>

@@ -2,6 +2,8 @@
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 import PrevNext from "../components/PrevNext.astro";
+import Toc from "../components/Toc.astro";
+import ReadingProgress from "../components/ReadingProgress.astro";
 import { formatDate } from "../lib/format";
 import { estimateReadingTime } from "../lib/reading-time";
 
@@ -17,6 +19,7 @@ const reading = estimateReadingTime(post.body);
 ---
 
 <BaseLayout title={title} description={description}>
+  <ReadingProgress />
   <article class="post">
     <header class="post-header">
       <h1>{title}</h1>
@@ -33,6 +36,7 @@ const reading = estimateReadingTime(post.body);
       <div class="post-content">
         <slot />
       </div>
+      <Toc headings={headings} />
     </div>
   </article>
   <PrevNext
@@ -57,5 +61,13 @@ const reading = estimateReadingTime(post.body);
     margin-bottom: 2.5rem;
     padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--border);
+  }
+  .post-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 3rem;
+  }
+  @media (max-width: 1279px) {
+    .post-body { grid-template-columns: 1fr; }
   }
 </style>
