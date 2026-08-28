@@ -10,7 +10,7 @@ const posts = sortPostsByDateDesc(entries).map((p) => ({
   title: p.data.title,
   description: p.data.description,
   pubDate: p.data.pubDate,
-  body: p.body,
+  body: p.body ?? "",
 }));
 ---
 

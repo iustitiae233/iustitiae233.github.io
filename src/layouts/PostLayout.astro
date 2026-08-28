@@ -17,7 +17,7 @@ interface Props {
 }
 const { post, headings, newer, older } = Astro.props;
 const { title, description, pubDate, updatedDate } = post.data;
-const reading = estimateReadingTime(post.body);
+const reading = estimateReadingTime(post.body ?? "");
 ---
 
 <BaseLayout title={title} description={description}>
@@ -53,7 +53,7 @@ const reading = estimateReadingTime(post.body);
   <script>
     const lb = document.getElementById("lightbox") as HTMLDialogElement | null;
     const lbImg = lb?.querySelector("img");
-    document.querySelectorAll(".post-content img").forEach((img) => {
+    document.querySelectorAll<HTMLImageElement>(".post-content img").forEach((img) => {
       img.addEventListener("click", () => {
         if (!lb || !lbImg) return;
         lbImg.src = img.currentSrc || img.src;
