@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/prose.css";
+---
+
+<BaseLayout title="关于 · 我的博客" description="关于这个博客与作者">
+  <article class="post-content about">
+    <h1>关于</h1>
+    <p>
+      你好！这里是我的个人博客。我用 <strong>Astro</strong> 搭建了它 ——
+      零 JavaScript 基线、原生 View Transitions、类型安全的内容管线。
+    </p>
+    <p>这里主要写：Web 性能优化、CSS 动画、前端工程实践。</p>
+    <blockquote>
+      <p>极致流畅不是优化出来的，是从第一行代码开始的设计约束。</p>
+    </blockquote>
+    <h2>本站技术栈</h2>
+    <ul>
+      <li><strong>Astro 7</strong> —— 静态生成，零 JS 基线</li>
+      <li><strong>原生 CSS</strong> —— 设计令牌 + scroll-driven animations</li>
+      <li><strong>pagefind</strong> —— 静态全文搜索</li>
+      <li><strong>Zod</strong> —— 内容契约</li>
+    </ul>
+  </article>
+</BaseLayout>
+
+<style>
+  .about {
+    margin-inline: auto;
+    padding-top: 2rem;
+  }
+</style>
