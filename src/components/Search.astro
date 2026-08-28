@@ -115,63 +115,82 @@
 <script>
   type PFResult = {
     meta: { title?: string; url?: string };
-    excerpt: () => string;
+    url?: string;
+    // pagefind 各版本形态不一：excerpt 可能是函数（计算）或字符串（预计算）
+    excerpt?: string | (() => string);
   };
+
+  const excerptOf = (r: PFResult): string =>
+    typeof r.excerpt === "function" ? r.excerpt() : String(r.excerpt ?? "");
   type Pagefind = {
     search: (q: string) => Promise<{ results: { data: () => Promise<PFResult> }[] }>;
   };
 
-  const modal = document.getElementById("search-modal");
-  const input = document.getElementById("search-input") as HTMLInputElement | null;
-  const resultsEl = document.getElementById("search-results");
+  // 注意：不能在模块顶层缓存 DOM 引用 —— ClientRouter 软导航会替换 body，
+  // 闭包里的引用会变成已移除的旧节点（ThemeToggle 因在 persist 侧栏内不受影响）。
+  const getModal = () => document.getElementById("search-modal");
+  const getInput = () => document.getElementById("search-input") as HTMLInputElement | null;
+  const getResultsEl = () => document.getElementById("search-results");
+
   let pagefind: Pagefind | null = null;
   let results: (PFResult & { url: string })[] = [];
   let selected = 0;
   let lastController: AbortController | null = null;
 
   const open = async () => {
-    modal?.removeAttribute("hidden");
-    input?.focus();
+    getModal()?.removeAttribute("hidden");
+    getInput()?.focus();
     if (!pagefind) {
       try {
-        // 索引由 post-build 步骤生成，构建时该模块尚不存在 —— 必须 @vite-ignore
-        const url = "/pagefind/pagefind.js";
-        pagefind = (await import(/* @vite-ignore */ url)) as unknown as Pagefind;
+        // 索引由 post-build 生成，构建时不存在 —— 用 Function 构造器彻底绕开打包器
+        // （Vite 8 仍会给 @vite-ignore 的动态 import 包 __vitePreload，导致解析失败）
+        const load = new Function("u", "return import(u)") as (
+          u: string,
+        ) => Promise<Pagefind>;
+        pagefind = await load("/pagefind/pagefind.js");
       } catch {
-        if (resultsEl) {
-          resultsEl.innerHTML =
+        const el = getResultsEl();
+        if (el) {
+          el.innerHTML =
             '<li class="result"><span class="r-title">搜索索引不可用（dev 模式请用 npm run build && npm run preview 验证）</span></li>';
         }
       }
     }
+    // 索引加载完成前用户可能已输入 —— 就绪后自动补搜一次
+    const q = getInput()?.value.trim();
+    if (q) getInput()?.dispatchEvent(new Event("input", { bubbles: true }));
   };
-  const close = () => modal?.setAttribute("hidden", "");
+  const close = () => getModal()?.setAttribute("hidden", "");
 
   document.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
       e.preventDefault();
-      if (modal?.hasAttribute("hidden")) void open();
+      if (getModal()?.hasAttribute("hidden")) void open();
       else close();
     }
     if (e.key === "Escape") close();
   });
-  document.querySelector("[data-search-open]")?.addEventListener("click", (e) => {
-    e.preventDefault();
-    void open();
-  });
-  modal?.addEventListener("click", (e) => {
-    if (e.target === modal) close();
+  // 顶栏触发器在软导航后是新 DOM —— 事件委托到 document
+  document.addEventListener("click", (e) => {
+    const trigger = (e.target as HTMLElement).closest("[data-search-open]");
+    if (trigger) {
+      e.preventDefault();
+      void open();
+      return;
+    }
+    if (e.target === getModal()) close();
   });
 
   const render = () => {
-    if (!resultsEl) return;
+    const el = getResultsEl();
+    if (!el) return;
     selected = Math.min(selected, Math.max(0, results.length - 1));
-    resultsEl.innerHTML = results
+    el.innerHTML = results
       .map(
         (r, i) => `
         <li class="result${i === selected ? " selected" : ""}" role="option" aria-selected="${i === selected}" data-i="${i}">
           <span class="r-title">${r.meta.title ?? "无标题"}</span>
-          <span class="r-excerpt">${r.excerpt()}</span>
+          <span class="r-excerpt">${excerptOf(r)}</span>
         </li>`,
       )
       .join("");
@@ -182,7 +201,9 @@
     window.location.href = r.url;
   };
 
-  input?.addEventListener("input", async () => {
+  document.addEventListener("input", async (e) => {
+    if ((e.target as HTMLElement).id !== "search-input") return;
+    const input = e.target as HTMLInputElement;
     const q = input.value.trim();
     if (!q || !pagefind) {
       results = [];
@@ -198,12 +219,13 @@
       search.results.slice(0, 8).map((r) => r.data()),
     );
     if (signal.aborted) return;
-    results = items.map((it) => ({ ...it, url: it.meta.url ?? "/" }));
+    results = items.map((it) => ({ ...it, url: it.url ?? it.meta.url ?? "/" }));
     selected = 0;
     render();
   });
 
-  input?.addEventListener("keydown", (e) => {
+  document.addEventListener("keydown", (e) => {
+    if ((e.target as HTMLElement).id !== "search-input") return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
       selected = Math.min(selected + 1, results.length - 1);
@@ -217,9 +239,9 @@
     }
   });
 
-  resultsEl?.addEventListener("click", (e) => {
+  document.addEventListener("click", (e) => {
     const li = (e.target as HTMLElement).closest<HTMLElement>(".result");
-    if (li) {
+    if (li && getModal()?.contains(li)) {
       const i = Number(li.dataset.i);
       if (results[i]) go(results[i]);
     }
