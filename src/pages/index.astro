@@ -1,12 +1,12 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
 ---
 
-<html lang="zh-CN">
-  <body>
-    <main style="padding: 4rem 2rem">
-      <h1>token test 深空基底</h1>
-      <p style="color: var(--text-2)">雾氖青 <a href="#">链接色</a> 与网格背景验证</p>
-    </main>
-  </body>
-</html>
+<BaseLayout title="测试" description="测试">
+  <main style="padding: 4rem 2rem">
+    <h1>主题切换验证</h1>
+    <p>点击按钮观察圆形扩散</p>
+    <ThemeToggle />
+  </main>
+</BaseLayout>
