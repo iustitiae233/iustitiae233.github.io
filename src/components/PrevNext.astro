@@ -1,0 +1,53 @@
+---
+interface LinkItem {
+  slug: string;
+  title: string;
+}
+interface Props {
+  newer: LinkItem | null;
+  older: LinkItem | null;
+}
+const { newer, older } = Astro.props;
+---
+
+<nav class="prev-next" aria-label="文章导航">
+  {newer ? (
+    <a class="pn-link newer" href={`/posts/${newer.slug}/`}>
+      <span class="pn-label">上一篇</span>
+      <span class="pn-title">{newer.title}</span>
+    </a>
+  ) : <span class="pn-placeholder" />}
+  {older ? (
+    <a class="pn-link older" href={`/posts/${older.slug}/`}>
+      <span class="pn-label">下一篇</span>
+      <span class="pn-title">{older.title}</span>
+    </a>
+  ) : <span class="pn-placeholder" />}
+</nav>
+
+<style>
+  .prev-next {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .pn-link {
+    display: grid;
+    gap: 0.375rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: inherit;
+    transition: border-color var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-out);
+  }
+  .pn-link:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .older { text-align: right; }
+  .pn-label { font-size: 0.78rem; color: var(--text-3); }
+  .pn-title { font-size: 0.95rem; color: var(--text-1); }
+  .pn-placeholder { visibility: hidden; }
+  @media (max-width: 640px) {
+    .prev-next { grid-template-columns: 1fr; }
+    .older { text-align: left; }
+  }
+</style>

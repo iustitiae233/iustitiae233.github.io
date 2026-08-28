@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import PrevNext from "../components/PrevNext.astro";
+import { formatDate } from "../lib/format";
+import { estimateReadingTime } from "../lib/reading-time";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  headings: { depth: number; slug: string; text: string }[];
+  newer: { id: string; data: { title: string } } | null;
+  older: { id: string; data: { title: string } } | null;
+}
+const { post, headings, newer, older } = Astro.props;
+const { title, description, pubDate, updatedDate } = post.data;
+const reading = estimateReadingTime(post.body);
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="post">
+    <header class="post-header">
+      <h1>{title}</h1>
+      <p class="post-meta">
+        <time datetime={pubDate.toISOString()}>发布于 {formatDate(pubDate)}</time>
+        {updatedDate && (
+          <time datetime={updatedDate.toISOString()}>更新于 {formatDate(updatedDate)}</time>
+        )}
+        <span>{reading.label}阅读</span>
+      </p>
+    </header>
+
+    <div class="post-body">
+      <div class="post-content">
+        <slot />
+      </div>
+    </div>
+  </article>
+  <PrevNext
+    newer={newer ? { slug: newer.id, title: newer.data.title } : null}
+    older={older ? { slug: older.id, title: older.data.title } : null}
+  />
+</BaseLayout>
+
+<style>
+  .post-header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: var(--text-3);
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+</style>
