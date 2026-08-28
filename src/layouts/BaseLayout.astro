@@ -1,6 +1,9 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import { getCollection } from "astro:content";
+import Sidebar from "../components/Sidebar.astro";
+import Topbar from "../components/Topbar.astro";
 
 interface Props {
   title: string;
@@ -8,6 +11,10 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+const posts = allPosts
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .map((p) => ({ slug: p.id, title: p.data.title }));
 ---
 
 <!doctype html>
@@ -29,6 +36,36 @@ const { title, description } = Astro.props;
     <ClientRouter />
   </head>
   <body>
-    <slot />
+    <div class="app-shell">
+      <Sidebar posts={posts} />
+      <div class="main-area">
+        <Topbar />
+        <main>
+          <slot />
+        </main>
+      </div>
+    </div>
   </body>
 </html>
+
+<style>
+  .app-shell {
+    min-height: 100dvh;
+  }
+  .main-area {
+    margin-left: var(--sidebar-w);
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  @media (max-width: 1023px) {
+    .main-area { margin-left: 0; }
+  }
+</style>
