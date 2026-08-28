@@ -4,6 +4,8 @@ import BaseLayout from "./BaseLayout.astro";
 import PrevNext from "../components/PrevNext.astro";
 import Toc from "../components/Toc.astro";
 import ReadingProgress from "../components/ReadingProgress.astro";
+import CopyCode from "../components/CopyCode.astro";
+import "../styles/prose.css";
 import { formatDate } from "../lib/format";
 import { estimateReadingTime } from "../lib/reading-time";
 
@@ -43,6 +45,26 @@ const reading = estimateReadingTime(post.body);
     newer={newer ? { slug: newer.id, title: newer.data.title } : null}
     older={older ? { slug: older.id, title: older.data.title } : null}
   />
+  <CopyCode client:idle />
+
+  <dialog id="lightbox" class="lightbox">
+    <img alt="" src="" />
+  </dialog>
+  <script>
+    const lb = document.getElementById("lightbox") as HTMLDialogElement | null;
+    const lbImg = lb?.querySelector("img");
+    document.querySelectorAll(".post-content img").forEach((img) => {
+      img.addEventListener("click", () => {
+        if (!lb || !lbImg) return;
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt;
+        lb.showModal();
+      });
+    });
+    lb?.addEventListener("click", (e) => {
+      if (e.target === lb || e.target === lbImg) lb.close();
+    });
+  </script>
 </BaseLayout>
 
 <style>
@@ -69,5 +91,25 @@ const reading = estimateReadingTime(post.body);
   }
   @media (max-width: 1279px) {
     .post-body { grid-template-columns: 1fr; }
+  }
+</style>
+
+<style>
+  .lightbox {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 92vw;
+    max-height: 92vh;
+  }
+  .lightbox::backdrop {
+    background: rgba(4, 6, 12, 0.85);
+    backdrop-filter: blur(8px);
+  }
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 92vh;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-strong);
   }
 </style>

@@ -1,0 +1,53 @@
+<script>
+  // 为每个代码块注入复制按钮（client:idle 水合后执行一次）
+  function mountCopyButtons() {
+    for (const block of document.querySelectorAll(".astro-code")) {
+      if (block.querySelector(".copy-btn")) continue;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "copy-btn";
+      btn.textContent = "复制";
+      btn.addEventListener("click", async () => {
+        const text = block.querySelector("code")?.innerText ?? "";
+        try {
+          await navigator.clipboard.writeText(text);
+          btn.textContent = "已复制 ✓";
+          btn.classList.add("copied");
+        } catch {
+          btn.textContent = "复制失败";
+        }
+        setTimeout(() => {
+          btn.textContent = "复制";
+          btn.classList.remove("copied");
+        }, 2000);
+      });
+      block.appendChild(btn);
+    }
+  }
+
+  mountCopyButtons();
+  // 软导航后 DOM 重建，重新挂载
+  document.addEventListener("astro:page-load", mountCopyButtons);
+</script>
+
+<style is:global>
+  .copy-btn {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    color: var(--text-3);
+    font-size: 0.75rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+  }
+  .astro-code:hover .copy-btn,
+  .copy-btn:focus-visible { opacity: 1; }
+  .copy-btn:hover { color: var(--accent); }
+  .copy-btn.copied { color: var(--ok, var(--accent)); opacity: 1; }
+</style>
