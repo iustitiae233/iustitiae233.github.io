@@ -1,0 +1,227 @@
+---
+// client:load 岛屿：搜索需要立即可用（⌘K）
+---
+
+<div
+  id="search-modal"
+  class="search-modal"
+  hidden
+  role="dialog"
+  aria-modal="true"
+  aria-label="搜索"
+>
+  <div class="search-panel" data-panel>
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />
+      </svg>
+      <input
+        id="search-input"
+        type="search"
+        placeholder="搜索文章…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <kbd>Esc</kbd>
+    </div>
+    <ul id="search-results" class="search-results" role="listbox"></ul>
+    <p class="search-hint">↑↓ 选择 · Enter 打开 · Esc 关闭</p>
+  </div>
+</div>
+
+<style>
+  .search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: start center;
+    padding-top: 12vh;
+    background: color-mix(in srgb, #05070d 65%, transparent);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .search-modal[hidden] { display: none; }
+  .search-panel {
+    width: min(640px, 92vw);
+    display: grid;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: 0 24px 80px -20px rgba(0, 0, 0, 0.6), 0 0 60px -30px var(--accent-glow);
+    overflow: hidden;
+  }
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-3);
+  }
+  .search-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-1);
+    font-size: 1.05rem;
+    outline: none;
+    font-family: inherit;
+  }
+  .search-box input::placeholder { color: var(--text-3); }
+  .search-box kbd {
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: var(--text-3);
+  }
+  .search-results {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem;
+    max-height: 50vh;
+    overflow-y: auto;
+    display: grid;
+    gap: 2px;
+  }
+  .search-results:empty { padding: 0.75rem; }
+  .result {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .result.selected { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .result .r-title { color: var(--text-1); font-size: 0.95rem; }
+  .result .r-excerpt {
+    color: var(--text-3);
+    font-size: 0.82rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  .result .r-excerpt :global(mark) { color: var(--accent); background: none; }
+  .search-hint {
+    padding: 0.6rem 1.25rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-3);
+    font-size: 0.75rem;
+  }
+</style>
+
+<script>
+  type PFResult = {
+    meta: { title?: string; url?: string };
+    excerpt: () => string;
+  };
+  type Pagefind = {
+    search: (q: string) => Promise<{ results: { data: () => Promise<PFResult> }[] }>;
+  };
+
+  const modal = document.getElementById("search-modal");
+  const input = document.getElementById("search-input") as HTMLInputElement | null;
+  const resultsEl = document.getElementById("search-results");
+  let pagefind: Pagefind | null = null;
+  let results: (PFResult & { url: string })[] = [];
+  let selected = 0;
+  let lastController: AbortController | null = null;
+
+  const open = async () => {
+    modal?.removeAttribute("hidden");
+    input?.focus();
+    if (!pagefind) {
+      try {
+        // 索引由 post-build 步骤生成，构建时该模块尚不存在 —— 必须 @vite-ignore
+        const url = "/pagefind/pagefind.js";
+        pagefind = (await import(/* @vite-ignore */ url)) as unknown as Pagefind;
+      } catch {
+        if (resultsEl) {
+          resultsEl.innerHTML =
+            '<li class="result"><span class="r-title">搜索索引不可用（dev 模式请用 npm run build && npm run preview 验证）</span></li>';
+        }
+      }
+    }
+  };
+  const close = () => modal?.setAttribute("hidden", "");
+
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      if (modal?.hasAttribute("hidden")) void open();
+      else close();
+    }
+    if (e.key === "Escape") close();
+  });
+  document.querySelector("[data-search-open]")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    void open();
+  });
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) close();
+  });
+
+  const render = () => {
+    if (!resultsEl) return;
+    selected = Math.min(selected, Math.max(0, results.length - 1));
+    resultsEl.innerHTML = results
+      .map(
+        (r, i) => `
+        <li class="result${i === selected ? " selected" : ""}" role="option" aria-selected="${i === selected}" data-i="${i}">
+          <span class="r-title">${r.meta.title ?? "无标题"}</span>
+          <span class="r-excerpt">${r.excerpt()}</span>
+        </li>`,
+      )
+      .join("");
+  };
+
+  const go = (r: { url: string }) => {
+    close();
+    window.location.href = r.url;
+  };
+
+  input?.addEventListener("input", async () => {
+    const q = input.value.trim();
+    if (!q || !pagefind) {
+      results = [];
+      render();
+      return;
+    }
+    lastController?.abort();
+    lastController = new AbortController();
+    const signal = lastController.signal;
+    const search = await pagefind.search(q);
+    if (signal.aborted) return;
+    const items = await Promise.all(
+      search.results.slice(0, 8).map((r) => r.data()),
+    );
+    if (signal.aborted) return;
+    results = items.map((it) => ({ ...it, url: it.meta.url ?? "/" }));
+    selected = 0;
+    render();
+  });
+
+  input?.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      selected = Math.min(selected + 1, results.length - 1);
+      render();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      selected = Math.max(selected - 1, 0);
+      render();
+    } else if (e.key === "Enter" && results[selected]) {
+      go(results[selected]);
+    }
+  });
+
+  resultsEl?.addEventListener("click", (e) => {
+    const li = (e.target as HTMLElement).closest<HTMLElement>(".result");
+    if (li) {
+      const i = Number(li.dataset.i);
+      if (results[i]) go(results[i]);
+    }
+  });
+</script>

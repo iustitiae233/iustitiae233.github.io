@@ -4,6 +4,7 @@ import { ClientRouter } from "astro:transitions";
 import { getCollection } from "astro:content";
 import Sidebar from "../components/Sidebar.astro";
 import Topbar from "../components/Topbar.astro";
+import Search from "../components/Search.astro";
 
 interface Props {
   title: string;
@@ -36,6 +37,7 @@ const posts = allPosts
     <ClientRouter />
   </head>
   <body>
+    <Search client:load />
     <div class="app-shell">
       <Sidebar posts={posts} />
       <div class="main-area">
