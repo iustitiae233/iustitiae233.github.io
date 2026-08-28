@@ -1,0 +1,159 @@
+/* ============================================================
+   设计令牌 —— 暗色科技风（深空基底 + 雾氖双色 + 玻璃拟态）
+   ============================================================ */
+:root {
+  /* 色彩：暗色为默认（无 data-theme 或 =dark 时生效） */
+  --bg: #070b14;
+  --bg-elevated: rgba(13, 18, 32, 0.78);
+  --surface: #0d1220;
+  --surface-hover: #111830;
+  --border: rgba(148, 163, 184, 0.1);
+  --border-strong: rgba(148, 163, 184, 0.22);
+  --text-1: #e8eefb;
+  --text-2: #9aa7bd;
+  --text-3: #5d6b84;
+  --accent: #22d3ee;
+  --accent-2: #a78bfa;
+  --accent-glow: rgba(34, 211, 238, 0.22);
+  --accent-2-glow: rgba(167, 139, 250, 0.2);
+  --ok: #34d399;
+
+  /* 尺寸 */
+  --sidebar-w: 280px;
+  --content-max: 74rem;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  /* 动效 */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: linear(
+    0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%,
+    1.017 19%, 1.058 21%, 1.099 23.5%, 1.11 25.5%, 1.101 27.6%,
+    1.064 30.9%, 1.023 33.8%, 0.992 36.9%, 0.967 40%, 0.956 43%,
+    0.955 46.1%, 0.963 49.3%, 0.978 52.6%, 0.997 56.1%, 1.005 58.9%,
+    1.007 61.9%, 1.002 65.5%, 0.994 69.2%, 0.991 72.8%, 0.997 77%,
+    1.006 81.2%, 1.013 85.4%, 1.009 91%, 1.004 96.8%, 1
+  );
+  --t-fast: 150ms;
+  --t-med: 250ms;
+
+  /* 字体：系统栈的差异化组合（零请求） */
+  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui,
+    -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  --font-mono: "Cascadia Code", ui-monospace, "JetBrains Mono", Consolas,
+    monospace;
+}
+
+[data-theme="light"] {
+  --bg: #f4f6fb;
+  --bg-elevated: rgba(255, 255, 255, 0.82);
+  --surface: #ffffff;
+  --surface-hover: #f0f4fa;
+  --border: rgba(15, 23, 42, 0.09);
+  --border-strong: rgba(15, 23, 42, 0.18);
+  --text-1: #141c30;
+  --text-2: #4a5875;
+  --text-3: #8391a8;
+  --accent: #0e8ea8;
+  --accent-2: #7c3aed;
+  --accent-glow: rgba(14, 142, 168, 0.16);
+  --accent-2-glow: rgba(124, 58, 237, 0.14);
+  color-scheme: light;
+}
+
+/* ============================================================
+   重置与基底
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-1);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+  /* 深空氛围：双层雾氖光斑 + 细网格，固定不随滚动 */
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      ellipse 80% 50% at 20% -10%,
+      var(--accent-glow),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 90% 15%,
+      var(--accent-2-glow),
+      transparent 55%
+    ),
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
+  background-attachment: fixed;
+}
+
+/* 噪点颗粒（SVG data URI，3% 透明度的高级质感） */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+[data-theme="light"] body::after { opacity: 0.02; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--t-fast) var(--ease-out);
+}
+a:hover { color: var(--accent-2); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+::selection { background: var(--accent-glow); color: var(--text-1); }
+
+code, pre, kbd { font-family: var(--font-mono); }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* 细滚动条 */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+::-webkit-scrollbar-track { background: transparent; }
