@@ -13,6 +13,24 @@ const { slug, title, description, pubDate, body } = Astro.props;
 const reading = estimateReadingTime(body);
 ---
 
+<script>
+  // 卡片光晕跟随鼠标（纯 CSS 变量驱动，GPU 合成）
+  function initGlow() {
+    for (const card of document.querySelectorAll<HTMLAnchorElement>(".card")) {
+      if (card.dataset.glowBound) continue;
+      card.dataset.glowBound = "1";
+      card.addEventListener("pointermove", (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--glow-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--glow-y", `${e.clientY - rect.top}px`);
+      });
+    }
+  }
+
+  initGlow();
+  document.addEventListener("astro:page-load", initGlow);
+</script>
+
 <a class="card reveal" href={`/posts/${slug}/`}>
   <article>
     <h2 class="card-title">{title}</h2>

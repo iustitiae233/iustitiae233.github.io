@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import "../styles/animations.css";
 import { ClientRouter } from "astro:transitions";
 import { getCollection } from "astro:content";
 import Sidebar from "../components/Sidebar.astro";
@@ -47,6 +48,30 @@ const posts = allPosts
         </main>
       </div>
     </div>
+    <script>
+      // 滚动显现：进入视口加 .in-view（只触发一次）；软导航后重新初始化
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add("in-view");
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { rootMargin: "0px 0px -10% 0px" },
+      );
+
+      function initReveal() {
+        for (const el of document.querySelectorAll(".reveal")) {
+          if (el.getBoundingClientRect().top < innerHeight) el.classList.add("in-view");
+          else io.observe(el);
+        }
+      }
+
+      initReveal();
+      document.addEventListener("astro:page-load", initReveal);
+    </script>
   </body>
 </html>
 

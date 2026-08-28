@@ -1,0 +1,39 @@
+/* ========== 滚动显现（IntersectionObserver 加 .in-view） ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--t-med) var(--ease-out), transform var(--t-med) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== 路由转场（View Transitions）：内容区淡入上浮 ========== */
+@keyframes vt-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+main {
+  view-transition-name: main-content;
+}
+::view-transition-old(main-content) {
+  animation: vt-in var(--t-med) var(--ease-out) reverse;
+}
+::view-transition-new(main-content) {
+  animation: vt-in var(--t-med) var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  ::view-transition-old(main-content),
+  ::view-transition-new(main-content) {
+    animation: none;
+  }
+}
