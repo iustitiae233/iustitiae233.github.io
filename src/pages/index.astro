@@ -1,12 +1,95 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ThemeToggle from "../components/ThemeToggle.astro";
+import PostCard from "../components/PostCard.astro";
+import { sortPostsByDateDesc } from "../lib/posts";
+
+const entries = await getCollection("posts", ({ data }) => !data.draft);
+const posts = sortPostsByDateDesc(entries).map((p) => ({
+  slug: p.id,
+  title: p.data.title,
+  description: p.data.description,
+  pubDate: p.data.pubDate,
+  body: p.body,
+}));
 ---
 
-<BaseLayout title="测试" description="测试">
-  <main style="padding: 4rem 2rem">
-    <h1>主题切换验证</h1>
-    <p>点击按钮观察圆形扩散</p>
-    <ThemeToggle />
-  </main>
+<BaseLayout title="我的博客" description="极致流畅的暗色科技风个人博客">
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <p class="hero-hi">你好，我是 👋</p>
+    <h1>
+      写点<span class="grad">代码</span>，聊点<span class="grad">技术</span>
+    </h1>
+    <p class="hero-sub">
+      关于 Web 性能、动画与工程实践的写作实验场。
+    </p>
+  </section>
+
+  <section aria-label="文章列表">
+    <h2 class="section-title">最新文章</h2>
+    <div class="grid">
+      {posts.map((p, i) => (
+        <div class="cell" style={`--reveal-delay: ${(i * 60).toString()}ms;`}>
+          <PostCard {...p} />
+        </div>
+      ))}
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    padding: 4.5rem 0 3.5rem;
+    text-align: center;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    width: min(680px, 90%);
+    aspect-ratio: 2 / 1;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, var(--accent-glow), transparent);
+    filter: blur(60px);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .hero-hi {
+    color: var(--text-2);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .grad {
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-sub {
+    color: var(--text-2);
+    max-width: 34em;
+    margin-inline: auto;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    color: var(--text-2);
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+  .cell { display: grid; }
+</style>

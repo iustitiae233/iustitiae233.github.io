@@ -1,0 +1,83 @@
+---
+import { formatDate } from "../lib/format";
+import { estimateReadingTime } from "../lib/reading-time";
+
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  body: string;
+}
+const { slug, title, description, pubDate, body } = Astro.props;
+const reading = estimateReadingTime(body);
+---
+
+<a class="card reveal" href={`/posts/${slug}/`}>
+  <article>
+    <h2 class="card-title">{title}</h2>
+    <p class="card-desc">{description}</p>
+    <p class="card-meta">
+      <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+      <span aria-hidden="true">·</span>
+      <span>{reading.label}阅读</span>
+    </p>
+  </article>
+</a>
+
+<style>
+  .card {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: 100%;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    color: inherit;
+    transition: transform var(--t-med) var(--ease-out), border-color var(--t-med) var(--ease-out),
+      box-shadow var(--t-med) var(--ease-out);
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      420px circle at var(--glow-x, 50%) var(--glow-y, 0%),
+      var(--accent-glow),
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity var(--t-med) var(--ease-out);
+    pointer-events: none;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: 0 12px 40px -12px var(--accent-glow);
+  }
+  .card:hover::before { opacity: 1; }
+  .card-title {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: var(--text-1);
+    margin-bottom: 0.5rem;
+  }
+  .card-desc {
+    color: var(--text-2);
+    font-size: 0.925rem;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-meta {
+    display: flex;
+    gap: 0.5rem;
+    color: var(--text-3);
+    font-size: 0.8rem;
+  }
+</style>
