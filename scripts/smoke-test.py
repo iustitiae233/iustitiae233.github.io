@@ -67,6 +67,29 @@ with sync_playwright() as p:
           and about_state.get("aboutAria") == "page" and about_state.get("home") is not True,
           f"{about_state}")
 
+    # 3.5 笔记板块：索引分类 → 软导航进详情（KaTeX / C 高亮 / 同分类上下篇 / 侧栏前缀高亮）
+    page.click(".sidebar .nav-link[href='/notes/']")
+    page.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
+    check("笔记索引按分类分组", page.locator("h2.cat-title").count() == 2)
+    check("笔记列表共 16 篇", page.locator(".note-row").count() == 16,
+          f"rows={page.locator('.note-row').count()}")
+    page.click("a[href='/notes/hardware/mosfet-basics/']")
+    page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
+    katex_n = page.locator(".katex").count()
+    check("硬件笔记 KaTeX 公式渲染", katex_n > 50, f"katex={katex_n}")
+    note_side = page.evaluate(
+        "const q = document.querySelector(\".sidebar .nav-link[href='/notes/']\");"
+        "({ active: q?.classList.contains('active'), aria: q?.getAttribute('aria-current') })")
+    check("软导航后侧栏「笔记」前缀高亮", note_side.get("active") is True
+          and note_side.get("aria") == "page", f"{note_side}")
+    page.goto(f"{BASE}/notes/embedded/mcu-gpio/", wait_until="networkidle")
+    check("嵌入式笔记 C 代码高亮", page.locator("pre[data-language='c']").count() >= 1)
+    page.goto(f"{BASE}/notes/hardware/comparator-basics/", wait_until="networkidle")
+    check("硬件笔记表格渲染", page.locator(".post-content table th").count() > 0)
+    pn_hrefs = [a.get_attribute("href") for a in page.locator(".pn-link").all()]
+    check("笔记上下篇留在 /notes/ 内", pn_hrefs and all(h and h.startswith("/notes/") for h in pn_hrefs),
+          f"{pn_hrefs}")
+
     # 4. 搜索：Ctrl+K 唤起 → 输入 → Enter 进入
     page.keyboard.press("Control+k")
     page.wait_for_timeout(600)  # pagefind 索引异步加载
