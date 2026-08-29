@@ -81,3 +81,10 @@
   border: 1px solid var(--border);
   cursor: zoom-in;
 }
+
+/* 硬件笔记的 KaTeX 块级公式：长公式横向滚动，避免溢出正文栏 */
+.post-content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+}

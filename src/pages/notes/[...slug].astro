@@ -1,0 +1,41 @@
+---
+import { render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+import { getAdjacentPosts } from "../../lib/posts";
+import { getAllNotes } from "../../lib/collections";
+import { notesInCategory, NOTE_CATEGORY_LABELS } from "../../lib/notes";
+// 公式样式只在笔记页加载：文章/首页/关于不引入 KaTeX CSS 与字体
+import "katex/dist/katex.min.css";
+
+export async function getStaticPaths() {
+  return (await getAllNotes()).map((note) => ({ params: { slug: note.id }, props: { note } }));
+}
+
+const { note } = Astro.props;
+const { Content, headings } = await render(note);
+// 上一篇/下一篇只在同分类内取相邻（嵌入式链不串到硬件基础）
+const sameCategory = notesInCategory(await getAllNotes(), note.data.category);
+const { newer, older } = getAdjacentPosts(sameCategory, note.id);
+const categoryLabel = NOTE_CATEGORY_LABELS[note.data.category];
+---
+
+<PostLayout
+  post={note}
+  headings={headings}
+  newer={newer}
+  older={older}
+  basePath="/notes/"
+>
+  <p class="note-kicker"><a href="/notes/">笔记</a> / {categoryLabel}</p>
+  <Content />
+</PostLayout>
+
+<style>
+  .note-kicker {
+    margin: -0.75rem 0 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-3);
+  }
+  .note-kicker a { color: var(--accent); }
+  .note-kicker a:hover { text-decoration: underline; }
+</style>

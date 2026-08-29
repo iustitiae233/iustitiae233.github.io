@@ -6,19 +6,21 @@ interface LinkItem {
 interface Props {
   newer: LinkItem | null;
   older: LinkItem | null;
+  /** 链接前缀：文章 "/posts/"，笔记 "/notes/" */
+  basePath?: string;
 }
-const { newer, older } = Astro.props;
+const { newer, older, basePath = "/posts/" } = Astro.props;
 ---
 
 <nav class="prev-next" aria-label="文章导航">
   {newer ? (
-    <a class="pn-link newer" href={`/posts/${newer.slug}/`}>
+    <a class="pn-link newer" href={`${basePath}${newer.slug}/`}>
       <span class="pn-label">上一篇</span>
       <span class="pn-title">{newer.title}</span>
     </a>
   ) : <span class="pn-placeholder" />}
   {older ? (
-    <a class="pn-link older" href={`/posts/${older.slug}/`}>
+    <a class="pn-link older" href={`${basePath}${older.slug}/`}>
       <span class="pn-label">下一篇</span>
       <span class="pn-title">{older.title}</span>
     </a>

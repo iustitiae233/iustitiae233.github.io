@@ -76,12 +76,16 @@ with sync_playwright() as p:
     n_results = page.locator("#search-results .result").count()
     check("搜索出结果", n_results >= 1, f"results={n_results}")
     if n_results >= 1:
-        # 第 1 条可能是首页（卡片文案含关键词）—— 按 ↓ 选中第 2 条（文章），
-        # 顺带覆盖键盘导航；Enter 后应落在文章页
-        page.keyboard.press("ArrowDown")
-        page.wait_for_timeout(200)
-        sel_url = page.evaluate(
-            "document.querySelector('#search-results .result.selected .r-title')?.textContent")
+        # 侧栏文章列表让每个页面都可能命中关键词（排序随内容量漂移）——
+        # 按 ↓ 走到目标文章（以标题定位），顺带覆盖多步键盘导航
+        sel_url = None
+        for _ in range(n_results):
+            page.keyboard.press("ArrowDown")
+            page.wait_for_timeout(150)
+            sel_url = page.evaluate(
+                "document.querySelector('#search-results .result.selected .r-title')?.textContent")
+            if sel_url and sel_url.startswith("你好，Astro"):
+                break
         page.keyboard.press("Enter")
         try:
             page.wait_for_selector(".post-header h1", timeout=10000, state="attached")

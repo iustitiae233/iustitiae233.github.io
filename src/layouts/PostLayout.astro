@@ -1,5 +1,4 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 import PrevNext from "../components/PrevNext.astro";
 import Toc from "../components/Toc.astro";
@@ -8,14 +7,18 @@ import CopyCode from "../components/CopyCode.astro";
 import "../styles/prose.css";
 import { formatDate } from "../lib/format";
 import { estimateReadingTime } from "../lib/reading-time";
+import type { ContentEntryLike } from "../lib/posts";
 
 interface Props {
-  post: CollectionEntry<"posts">;
+  /** 文章与笔记共用（结构类型，见 lib/posts.ts） */
+  post: ContentEntryLike;
   headings: { depth: number; slug: string; text: string }[];
   newer: { id: string; data: { title: string } } | null;
   older: { id: string; data: { title: string } } | null;
+  /** 上一篇/下一篇链接前缀：文章 "/posts/"（默认），笔记 "/notes/" */
+  basePath?: string;
 }
-const { post, headings, newer, older } = Astro.props;
+const { post, headings, newer, older, basePath } = Astro.props;
 const { title, description, pubDate, updatedDate, heroImage } = post.data;
 const reading = estimateReadingTime(post.body ?? "");
 ---
@@ -56,6 +59,7 @@ const reading = estimateReadingTime(post.body ?? "");
   <PrevNext
     newer={newer ? { slug: newer.id, title: newer.data.title } : null}
     older={older ? { slug: older.id, title: older.data.title } : null}
+    basePath={basePath}
   />
   <CopyCode />
 

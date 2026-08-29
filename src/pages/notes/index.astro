@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllNotes } from "../../lib/collections";
+import { groupNotesByCategory } from "../../lib/notes";
+import { formatDate } from "../../lib/format";
+
+const groups = groupNotesByCategory(await getAllNotes());
+const total = groups.reduce((n, g) => n + g.notes.length, 0);
+---
+
+<BaseLayout title="笔记" description="嵌入式与硬件基础的学习笔记">
+  <section class="notes-page">
+    <header class="notes-header">
+      <h1>笔记</h1>
+      <p class="notes-sub">学习路上的碎片积累，共 {total} 篇</p>
+    </header>
+
+    {groups.map((g) => (
+      <section aria-label={g.label}>
+        <h2 class="cat-title">
+          {g.label}
+          <span class="cat-count">{g.notes.length}</span>
+        </h2>
+        <ul class="note-list">
+          {g.notes.map((n) => (
+            <li>
+              <a class="note-row" href={`/notes/${n.id}/`}>
+                <span class="note-title">{n.data.title}</span>
+                <time class="note-date" datetime={n.data.pubDate.toISOString()}>
+                  {formatDate(n.data.pubDate)}
+                </time>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .notes-page { padding: 3rem 0; }
+  .notes-header { margin-bottom: 2.5rem; }
+  .notes-header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .notes-sub { color: var(--text-2); }
+
+  .cat-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.625rem;
+    font-size: 1.1rem;
+    color: var(--text-2);
+    font-weight: 600;
+    margin: 2.25rem 0 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cat-count {
+    font-size: 0.8rem;
+    color: var(--text-3);
+    font-weight: 500;
+  }
+
+  .note-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .note-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-2);
+    transition: color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+  }
+  .note-row:hover {
+    color: var(--text-1);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+  .note-title { font-size: 0.95rem; }
+  .note-date {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

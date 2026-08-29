@@ -8,13 +8,16 @@ const { posts } = Astro.props;
 
 const nav = [
   { href: "/", label: "首页" },
+  { href: "/notes/", label: "笔记" },
   { href: "/about/", label: "关于" },
 ];
 const current = Astro.url.pathname;
 
+// href 一律带尾斜杠（"/notes/"），startsWith(href) 即为段安全的前缀匹配；
+// 不能写 startsWith(href + "/")——那会拼出 "//" 永远匹配不上
 function isActive(href: string): boolean {
   if (href === "/") return current === "/";
-  return current === href || current.startsWith(href + "/");
+  return current === href || current.startsWith(href);
 }
 ---
 
@@ -65,12 +68,13 @@ function isActive(href: string): boolean {
 
 <script>
   // transition:persist 使侧栏跨软导航保留旧 DOM，构建期烘焙的 active/aria-current
-  // 会停留在初始页面 —— 每次导航后按当前路径重新同步（与构建端 isActive 同一套规则）。
+  // 会停留在初始页面 —— 每次导航后按当前路径重新同步（与构建端 isActive 同一套规则，
+  // 含前缀匹配：/notes/xxx/ 也要点亮「笔记」入口）。
   function syncActive() {
     const current = location.pathname;
     for (const a of document.querySelectorAll<HTMLAnchorElement>("#sidebar .nav-link")) {
       const href = a.getAttribute("href") ?? "";
-      const active = href === "/" ? current === "/" : current === href;
+      const active = href === "/" ? current === "/" : current === href || current.startsWith(href);
       a.classList.toggle("active", active);
       if (active) a.setAttribute("aria-current", "page");
       else a.removeAttribute("aria-current");
