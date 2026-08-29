@@ -10,7 +10,12 @@
   transform: translateY(0);
 }
 
-/* ========== 路由转场（View Transitions）：内容区淡入上浮 ========== */
+/* ========== 路由转场（View Transitions）：旧页快速让位，新页淡入上浮 ==========
+   旧页快照只做 ~70ms 纯淡出：整段交叉淡化会让新旧两页以半透明长时间叠加（残影），
+   这里让旧页几乎立即消失，仅保留新页的入场动感。 */
+@keyframes vt-out {
+  to { opacity: 0; }
+}
 @keyframes vt-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -20,10 +25,10 @@ main {
   view-transition-name: main-content;
 }
 ::view-transition-old(main-content) {
-  animation: vt-in var(--t-med) var(--ease-out) reverse;
+  animation: vt-out 70ms linear both;
 }
 ::view-transition-new(main-content) {
-  animation: vt-in var(--t-med) var(--ease-out);
+  animation: vt-in 180ms var(--ease-out) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
