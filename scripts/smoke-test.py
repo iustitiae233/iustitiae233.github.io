@@ -23,7 +23,7 @@ with sync_playwright() as p:
 
     # 1. 首页加载与卡片
     cards = page.locator(".card")
-    check("首页渲染文章卡片", cards.count() == 2, f"cards={cards.count()}")
+    check("首页渲染文章卡片", cards.count() == 5, f"cards={cards.count()}")
     check("跟随系统暗色偏好", page.evaluate("document.documentElement.dataset.theme") == "dark")
 
     # 2. 卡片点击进入文章页（软导航：以文章 DOM 为准）
