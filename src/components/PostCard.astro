@@ -14,15 +14,25 @@ const reading = estimateReadingTime(body);
 ---
 
 <script>
-  // 卡片光晕跟随鼠标（纯 CSS 变量驱动，GPU 合成）
+  // 卡片光晕跟随鼠标（纯 CSS 变量驱动，GPU 合成）。
+  // 高频 pointermove 合并到每帧一次读+写，避免指针事件频率下的强制同步布局。
   function initGlow() {
     for (const card of document.querySelectorAll<HTMLAnchorElement>(".card")) {
       if (card.dataset.glowBound) continue;
       card.dataset.glowBound = "1";
+      let raf = 0;
+      let px = 0;
+      let py = 0;
       card.addEventListener("pointermove", (e) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--glow-x", `${e.clientX - rect.left}px`);
-        card.style.setProperty("--glow-y", `${e.clientY - rect.top}px`);
+        px = e.clientX;
+        py = e.clientY;
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--glow-x", `${px - rect.left}px`);
+          card.style.setProperty("--glow-y", `${py - rect.top}px`);
+        });
       });
     }
   }

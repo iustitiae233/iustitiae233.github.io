@@ -55,27 +55,33 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 </style>
 
 <script>
-  const links = Array.from(
-    document.querySelectorAll<HTMLAnchorElement>(".toc-item a"),
-  );
-  const map = new Map(
-    links
-      .map((a) => a.getAttribute("href")?.slice(1))
-      .filter((id): id is string => Boolean(id))
-      .map((id) => [id, document.getElementById(id)] as const),
-  );
+  // 文章间软导航后标题与 TOC 链接都是新 DOM —— astro:page-load 时重建观察
+  let links: HTMLAnchorElement[] = [];
+  let observer: IntersectionObserver | null = null;
 
-  const setActive = (id: string) => {
-    for (const a of links) a.classList.toggle("active", a.getAttribute("href") === `#${id}`);
-  };
+  function initToc() {
+    observer?.disconnect();
+    links = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>(".toc-item a"),
+    );
+    const setActive = (id: string) => {
+      for (const a of links) a.classList.toggle("active", a.getAttribute("href") === `#${id}`);
+    };
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: "-15% 0px -70% 0px" },
+    );
+    for (const a of links) {
+      const id = a.getAttribute("href")?.slice(1);
+      const el = id ? document.getElementById(id) : null;
+      if (el) observer.observe(el);
+    }
+  }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) setActive(entry.target.id);
-      }
-    },
-    { rootMargin: "-15% 0px -70% 0px" },
-  );
-  for (const el of map.values()) if (el) observer.observe(el);
+  initToc();
+  document.addEventListener("astro:page-load", initToc);
 </script>

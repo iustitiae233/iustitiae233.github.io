@@ -1,0 +1,21 @@
+---
+import { render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+import { getAdjacentPosts } from "../../lib/posts";
+import { getPublishedPosts } from "../../lib/collections";
+
+export async function getStaticPaths() {
+  return (await getPublishedPosts()).map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const { newer, older } = getAdjacentPosts(await getPublishedPosts(), post.id);
+---
+
+<PostLayout post={post} headings={headings} newer={newer} older={older}>
+  <Content />
+</PostLayout>

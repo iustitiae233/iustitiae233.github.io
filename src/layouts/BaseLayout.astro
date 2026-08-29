@@ -2,10 +2,10 @@
 import "../styles/global.css";
 import "../styles/animations.css";
 import { ClientRouter } from "astro:transitions";
-import { getCollection } from "astro:content";
 import Sidebar from "../components/Sidebar.astro";
 import Topbar from "../components/Topbar.astro";
 import Search from "../components/Search.astro";
+import { getPublishedPosts } from "../lib/collections";
 
 interface Props {
   title: string;
@@ -13,10 +13,10 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const allPosts = await getCollection("posts", ({ data }) => !data.draft);
-const posts = allPosts
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .map((p) => ({ slug: p.id, title: p.data.title }));
+const posts = (await getPublishedPosts()).map((p) => ({
+  slug: p.id,
+  title: p.data.title,
+}));
 ---
 
 <!doctype html>

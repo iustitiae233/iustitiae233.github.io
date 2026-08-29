@@ -63,6 +63,24 @@ function isActive(href: string): boolean {
     </div>
   </aside>
 
+<script>
+  // transition:persist 使侧栏跨软导航保留旧 DOM，构建期烘焙的 active/aria-current
+  // 会停留在初始页面 —— 每次导航后按当前路径重新同步（与构建端 isActive 同一套规则）。
+  function syncActive() {
+    const current = location.pathname;
+    for (const a of document.querySelectorAll<HTMLAnchorElement>("#sidebar .nav-link")) {
+      const href = a.getAttribute("href") ?? "";
+      const active = href === "/" ? current === "/" : current === href;
+      a.classList.toggle("active", active);
+      if (active) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    }
+  }
+
+  syncActive();
+  document.addEventListener("astro:page-load", syncActive);
+</script>
+
 
 <style>
   .sidebar {

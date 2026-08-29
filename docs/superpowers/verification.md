@@ -44,3 +44,22 @@
 
 - `pagefind` 索引仅存在于构建产物——dev server 下搜索会提示"索引不可用"，属预期（静态优先架构）
 - Astro 7 preview 只服务构建清单内资产，本地验证 pagefind 需 `npx serve dist`
+
+## 5. 合并前代码审查修复 — 2026-08-29
+
+/code-review（high）对 `git diff main...HEAD` 审出 12 项确认缺陷，全部修复：
+
+- 软导航重初始化 ×4：汉堡按钮改 document 事件委托；侧栏 `transition:persist` 后按
+  `location.pathname` 重算 active/aria-current；TOC 滚动追踪断开旧观察器重建；灯箱随
+  `astro:page-load` 重挂载
+- 搜索：结果标题 HTML 转义（excerpt 保留原生 `<mark>`）；Enter/点击改
+  `astro:transitions/client` 的 `navigate()` 软导航
+- 路由：`posts/[slug]` → `posts/[...slug]` rest 路由，嵌套文章（如 `2026/x.md`）不再炸构建
+- 管道统一：`getPublishedPosts()`（`src/lib/collections.ts`）收敛 4 处草稿过滤+排序，
+  草稿规则在已测纯函数 `filterPublished` 中单一来源
+- 性能：卡片光晕 pointermove 以 rAF 合并（每帧最多一次读+写）
+- heroImage：PostLayout 渲染（width/height 锁宽高比，CLS 保持 0）
+
+门禁复验：check 0 错误 · vitest **19/19**（+3 草稿过滤）· build 干净（pagefind 5 页）·
+冒烟 **22/22**（+5 软导航回归：文章→文章 TOC 追踪、侧栏高亮同步、About aria-current、
+移动端软导航后汉堡可用）

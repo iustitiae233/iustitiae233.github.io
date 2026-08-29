@@ -16,7 +16,7 @@ interface Props {
   older: { id: string; data: { title: string } } | null;
 }
 const { post, headings, newer, older } = Astro.props;
-const { title, description, pubDate, updatedDate } = post.data;
+const { title, description, pubDate, updatedDate, heroImage } = post.data;
 const reading = estimateReadingTime(post.body ?? "");
 ---
 
@@ -33,6 +33,18 @@ const reading = estimateReadingTime(post.body ?? "");
         <span>{reading.label}阅读</span>
       </p>
     </header>
+
+    {heroImage && (
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt=""
+        width="1200"
+        height="630"
+        loading="eager"
+        decoding="async"
+      />
+    )}
 
     <div class="post-body">
       <div class="post-content">
@@ -51,19 +63,30 @@ const reading = estimateReadingTime(post.body ?? "");
     <img alt="" src="" />
   </dialog>
   <script>
-    const lb = document.getElementById("lightbox") as HTMLDialogElement | null;
-    const lbImg = lb?.querySelector("img");
-    document.querySelectorAll<HTMLImageElement>(".post-content img").forEach((img) => {
-      img.addEventListener("click", () => {
-        if (!lb || !lbImg) return;
-        lbImg.src = img.currentSrc || img.src;
-        lbImg.alt = img.alt;
-        lb.showModal();
-      });
-    });
-    lb?.addEventListener("click", (e) => {
-      if (e.target === lb || e.target === lbImg) lb.close();
-    });
+    // 灯箱与正文图片都是每页新 DOM —— 软导航后重新挂载（与 CopyCode 同款约定）
+    function initLightbox() {
+      const lb = document.getElementById("lightbox") as HTMLDialogElement | null;
+      const lbImg = lb?.querySelector("img") ?? null;
+      if (!lb || !lbImg) return;
+      if (!lb.dataset.closeBound) {
+        lb.dataset.closeBound = "1";
+        lb.addEventListener("click", (e) => {
+          if (e.target === lb || e.target === lbImg) lb.close();
+        });
+      }
+      for (const img of document.querySelectorAll<HTMLImageElement>(".post-content img")) {
+        if (img.dataset.lightboxBound) continue;
+        img.dataset.lightboxBound = "1";
+        img.addEventListener("click", () => {
+          lbImg.src = img.currentSrc || img.src;
+          lbImg.alt = img.alt;
+          lb.showModal();
+        });
+      }
+    }
+
+    initLightbox();
+    document.addEventListener("astro:page-load", initLightbox);
   </script>
 </BaseLayout>
 
@@ -83,6 +106,13 @@ const reading = estimateReadingTime(post.body ?? "");
     margin-bottom: 2.5rem;
     padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--border);
+  }
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    margin-bottom: 2.5rem;
   }
   .post-body {
     display: grid;

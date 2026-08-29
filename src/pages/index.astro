@@ -1,11 +1,9 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
-import { sortPostsByDateDesc } from "../lib/posts";
+import { getPublishedPosts } from "../lib/collections";
 
-const entries = await getCollection("posts", ({ data }) => !data.draft);
-const posts = sortPostsByDateDesc(entries).map((p) => ({
+const posts = (await getPublishedPosts()).map((p) => ({
   slug: p.id,
   title: p.data.title,
   description: p.data.description,

@@ -22,28 +22,31 @@
 </style>
 
 <script>
-  const btn = document.getElementById("menu-btn");
-  const sidebar = document.getElementById("sidebar");
-  btn?.addEventListener("click", () => {
-    const open = sidebar?.classList.toggle("open");
-    btn.setAttribute("aria-expanded", String(Boolean(open)));
-  });
-  // 点击抽屉外区域关闭
+  // 按钮不在 transition:persist 内，软导航后是新 DOM —— 委托到 document，
+  // 每次事件动态查询节点（与 Search.astro 同款模式），并同步 aria-expanded。
+  const setOpen = (open: boolean) => {
+    document.getElementById("sidebar")?.classList.toggle("open", open);
+    document.getElementById("menu-btn")?.setAttribute("aria-expanded", String(open));
+  };
+
   document.addEventListener("click", (e) => {
+    const sidebar = document.getElementById("sidebar");
+    const btn = (e.target as HTMLElement).closest("#menu-btn");
+    if (btn) {
+      const open = !sidebar?.classList.contains("open");
+      setOpen(Boolean(open));
+      return;
+    }
+    // 点击抽屉外区域关闭
     if (
       sidebar?.classList.contains("open") &&
-      !sidebar.contains(e.target as Node) &&
-      !btn?.contains(e.target as Node)
+      !sidebar.contains(e.target as Node)
     ) {
-      sidebar.classList.remove("open");
-      btn?.setAttribute("aria-expanded", "false");
+      setOpen(false);
     }
   });
   // Esc 关闭
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      sidebar?.classList.remove("open");
-      btn?.setAttribute("aria-expanded", "false");
-    }
+    if (e.key === "Escape") setOpen(false);
   });
 </script>

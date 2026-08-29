@@ -113,6 +113,8 @@
 </style>
 
 <script>
+  import { navigate } from "astro:transitions/client";
+
   type PFResult = {
     meta: { title?: string; url?: string };
     url?: string;
@@ -181,6 +183,12 @@
     if (e.target === getModal()) close();
   });
 
+  // 标题是任意 frontmatter 字符串 —— innerHTML 前必须转义（excerpt 保留原生 mark 高亮）
+  const escapeHtml = (s: string) =>
+    s.replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] ?? c,
+    );
+
   const render = () => {
     const el = getResultsEl();
     if (!el) return;
@@ -189,7 +197,7 @@
       .map(
         (r, i) => `
         <li class="result${i === selected ? " selected" : ""}" role="option" aria-selected="${i === selected}" data-i="${i}">
-          <span class="r-title">${r.meta.title ?? "无标题"}</span>
+          <span class="r-title">${escapeHtml(r.meta.title ?? "无标题")}</span>
           <span class="r-excerpt">${excerptOf(r)}</span>
         </li>`,
       )
@@ -198,7 +206,8 @@
 
   const go = (r: { url: string }) => {
     close();
-    window.location.href = r.url;
+    // 与站内其它链接一致走 ClientRouter 软导航，避免整页重载
+    navigate(r.url);
   };
 
   document.addEventListener("input", async (e) => {

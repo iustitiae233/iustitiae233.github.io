@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAdjacentPosts, sortPostsByDateDesc } from "./posts";
+import { filterPublished, getAdjacentPosts, sortPostsByDateDesc } from "./posts";
 
 const d = (s: string) => new Date(s);
 const posts = [
@@ -7,6 +7,26 @@ const posts = [
   { id: "a", data: { pubDate: d("2026-03-01"), draft: false } },
   { id: "c", data: { pubDate: d("2026-01-01"), draft: false } },
 ];
+
+describe("filterPublished", () => {
+  it("过滤草稿", () => {
+    const withDraft = [
+      ...posts,
+      { id: "wip", data: { pubDate: d("2026-04-01"), draft: true } },
+    ];
+    expect(filterPublished(withDraft).map((p) => p.id)).toEqual(["b", "a", "c"]);
+  });
+  it("draft 缺省视为已发布", () => {
+    expect(filterPublished([{ id: "x", data: { pubDate: d("2026-01-01") } }])).toHaveLength(1);
+  });
+});
+
+describe("getPublishedPosts 管道（filterPublished + sortPostsByDateDesc）", () => {
+  it("草稿被排除且其余按日期降序", () => {
+    const pipeline = sortPostsByDateDesc(filterPublished(posts));
+    expect(pipeline.map((p) => p.id)).toEqual(["a", "b", "c"]);
+  });
+});;
 
 describe("sortPostsByDateDesc", () => {
   it("按日期降序", () => {

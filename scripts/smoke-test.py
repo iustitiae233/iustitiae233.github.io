@@ -36,11 +36,36 @@ with sync_playwright() as p:
     check("上下篇导航存在", page.locator(".pn-link").count() >= 1)
     check("侧栏跨页持久存在", page.locator(".sidebar").count() == 1)
 
+    # 2.5 文章→文章软导航：TOC 滚动追踪与侧栏高亮必须在新页面上重新初始化
+    page.click(".pn-link")  # 最新一篇只有"下一篇"
+    page.wait_for_selector("h1:has-text('你好，Astro')", timeout=10000, state="attached")
+    check("下一篇软导航到旧文章", page.locator(".post-header h1").count() == 1)
+    page.mouse.wheel(0, 350)
+    page.wait_for_timeout(250)
+    page.mouse.wheel(0, 350)
+    page.wait_for_timeout(250)
+    page.mouse.wheel(0, 350)
+    page.wait_for_timeout(600)  # 等 IntersectionObserver 触发
+    check("软导航后 TOC 滚动追踪仍生效", page.locator(".toc-item a.active").count() >= 1,
+          f"active={page.locator('.toc-item a.active').count()}")
+    side_active = page.evaluate(
+        "document.querySelector(\".sidebar .nav-link[href='/posts/hello-astro/']\")"
+        "?.classList.contains('active')")
+    check("软导航后侧栏高亮同步", side_active is True)
+
     # 3. 侧栏导航到 About（persist 的侧栏在软导航后仍可点击）
     page.wait_for_selector(".sidebar .nav-link[href='/about/']", timeout=10000)
     page.click(".sidebar .nav-link[href='/about/']")
     page.wait_for_selector("h1:has-text('关于')", timeout=10000, state="attached")
     check("侧栏导航到 About", page.locator("h1", has_text="关于").count() == 1)
+    about_state = page.evaluate(
+        "const q = s => document.querySelector(`.sidebar .nav-link[href='${s}']`);"
+        "({ about: q('/about/')?.classList.contains('active'),"
+        "  aboutAria: q('/about/')?.getAttribute('aria-current'),"
+        "  home: q('/')?.classList.contains('active') })")
+    check("About 页侧栏高亮正确", about_state.get("about") is True
+          and about_state.get("aboutAria") == "page" and about_state.get("home") is not True,
+          f"{about_state}")
 
     # 4. 搜索：Ctrl+K 唤起 → 输入 → Enter 进入
     page.keyboard.press("Control+k")
@@ -91,6 +116,14 @@ with sync_playwright() as p:
     mob.wait_for_timeout(500)
     t2 = mob.evaluate("getComputedStyle(document.getElementById('sidebar')).transform")
     check("点击外部抽屉收起", t2 != "matrix(1, 0, 0, 1, 0, 0)", t2)
+
+    # 7.5 软导航后汉堡按钮仍可打开抽屉（按钮是新 DOM，监听必须重新生效）
+    mob.click(".card")
+    mob.wait_for_selector(".post-header h1", timeout=10000, state="attached")
+    mob.click("#menu-btn")
+    mob.wait_for_timeout(500)
+    t3 = mob.evaluate("getComputedStyle(document.getElementById('sidebar')).transform")
+    check("软导航后汉堡仍可打开抽屉", t3 == "matrix(1, 0, 0, 1, 0, 0)", t3)
     mob.close()
 
     browser.close()
