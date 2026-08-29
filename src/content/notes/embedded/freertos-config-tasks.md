@@ -40,7 +40,15 @@ FreeRTOS 通过**任务调度器**在多个任务之间快速切换（通常每 
 
 ### 关键配置宏（FreeRTOSConfig.h）
 
-配置项说明推荐值`configUSE_PREEMPTION`启用抢占式调度1（启用）`configTICK_RATE_HZ`系统时钟节拍频率1000（1ms 一个 tick）`configMAX_PRIORITIES`最大优先级数5~7（视需求而定）`configMINIMAL_STACK_SIZE`最小任务栈大小128（字）`configTOTAL_HEAP_SIZE`系统堆总大小根据任务数量和栈大小计算`configUSE_COUNTING_SEMAPHORES`启用计数信号量1`configUSE_MUTEXES`启用互斥锁1
+| 配置项 | 说明 | 推荐值 |
+| --- | --- | --- |
+| `configUSE_PREEMPTION` | 启用抢占式调度 | 1（启用） |
+| `configTICK_RATE_HZ` | 系统时钟节拍频率 | 1000（1ms 一个 tick） |
+| `configMAX_PRIORITIES` | 最大优先级数 | 5~7（视需求而定） |
+| `configMINIMAL_STACK_SIZE` | 最小任务栈大小 | 128（字） |
+| `configTOTAL_HEAP_SIZE` | 系统堆总大小 | 根据任务数量和栈大小计算 |
+| `configUSE_COUNTING_SEMAPHORES` | 启用计数信号量 | 1 |
+| `configUSE_MUTEXES` | 启用互斥锁 | 1 |
 
 ## 三、任务（Task）—— FreeRTOS 的核心
 
