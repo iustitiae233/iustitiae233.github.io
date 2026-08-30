@@ -5,8 +5,8 @@ import rehypeKatex from "rehype-katex";
 
 // https://astro.build/config
 export default defineConfig({
-  // GitHub Pages 用户站点仓（iustitiae233.github.io）——根路径部署，无 base 前缀
-  site: "https://iustitiae233.github.io",
+  // GitHub Pages 用户站点仓 + 自定义域名（沿用旧站 CNAME），根路径部署无 base 前缀
+  site: "https://www.iustitiae.top",
   // 全站链接 hover 即预取目标页 —— 点击瞬间渲染，感知性能的最大杠杆
   prefetch: {
     prefetchAll: true,
