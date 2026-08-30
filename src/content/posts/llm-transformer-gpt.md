@@ -2,7 +2,6 @@
 title: '大语言模型的实现原理——从 Transformer 到 GPT 的完整技术图谱'
 description: '深入拆解大语言模型的全栈技术：从 Token 化、Embedding、自注意力机制、Transformer 架构，到预训练、微调、RLHF 的完整训练管线，以及推理加速、MoE 与涌现能力的前沿解读。'
 pubDate: '2026-07-03 13:10:27'
-heroImage: 'https://bu.dusays.com/2026/07/03/6a471c9052422.png'
 ---
 
 ## 引言

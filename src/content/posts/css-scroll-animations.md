@@ -3,7 +3,6 @@ title: CSS 滚动驱动动画：不写 JS 的进度条与视差
 description: animation-timeline 实战，以及为什么它天生符合 GPU 合成层铁律。
 pubDate: 2026-08-18
 updatedDate: 2026-08-20
-heroImage: /images/hero-css.jpg
 ---
 
 这篇文章顶部的阅读进度条，没有一行 JavaScript。
