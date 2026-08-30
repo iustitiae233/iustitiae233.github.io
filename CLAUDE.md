@@ -46,3 +46,7 @@ python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 29 项
 ## 历史包袱提示
 
 `src/content/` 里 2026-07 之前的迁移内容源自旧 Next.js 博客（脚本 `scripts/migrate-iustitiae.py`，一次性）。旧站 CMS 曾丢表格管道符，坍塌行已全部重建——若再见到超长无管道的乱行，是同类病害，参照 git log 8a94ba2 的修复方式。验收记录在 `docs/superpowers/verification.md`。
+
+**锁文件跨平台坑**：本机在 Windows，CI 在 linux。npm 按平台裁剪理想树——Windows 上生成的锁可能缺 linux 侧可选依赖的传递项（曾缺 `@emnapi/core|runtime@1.11.3`，`@img/sharp-wasm32` 需要，导致 CI 的 `npm ci` EUSAGE）。改动依赖后若 CI 报 `Missing: xxx from lock file`，从 registry.npmjs.org 取该版本元数据补进 lock 顶层条目（参照 git log「补锁 @emnapi」提交）。另外 `.npmrc` 已固定官方源——本机全局是 npmmirror 镜像，**不要**用 `--registry` 镜像参数重装，否则锁文件 resolved 全部改写回镜像、CI 再挂。
+
+**部署**：GitHub Pages 用户站点仓 `iustitiae233.github.io`（同仓库即源码），自定义域名 `www.iustitiae.top`（DNS 已指向 Pages），main 推送 → CI（verify → deploy）。旧站备份在本地分支 `old-blog-backup`。
