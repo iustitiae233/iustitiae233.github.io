@@ -42,6 +42,16 @@ const indexJson = JSON.stringify(entries).replace(/</g, "\\u003c");
 <script type="application/json" id="search-index" set:html={indexJson} />
 
 <style>
+  /* hidden 属性移除（display none→grid）时动画重放 —— 即每次打开弹入一次 */
+  @keyframes modal-in {
+    from { opacity: 0; }
+  }
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+    }
+  }
   .search-modal {
     position: fixed;
     inset: 0;
@@ -52,9 +62,11 @@ const indexJson = JSON.stringify(entries).replace(/</g, "\\u003c");
     background: color-mix(in srgb, #05070d 65%, transparent);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+    animation: modal-in 150ms var(--ease-out);
   }
   .search-modal[hidden] { display: none; }
   .search-panel {
+    animation: panel-in 220ms var(--ease-spring);
     width: min(640px, 92vw);
     display: grid;
     border: 1px solid var(--border-strong);
@@ -129,6 +141,12 @@ const indexJson = JSON.stringify(entries).replace(/</g, "\\u003c");
     border-top: 1px solid var(--border);
     color: var(--text-3);
     font-size: 0.75rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .search-modal,
+    .search-panel {
+      animation: none;
+    }
   }
 </style>
 

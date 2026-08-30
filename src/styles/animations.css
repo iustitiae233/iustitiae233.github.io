@@ -1,13 +1,17 @@
-/* ========== 滚动显现（IntersectionObserver 加 .in-view） ========== */
+/* ========== 滚动显现（IntersectionObserver 加 .in-view） ==========
+   blur→清晰 的层次入场（filter 合成层友好）；卡片级联延迟由 --reveal-delay 驱动 */
 .reveal {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity var(--t-med) var(--ease-out), transform var(--t-med) var(--ease-out);
+  filter: blur(8px);
+  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out),
+    filter 400ms var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
 }
 .reveal.in-view {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
 }
 
 /* ========== 路由转场（View Transitions）：旧页快速让位，新页淡入上浮 ==========
@@ -35,6 +39,7 @@ main {
   .reveal {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
   }
   ::view-transition-old(main-content),

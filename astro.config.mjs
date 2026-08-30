@@ -6,6 +6,11 @@ import rehypeKatex from "rehype-katex";
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
+  // 全站链接 hover 即预取目标页 —— 点击瞬间渲染，感知性能的最大杠杆
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "hover",
+  },
   markdown: {
     shikiConfig: {
       theme: "one-dark-pro",

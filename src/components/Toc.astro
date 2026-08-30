@@ -9,6 +9,7 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 {toc.length > 0 && (
   <nav class="toc" aria-label="本页大纲">
     <p class="toc-title">大纲</p>
+    <span class="toc-indicator" aria-hidden="true"></span>
     <ul>
       {toc.map((h) => (
         <li class:list={["toc-item", `d${h.depth}`]}>
@@ -34,6 +35,18 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
     letter-spacing: 0.1em;
     margin-bottom: 0.75rem;
   }
+  /* 滑动指示条：定位由脚本测量 active 链接后写入 transform/height */
+  .toc-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(var(--accent), var(--accent-2));
+    opacity: 0;
+    transition: transform 250ms var(--ease-out), height 250ms var(--ease-out),
+      opacity var(--t-fast) var(--ease-out);
+  }
   ul { list-style: none; padding: 0; display: grid; gap: 2px; }
   .toc-item a {
     display: block;
@@ -41,16 +54,16 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
     border-left: 2px solid transparent;
     color: var(--text-3);
     line-height: 1.5;
-    transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+    transition: color var(--t-fast) var(--ease-out);
   }
   .toc-item.d3 { padding-left: 0.75rem; font-size: 0.78rem; }
   .toc-item a:hover { color: var(--text-1); }
-  .toc-item a.active {
-    color: var(--accent);
-    border-left-color: var(--accent);
-  }
+  .toc-item a.active { color: var(--accent); }
   @media (max-width: 1279px) {
     .toc { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .toc-indicator { transition: none; }
   }
 </style>
 
@@ -59,6 +72,20 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
   let links: HTMLAnchorElement[] = [];
   let observer: IntersectionObserver | null = null;
 
+  // 把指示条平移到 active 链接的位置（offsetParent 都是 .toc，坐标系一致）
+  function moveIndicator() {
+    const ind = document.querySelector<HTMLElement>(".toc-indicator");
+    if (!ind) return;
+    const active = links.find((a) => a.classList.contains("active"));
+    if (!active) {
+      ind.style.opacity = "0";
+      return;
+    }
+    ind.style.transform = `translateY(${active.offsetTop}px)`;
+    ind.style.height = `${active.offsetHeight}px`;
+    ind.style.opacity = "1";
+  }
+
   function initToc() {
     observer?.disconnect();
     links = Array.from(
@@ -66,6 +93,7 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
     );
     const setActive = (id: string) => {
       for (const a of links) a.classList.toggle("active", a.getAttribute("href") === `#${id}`);
+      moveIndicator();
     };
     observer = new IntersectionObserver(
       (entries) => {
