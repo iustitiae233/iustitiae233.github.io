@@ -35,6 +35,10 @@ with sync_playwright() as p:
     check("阅读进度条存在", page.locator(".reading-progress").count() == 1)
     check("上下篇导航存在", page.locator(".pn-link").count() >= 1)
     check("侧栏跨页持久存在", page.locator(".sidebar").count() == 1)
+    avatar = page.locator("#sidebar .brand img.brand-avatar")
+    check("侧栏 GitHub 头像加载", avatar.count() == 1
+          and avatar.first.evaluate("el => el.complete && el.naturalWidth > 0"),
+          f"count={avatar.count()}")
 
     # 2.5 文章→文章软导航：TOC 滚动追踪与侧栏高亮必须在新页面上重新初始化
     page.click(".pn-link")  # 最新一篇只有"下一篇"
@@ -90,17 +94,16 @@ with sync_playwright() as p:
     check("笔记上下篇留在 /notes/ 内", pn_hrefs and all(h and h.startswith("/notes/") for h in pn_hrefs),
           f"{pn_hrefs}")
 
-    # 4. 搜索：Ctrl+K 唤起 → 输入 → Enter 进入
+    # 4. 搜索：Ctrl+K 唤起 → 输入 → Enter 进入（标题索引内联，结果即时渲染）
     page.keyboard.press("Control+k")
-    page.wait_for_timeout(600)  # pagefind 索引异步加载
     check("Ctrl+K 打开搜索模态", page.locator("#search-modal:not([hidden])").count() == 1)
     page.fill("#search-input", "Astro")
-    page.wait_for_timeout(800)
+    page.wait_for_timeout(150)
     n_results = page.locator("#search-results .result").count()
     check("搜索出结果", n_results >= 1, f"results={n_results}")
     if n_results >= 1:
-        # 侧栏文章列表让每个页面都可能命中关键词（排序随内容量漂移）——
-        # 按 ↓ 走到目标文章（以标题定位），顺带覆盖多步键盘导航
+        # 标题过滤按索引原序返回，但命中数随内容增长 —— 按 ↓ 走到目标文章
+        # （以标题文本定位），顺带覆盖多步键盘导航
         sel_url = None
         for _ in range(n_results):
             page.keyboard.press("ArrowDown")

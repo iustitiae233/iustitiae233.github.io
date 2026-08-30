@@ -5,7 +5,8 @@ import { ClientRouter } from "astro:transitions";
 import Sidebar from "../components/Sidebar.astro";
 import Topbar from "../components/Topbar.astro";
 import Search from "../components/Search.astro";
-import { getPublishedPosts } from "../lib/collections";
+import { getPublishedPosts, getAllNotes } from "../lib/collections";
+import type { SearchEntry } from "../lib/search";
 
 interface Props {
   title: string;
@@ -13,10 +14,21 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const posts = (await getPublishedPosts()).map((p) => ({
+const publishedPosts = await getPublishedPosts();
+const posts = publishedPosts.map((p) => ({
   slug: p.id,
   title: p.data.title,
 }));
+
+// 标题搜索索引：文章 + 笔记，与各公开视图走同一 filterPublished 管道
+const searchEntries: SearchEntry[] = [
+  ...publishedPosts.map(
+    (p): SearchEntry => ({ title: p.data.title, url: `/posts/${p.id}/`, kind: "post" }),
+  ),
+  ...(await getAllNotes()).map(
+    (n): SearchEntry => ({ title: n.data.title, url: `/notes/${n.id}/`, kind: "note" }),
+  ),
+];
 ---
 
 <!doctype html>
@@ -38,7 +50,7 @@ const posts = (await getPublishedPosts()).map((p) => ({
     <ClientRouter />
   </head>
   <body>
-    <Search />
+    <Search entries={searchEntries} />
     <div class="app-shell">
       <Sidebar posts={posts} />
       <div class="main-area">

@@ -1,5 +1,7 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+// GitHub 联动信息由 scripts/fetch-github-profile.mjs 生成，提交进 git（离线可构建）
+import profile from "../data/github-profile.json";
 
 interface Props {
   posts: { slug: string; title: string }[];
@@ -22,9 +24,16 @@ function isActive(href: string): boolean {
 ---
 
 <aside class="sidebar" id="sidebar" aria-label="站点导航" transition:persist>
-    <a class="brand" href="/">
-      <span class="brand-mark">博</span>
-      <span class="brand-name">我的博客</span>
+    <a class="brand" href={profile.html_url} target="_blank" rel="noopener noreferrer" title={`${profile.login} (GitHub)`}>
+      <img
+        class="brand-avatar"
+        src={profile.avatar}
+        width="40"
+        height="40"
+        alt={profile.name}
+        decoding="async"
+      />
+      <span class="brand-name">{profile.name}</span>
     </a>
 
     <nav>
@@ -110,16 +119,18 @@ function isActive(href: string): boolean {
     margin-bottom: 2rem;
   }
   .brand:hover { color: var(--text-1); }
-  .brand-mark {
-    display: grid;
-    place-items: center;
+  .brand-avatar {
     width: 40px;
     height: 40px;
-    border-radius: var(--radius-md);
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: #070b14;
-    font-weight: 700;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
     box-shadow: 0 0 24px var(--accent-glow);
+    object-fit: cover;
+    transition: box-shadow var(--t-med) var(--ease-out), transform var(--t-med) var(--ease-spring);
+  }
+  .brand:hover .brand-avatar {
+    box-shadow: 0 0 32px var(--accent-glow);
+    transform: scale(1.05);
   }
   .brand-name {
     font-family: var(--font-display);

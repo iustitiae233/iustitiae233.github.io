@@ -7,7 +7,8 @@ Astro 7 静态博客（zh-CN，暗色科技风）。零框架 JS——交互全�
 ```bash
 npm run check              # astro check（类型检查）
 npm test                   # vitest 单测（纯逻辑，无 Astro 插件）
-npm run build              # astro build && pagefind --site dist（搜索索引是构建的一部分）
+npm run build              # 先拉 GitHub 头像（失败沿用旧文件不阻断）再 astro build
+npm run profile            # 手动刷新 GitHub 头像/昵称（scripts/fetch-github-profile.mjs）
 npm run preview            # 本地预览 dist
 npx serve dist -l 4327     # 冒烟测试依赖的静态服务器（保持 4327 端口）
 python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 29 项，需先起 serve）
@@ -20,7 +21,8 @@ python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 29 项
 - `src/content/posts/` 文章集 + `src/content/notes/{embedded,hardware}/` 笔记集（glob loader，id 可含斜杠，由 rest 路由 `[...slug].astro` 承接）
 - `src/lib/` 分两类：**纯逻辑**（posts.ts / notes.ts / path.ts / format.ts / reading-time.ts，vitest 直接测）与 **astro:content 封装**（只有 collections.ts——vitest 不加载 Astro 插件，`astro:content` 导入绝不能进纯逻辑模块）
 - 路由：`pages/posts/[...slug].astro` 与 `pages/notes/[...slug].astro` 镜像结构，共用 `PostLayout`（Props 是 `ContentEntryLike` 结构类型 + `basePath` 区分前缀）
-- 搜索：pagefind 后处理 dist，`Search.astro` 用 `new Function("u","return import(u)")` 绕过打包器加载
+- 搜索：标题索引由 BaseLayout 构建期内联到页面（`<script type="application/json">` + `set:html`；`<` 写成 JSON 转义序列防 `</script>` 逃逸——script 是原始文本元素，不能用 Astro 表达式转义，`&quot;` 不会解码回引号）；`Search.astro` 每次搜索从 DOM 现读索引，过滤逻辑在纯函数 `src/lib/search.ts`
+- GitHub 联动：`scripts/fetch-github-profile.mjs <用户名>` 生成 `src/data/github-profile.json` + `public/images/github-avatar.*`（均提交进 git，离线可构建）；Sidebar 构建期读 JSON 渲染头像+昵称，读不到回退「博/我的博客」占位
 - KaTeX（remark-math + rehype-katex）全局启用，但 `katex/dist/katex.min.css` **只在 notes 路由引入**——公式字体不得泄漏到文章/首页
 
 ## 关键约定
@@ -38,7 +40,7 @@ python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 29 项
 ## 冒烟测试注意
 
 - TOC 滚动追踪断言必须**渐进滚动**（多次 350px + 等待）——单次大跳跃会让所有标题落在 IntersectionObserver 的 15%-30% 视口带之外，必挂
-- 搜索用例按**标题文本**定位目标结果（内容量增大后 pagefind 排序会漂移，不能假定固定位次）
+- 搜索用例按**标题文本**定位目标结果（内容量增大后命中数会变，不能假定固定位次）
 - C 代码高亮的标记是 `pre[data-language="c"]`（Shiki 把语言放 data 属性）
 
 ## 历史包袱提示

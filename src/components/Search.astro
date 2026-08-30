@@ -1,5 +1,15 @@
 ---
-// client:load 岛屿：搜索需要立即可用（⌘K）
+import type { SearchEntry } from "../lib/search";
+
+interface Props {
+  entries: SearchEntry[];
+}
+const { entries } = Astro.props;
+
+// 索引随页面 HTML 内联。用 set:html 绕过表达式转义 —— <script> 是原始文本
+// 元素，实体不解码，转义后的 &quot; 会让 JSON.parse 失败。replace 把 <
+// 写成 JSON 转义序列（backslash-u003c），防止标题里出现 </script> 逃逸。
+const indexJson = JSON.stringify(entries).replace(/</g, "\\u003c");
 ---
 
 <div
@@ -18,7 +28,7 @@
       <input
         id="search-input"
         type="search"
-        placeholder="搜索文章…"
+        placeholder="搜索标题…"
         autocomplete="off"
         spellcheck="false"
       />
@@ -28,6 +38,8 @@
     <p class="search-hint">↑↓ 选择 · Enter 打开 · Esc 关闭</p>
   </div>
 </div>
+
+<script type="application/json" id="search-index" set:html={indexJson} />
 
 <style>
   .search-modal {
@@ -87,23 +99,31 @@
   }
   .search-results:empty { padding: 0.75rem; }
   .result {
-    display: grid;
-    gap: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     padding: 0.7rem 0.9rem;
     border-radius: var(--radius-sm);
     cursor: pointer;
   }
   .result.selected { background: color-mix(in srgb, var(--accent) 12%, transparent); }
-  .result .r-title { color: var(--text-1); font-size: 0.95rem; }
-  .result .r-excerpt {
-    color: var(--text-3);
-    font-size: 0.82rem;
+  .result .r-title {
+    flex: 1;
+    color: var(--text-1);
+    font-size: 0.95rem;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  .result .r-excerpt :global(mark) { color: var(--accent); background: none; }
+  .result .r-title :global(mark) { color: var(--accent); background: none; }
+  .result .r-kind {
+    flex: none;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-3);
+    font-size: 0.7rem;
+  }
   .search-hint {
     padding: 0.6rem 1.25rem;
     border-top: 1px solid var(--border);
@@ -114,60 +134,36 @@
 
 <script>
   import { navigate } from "astro:transitions/client";
+  import { filterEntries, type SearchEntry, type SearchResult } from "../lib/search";
 
-  type PFResult = {
-    meta: { title?: string; url?: string };
-    url?: string;
-    // pagefind 各版本形态不一：excerpt 可能是函数（计算）或字符串（预计算）
-    excerpt?: string | (() => string);
-  };
-
-  const excerptOf = (r: PFResult): string =>
-    typeof r.excerpt === "function" ? r.excerpt() : String(r.excerpt ?? "");
-  type Pagefind = {
-    search: (q: string) => Promise<{ results: { data: () => Promise<PFResult> }[] }>;
-  };
-
-  // 注意：不能在模块顶层缓存 DOM 引用 —— ClientRouter 软导航会替换 body，
-  // 闭包里的引用会变成已移除的旧节点（ThemeToggle 因在 persist 侧栏内不受影响）。
+  // 不能在模块顶层缓存 DOM 引用或索引 —— ClientRouter 软导航会替换 body，
+  // 闭包里的引用会变成已移除的旧节点（索引 script 标签同理，随页面重建）。
   const getModal = () => document.getElementById("search-modal");
   const getInput = () => document.getElementById("search-input") as HTMLInputElement | null;
   const getResultsEl = () => document.getElementById("search-results");
 
-  let pagefind: Pagefind | null = null;
-  let results: (PFResult & { url: string })[] = [];
-  let selected = 0;
-  let lastController: AbortController | null = null;
+  const readIndex = (): SearchEntry[] => {
+    try {
+      const el = document.getElementById("search-index");
+      return el ? (JSON.parse(el.textContent ?? "[]") as SearchEntry[]) : [];
+    } catch {
+      return [];
+    }
+  };
 
-  const open = async () => {
+  let results: SearchResult[] = [];
+  let selected = 0;
+
+  const open = () => {
     getModal()?.removeAttribute("hidden");
     getInput()?.focus();
-    if (!pagefind) {
-      try {
-        // 索引由 post-build 生成，构建时不存在 —— 用 Function 构造器彻底绕开打包器
-        // （Vite 8 仍会给 @vite-ignore 的动态 import 包 __vitePreload，导致解析失败）
-        const load = new Function("u", "return import(u)") as (
-          u: string,
-        ) => Promise<Pagefind>;
-        pagefind = await load("/pagefind/pagefind.js");
-      } catch {
-        const el = getResultsEl();
-        if (el) {
-          el.innerHTML =
-            '<li class="result"><span class="r-title">搜索索引不可用（dev 模式请用 npm run build && npm run preview 验证）</span></li>';
-        }
-      }
-    }
-    // 索引加载完成前用户可能已输入 —— 就绪后自动补搜一次
-    const q = getInput()?.value.trim();
-    if (q) getInput()?.dispatchEvent(new Event("input", { bubbles: true }));
   };
   const close = () => getModal()?.setAttribute("hidden", "");
 
   document.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
       e.preventDefault();
-      if (getModal()?.hasAttribute("hidden")) void open();
+      if (getModal()?.hasAttribute("hidden")) open();
       else close();
     }
     if (e.key === "Escape") close();
@@ -177,13 +173,13 @@
     const trigger = (e.target as HTMLElement).closest("[data-search-open]");
     if (trigger) {
       e.preventDefault();
-      void open();
+      open();
       return;
     }
     if (e.target === getModal()) close();
   });
 
-  // 标题是任意 frontmatter 字符串 —— innerHTML 前必须转义（excerpt 保留原生 mark 高亮）
+  // 标题是任意 frontmatter 字符串 —— innerHTML 前必须分段转义（高亮 mark 为自建标签）
   const escapeHtml = (s: string) =>
     s.replace(/[&<>"']/g, (c) =>
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] ?? c,
@@ -194,13 +190,18 @@
     if (!el) return;
     selected = Math.min(selected, Math.max(0, results.length - 1));
     el.innerHTML = results
-      .map(
-        (r, i) => `
+      .map((r, i) => {
+        const { title, matchStart: s, matchLength: len } = r;
+        const html =
+          escapeHtml(title.slice(0, s)) +
+          `<mark>${escapeHtml(title.slice(s, s + len))}</mark>` +
+          escapeHtml(title.slice(s + len));
+        return `
         <li class="result${i === selected ? " selected" : ""}" role="option" aria-selected="${i === selected}" data-i="${i}">
-          <span class="r-title">${escapeHtml(r.meta.title ?? "无标题")}</span>
-          <span class="r-excerpt">${excerptOf(r)}</span>
-        </li>`,
-      )
+          <span class="r-title">${html}</span>
+          <span class="r-kind">${r.kind === "note" ? "笔记" : "文章"}</span>
+        </li>`;
+      })
       .join("");
   };
 
@@ -210,25 +211,9 @@
     navigate(r.url);
   };
 
-  document.addEventListener("input", async (e) => {
+  document.addEventListener("input", (e) => {
     if ((e.target as HTMLElement).id !== "search-input") return;
-    const input = e.target as HTMLInputElement;
-    const q = input.value.trim();
-    if (!q || !pagefind) {
-      results = [];
-      render();
-      return;
-    }
-    lastController?.abort();
-    lastController = new AbortController();
-    const signal = lastController.signal;
-    const search = await pagefind.search(q);
-    if (signal.aborted) return;
-    const items = await Promise.all(
-      search.results.slice(0, 8).map((r) => r.data()),
-    );
-    if (signal.aborted) return;
-    results = items.map((it) => ({ ...it, url: it.url ?? it.meta.url ?? "/" }));
+    results = filterEntries(readIndex(), (e.target as HTMLInputElement).value);
     selected = 0;
     render();
   });
