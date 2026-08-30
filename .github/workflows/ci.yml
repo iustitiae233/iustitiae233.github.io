@@ -17,7 +17,19 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      # 临时诊断步骤：失败时把 npm 输出尾部写进 check 注解（日志接口要权限，注解免认证可读）
+      - name: npm ci
+        run: |
+          set +e
+          out=$(npm ci 2>&1)
+          code=$?
+          echo "$out" | tail -15
+          if [ $code -ne 0 ]; then
+            echo "$out" | grep -iE "error|EUSAGE|EINTEGRITY|EBADENGINE|403|404|ENOENT" | head -15 | while IFS= read -r line; do
+              echo "::error::${line}"
+            done
+            exit $code
+          fi
       - run: npm run check
       - run: npm run test
       - run: npm run build
