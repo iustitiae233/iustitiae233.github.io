@@ -63,7 +63,7 @@
         <svg data-mini-icon-pause width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 5v14M15 5v14" />
         </svg>
-        <svg data-mini-icon-play hidden width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg data-mini-icon-play width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M7 5v14l12-7z" />
         </svg>
       </button>
@@ -290,6 +290,10 @@
     transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
   }
   .mini-btn:hover { color: var(--text-1); border-color: var(--border-strong); }
+  /* 播放/暂停图标由卡片 data-state 驱动（svg 元素上写 hidden 属性过不了 astro check 的类型） */
+  .mini-btn [data-mini-icon-play] { display: none; }
+  .pomo-mini:not([data-state="running"]) [data-mini-icon-play] { display: block; }
+  .pomo-mini[data-state="running"] [data-mini-icon-pause] { display: none; }
 
   .sr-only {
     position: absolute;
@@ -416,11 +420,7 @@
     const ring = mini.querySelector<SVGCircleElement>("[data-pomo-mini-ring]");
     if (ring) ring.style.strokeDashoffset = String(MINI_C * (ms / fullMs(state.phase)));
     const toggle = mini.querySelector<HTMLButtonElement>("[data-pomo-mini-toggle]");
-    if (toggle) {
-      toggle.setAttribute("aria-label", state.running ? "暂停" : "继续");
-      toggle.querySelector("[data-mini-icon-pause]")?.toggleAttribute("hidden", !state.running);
-      toggle.querySelector("[data-mini-icon-play]")?.toggleAttribute("hidden", state.running);
-    }
+    if (toggle) toggle.setAttribute("aria-label", state.running ? "暂停" : "继续");
   }
 
   function render(now = Date.now()) {
