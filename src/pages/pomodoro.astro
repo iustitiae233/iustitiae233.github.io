@@ -1,0 +1,281 @@
+---
+// 番茄钟弹出小窗：独立路由，无站点 chrome（顶栏/侧栏/搜索/ClientRouter）。
+// 与博客窗口共享 localStorage("pomodoro")，storage 事件跨窗口实时同步
+// （小窗暂停 → 博客页胶囊立刻冻结，反之亦然）。
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>番茄钟</title>
+    <meta name="robots" content="noindex" />
+    <script is:inline>
+      const stored = localStorage.getItem("theme");
+      document.documentElement.dataset.theme =
+        stored ?? (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    </script>
+  </head>
+  <body>
+    <main class="pop" data-phase="focus" data-state="idle">
+      <div class="pop-ring-row">
+        <svg width="200" height="200" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="ring-track" cx="100" cy="100" r="86" />
+          <circle class="ring-bar" data-pop-ring cx="100" cy="100" r="86" />
+        </svg>
+        <div class="pop-center">
+          <span class="pop-big" data-pop-time>25:00</span>
+          <span class="pop-phase" data-pop-phase-label>专注</span>
+        </div>
+      </div>
+      <div class="pop-dots" aria-hidden="true">
+        <span class="dot" data-pop-dot></span><span class="dot" data-pop-dot></span><span class="dot" data-pop-dot></span><span class="dot" data-pop-dot></span>
+      </div>
+      <div class="pop-actions">
+        <button type="button" class="pop-btn primary" data-pop-start>开始</button>
+        <button type="button" class="pop-btn" data-pop-skip>跳过</button>
+        <button type="button" class="pop-btn" data-pop-reset>重置</button>
+      </div>
+      <p class="sr-only" aria-live="polite" data-pop-live></p>
+    </main>
+  </body>
+</html>
+
+<style>
+  .pop {
+    display: grid;
+    justify-items: center;
+    gap: 1.1rem;
+    margin: 0.9rem;
+    padding: 1.5rem 1.25rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: 0 0 60px -30px var(--accent-glow);
+  }
+  .pop-ring-row { position: relative; }
+  .ring-track, .ring-bar { fill: none; stroke-width: 7; }
+  .ring-track { stroke: var(--border); }
+  .ring-bar {
+    stroke: var(--accent);
+    stroke-linecap: round;
+    stroke-dasharray: 540.354; /* 2π×86 */
+    stroke-dashoffset: 0; /* JS 按 剩余/满时长 更新 */
+    transform: rotate(-90deg);
+    transform-origin: center;
+    transition: stroke-dashoffset 0.4s linear;
+  }
+  .pop[data-phase="short"] .ring-bar,
+  .pop[data-phase="long"] .ring-bar { stroke: var(--accent-2); }
+
+  .pop-center {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    gap: 0.2rem;
+  }
+  .pop-big {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--text-1);
+  }
+  .pop-phase { font-size: 0.85rem; color: var(--text-3); letter-spacing: 0.12em; }
+
+  /* 阶段结束待确认：呼吸光晕（无声提示的视觉补强，与面板/迷你卡同语言） */
+  .pop[data-state="awaiting"][data-phase="focus"] {
+    animation: pop-breathe-cyan 2s var(--ease-out) infinite;
+  }
+  .pop[data-state="awaiting"][data-phase="short"],
+  .pop[data-state="awaiting"][data-phase="long"] {
+    animation: pop-breathe-purple 2s var(--ease-out) infinite;
+  }
+  @keyframes pop-breathe-cyan {
+    0%, 100% { box-shadow: 0 0 0 0 transparent; }
+    50% { box-shadow: 0 0 22px 3px var(--accent-glow); }
+  }
+  @keyframes pop-breathe-purple {
+    0%, 100% { box-shadow: 0 0 0 0 transparent; }
+    50% { box-shadow: 0 0 22px 3px var(--accent-2-glow); }
+  }
+
+  .pop-dots { display: flex; gap: 0.5rem; }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    transition: background-color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+  }
+  .dot.fill { background: var(--accent); border-color: var(--accent); }
+
+  .pop-actions { display: flex; gap: 0.5rem; }
+  .pop-btn {
+    padding: 0.5rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-2);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+  }
+  .pop-btn:hover { color: var(--text-1); border-color: var(--border-strong); }
+  .pop-btn.primary {
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    color: var(--accent);
+  }
+  .pop-btn.primary:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pop { animation: none; }
+    .ring-bar { transition: none; }
+  }
+</style>
+
+<script>
+  import {
+    advance,
+    defaultState,
+    formatMs,
+    fullMs,
+    parse,
+    pause,
+    remainingOf,
+    reset,
+    serialize,
+    settleExpired,
+    skip,
+    start,
+    type Phase,
+    type PomodoroState,
+  } from "../lib/pomodoro";
+
+  const KEY = "pomodoro";
+  const PHASE_LABEL: Record<Phase, string> = { focus: "专注", short: "短休", long: "长休" };
+  const RING_C = 2 * Math.PI * 86;
+  const BASE_TITLE = "番茄钟";
+
+  // 状态从 localStorage 恢复（墙钟结算过期），与小窗外的博客窗口共享
+  let state: PomodoroState;
+  try {
+    state = settleExpired(parse(localStorage.getItem(KEY)), Date.now());
+  } catch {
+    state = defaultState(); // 隐身模式等 localStorage 不可用：纯内存态
+  }
+  let ticker: ReturnType<typeof setInterval> | null = null;
+  let lastTitle = document.title;
+
+  function render(now = Date.now()) {
+    // 自然结束检测在渲染统一结算（tick 或后台唤醒都会走到这里）
+    if (state.running && state.endsAt !== null && now >= state.endsAt) {
+      const done = state.phase;
+      commit(
+        advance(state),
+        `${PHASE_LABEL[done]}完成，${done === "focus" ? "该休息了" : "该专注了"}`,
+      );
+      return;
+    }
+    const root = document.querySelector<HTMLElement>(".pop");
+    if (!root) return;
+    const ms = remainingOf(state, now);
+    const st = state.awaiting ? "awaiting" : state.running ? "running" : "paused";
+    root.dataset.phase = state.phase;
+    root.dataset.state = st;
+    const time = root.querySelector<HTMLElement>("[data-pop-time]");
+    if (time) time.textContent = formatMs(ms);
+    const label = root.querySelector<HTMLElement>("[data-pop-phase-label]");
+    if (label) {
+      label.textContent = state.awaiting
+        ? state.phase === "focus" ? "该专注了" : "该休息了"
+        : PHASE_LABEL[state.phase];
+    }
+    const ring = root.querySelector<SVGCircleElement>("[data-pop-ring]");
+    if (ring) ring.style.strokeDashoffset = String(RING_C * (ms / fullMs(state.phase)));
+    root.querySelectorAll<HTMLElement>("[data-pop-dot]").forEach((d, i) => {
+      d.classList.toggle("fill", i < state.completedFocus % 4);
+    });
+    const startBtn = root.querySelector<HTMLButtonElement>("[data-pop-start]");
+    if (startBtn) startBtn.textContent = state.running ? "暂停" : "开始";
+
+    let t = BASE_TITLE;
+    if (st === "running") t = `${formatMs(ms)} ${PHASE_LABEL[state.phase]} · ${BASE_TITLE}`;
+    else if (st === "awaiting") {
+      t = `${state.phase === "focus" ? "🍅 该专注了" : "☕ 该休息了"} · ${BASE_TITLE}`;
+    }
+    if (t !== lastTitle) {
+      document.title = t;
+      lastTitle = t;
+    }
+  }
+
+  function persist() {
+    try {
+      localStorage.setItem(KEY, serialize(state));
+    } catch {
+      /* 隐身模式：跳过持久化，纯内存态 */
+    }
+  }
+
+  function ensureTicker() {
+    if (state.running && ticker === null) ticker = setInterval(render, 500);
+    else if (!state.running && ticker !== null) {
+      clearInterval(ticker);
+      ticker = null;
+    }
+  }
+
+  function commit(next: PomodoroState, announce?: string) {
+    state = next;
+    persist();
+    ensureTicker();
+    render();
+    if (announce) {
+      const live = document.querySelector<HTMLElement>("[data-pop-live]");
+      if (live) live.textContent = announce;
+    }
+  }
+
+  // 单页无软导航，直接绑定按钮
+  document.querySelector("[data-pop-start]")?.addEventListener("click", () => {
+    commit(state.running ? pause(state, Date.now()) : start(state, Date.now()));
+  });
+  document.querySelector("[data-pop-skip]")?.addEventListener("click", () => commit(skip(state)));
+  document.querySelector("[data-pop-reset]")?.addEventListener("click", () => commit(reset(state)));
+
+  // 跨窗口同步：博客窗口写入同一 key 时，本窗口收到 storage 事件
+  // （本窗口自己的写入不触发）——重放状态即可，墙钟推导保证时间一致。
+  // 自然结束的双重结算无害：advance 是纯函数，两窗口算出同值幂等落盘。
+  window.addEventListener("storage", (e: StorageEvent) => {
+    if (e.key !== KEY) return;
+    state = settleExpired(parse(e.newValue), Date.now());
+    ensureTicker();
+    render();
+  });
+
+  render();
+  ensureTicker();
+  document.querySelector<HTMLButtonElement>("[data-pop-start]")?.focus();
+
+  // 后台窗口 setInterval 被节流：回到前台立即按墙钟重算
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) render();
+  });
+</script>

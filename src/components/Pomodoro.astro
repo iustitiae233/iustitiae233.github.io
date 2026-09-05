@@ -45,6 +45,11 @@
           <path d="M12 17v5M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1z" />
         </svg>
       </button>
+      <button type="button" class="pomo-btn icon" data-pomo-popout aria-label="弹出独立小窗" title="弹出独立小窗">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" />
+        </svg>
+      </button>
     </div>
     <p class="sr-only" aria-live="polite" data-pomo-live></p>
   </div>
@@ -535,6 +540,13 @@
       setPinned(true);
       return;
     }
+    if (t.closest("[data-pomo-popout]")) {
+      // 独立小窗：用户手势内的同源 window.open 不会被拦截；
+      // 小窗与本页通过 storage 事件实时同步（见下方监听）
+      window.open("/pomodoro/", "pomodoro-popup", "popup=yes,width=320,height=460");
+      closePanel();
+      return;
+    }
     if (t.closest("[data-pomo-mini-unpin]")) {
       setPinned(false);
       return;
@@ -580,5 +592,15 @@
   // 后台标签页 setInterval 被节流：回到前台立即按墙钟重算
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) render();
+  });
+
+  // 跨窗口同步：/pomodoro/ 小窗写入同一 key 时本窗口收到 storage 事件
+  // （本窗口自己的写入不触发）——重放状态并刷新胶囊/面板/迷你卡/标题。
+  // 自然结束的双重结算无害：advance 是纯函数，两窗口算出同值幂等落盘。
+  window.addEventListener("storage", (e: StorageEvent) => {
+    if (e.key !== KEY) return;
+    state = settleExpired(parse(e.newValue), Date.now());
+    ensureTicker();
+    render();
   });
 </script>
