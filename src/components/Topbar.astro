@@ -1,11 +1,13 @@
 ---
 import MenuButton from "./MenuButton.astro";
+import Pomodoro from "./Pomodoro.astro";
 import { formatPath } from "../lib/path";
 ---
 
 <header class="topbar">
   <MenuButton />
   <p class="breadcrumb">{formatPath(Astro.url.pathname)}</p>
+  <Pomodoro />
   <a class="search-entry" href="#search" data-search-open>
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <circle cx="11" cy="11" r="7" />
@@ -35,7 +37,6 @@ import { formatPath } from "../lib/path";
     font-size: 0.85rem;
   }
   .search-entry {
-    margin-left: auto;
     display: flex;
     align-items: center;
     gap: 0.5rem;
