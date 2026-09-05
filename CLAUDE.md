@@ -11,7 +11,7 @@ npm run build              # 先拉 GitHub 头像（失败沿用旧文件不阻�
 npm run profile            # 手动刷新 GitHub 头像/昵称（scripts/fetch-github-profile.mjs）
 npm run preview            # 本地预览 dist
 npx serve dist -l 4327     # 冒烟测试依赖的静态服务器（保持 4327 端口）
-python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 39 项，需先起 serve）
+python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 44 项，需先起 serve）
 ```
 
 **门禁**：改动后跑 check → test → build → smoke，全绿才提交。commit message 用中文，格式 `类型: 描述`（feat/fix/test/docs/ci）。

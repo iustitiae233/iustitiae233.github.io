@@ -40,8 +40,40 @@
       <button type="button" class="pomo-btn primary" data-pomo-start>开始</button>
       <button type="button" class="pomo-btn" data-pomo-skip>跳过</button>
       <button type="button" class="pomo-btn" data-pomo-reset>重置</button>
+      <button type="button" class="pomo-btn icon" data-pomo-pin aria-label="固定到右下角" title="固定到右下角">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 17v5M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1z" />
+        </svg>
+      </button>
     </div>
     <p class="sr-only" aria-live="polite" data-pomo-live></p>
+  </div>
+
+  <div id="pomodoro-mini" class="pomo-mini" hidden aria-label="番茄钟悬浮卡">
+    <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+      <circle class="mini-ring-track" cx="32" cy="32" r="26" />
+      <circle class="mini-ring" data-pomo-mini-ring cx="32" cy="32" r="26" />
+    </svg>
+    <div class="mini-center">
+      <span class="mini-time" data-pomo-mini-time>25:00</span>
+      <span class="mini-phase" data-pomo-mini-phase>专注</span>
+    </div>
+    <div class="mini-actions">
+      <button type="button" class="mini-btn" data-pomo-mini-toggle aria-label="暂停">
+        <svg data-mini-icon-pause width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 5v14M15 5v14" />
+        </svg>
+        <svg data-mini-icon-play hidden width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 5v14l12-7z" />
+        </svg>
+      </button>
+      <button type="button" class="mini-btn" data-pomo-mini-unpin aria-label="取消固定" title="取消固定">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 17v5M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1z" />
+          <path d="M3 3l18 18" />
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -189,6 +221,75 @@
     color: var(--accent);
   }
   .pomo-btn.primary:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .pomo-btn.icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    padding: 0;
+  }
+
+  /* 迷你悬浮卡：fixed 定位。脚本会把它挂到 body —— topbar 的 backdrop-filter
+     会成为 fixed 后代的包含块，留在 topbar 里会被错误锚定到顶栏 */
+  .pomo-mini {
+    position: fixed;
+    right: 1.25rem;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom));
+    z-index: 80; /* 阅读进度 60 之上、搜索 modal 100 之下 */
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0.875rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: 0 24px 80px -20px rgba(0, 0, 0, 0.6), 0 0 60px -30px var(--accent-glow);
+    animation: pomo-panel-in 220ms var(--ease-out);
+  }
+  .pomo-mini[hidden] { display: none; }
+  .pomo-mini[data-state="awaiting"][data-phase="focus"] {
+    animation: pomo-breathe-cyan 2s var(--ease-out) infinite;
+  }
+  .pomo-mini[data-state="awaiting"][data-phase="short"],
+  .pomo-mini[data-state="awaiting"][data-phase="long"] {
+    animation: pomo-breathe-purple 2s var(--ease-out) infinite;
+  }
+  .mini-ring-track { fill: none; stroke: var(--border); stroke-width: 4; }
+  .mini-ring {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 163.363; /* 2π×26 */
+    transform: rotate(-90deg);
+    transform-origin: center;
+    transition: stroke-dashoffset 0.4s linear;
+  }
+  .pomo-mini[data-phase="short"] .mini-ring,
+  .pomo-mini[data-phase="long"] .mini-ring { stroke: var(--accent-2); }
+  .mini-center { display: grid; min-width: 4.5ch; }
+  .mini-time {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-1);
+    line-height: 1.2;
+  }
+  .mini-phase { font-size: 0.7rem; color: var(--text-3); }
+  .mini-actions { display: grid; gap: 0.375rem; }
+  .mini-btn {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+  }
+  .mini-btn:hover { color: var(--text-1); border-color: var(--border-strong); }
 
   .sr-only {
     position: absolute;
@@ -210,7 +311,9 @@
   @media (prefers-reduced-motion: reduce) {
     #pomodoro-pill[data-state="awaiting"] { animation: none; }
     .pomo-panel { animation: none; }
+    .pomo-mini { animation: none; }
     .ring-bar { transition: none; }
+    .mini-ring { transition: none; }
   }
 </style>
 
@@ -249,8 +352,18 @@
   let baseTitle = document.title;
   let lastTitle = document.title;
 
+  // 书钉固定态：UI 状态存独立 key，不进 pomodoro.ts 纯逻辑模块的计时 payload
+  const PIN_KEY = "pomodoro-pinned";
+  let pinned = false;
+  try {
+    pinned = localStorage.getItem(PIN_KEY) === "1";
+  } catch {
+    /* 隐身模式：仅内存态 */
+  }
+
   const getPill = () => document.getElementById("pomodoro-pill");
   const getPanel = () => document.getElementById("pomodoro-panel");
+  const getMini = () => document.getElementById("pomodoro-mini");
 
   type PillState = "idle" | "running" | "paused" | "awaiting";
   function pillStateOf(s: PomodoroState): PillState {
@@ -289,6 +402,27 @@
     if (startBtn) startBtn.textContent = state.running ? "暂停" : "开始";
   }
 
+  const MINI_C = 2 * Math.PI * 26;
+
+  function renderMini(ms: number, st: PillState) {
+    const mini = getMini();
+    if (!mini) return;
+    mini.dataset.phase = state.phase;
+    mini.dataset.state = st;
+    const time = mini.querySelector<HTMLElement>("[data-pomo-mini-time]");
+    if (time) time.textContent = formatMs(ms);
+    const phase = mini.querySelector<HTMLElement>("[data-pomo-mini-phase]");
+    if (phase) phase.textContent = PHASE_LABEL[state.phase];
+    const ring = mini.querySelector<SVGCircleElement>("[data-pomo-mini-ring]");
+    if (ring) ring.style.strokeDashoffset = String(MINI_C * (ms / fullMs(state.phase)));
+    const toggle = mini.querySelector<HTMLButtonElement>("[data-pomo-mini-toggle]");
+    if (toggle) {
+      toggle.setAttribute("aria-label", state.running ? "暂停" : "继续");
+      toggle.querySelector("[data-mini-icon-pause]")?.toggleAttribute("hidden", !state.running);
+      toggle.querySelector("[data-mini-icon-play]")?.toggleAttribute("hidden", state.running);
+    }
+  }
+
   function render(now = Date.now()) {
     // 自然结束检测在渲染统一结算（tick 或后台唤醒都会走到这里）
     if (state.running && state.endsAt !== null && now >= state.endsAt) {
@@ -318,6 +452,14 @@
     }
     const panel = getPanel();
     if (panel && !panel.hasAttribute("hidden")) renderPanel(ms);
+    // 悬浮卡必须脱离 topbar（backdrop-filter 是 fixed 的包含块）→ 挂到 body；
+    // 软导航后节点重建在新 topbar 里，这里幂等重挂
+    const mini = getMini();
+    if (mini && mini.parentElement !== document.body) document.body.appendChild(mini);
+    if (mini) {
+      mini.toggleAttribute("hidden", !pinned);
+      if (pinned) renderMini(ms, st);
+    }
     syncTitle(st, ms);
   }
 
@@ -349,6 +491,19 @@
     }
   }
 
+  function setPinned(next: boolean) {
+    pinned = next;
+    try {
+      localStorage.setItem(PIN_KEY, next ? "1" : "0");
+    } catch {
+      /* 隐身模式：仅内存态 */
+    }
+    // 显示模式互斥：固定 = 关面板出卡片；取消固定 = 收卡片回面板
+    if (next) closePanel();
+    else openPanel();
+    render();
+  }
+
   function openPanel() {
     const panel = getPanel();
     if (!panel) return;
@@ -368,8 +523,24 @@
   document.addEventListener("click", (e) => {
     const t = e.target as HTMLElement;
     if (t.closest("[data-pomodoro-open]")) {
+      if (pinned) {
+        setPinned(false); // 固定态点胶囊 = 取消固定并回面板
+        return;
+      }
       if (getPanel()?.hasAttribute("hidden")) openPanel();
       else closePanel();
+      return;
+    }
+    if (t.closest("[data-pomo-pin]")) {
+      setPinned(true);
+      return;
+    }
+    if (t.closest("[data-pomo-mini-unpin]")) {
+      setPinned(false);
+      return;
+    }
+    if (t.closest("[data-pomo-mini-toggle]")) {
+      commit(state.running ? pause(state, Date.now()) : start(state, Date.now()));
       return;
     }
     const panel = getPanel();

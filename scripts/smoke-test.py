@@ -186,6 +186,26 @@ with sync_playwright() as p:
     page.keyboard.press("Escape")
     check("Esc 关闭番茄钟面板", page.locator("#pomodoro-panel[hidden]").count() == 1)
 
+    # 8.5 书钉固定：面板 → 右下迷你卡 → 软导航常驻 → 取消固定回面板
+    page.click("#pomodoro-pill")
+    page.wait_for_timeout(200)
+    page.click("[data-pomo-pin]")
+    page.wait_for_timeout(300)
+    check("书钉固定后迷你卡出现", page.locator("#pomodoro-mini:not([hidden])").count() == 1)
+    check("固定时面板关闭", page.locator("#pomodoro-panel[hidden]").count() == 1)
+    page.click("[data-pomo-mini-toggle]")  # 短休开始计时
+    page.wait_for_timeout(1300)
+    mt = page.locator("[data-pomo-mini-time]").text_content()
+    check("迷你卡计时走动", mt == "04:59", f"time={mt!r}")
+    page.click(".card")  # 软导航进文章：卡片必须跨页常驻（每页重挂 body）
+    page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
+    check("软导航后迷你卡仍常驻", page.locator("#pomodoro-mini:not([hidden])").count() == 1)
+    page.click("[data-pomo-mini-unpin]")
+    page.wait_for_timeout(300)
+    check("取消固定后卡收面板回", page.locator("#pomodoro-mini[hidden]").count() == 1
+          and page.locator("#pomodoro-panel:not([hidden])").count() == 1)
+    page.keyboard.press("Escape")
+
     browser.close()
 
 fails = [r for r in results if not r[1]]
