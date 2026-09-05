@@ -156,6 +156,36 @@ with sync_playwright() as p:
     check("软导航后汉堡仍可打开抽屉", t3 == "matrix(1, 0, 0, 1, 0, 0)", t3)
     mob.close()
 
+    # 8. 番茄钟：胶囊 → 面板 → 开始/暂停/跳过/重置（跳过驱动状态机，不等真实时长）
+    page.goto(BASE, wait_until="networkidle")
+    check("顶栏番茄钟胶囊存在", page.locator("#pomodoro-pill").count() == 1)
+    page.click("#pomodoro-pill")
+    check("点击胶囊弹出面板", page.locator("#pomodoro-panel:not([hidden])").count() == 1)
+    page.click("[data-pomo-start]")
+    page.wait_for_timeout(1300)
+    t_run = page.locator("#pomodoro-pill .pomo-time").text_content()
+    check("开始后胶囊显示倒计时", t_run == "24:59", f"time={t_run!r}")
+    check("运行中标签页标题同步", page.title().startswith("24:59"), f"title={page.title()!r}")
+    page.click("[data-pomo-start]")  # 同一按钮切换为暂停
+    page.wait_for_timeout(1300)
+    t_paused = page.locator("#pomodoro-pill .pomo-time").text_content()
+    check("暂停后时间冻结", t_paused == t_run, f"{t_run!r} -> {t_paused!r}")
+    page.click("[data-pomo-skip]")  # 跳过专注 → 短休（不计完成，胶囊回闲置态故读面板）
+    page.wait_for_timeout(300)
+    ph = page.locator("[data-pomo-phase-label]").text_content()
+    t_short = page.locator("#pomodoro-panel [data-pomo-time]").text_content()
+    check("跳过专注进入短休", ph == "短休" and t_short == "05:00", f"phase={ph!r} time={t_short!r}")
+    page.click("[data-pomo-start]")  # 短休开始计时
+    page.wait_for_timeout(1300)
+    t_going = page.locator("#pomodoro-panel [data-pomo-time]").text_content()
+    check("短休计时走到 04:59", t_going == "04:59", f"time={t_going!r}")
+    page.click("[data-pomo-reset]")
+    page.wait_for_timeout(300)
+    t_reset = page.locator("#pomodoro-panel [data-pomo-time]").text_content()
+    check("重置回短休满时长", t_reset == "05:00", f"time={t_reset!r}")
+    page.keyboard.press("Escape")
+    check("Esc 关闭番茄钟面板", page.locator("#pomodoro-panel[hidden]").count() == 1)
+
     browser.close()
 
 fails = [r for r in results if not r[1]]
