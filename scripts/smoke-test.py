@@ -206,29 +206,73 @@ with sync_playwright() as p:
           and page.locator("#pomodoro-panel:not([hidden])").count() == 1)
     page.keyboard.press("Escape")
 
-    # 8.7 弹出小窗：独立页面 + 窗口标题倒计时 + 跨窗口 storage 同步
+    # 8.7 弹出置顶小窗：画中画（Document PiP）优先 —— 同 JS 上下文直连主页状态机；
+    # headless 拒绝 PiP 时脚本自动降级 window.open 独立页（storage 事件同步），两条路都断言
     page.click("#pomodoro-pill")
     page.wait_for_timeout(200)
     page.click("[data-pomo-skip]")  # 8.5 遗留的短休计时 → 专注 25:00 闲置
     page.wait_for_timeout(200)
-    with page.context.expect_page() as pop_info:
-        page.click("[data-pomo-popout]")
-    popup = pop_info.value
-    popup.wait_for_load_state("domcontentloaded")
-    popup.wait_for_timeout(500)
-    pt = popup.locator("[data-pop-time]").text_content()
-    check("弹出小窗为独立页面", popup.locator("[data-pop-time]").count() == 1 and pt == "25:00",
-          f"time={pt!r}")
-    popup.click("[data-pop-start]")
-    popup.wait_for_timeout(1300)
-    check("小窗标题同步倒计时", popup.title().startswith("24:59"), f"title={popup.title()!r}")
-    t_main = page.locator("#pomodoro-pill .pomo-time").text_content()
-    check("小窗开始同步到主页胶囊", t_main == "24:59", f"time={t_main!r}")
-    popup.click("[data-pop-start]")  # 小窗里暂停
-    popup.wait_for_timeout(1300)
-    t_main2 = page.locator("#pomodoro-pill .pomo-time").text_content()
-    check("小窗暂停同步到主页胶囊", t_main2 == t_main, f"{t_main!r} -> {t_main2!r}")
-    popup.close()
+
+    def pip_eval(expr):
+        return page.evaluate(f"documentPictureInPicture.window?.{expr}")
+
+    new_pages = []
+    page.context.on("page", lambda pg: new_pages.append(pg))
+    page.click("[data-pomo-popout]")
+    page.wait_for_timeout(800)
+    pip_open = page.evaluate("!!documentPictureInPicture.window")
+
+    if pip_open:
+        pt = pip_eval("document.querySelector('[data-pip-time]').textContent")
+        check("弹出画中画置顶小窗", pt == "25:00", f"time={pt!r}")
+        check("弹小窗时主面板关闭", page.locator("#pomodoro-panel[hidden]").count() == 1)
+        pip_eval("document.querySelector('[data-pip-start]').click()")
+        page.wait_for_timeout(1300)
+        pt_run = pip_eval("document.querySelector('[data-pip-time]').textContent")
+        t_main = page.locator("#pomodoro-pill .pomo-time").text_content()
+        check("小窗开始同步到主页胶囊", t_main == "24:59" and pt_run == "24:59",
+              f"main={t_main!r} pip={pt_run!r}")
+        pip_eval("document.querySelector('[data-pip-start]').click()")  # 小窗里暂停
+        page.wait_for_timeout(1300)
+        t_main2 = page.locator("#pomodoro-pill .pomo-time").text_content()
+        check("小窗暂停同步到主页胶囊", t_main2 == t_main, f"{t_main!r} -> {t_main2!r}")
+        page.evaluate("documentPictureInPicture.window.close()")
+        page.wait_for_timeout(400)
+        check("关闭小窗后引用清空", page.evaluate("!documentPictureInPicture.window"))
+
+        # 降级路径：屏蔽 PiP API 后重载，弹出应走 window.open 独立页
+        page.add_init_script(
+            "Object.defineProperty(window, 'documentPictureInPicture', { value: undefined })")
+        page.reload(wait_until="networkidle")
+        page.click("#pomodoro-pill")
+        page.wait_for_timeout(200)
+        with page.context.expect_page() as pop_info:
+            page.click("[data-pomo-popout]")
+        popup = pop_info.value
+        popup.wait_for_load_state("domcontentloaded")
+        popup.wait_for_timeout(500)
+        pt = popup.locator("[data-pop-time]").text_content()
+        check("无画中画时降级独立小窗", popup.locator("[data-pop-time]").count() == 1
+              and pt == "24:59", f"time={pt!r}")  # 暂停冻结的剩余，非满时长
+        popup.close()
+    else:
+        # headless 拒绝画中画 → 脚本已降级开出独立页（storage 事件同步语义）
+        popup = new_pages[-1]
+        popup.wait_for_load_state("domcontentloaded")
+        popup.wait_for_timeout(500)
+        pt = popup.locator("[data-pop-time]").text_content()
+        check("弹出小窗为独立页面", popup.locator("[data-pop-time]").count() == 1 and pt == "25:00",
+              f"time={pt!r}")
+        popup.click("[data-pop-start]")
+        popup.wait_for_timeout(1300)
+        check("小窗标题同步倒计时", popup.title().startswith("24:59"), f"title={popup.title()!r}")
+        t_main = page.locator("#pomodoro-pill .pomo-time").text_content()
+        check("小窗开始同步到主页胶囊", t_main == "24:59", f"time={t_main!r}")
+        popup.click("[data-pop-start]")  # 小窗里暂停
+        popup.wait_for_timeout(1300)
+        t_main2 = page.locator("#pomodoro-pill .pomo-time").text_content()
+        check("小窗暂停同步到主页胶囊", t_main2 == t_main, f"{t_main!r} -> {t_main2!r}")
+        popup.close()
 
     browser.close()
 

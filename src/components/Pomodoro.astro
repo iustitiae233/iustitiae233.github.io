@@ -3,6 +3,7 @@
 // （document 事件委托 + 动态查 DOM + astro:page-load 重同步）。
 // 计时状态在模块作用域 —— ClientRouter 不重执行已加载模块，软导航下存活；
 // localStorage write-through 让硬刷新/关标签页后按墙钟结算恢复。
+// 弹出小窗：Document PiP 优先（系统级置顶，跨网站/应用常驻），降级 /pomodoro/ 独立页。
 ---
 
 <div class="pomo-wrap">
@@ -45,7 +46,7 @@
           <path d="M12 17v5M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1z" />
         </svg>
       </button>
-      <button type="button" class="pomo-btn icon" data-pomo-popout aria-label="弹出独立小窗" title="弹出独立小窗">
+      <button type="button" class="pomo-btn icon" data-pomo-popout aria-label="弹出置顶小窗" title="弹出置顶小窗">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" />
         </svg>
@@ -465,6 +466,7 @@
       mini.toggleAttribute("hidden", !pinned);
       if (pinned) renderMini(ms, st);
     }
+    if (pipWin && !pipWin.closed) renderPip(ms, st);
     syncTitle(st, ms);
   }
 
@@ -493,6 +495,8 @@
     if (announce) {
       const live = document.querySelector<HTMLElement>("[data-pomo-live]");
       if (live) live.textContent = announce;
+      const pipLive = pipWin?.document.querySelector<HTMLElement>("[data-pip-live]");
+      if (pipLive) pipLive.textContent = announce;
     }
   }
 
@@ -524,6 +528,151 @@
     pill?.focus();
   }
 
+  // —— 置顶小窗（Document Picture-in-Picture，Chromium 116+）——
+  // 系统级置顶：切标签页、切到别的网站/应用都不消失；尺寸可拖拽调节且浏览器记住。
+  // 小窗按钮直连本模块闭包（同一 JS 上下文），零跨窗口同步成本。
+  // 软导航不换 document，小窗跨页存活；requestWindow 被拒 → 降级普通弹窗。
+  declare global {
+    interface Window {
+      documentPictureInPicture?: {
+        requestWindow(options?: { width?: number; height?: number }): Promise<Window>;
+        readonly window: Window | null;
+      };
+    }
+  }
+
+  let pipWin: Window | null = null;
+  const PIP_C = 2 * Math.PI * 44;
+  const PIP_TITLE = "番茄钟";
+
+  // PiP 是空白文档，全局样式与主题变量均不在 —— 用到的变量从主文档计算值注入，
+  // 主题在打开瞬间定格（此后切主题不回传，重开小窗即刷新）
+  const PIP_VARS = [
+    "--bg", "--surface", "--border", "--border-strong",
+    "--text-1", "--text-2", "--text-3",
+    "--accent", "--accent-2", "--accent-glow", "--accent-2-glow",
+    "--font-body", "--font-mono", "--radius-md", "--t-fast", "--ease-out",
+  ];
+
+  const PIP_HTML = `
+<main class="pip" data-phase="focus" data-state="idle">
+  <div class="pip-ring-row">
+    <svg width="110" height="110" viewBox="0 0 110 110" aria-hidden="true">
+      <circle class="pip-ring-track" cx="55" cy="55" r="44" />
+      <circle class="pip-ring-bar" data-pip-ring cx="55" cy="55" r="44" />
+    </svg>
+    <div class="pip-center">
+      <span class="pip-time" data-pip-time>25:00</span>
+      <span class="pip-phase" data-pip-phase-label>专注</span>
+    </div>
+  </div>
+  <div class="pip-dots" aria-hidden="true">
+    <span class="pip-dot" data-pip-dot></span><span class="pip-dot" data-pip-dot></span><span class="pip-dot" data-pip-dot></span><span class="pip-dot" data-pip-dot></span>
+  </div>
+  <div class="pip-actions">
+    <button type="button" class="pip-btn primary" data-pip-start>开始</button>
+    <button type="button" class="pip-btn" data-pip-skip>跳过</button>
+    <button type="button" class="pip-btn" data-pip-reset>重置</button>
+  </div>
+  <p class="pip-sr" aria-live="polite" data-pip-live></p>
+</main>`;
+
+  function pipStyles(): string {
+    const cs = getComputedStyle(document.documentElement);
+    const decls = PIP_VARS.map((v) => `${v}:${cs.getPropertyValue(v).trim()};`).join("");
+    return `:root{${decls}}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{display:grid;place-content:center;background:var(--bg);color:var(--text-1);font-family:var(--font-body)}
+.pip{display:grid;justify-items:center;gap:0.7rem;padding:1rem 1rem 1.1rem}
+.pip-ring-row{position:relative}
+.pip-ring-track,.pip-ring-bar{fill:none;stroke-width:5}
+.pip-ring-track{stroke:var(--border)}
+.pip-ring-bar{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:276.46;stroke-dashoffset:0;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 0.4s linear}
+.pip[data-phase="short"] .pip-ring-bar,
+.pip[data-phase="long"] .pip-ring-bar{stroke:var(--accent-2)}
+.pip-center{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:0.05rem}
+.pip-time{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:1.55rem;font-weight:700;color:var(--text-1);line-height:1.1}
+.pip-phase{font-size:0.68rem;color:var(--text-3);letter-spacing:0.1em}
+.pip[data-state="awaiting"][data-phase="focus"] .pip-ring-row{animation:pip-breathe-cyan 2s var(--ease-out) infinite}
+.pip[data-state="awaiting"][data-phase="short"] .pip-ring-row,
+.pip[data-state="awaiting"][data-phase="long"] .pip-ring-row{animation:pip-breathe-purple 2s var(--ease-out) infinite}
+@keyframes pip-breathe-cyan{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 16px 2px var(--accent-glow)}}
+@keyframes pip-breathe-purple{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 16px 2px var(--accent-2-glow)}}
+.pip-dots{display:flex;gap:0.4rem}
+.pip-dot{width:6px;height:6px;border-radius:50%;border:1px solid var(--border-strong);transition:background-color var(--t-fast) var(--ease-out),border-color var(--t-fast) var(--ease-out)}
+.pip-dot.fill{background:var(--accent);border-color:var(--accent)}
+.pip-actions{display:flex;gap:0.4rem}
+.pip-btn{padding:0.35rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius-md);background:transparent;color:var(--text-2);font-size:0.8rem;cursor:pointer;transition:color var(--t-fast) var(--ease-out),border-color var(--t-fast) var(--ease-out)}
+.pip-btn:hover{color:var(--text-1);border-color:var(--border-strong)}
+.pip-btn.primary{border-color:color-mix(in srgb,var(--accent) 50%,transparent);color:var(--accent)}
+.pip-btn.primary:hover{background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.pip-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media (prefers-reduced-motion:reduce){.pip-ring-row{animation:none}.pip-ring-bar{transition:none}}`;
+  }
+
+  function renderPip(ms: number, st: PillState) {
+    const root = pipWin?.document.querySelector<HTMLElement>(".pip");
+    if (!root) return;
+    root.dataset.phase = state.phase;
+    root.dataset.state = st;
+    const time = root.querySelector<HTMLElement>("[data-pip-time]");
+    if (time) time.textContent = formatMs(ms);
+    const label = root.querySelector<HTMLElement>("[data-pip-phase-label]");
+    if (label) {
+      label.textContent = state.awaiting
+        ? state.phase === "focus" ? "该专注了" : "该休息了"
+        : PHASE_LABEL[state.phase];
+    }
+    const ring = root.querySelector<SVGCircleElement>("[data-pip-ring]");
+    if (ring) ring.style.strokeDashoffset = String(PIP_C * (ms / fullMs(state.phase)));
+    root.querySelectorAll<HTMLElement>("[data-pip-dot]").forEach((d, i) => {
+      d.classList.toggle("fill", i < state.completedFocus % 4);
+    });
+    const startBtn = root.querySelector<HTMLButtonElement>("[data-pip-start]");
+    if (startBtn) startBtn.textContent = state.running ? "暂停" : "开始";
+    const t = st === "running" ? `${formatMs(ms)} ${PHASE_LABEL[state.phase]} · ${PIP_TITLE}` : PIP_TITLE;
+    if (pipWin && pipWin.document.title !== t) pipWin.document.title = t;
+  }
+
+  async function openPopout() {
+    if (pipWin && !pipWin.closed) {
+      pipWin.focus();
+      closePanel();
+      return;
+    }
+    if (window.documentPictureInPicture) {
+      try {
+        const win = await window.documentPictureInPicture.requestWindow({
+          width: 260,
+          height: 400,
+        });
+        pipWin = win;
+        win.document.title = PIP_TITLE;
+        win.document.body.innerHTML = PIP_HTML;
+        const style = win.document.createElement("style");
+        style.textContent = pipStyles();
+        win.document.head.appendChild(style);
+        const q = (sel: string) => win.document.querySelector(sel);
+        q("[data-pip-start]")?.addEventListener("click", () => {
+          commit(state.running ? pause(state, Date.now()) : start(state, Date.now()));
+        });
+        q("[data-pip-skip]")?.addEventListener("click", () => commit(skip(state)));
+        q("[data-pip-reset]")?.addEventListener("click", () => commit(reset(state)));
+        win.addEventListener("pagehide", () => {
+          pipWin = null;
+        });
+        closePanel();
+        render();
+        return;
+      } catch {
+        /* 请求被拒（无手势/策略限制）→ 落到下方普通弹窗降级 */
+      }
+    }
+    window.open("/pomodoro/", "pomodoro-popup", "popup=yes,width=260,height=400");
+    closePanel();
+  }
+
   // —— 事件全部委托到 document：软导航后按钮是新 DOM（同 Search/MenuButton 模式）——
   document.addEventListener("click", (e) => {
     const t = e.target as HTMLElement;
@@ -541,10 +690,9 @@
       return;
     }
     if (t.closest("[data-pomo-popout]")) {
-      // 独立小窗：用户手势内的同源 window.open 不会被拦截；
-      // 小窗与本页通过 storage 事件实时同步（见下方监听）
-      window.open("/pomodoro/", "pomodoro-popup", "popup=yes,width=320,height=460");
-      closePanel();
+      // 置顶小窗：画中画优先（需在用户手势内发起 requestWindow，click 栈上满足）；
+      // 不支持/被拒时 openPopout 内部降级 window.open（storage 事件同步，见下方监听）
+      void openPopout();
       return;
     }
     if (t.closest("[data-pomo-mini-unpin]")) {
