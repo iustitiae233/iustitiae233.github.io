@@ -274,6 +274,56 @@ with sync_playwright() as p:
         check("小窗暂停同步到主页胶囊", t_main2 == t_main, f"{t_main!r} -> {t_main2!r}")
         popup.close()
 
+    # ---- 知识库：wikilink 渲染（三种形态）----
+    page.goto(f"{BASE}/notes/embedded/mcu-pwm/", wait_until="networkidle")
+    wl = page.locator("a.wikilink[href='/notes/embedded/mcu-gpio/']")
+    check("wikilink basename 形渲染为站内链接", wl.count() == 1)
+    check("wikilink 无别名用目标主标题", wl.text_content() == "单片机GPIO原理与实战",
+          f"text={wl.text_content()!r}")
+
+    page.goto(f"{BASE}/notes/embedded/mcu-timer-interrupt/", wait_until="networkidle")
+    wl_alias = page.locator("a.wikilink[href='/notes/embedded/mcu-gpio/']")
+    check("wikilink 别名形锚文本生效", wl_alias.text_content() == "GPIO 基础",
+          f"text={wl_alias.text_content()!r}")
+
+    page.goto(f"{BASE}/notes/hardware/comparator-basics/", wait_until="networkidle")
+    wl_title = page.locator("a.wikilink[href='/notes/hardware/diode-basics/']")
+    check("wikilink 主标题形解析命中", wl_title.text_content() == "二极管基础",
+          f"text={wl_title.text_content()!r}")
+
+    # ---- 知识库：反向链接面板（DOM attached 即断言，无需滚动进视口）----
+    page.goto(f"{BASE}/notes/embedded/mcu-gpio/", wait_until="networkidle")
+    bl = page.locator("section.backlinks .backlink-link")
+    bl_titles = [bl.nth(i).text_content() for i in range(bl.count())]
+    check("反链面板列出 wikilink 来源", any("PWM" in t for t in bl_titles), f"sources={bl_titles}")
+
+    page.goto(f"{BASE}/notes/hardware/diode-basics/", wait_until="networkidle")
+    bl2 = page.locator("section.backlinks .backlink-link")
+    bl2_titles = [bl2.nth(i).text_content() for i in range(bl2.count())]
+    check("反链面板覆盖手写标准链接来源", any("三极管" in t for t in bl2_titles),
+          f"sources={bl2_titles}")
+
+    # ---- 知识库：关系图谱页 ----
+    page.goto(f"{BASE}/notes/graph/", wait_until="networkidle")
+    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 16,
+          f"nodes={page.locator('svg .graph-node').count()}")
+    check("图谱页边渲染", page.locator("svg .graph-edge").count() > 0)
+    check("图谱页图例两项", page.locator(".legend-item").count() == 2)
+    check("图谱节点是可点链接", page.locator("svg .graph-node a").first.get_attribute("href") is not None)
+
+    # ---- 知识库：全文搜索（wait_for_function 等 fetch 完成，不固定 sleep）----
+    page.goto(BASE, wait_until="networkidle")
+    page.keyboard.press("Control+k")
+    page.wait_for_selector("#search-modal:not([hidden])")
+    page.fill("#search-input", "迟滞")  # 仅存在于比较器笔记正文
+    page.wait_for_function("document.querySelectorAll('.result').length > 0", timeout=5000)
+    check("全文搜索正文词命中", page.locator(".result").count() >= 1)
+    check("正文命中带上下文片段", page.locator(".result .r-snippet").count() >= 1)
+    page.fill("#search-input", "GPIO")
+    page.wait_for_timeout(300)
+    check("标题命中仍优先", page.locator(".result .r-title").first.text_content() is not None
+          and "GPIO" in page.locator(".result .r-title").first.text_content())
+
     browser.close()
 
 fails = [r for r in results if not r[1]]

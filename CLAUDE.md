@@ -24,6 +24,7 @@ python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 50 项
 - 搜索：标题索引由 BaseLayout 构建期内联到页面（`<script type="application/json">` + `set:html`；`<` 写成 JSON 转义序列防 `</script>` 逃逸——script 是原始文本元素，不能用 Astro 表达式转义，`&quot;` 不会解码回引号）；`Search.astro` 每次搜索从 DOM 现读索引，过滤逻辑在纯函数 `src/lib/search.ts`
 - GitHub 联动：`scripts/fetch-github-profile.mjs <用户名>` 生成 `src/data/github-profile.json` + `public/images/github-avatar.*`（均提交进 git，离线可构建）；Sidebar 构建期读 JSON 渲染头像+昵称，读不到回退「博/我的博客」占位
 - KaTeX（remark-math + rehype-katex）全局启用，但 `katex/dist/katex.min.css` **只在 notes 路由引入**——公式字体不得泄漏到文章/首页
+- 知识库（2026-09）：wikilink 解析纯逻辑在 `src/lib/wikilinks.ts`，remark 薄壳 `src/plugins/remark-wikilinks.ts`（fs 扫 notes 建 id/basename/主标题三路索引，进程内惰性一次）。三形态：`[[mcu-gpio]]`/`[[二极管基础]]`（主标题，title 剥「——」副题后索引）/`[[x|别名]]`；歧义多候选拒绝猜（警告列出候选），未命中渲染纯文本+构建警告不 fail build。反链 `src/lib/backlinks.ts`（双语法：wikilink + 手写 `/notes/<id>/` 标准链接，source→target 去重、自链忽略），`collections.ts#getBacklinkIndex()` 是唯一入口。图谱 `src/lib/graph.ts`（确定性分类双圆环布局，**禁随机性**——同输入同输出有 vitest 断言），页面 `/notes/graph/`（SVG，静态段优先于 [...slug] 无冲突）。全文搜索双层索引：标题索引内联（首屏）+ `/search-index.json`（`src/pages/search-index.json.ts` 端点，`markdownToPlainText` 去语法），客户端模块级 promise 缓存按需 fetch，失败降级标题搜索。`.claude/skills/` 有 obsidian-markdown/defuddle skill；本地 Obsidian vault 即本仓库（附件文件夹 `public/images/`，![[x.png]] 渲染为 /images/x.png）
 
 ## 关键约定
 
@@ -48,5 +49,7 @@ python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 50 项
 `src/content/` 里 2026-07 之前的迁移内容源自旧 Next.js 博客（脚本 `scripts/migrate-iustitiae.py`，一次性）。旧站 CMS 曾丢表格管道符，坍塌行已全部重建——若再见到超长无管道的乱行，是同类病害，参照 git log 8a94ba2 的修复方式。验收记录在 `docs/superpowers/verification.md`。
 
 **锁文件跨平台坑**：本机在 Windows，CI 在 linux。npm 按平台裁剪理想树——Windows 上生成的锁可能缺 linux 侧可选依赖的传递项（曾缺 `@emnapi/core|runtime@1.11.3`，`@img/sharp-wasm32` 需要，导致 CI 的 `npm ci` EUSAGE）。改动依赖后若 CI 报 `Missing: xxx from lock file`，从 registry.npmjs.org 取该版本元数据补进 lock 顶层条目（参照 git log「补锁 @emnapi」提交）。另外 `.npmrc` 已固定官方源——本机全局是 npmmirror 镜像，**不要**用 `--registry` 镜像参数重装，否则锁文件 resolved 全部改写回镜像、CI 再挂。
+
+**内容渲染缓存坑**：Astro content layer 把 markdown 渲染结果缓存在 **`node_modules/.astro/`**（data-store）——改 remark/rehype 插件代码后光清 `.astro/`、`dist/`、`node_modules/.vite` 都不够，**必须连 `node_modules/.astro` 一起删**再 build，否则构建复用旧渲染产物、新插件逻辑完全不生效（症状：vitest 过、dist 不变、插件内探针日志不打印；已踩坑，排查半天）。
 
 **部署**：GitHub Pages 用户站点仓 `iustitiae233.github.io`（同仓库即源码），自定义域名 `www.iustitiae.top`（DNS 已指向 Pages），main 推送 → CI（verify → deploy）。旧站备份在本地分支 `old-blog-backup`。
