@@ -12,7 +12,9 @@ const total = groups.reduce((n, g) => n + g.notes.length, 0);
   <section class="notes-page">
     <header class="notes-header">
       <h1>笔记</h1>
-      <p class="notes-sub">学习路上的碎片积累，共 {total} 篇</p>
+      <p class="notes-sub">
+        学习路上的碎片积累，共 {total} 篇 · <a href="/notes/graph/">关系图谱</a>
+      </p>
     </header>
 
     {groups.map((g) => (

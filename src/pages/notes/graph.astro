@@ -1,0 +1,264 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllNotes } from "../../lib/collections";
+import { buildGraphData } from "../../lib/graph";
+
+const notes = await getAllNotes();
+const bodies = new Map(notes.map((n) => [n.id, n.body ?? ""]));
+const graph = buildGraphData(
+  notes.map((n) => ({ id: n.id, title: n.data.title, category: n.data.category })),
+  bodies,
+);
+
+// 数据内联（复用 search-index 的防逃逸模式：script 是原始文本元素，<
+// 写成 JSON 转义序列防 </script> 逃逸，&quot; 类实体转义会让 JSON.parse 失败）
+const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
+---
+
+<BaseLayout title="关系图谱" description="笔记之间的双向链接关系图谱">
+  <section class="graph-page">
+    <header class="graph-header">
+      <p class="graph-kicker"><a href="/notes/">← 返回笔记列表</a></p>
+      <h1>关系图谱</h1>
+      <div class="graph-legend" aria-hidden="true">
+        <span class="legend-item"><i class="dot dot-embedded"></i>嵌入式</span>
+        <span class="legend-item"><i class="dot dot-hardware"></i>硬件基础</span>
+      </div>
+    </header>
+    <div class="graph-canvas" id="graph-canvas" aria-label="笔记关系图谱"></div>
+  </section>
+</BaseLayout>
+
+<script type="application/json" id="graph-data" set:html={graphJson} />
+
+<style>
+  .graph-page { padding: 2.5rem 0 3rem; }
+  .graph-kicker {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-3);
+  }
+  .graph-kicker a { color: var(--accent); }
+  .graph-header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    letter-spacing: -0.02em;
+    margin: 0 0 0.75rem;
+  }
+  .graph-legend {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    color: var(--text-2);
+    font-size: 0.85rem;
+  }
+  .legend-item { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-embedded { background: var(--accent); }
+  .dot-hardware { background: var(--accent-2); }
+
+  .graph-canvas {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 45%, color-mix(in srgb, var(--accent) 4%, transparent), transparent),
+      var(--surface);
+    min-height: 420px;
+    overflow: hidden;
+  }
+  .graph-canvas svg { display: block; width: 100%; height: auto; }
+
+  /* 节点与边（SVG 元素，scoped 样式穿透需 :global —— 脚本建的后代不在编译期） */
+  .graph-canvas :global(.graph-edge) {
+    stroke: var(--border-strong);
+    stroke-width: 1;
+    transition: opacity 150ms var(--ease-out);
+  }
+  .graph-canvas :global(.graph-node) { cursor: pointer; }
+  .graph-canvas :global(.graph-node circle) {
+    stroke-width: 1.5;
+    transition: opacity 150ms var(--ease-out);
+  }
+  .graph-canvas :global(.graph-node text) {
+    fill: var(--text-2);
+    font-size: 11px;
+    text-anchor: middle;
+    pointer-events: none;
+    transition: opacity 150ms var(--ease-out);
+  }
+  .graph-canvas :global(.cat-embedded circle) { fill: color-mix(in srgb, var(--accent) 80%, transparent); stroke: var(--accent); }
+  .graph-canvas :global(.cat-hardware circle) { fill: color-mix(in srgb, var(--accent-2) 80%, transparent); stroke: var(--accent-2); }
+  .graph-canvas :global(.dimmed) { opacity: 0.12; }
+  .graph-canvas :global(.graph-node.isolated circle) { fill: color-mix(in srgb, var(--text-3) 30%, transparent); stroke: var(--text-3); }
+  @media (prefers-reduced-motion: reduce) {
+    .graph-canvas :global(*) { transition: none !important; }
+  }
+</style>
+
+<script>
+  interface GraphNodeJson {
+    id: string; label: string; url: string;
+    category: "embedded" | "hardware";
+    x: number; y: number; degree: number; isolated: boolean;
+  }
+  interface GraphEdgeJson { source: string; target: string }
+
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const VB = { w: 1000, h: 660, pad: 70 };
+  // 归一化坐标 [-1,1] → viewBox
+  const px = (x: number) => ((x + 1) / 2) * (VB.w - VB.pad * 2) + VB.pad;
+  const py = (y: number) => ((y + 1) / 2) * (VB.h - VB.pad * 2) + VB.pad;
+
+  function init() {
+    const canvas = document.getElementById("graph-canvas");
+    if (!canvas || canvas.dataset.bound) return;
+    canvas.dataset.bound = "1";
+
+    let data: { nodes: GraphNodeJson[]; edges: GraphEdgeJson[] };
+    try {
+      data = JSON.parse(document.getElementById("graph-data")?.textContent ?? "null");
+    } catch {
+      return;
+    }
+    if (!data?.nodes?.length) return;
+
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${VB.w} ${VB.h}`);
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+    // 邻接表（无向）：id → 邻接 id 集合
+    const adjacent = new Map<string, Set<string>>();
+    const link = (a: string, b: string) => {
+      const s = adjacent.get(a);
+      if (s) s.add(b);
+      else adjacent.set(a, new Set([b]));
+    };
+    for (const e of data.edges) {
+      link(e.source, e.target);
+      link(e.target, e.source);
+    }
+
+    // 边先画（在节点下层）
+    const edgeEls: SVGGElement[] = [];
+    for (const e of data.edges) {
+      const line = document.createElementNS(SVG_NS, "line");
+      line.setAttribute("class", "graph-edge");
+      line.dataset.source = e.source;
+      line.dataset.target = e.target;
+      edgeEls.push(line);
+      svg.appendChild(line);
+    }
+
+    const nodesById = new Map<string, { g: SVGGElement; circle: SVGCircleElement; text: SVGTextElement }>();
+    const nodePos = new Map<string, { x: number; y: number }>();
+
+    const syncEdges = (id: string) => {
+      for (const line of edgeEls) {
+        if (line.dataset.source !== id && line.dataset.target !== id) continue;
+        const s = nodePos.get(line.dataset.source!)!;
+        const t = nodePos.get(line.dataset.target!)!;
+        line.setAttribute("x1", String(s.x));
+        line.setAttribute("y1", String(s.y));
+        line.setAttribute("x2", String(t.x));
+        line.setAttribute("y2", String(t.y));
+      }
+    };
+
+    for (const n of data.nodes) {
+      const x = px(n.x);
+      const y = py(n.y);
+      nodePos.set(n.id, { x, y });
+
+      const g = document.createElementNS(SVG_NS, "g");
+      g.setAttribute("class", `graph-node cat-${n.category}${n.isolated ? " isolated" : ""}`);
+
+      const a = document.createElementNS(SVG_NS, "a");
+      a.setAttribute("href", n.url);
+
+      const circle = document.createElementNS(SVG_NS, "circle");
+      circle.setAttribute("cx", String(x));
+      circle.setAttribute("cy", String(y));
+      circle.setAttribute("r", String(Math.min(6 + n.degree * 1.4, 13)));
+      // 拖拽时阻止触摸滚动；只作用于圆，画布其余区域不受影响
+      circle.style.touchAction = "none";
+
+      const title = document.createElementNS(SVG_NS, "title");
+      title.textContent = `${n.label}（${n.degree} 条链接）`;
+
+      const text = document.createElementNS(SVG_NS, "text");
+      text.setAttribute("x", String(x));
+      text.setAttribute("y", String(y - 14));
+      text.textContent = n.label;
+
+      a.appendChild(circle);
+      a.appendChild(title);
+      g.appendChild(a);
+      g.appendChild(text);
+      svg.appendChild(g);
+      nodesById.set(n.id, { g, circle, text });
+
+      // hover 高亮邻接，其余淡出
+      g.addEventListener("mouseenter", () => {
+        const near = adjacent.get(n.id) ?? new Set<string>();
+        for (const [id, { g: el }] of nodesById) {
+          el.classList.toggle("dimmed", id !== n.id && !near.has(id));
+        }
+        for (const line of edgeEls) {
+          line.classList.toggle(
+            "dimmed",
+            line.dataset.source !== n.id && line.dataset.target !== n.id,
+          );
+        }
+      });
+      g.addEventListener("mouseleave", () => {
+        for (const { g: el } of nodesById.values()) el.classList.remove("dimmed");
+        for (const line of edgeEls) line.classList.remove("dimmed");
+      });
+
+      // 轻量拖拽：pointer 捕获平移节点，同步关联边端点（无物理模拟）
+      circle.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        circle.setPointerCapture(e.pointerId);
+        const move = (ev: PointerEvent) => {
+          const rect = svg.getBoundingClientRect();
+          const scaleX = VB.w / rect.width;
+          const scaleY = VB.h / rect.height;
+          const nx = Math.min(Math.max((ev.clientX - rect.left) * scaleX, 8), VB.w - 8);
+          const ny = Math.min(Math.max((ev.clientY - rect.top) * scaleY, 8), VB.h - 8);
+          nodePos.set(n.id, { x: nx, y: ny });
+          circle.setAttribute("cx", String(nx));
+          circle.setAttribute("cy", String(ny));
+          text.setAttribute("x", String(nx));
+          text.setAttribute("y", String(ny - 14));
+          syncEdges(n.id);
+        };
+        const up = () => {
+          circle.removeEventListener("pointermove", move);
+          circle.removeEventListener("pointerup", up);
+          circle.removeEventListener("pointercancel", up);
+        };
+        circle.addEventListener("pointermove", move);
+        circle.addEventListener("pointerup", up);
+        circle.addEventListener("pointercancel", up);
+      });
+    }
+
+    for (const line of edgeEls) {
+      const s = nodePos.get(line.dataset.source!)!;
+      const t = nodePos.get(line.dataset.target!)!;
+      line.setAttribute("x1", String(s.x));
+      line.setAttribute("y1", String(s.y));
+      line.setAttribute("x2", String(t.x));
+      line.setAttribute("y2", String(t.y));
+    }
+
+    canvas.appendChild(svg);
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>
