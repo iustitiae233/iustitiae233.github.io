@@ -1,0 +1,57 @@
+---
+import type { BacklinkSource } from "../lib/backlinks";
+
+interface Props {
+  backlinks: BacklinkSource[];
+}
+const { backlinks } = Astro.props;
+---
+
+{backlinks.length > 0 && (
+  <section class="backlinks" aria-label="反向链接">
+    <h2 class="backlinks-title">链接到本篇（{backlinks.length}）</h2>
+    <ul class="backlinks-list">
+      {backlinks.map((b) => (
+        <li>
+          <a class="backlink-link" href={b.sourceUrl}>
+            {b.sourceTitle}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .backlinks {
+    margin-top: 3rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--accent) 3%, transparent);
+  }
+  .backlinks-title {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-2);
+  }
+  /* 重置 prose.css 对 .post-content ul 的默认列表样式，走自己的紧凑排布 */
+  .backlinks-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .backlink-link {
+    color: var(--text-1);
+    font-size: 0.95rem;
+  }
+  .backlink-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+  }
+</style>

@@ -1,8 +1,9 @@
 ---
 import { render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
+import Backlinks from "../../components/Backlinks.astro";
 import { getAdjacentPosts } from "../../lib/posts";
-import { getAllNotes } from "../../lib/collections";
+import { getAllNotes, getBacklinkIndex } from "../../lib/collections";
 import { notesInCategory, NOTE_CATEGORY_LABELS } from "../../lib/notes";
 // 公式样式只在笔记页加载：文章/首页/关于不引入 KaTeX CSS 与字体
 import "katex/dist/katex.min.css";
@@ -17,6 +18,7 @@ const { Content, headings } = await render(note);
 const sameCategory = notesInCategory(await getAllNotes(), note.data.category);
 const { newer, older } = getAdjacentPosts(sameCategory, note.id);
 const categoryLabel = NOTE_CATEGORY_LABELS[note.data.category];
+const backlinks = (await getBacklinkIndex()).get(note.id) ?? [];
 ---
 
 <PostLayout
@@ -28,6 +30,7 @@ const categoryLabel = NOTE_CATEGORY_LABELS[note.data.category];
 >
   <p class="note-kicker"><a href="/notes/">笔记</a> / {categoryLabel}</p>
   <Content />
+  <Backlinks backlinks={backlinks} />
 </PostLayout>
 
 <style>
