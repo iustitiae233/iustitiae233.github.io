@@ -43,6 +43,13 @@
   color: var(--accent);
 }
 
+/* wikilink（[[笔记]] 双链）：点状下划线区分于手写普通链接 */
+.post-content a.wikilink {
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
 /* Shiki 代码块外壳 */
 .post-content .astro-code {
   position: relative;

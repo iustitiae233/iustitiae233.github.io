@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { remarkWikilinks } from "./src/plugins/remark-wikilinks";
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,8 +19,9 @@ export default defineConfig({
       wrap: true,
     },
     // 硬件笔记含大量 LaTeX 公式；strict:false 容忍 \text{V}、\sim 等写法，
-    // throwOnError:false 保证个别坏公式只渲染红色错误文本而不中断构建
-    remarkPlugins: [remarkMath],
+    // throwOnError:false 保证个别坏公式只渲染红色错误文本而不中断构建。
+    // wikilinks 在 math 之后 —— 公式已转成 math/inlineMath 节点，扫描不会踩进 $...$
+    remarkPlugins: [remarkMath, remarkWikilinks],
     rehypePlugins: [[rehypeKatex, { strict: false, throwOnError: false }]],
   },
 });
