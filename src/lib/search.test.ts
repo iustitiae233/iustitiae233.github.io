@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { filterEntries, type SearchEntry } from "./search";
+import { filterEntries, filterEntriesFullText, type FullTextEntry, type SearchEntry } from "./search";
 
 const ENTRIES: SearchEntry[] = [
   { title: "你好 Astro：静态博客入门", url: "/posts/hello-astro/", kind: "post" },
@@ -60,5 +60,45 @@ describe("filterEntries 标题子串过滤", () => {
     const titles = r.map((x) => x.title);
     const expected = ENTRIES.filter((e) => e.title.toLowerCase().includes("o")).map((e) => e.title);
     expect(titles).toEqual(expected);
+  });
+});
+
+describe("filterEntriesFullText", () => {
+  const FT: FullTextEntry[] = [
+    { title: "GPIO 基础", url: "/notes/a/", kind: "note", text: "引脚模式与寄存器配置" },
+    { title: "PWM 输出", url: "/notes/b/", kind: "note", text: "占空比 GPIO 复用配置" },
+    { title: "ADC", url: "/notes/c/", kind: "note", text: "" },
+  ];
+
+  test("标题命中排在正文命中前", () => {
+    const r = filterEntriesFullText(FT, "gpio");
+    expect(r.map((x) => x.title)).toEqual(["GPIO 基础", "PWM 输出"]);
+    expect(r[0].snippet).toBeUndefined();
+    expect(r[1].snippet).toBeDefined();
+  });
+
+  test("正文命中的 snippet 区间指向原文切片（可安全 <mark> 高亮）", () => {
+    const r = filterEntriesFullText(FT, "占空比");
+    expect(r).toHaveLength(1);
+    const { snippet, snippetStart = -1, snippetLength = -1 } = r[0];
+    expect(r[0].title).toBe("PWM 输出");
+    // snippet[snippetStart..+len] 应恰为查询词原文
+    expect(snippet!.slice(snippetStart, snippetStart + snippetLength)).toBe("占空比");
+  });
+
+  test("空 query 返回空；text 为空串不崩且标题仍可命中", () => {
+    expect(filterEntriesFullText(FT, "  ")).toEqual([]);
+    const r = filterEntriesFullText(FT, "adc");
+    expect(r.map((x) => x.title)).toEqual(["ADC"]);
+  });
+
+  test("limit 截断", () => {
+    const many: FullTextEntry[] = Array.from({ length: 10 }, (_, i) => ({
+      title: `笔记${i}`,
+      url: `/notes/${i}/`,
+      kind: "note" as const,
+      text: "共同关键词",
+    }));
+    expect(filterEntriesFullText(many, "共同", 5)).toHaveLength(5);
   });
 });

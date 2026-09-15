@@ -16,3 +16,49 @@ export function filterEntries(entries: SearchEntry[], query: string, limit = 8):
   }
   return out;
 }
+
+export type FullTextEntry = SearchEntry & { text: string };
+export type FullTextResult = SearchResult & {
+  /** 正文命中时的上下文片段（原文切片，未 lower） */
+  snippet?: string;
+  /** match 在 snippet 内的偏移，供 <mark> 高亮 */
+  snippetStart?: number;
+  snippetLength?: number;
+};
+
+/** 全文过滤：标题命中排前（沿用 filterEntries 语义），正文命中次之。
+ *  正文命中给 ±30 字符上下文；match 区间指向各自原文下标，切片高亮安全
+ *  （toLowerCase 对中英文等长）。 */
+export function filterEntriesFullText(
+  entries: FullTextEntry[],
+  query: string,
+  limit = 8,
+): FullTextResult[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+  const titleHits: FullTextResult[] = [];
+  const bodyHits: FullTextResult[] = [];
+  for (const e of entries) {
+    const title = e.title.toLowerCase();
+    const ti = title.indexOf(q);
+    if (ti >= 0) {
+      titleHits.push({ ...e, matchStart: ti, matchLength: q.length });
+      continue;
+    }
+    const text = e.text.toLowerCase();
+    const bi = text.indexOf(q);
+    if (bi >= 0) {
+      const start = Math.max(0, bi - 30);
+      const end = Math.min(e.text.length, bi + q.length + 30);
+      bodyHits.push({
+        ...e,
+        matchStart: bi,
+        matchLength: q.length,
+        snippet: e.text.slice(start, end),
+        snippetStart: bi - start,
+        snippetLength: q.length,
+      });
+    }
+  }
+  return [...titleHits, ...bodyHits].slice(0, limit);
+}
