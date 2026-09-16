@@ -21,6 +21,12 @@ function isActive(href: string): boolean {
   if (href === "/") return current === "/";
   return current === href || current.startsWith(href);
 }
+
+// 知识库板块：图谱是叶子页面（无子路径），精确匹配即与客户端
+// syncActive 的 startsWith 规则在本页等价 —— 两端一致性天然成立
+const knowledgeBase = [
+  { href: "/notes/graph/", label: "关系图谱", active: current === "/notes/graph/" },
+];
 ---
 
 <aside class="sidebar" id="sidebar" aria-label="站点导航" transition:persist>
@@ -69,6 +75,23 @@ function isActive(href: string): boolean {
         </ul>
       </div>
     )}
+
+    <div class="posts-group">
+      <p class="group-title">知识库</p>
+      <ul class="nav-list">
+        {knowledgeBase.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={["nav-link", "sub", { active: item.active }]}
+              aria-current={item.active ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
 
     <div class="sidebar-footer">
       <ThemeToggle />
