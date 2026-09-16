@@ -23,6 +23,8 @@ const notes = defineCollection({
     description: z.string().default(""),
     pubDate: z.coerce.date(),
     category: z.enum(NOTE_CATEGORY_VALUES),
+    // Obsidian 属性面板编辑 tags 自动产出数组；缺省空数组（旧笔记无 tags 不破）
+    tags: z.array(z.string()).default([]),
   }),
 });
 

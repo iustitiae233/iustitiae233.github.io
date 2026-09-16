@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllNotes } from "../../lib/collections";
+import { collectTags, notesWithTag } from "../../lib/tags";
+import { formatDate } from "../../lib/format";
+
+const all = await getAllNotes();
+
+export async function getStaticPaths() {
+  // 16 篇毫秒级，重复计算可忽略——与反链索引同一取舍（不缓存换 dev 数据新鲜）
+  const notes = await getAllNotes();
+  return collectTags(notes).map((t) => ({ params: { tag: t.tag }, props: { tag: t } }));
+}
+
+const { tag } = Astro.props;
+const notes = notesWithTag(all, tag.tag);
+---
+
+<BaseLayout title={`标签：${tag.tag}`} description={`带「${tag.tag}」标签的笔记`}>
+  <section class="tag-page">
+    <header class="tag-header">
+      <p class="tag-kicker"><a href="/tags/">← 全部标签</a></p>
+      <h1>#{tag.tag}</h1>
+      <p class="tag-sub">{notes.length} 篇笔记</p>
+    </header>
+
+    <ul class="note-list">
+      {notes.map((n) => (
+        <li>
+          <a class="note-row" href={`/notes/${n.id}/`}>
+            <span class="note-title">{n.data.title}</span>
+            <time class="note-date" datetime={n.data.pubDate.toISOString()}>
+              {formatDate(n.data.pubDate)}
+            </time>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .tag-page { padding: 2.5rem 0 3rem; }
+  .tag-kicker {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-3);
+  }
+  .tag-kicker a { color: var(--accent); }
+  .tag-header h1 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    letter-spacing: -0.02em;
+    margin: 0 0 0.4rem;
+    color: var(--accent);
+  }
+  .tag-sub { color: var(--text-2); margin-bottom: 1.5rem; }
+  .note-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .note-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-1);
+    transition: background-color var(--t-fast) var(--ease-out);
+  }
+  .note-row:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .note-title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .note-date { flex: none; color: var(--text-3); font-size: 0.8rem; }
+</style>

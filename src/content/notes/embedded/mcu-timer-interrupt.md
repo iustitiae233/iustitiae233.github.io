@@ -3,6 +3,7 @@ title: '单片机定时器与中断系统详解——从CNT到NVIC'
 description: ''
 pubDate: '2026-06-27 11:00:00'
 category: embedded
+tags: [定时器, 中断, NVIC]
 ---
 
 ## 引言

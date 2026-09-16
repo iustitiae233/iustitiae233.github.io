@@ -3,6 +3,7 @@ title: 'FreeRTOS入门——配置与任务管理'
 description: ''
 pubDate: '2026-06-27 16:00:00'
 category: embedded
+tags: [FreeRTOS, RTOS, 任务管理]
 ---
 
 ## 引言

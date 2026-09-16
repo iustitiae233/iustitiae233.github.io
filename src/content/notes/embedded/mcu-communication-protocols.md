@@ -3,6 +3,7 @@ title: '嵌入式通信协议UART、I2C、SPI对比详解'
 description: ''
 pubDate: '2026-06-27 15:00:00'
 category: embedded
+tags: [UART, I2C, SPI, 通信协议]
 ---
 
 ## 引言

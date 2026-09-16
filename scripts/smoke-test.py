@@ -75,7 +75,7 @@ with sync_playwright() as p:
     page.click(".sidebar .nav-link[href='/notes/']")
     page.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
     check("笔记索引按分类分组", page.locator("h2.cat-title").count() == 2)
-    check("笔记列表共 16 篇", page.locator(".note-row").count() == 16,
+    check("笔记列表共 18 篇", page.locator(".note-row").count() == 18,
           f"rows={page.locator('.note-row').count()}")
     page.click("a[href='/notes/hardware/mosfet-basics/']")
     page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
@@ -296,6 +296,7 @@ with sync_playwright() as p:
     bl = page.locator("section.backlinks .backlink-link")
     bl_titles = [bl.nth(i).text_content() for i in range(bl.count())]
     check("反链面板列出 wikilink 来源", any("PWM" in t for t in bl_titles), f"sources={bl_titles}")
+    check("MOC 总览出现在反链面板", any("总览" in t for t in bl_titles), f"sources={bl_titles}")
 
     page.goto(f"{BASE}/notes/hardware/diode-basics/", wait_until="networkidle")
     bl2 = page.locator("section.backlinks .backlink-link")
@@ -305,7 +306,7 @@ with sync_playwright() as p:
 
     # ---- 知识库：关系图谱页 ----
     page.goto(f"{BASE}/notes/graph/", wait_until="networkidle")
-    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 16,
+    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 18,
           f"nodes={page.locator('svg .graph-node').count()}")
     check("图谱页边渲染", page.locator("svg .graph-edge").count() > 0)
     check("图谱页图例两项", page.locator(".legend-item").count() == 2)
@@ -323,6 +324,28 @@ with sync_playwright() as p:
     page.wait_for_timeout(300)
     check("标题命中仍优先", page.locator(".result .r-title").first.text_content() is not None
           and "GPIO" in page.locator(".result .r-title").first.text_content())
+
+    # ---- 知识库：标签系统 ----
+    page.goto(f"{BASE}/tags/", wait_until="networkidle")
+    chips = page.locator(".tag-chip")
+    check("标签云渲染且数量 > 0", chips.count() > 0, f"chips={chips.count()}")
+
+    page.goto(f"{BASE}/tags/GPIO/", wait_until="networkidle")
+    rows = page.locator(".note-row")
+    row_titles = [rows.nth(i).text_content() for i in range(rows.count())]
+    check("GPIO 标签页列出相关笔记", any("GPIO" in t for t in row_titles), f"rows={row_titles}")
+
+    page.goto(f"{BASE}/notes/embedded/mcu-gpio/", wait_until="networkidle")
+    tag_chip = page.locator(".note-tags .tag-chip")
+    check("笔记详情页显示标签胶囊", tag_chip.count() >= 1, f"chips={tag_chip.count()}")
+    tag_chip.first.click()
+    page.wait_for_timeout(500)
+    check("点击胶囊软导航进标签页", page.locator(".tag-page .note-row").count() >= 1)
+
+    # ---- 知识库：MOC 总览 ----
+    page.goto(f"{BASE}/notes/embedded/overview/", wait_until="networkidle")
+    check("MOC 总览渲染双链列表", page.locator("a.wikilink").count() == 10,
+          f"wikilinks={page.locator('a.wikilink').count()}")
 
     browser.close()
 

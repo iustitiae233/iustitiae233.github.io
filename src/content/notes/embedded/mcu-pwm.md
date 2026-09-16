@@ -3,6 +3,7 @@ title: 'PWM脉冲宽度调制详解'
 description: ''
 pubDate: '2026-06-27 13:00:00'
 category: embedded
+tags: [PWM, 定时器, 输出比较]
 ---
 
 ## 引言

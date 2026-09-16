@@ -3,6 +3,7 @@ title: '输出比较与输入捕获'
 description: ''
 pubDate: '2026-06-27 12:00:00'
 category: embedded
+tags: [定时器, 输出比较, 输入捕获]
 ---
 
 ## 引言

@@ -3,6 +3,7 @@ title: '有关嵌入式产品编号烧录的必要性和相关流程'
 description: ''
 pubDate: '2026-07-07 13:59:01'
 category: embedded
+tags: [生产烧录, 产品化]
 ---
 
 ### **嵌入式产品的“产品编号”是什么？**

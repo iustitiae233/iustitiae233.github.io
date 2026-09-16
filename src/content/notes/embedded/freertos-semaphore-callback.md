@@ -3,6 +3,7 @@ title: 'FreeRTOS信号量与回调函数——任务间的对话'
 description: ''
 pubDate: '2026-06-27 17:00:00'
 category: embedded
+tags: [FreeRTOS, 信号量, 同步]
 ---
 
 ## 引言

@@ -5,6 +5,7 @@ import Backlinks from "../../components/Backlinks.astro";
 import { getAdjacentPosts } from "../../lib/posts";
 import { getAllNotes, getBacklinkIndex } from "../../lib/collections";
 import { notesInCategory, NOTE_CATEGORY_LABELS } from "../../lib/notes";
+import { tagUrl } from "../../lib/tags";
 // 公式样式只在笔记页加载：文章/首页/关于不引入 KaTeX CSS 与字体
 import "katex/dist/katex.min.css";
 
@@ -28,7 +29,16 @@ const backlinks = (await getBacklinkIndex()).get(note.id) ?? [];
   older={older}
   basePath="/notes/"
 >
-  <p class="note-kicker"><a href="/notes/">笔记</a> / {categoryLabel}</p>
+  <p class="note-kicker">
+    <a href="/notes/">笔记</a> / {categoryLabel}
+    {note.data.tags.length > 0 && (
+      <span class="note-tags">
+        {note.data.tags.map((t) => (
+          <a class="tag-chip" href={tagUrl(t)}>{t}</a>
+        ))}
+      </span>
+    )}
+  </p>
   <Content />
   <Backlinks backlinks={backlinks} />
 </PostLayout>
@@ -41,4 +51,25 @@ const backlinks = (await getBacklinkIndex()).get(note.id) ?? [];
   }
   .note-kicker a { color: var(--accent); }
   .note-kicker a:hover { text-decoration: underline; }
+  .note-tags {
+    margin-left: 0.75rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    vertical-align: middle;
+  }
+  .tag-chip {
+    display: inline-block;
+    padding: 0.1rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-2);
+    font-size: 0.75rem;
+    transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+  }
+  .tag-chip:hover {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    text-decoration: none;
+  }
 </style>

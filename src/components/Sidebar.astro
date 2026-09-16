@@ -22,10 +22,11 @@ function isActive(href: string): boolean {
   return current === href || current.startsWith(href);
 }
 
-// 知识库板块：图谱是叶子页面（无子路径），精确匹配即与客户端
-// syncActive 的 startsWith 规则在本页等价 —— 两端一致性天然成立
+// 知识库板块：图谱/标签页都是叶子入口。/tags/ 前缀规则（具体标签页也点亮「标签」）
+// 与客户端 syncActive 的 startsWith 天然一致；图谱无子路径，精确匹配即等价
 const knowledgeBase = [
   { href: "/notes/graph/", label: "关系图谱", active: current === "/notes/graph/" },
+  { href: "/tags/", label: "标签", active: current.startsWith("/tags/") },
 ];
 ---
 

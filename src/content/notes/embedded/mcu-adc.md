@@ -3,6 +3,7 @@ title: 'ADC模数转换详解——从模拟信号到数字世界'
 description: ''
 pubDate: '2026-06-27 14:00:00'
 category: embedded
+tags: [ADC, 采样, 模拟信号]
 ---
 
 ## 引言

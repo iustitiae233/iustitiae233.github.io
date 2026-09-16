@@ -3,6 +3,7 @@ title: 'flash分区表，中断向量偏移量和ota升级流程'
 description: ''
 pubDate: '2026-07-03 16:54:47'
 category: embedded
+tags: [Flash, OTA, 启动流程]
 ---
 
 ## **一、Flash 分区表 —— 给你的 Flash “划地盘”**
