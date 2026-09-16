@@ -4,6 +4,8 @@ import sys
 
 sys.stdout.reconfigure(encoding="utf-8")
 
+from urllib.parse import quote
+
 from playwright.sync_api import sync_playwright
 
 BASE = "http://127.0.0.1:4327"
@@ -21,16 +23,26 @@ with sync_playwright() as p:
     page = ctx.new_page()
     page.goto(BASE, wait_until="networkidle")
 
-    # 1. 首页加载与卡片
-    cards = page.locator(".card")
-    check("首页渲染文章卡片", cards.count() == 3, f"cards={cards.count()}")
+    # 1. 首页加载：以知识库为主体（文章区当前为空）
+    check("首页渲染知识库分类卡", page.locator(".kb-card").count() == 3,
+          f"cards={page.locator('.kb-card').count()}")
+    kb_count = page.locator(".kb-count").text_content() or ""
+    check("首页知识库统计 40 篇 · 3 个分类", "40 篇" in kb_count and "3 个分类" in kb_count,
+          f"text={kb_count!r}")
+    check("首页知识库入口齐全",
+          page.locator(".kb-links a[href='/notes/']").count() == 1
+          and page.locator(".kb-links a[href='/notes/graph/']").count() == 1
+          and page.locator(".kb-links a[href='/tags/']").count() == 1)
+    check("首页文章区为空时显示占位而非空网格",
+          page.locator(".card").count() == 0 and page.locator(".empty").count() == 1,
+          f"empty={page.locator('.empty').count()}")
     check("跟随系统暗色偏好", page.evaluate("document.documentElement.dataset.theme") == "dark")
 
-    # 2. 卡片点击进入文章页（软导航：以文章 DOM 为准）
-    cards.first.click()
+    # 2. 分类卡进入该分类 MOC（软导航：以内容页 DOM 为准）
+    page.click(".kb-card")  # 首张 = 嵌入式（NOTE_CATEGORY_VALUES 顺序）
     page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
-    check("卡片点击进入文章页", page.locator(".post-header h1").count() == 1)
-    check("文章页 TOC 渲染", page.locator(".toc-item").count() > 0,
+    check("分类卡点击进入分类总览", page.locator(".post-header h1").count() == 1)
+    check("总览页 TOC 渲染", page.locator(".toc-item").count() > 0,
           f"toc={page.locator('.toc-item').count()}")
     check("阅读进度条存在", page.locator(".reading-progress").count() == 1)
     check("上下篇导航存在", page.locator(".pn-link").count() >= 1)
@@ -40,20 +52,12 @@ with sync_playwright() as p:
           and avatar.first.evaluate("el => el.complete && el.naturalWidth > 0"),
           f"count={avatar.count()}")
 
-    # 2.5 文章→文章软导航：TOC 滚动追踪与侧栏高亮必须在新页面上重新初始化
-    page.click(".pn-link")  # 最新一篇只有"下一篇"
-    page.wait_for_selector("h1:has-text('大语言模型的实现原理')", timeout=10000, state="attached")
-    check("下一篇软导航到旧文章", page.locator(".post-header h1").count() == 1)
-    page.mouse.wheel(0, 350)
-    page.wait_for_timeout(250)
-    page.mouse.wheel(0, 350)
-    page.wait_for_timeout(250)
-    page.mouse.wheel(0, 350)
-    page.wait_for_timeout(600)  # 等 IntersectionObserver 触发
-    check("软导航后 TOC 滚动追踪仍生效", page.locator(".toc-item a.active").count() >= 1,
-          f"active={page.locator('.toc-item a.active').count()}")
+    # 2.5 总览→笔记软导航：上下篇链路 + persist 侧栏的 active 必须在新页面上重算
+    page.click(".pn-link")  # 嵌入式组首篇只有「下一篇」
+    page.wait_for_selector("h1:has-text('有关嵌入式产品编号烧录')", timeout=10000, state="attached")
+    check("上下篇软导航到邻近笔记", page.locator(".post-header h1").count() == 1)
     side_active = page.evaluate(
-        "document.querySelector(\".sidebar .nav-link[href='/posts/llm-transformer-gpt/']\")"
+        "document.querySelector(\".sidebar .nav-link[href='/notes/']\")"
         "?.classList.contains('active')")
     check("软导航后侧栏高亮同步", side_active is True)
 
@@ -74,13 +78,23 @@ with sync_playwright() as p:
     # 3.5 笔记板块：索引分类 → 软导航进详情（KaTeX / C 高亮 / 同分类上下篇 / 侧栏前缀高亮）
     page.click(".sidebar .nav-link[href='/notes/']")
     page.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
-    check("笔记索引按分类分组", page.locator("h2.cat-title").count() == 2)
-    check("笔记列表共 25 篇", page.locator(".note-row").count() == 25,
+    check("笔记索引按分类分组", page.locator("h2.cat-title").count() == 3)
+    check("笔记列表共 40 篇", page.locator(".note-row").count() == 40,
           f"rows={page.locator('.note-row').count()}")
     page.click("a[href='/notes/hardware/mosfet-basics/']")
     page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
     katex_n = page.locator(".katex").count()
     check("硬件笔记 KaTeX 公式渲染", katex_n > 50, f"katex={katex_n}")
+    # 渐进滚动：软导航后新页面的 TOC 追踪必须重新初始化
+    # （单次大跳跃会让标题全落在 IntersectionObserver 的 15%-30% 视口带外，必挂）
+    for _ in range(6):
+        page.mouse.wheel(0, 350)
+        page.wait_for_timeout(250)
+        if page.locator(".toc-item a.active").count() >= 1:
+            break
+    page.wait_for_timeout(400)  # 等 IntersectionObserver 收尾
+    check("软导航后 TOC 滚动追踪仍生效", page.locator(".toc-item a.active").count() >= 1,
+          f"active={page.locator('.toc-item a.active').count()}")
     note_side = page.evaluate(
         "const q = document.querySelector(\".sidebar .nav-link[href='/notes/']\");"
         "({ active: q?.classList.contains('active'), aria: q?.getAttribute('aria-current') })")
@@ -97,27 +111,33 @@ with sync_playwright() as p:
     # 4. 搜索：Ctrl+K 唤起 → 输入 → Enter 进入（标题索引内联，结果即时渲染）
     page.keyboard.press("Control+k")
     check("Ctrl+K 打开搜索模态", page.locator("#search-modal:not([hidden])").count() == 1)
-    page.fill("#search-input", "原理")
-    page.wait_for_timeout(150)
+    page.fill("#search-input", "Transformer")
+    page.wait_for_timeout(1200)  # 等正文索引 fetch 落地，结果集才稳定
+
+    def sel_title():
+        return page.evaluate(
+            "document.querySelector('#search-results .result.selected .r-title')?.textContent")
+
     n_results = page.locator("#search-results .result").count()
-    check("搜索出结果", n_results >= 1, f"results={n_results}")
-    if n_results >= 1:
-        # 标题过滤按索引原序返回，但命中数随内容增长 —— 按 ↓ 走到目标文章
-        # （以标题文本定位），顺带覆盖多步键盘导航
-        sel_url = None
-        for _ in range(n_results):
-            page.keyboard.press("ArrowDown")
-            page.wait_for_timeout(150)
-            sel_url = page.evaluate(
-                "document.querySelector('#search-results .result.selected .r-title')?.textContent")
-            if sel_url and sel_url.startswith("大语言模型的实现原理"):
-                break
+    check("搜索出结果", n_results >= 2, f"results={n_results}")
+    if n_results >= 2:
+        # 标题命中排在正文命中之前，且 selected 初始为 0 —— 默认选中的就是首条
+        first = sel_title()
+        check("搜索结果默认选中首条（标题命中优先）",
+              bool(first) and first.startswith("自注意力"), f"first={first!r}")
+        page.keyboard.press("ArrowDown")
+        page.wait_for_timeout(150)
+        moved = sel_title()
+        check("↓ 在结果间移动选中项", moved != first, f"{first!r} -> {moved!r}")
+        page.keyboard.press("ArrowUp")
+        page.wait_for_timeout(150)
+        check("↑ 回到首条", sel_title() == first, f"{sel_title()!r}")
         page.keyboard.press("Enter")
         try:
             page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
-            check("Enter 进入搜索结果", True, f"selected={sel_url!r}")
+            check("Enter 进入搜索结果", True, f"selected={first!r}")
         except Exception:
-            check("Enter 进入搜索结果", False, f"selected={sel_url!r}")
+            check("Enter 进入搜索结果", False, f"selected={first!r}")
     page.keyboard.press("Escape")
 
     # 5. 主题切换 + 刷新保持
@@ -148,7 +168,7 @@ with sync_playwright() as p:
     check("点击外部抽屉收起", t2 != "matrix(1, 0, 0, 1, 0, 0)", t2)
 
     # 7.5 软导航后汉堡按钮仍可打开抽屉（按钮是新 DOM，监听必须重新生效）
-    mob.click(".card")
+    mob.click(".kb-card")
     mob.wait_for_selector(".post-header h1", timeout=10000, state="attached")
     mob.click("#menu-btn")
     mob.wait_for_timeout(500)
@@ -197,7 +217,7 @@ with sync_playwright() as p:
     page.wait_for_timeout(1300)
     mt = page.locator("[data-pomo-mini-time]").text_content()
     check("迷你卡计时走动", mt == "04:59", f"time={mt!r}")
-    page.click(".card")  # 软导航进文章：卡片必须跨页常驻（每页重挂 body）
+    page.click(".kb-card")  # 软导航进笔记：迷你卡必须跨页常驻（每页重挂 body）
     page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
     check("软导航后迷你卡仍常驻", page.locator("#pomodoro-mini:not([hidden])").count() == 1)
     page.click("[data-pomo-mini-unpin]")
@@ -306,10 +326,13 @@ with sync_playwright() as p:
 
     # ---- 知识库：关系图谱页 ----
     page.goto(f"{BASE}/notes/graph/", wait_until="networkidle")
-    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 25,
+    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 40,
           f"nodes={page.locator('svg .graph-node').count()}")
     check("图谱页边渲染", page.locator("svg .graph-edge").count() > 0)
-    check("图谱页图例两项", page.locator(".legend-item").count() == 2)
+    check("图谱页图例三项", page.locator(".legend-item").count() == 3)
+    check("图谱无孤立节点（各分类 MOC 把网连通）",
+          page.locator("svg .graph-node.isolated").count() == 0,
+          f"isolated={page.locator('svg .graph-node.isolated').count()}")
     check("图谱节点是可点链接", page.locator("svg .graph-node a").first.get_attribute("href") is not None)
 
     # ---- 知识库：全文搜索（wait_for_function 等 fetch 完成，不固定 sleep）----
@@ -335,6 +358,12 @@ with sync_playwright() as p:
     row_titles = [rows.nth(i).text_content() for i in range(rows.count())]
     check("GPIO 标签页列出相关笔记", any("GPIO" in t for t in row_titles), f"rows={row_titles}")
 
+    page.goto(f"{BASE}/tags/{quote('注意力机制')}/", wait_until="networkidle")
+    ai_rows = page.locator(".note-row")
+    ai_row_titles = [ai_rows.nth(i).text_content() for i in range(ai_rows.count())]
+    check("AI 新标签页有内容", any("自注意力" in t for t in ai_row_titles),
+          f"rows={ai_row_titles}")
+
     page.goto(f"{BASE}/notes/embedded/mcu-gpio/", wait_until="networkidle")
     tag_chip = page.locator(".note-tags .tag-chip")
     check("笔记详情页显示标签胶囊", tag_chip.count() >= 1, f"chips={tag_chip.count()}")
@@ -346,6 +375,39 @@ with sync_playwright() as p:
     page.goto(f"{BASE}/notes/embedded/overview/", wait_until="networkidle")
     check("MOC 总览渲染双链列表", page.locator("a.wikilink").count() == 10,
           f"wikilinks={page.locator('a.wikilink').count()}")
+
+    # ---- 知识库：AI 分类（第三分类的 MOC / 配图 / 公式 / 反链 / 上下篇不越类）----
+    AI_NOTES = [
+        "neuron-and-activation", "loss-and-optimization", "backpropagation",
+        "training-stability-and-regularization", "tokenization-and-embedding",
+        "self-attention", "transformer-architecture", "llm-training-pipeline",
+        "llm-inference-and-decoding", "scaling-laws", "cnn-basics", "vit",
+        "diffusion-models", "multimodal-models",
+    ]
+    page.goto(f"{BASE}/notes/ai/overview/", wait_until="networkidle")
+    moc_hrefs = {a.get_attribute("href") for a in page.locator("a.wikilink").all()}
+    moc_missing = [s for s in AI_NOTES if f"/notes/ai/{s}/" not in moc_hrefs]
+    check("AI MOC 双链覆盖全部 14 篇", not moc_missing, f"missing={moc_missing}")
+
+    page.goto(f"{BASE}/notes/ai/cnn-basics/", wait_until="networkidle")
+    ai_imgs = page.locator(".post-content img")
+    check("AI 笔记配图全部渲染（含 2 张 GIF）", ai_imgs.count() == 4, f"imgs={ai_imgs.count()}")
+    check("AI 配图 alt 为中文描述",
+          all(len(ai_imgs.nth(i).get_attribute("alt") or "") > 4
+              for i in range(ai_imgs.count())))
+    check("AI 配图惰性加载（不拖首屏）",
+          all(ai_imgs.nth(i).get_attribute("loading") == "lazy"
+              for i in range(ai_imgs.count())))
+    ai_pn = [a.get_attribute("href") for a in page.locator(".pn-link").all()]
+    check("AI 笔记上下篇不越分类",
+          bool(ai_pn) and all(h and h.startswith("/notes/ai/") for h in ai_pn), f"{ai_pn}")
+
+    page.goto(f"{BASE}/notes/ai/self-attention/", wait_until="networkidle")
+    check("AI 笔记 KaTeX 公式渲染", page.locator(".katex").count() > 0,
+          f"katex={page.locator('.katex').count()}")
+    ai_bl = [page.locator("section.backlinks .backlink-link").nth(i).text_content()
+             for i in range(page.locator("section.backlinks .backlink-link").count())]
+    check("AI 笔记反链指向 MOC", any("总览" in t for t in ai_bl), f"sources={ai_bl}")
 
     # ---- 知识库：笔记配图（![[x.png|alt]] → /images/，点击开灯箱）----
     page.goto(f"{BASE}/notes/hardware/rc-circuit-applications/", wait_until="networkidle")

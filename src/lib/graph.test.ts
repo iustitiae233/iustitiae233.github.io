@@ -70,15 +70,95 @@ describe("computeLayout（确定性）", () => {
     const capacitor = byId.get("hardware/capacitor-basics")!;
     expect(adc.isolated).toBe(true);
     expect(capacitor.isolated).toBe(true);
-    // 外圈：到本类圆心的距离更远（embedded 圆心 -0.5,0）
-    const dist = (n: { x: number; y: number }, cx: number) =>
-      Math.hypot(n.x - cx, n.y / 0.85);
+    // 外圈：到本类圆心的距离更远（embedded 圆心 x=-0.5，y 随构图可调）
+    const dist = (n: { x: number; y: number }, cx: number, cy: number) =>
+      Math.hypot(n.x - cx, (n.y - cy) / 0.85);
     const pwm = byId.get("embedded/mcu-pwm")!;
-    expect(dist(adc, -0.5)).toBeGreaterThan(dist(pwm, -0.5));
+    expect(dist(adc, -0.5, 0.224)).toBeGreaterThan(dist(pwm, -0.5, 0.224));
   });
 
   it("独立调用 computeLayout（不传 degree）与 buildGraphData 内部一致", () => {
     const nodes = computeLayout(INPUTS, graph.edges);
     expect(nodes).toEqual(graph.nodes);
+  });
+});
+
+describe("第三分类 ai 的锚点", () => {
+  const AI_INPUTS = [
+    { id: "embedded/mcu-gpio", title: "GPIO 基础", category: "embedded" as const },
+    { id: "hardware/diode-basics", title: "二极管基础", category: "hardware" as const },
+    { id: "ai/overview", title: "AI 笔记总览", category: "ai" as const },
+    { id: "ai/self-attention", title: "自注意力", category: "ai" as const },
+  ];
+  const AI_BODIES = new Map<string, string>([
+    ["ai/self-attention", "回 [[ai/overview]]，另见 [[ai/self-attention|本篇]]。"],
+  ]);
+  const aiGraph = buildGraphData(AI_INPUTS, AI_BODIES);
+
+  // CENTER.ai / RING.ai 的锚点：三个环要在纵向排开，而纵向每单位像素只有横向的
+  // 约 3/4，余量本就紧张。改动这些常量必须同步改这里，否则三环会重新挤到一起。
+  const AI_CY = -0.61;
+  const OTHER_CY = 0.224;
+
+  it("ai 节点围绕 ai 圆心（0, -0.61）聚簇，与另两类分离", () => {
+    const byId = new Map(aiGraph.nodes.map((n) => [n.id, n]));
+    const ai = byId.get("ai/self-attention")!;
+    const overview = byId.get("ai/overview")!;
+    // 与 ai 圆心的距离不超过圆弧半径（含 0.85 纵向压缩带来的偏差）
+    const distToAi = (n: { x: number; y: number }) => Math.hypot(n.x - 0, n.y - AI_CY);
+    expect(distToAi(ai)).toBeLessThanOrEqual(0.41);
+    expect(distToAi(overview)).toBeLessThanOrEqual(0.41);
+    // 纵向必须整体偏上，才能与 embedded/hardware 两环分开
+    expect(ai.y).toBeLessThan(-0.2);
+    expect(overview.y).toBeLessThan(-0.2);
+  });
+
+  it("ai 环与另两环之间留出足够纵向间隙（否则三环标签互相压）", () => {
+    const maxAi = Math.max(...aiGraph.nodes.filter((n) => n.category === "ai").map((n) => n.y));
+    const minOther = Math.min(
+      ...aiGraph.nodes.filter((n) => n.category !== "ai").map((n) => n.y),
+    );
+    // 两环之间必须容得下标签（约 25px，纵向 310px/单位 → 0.08）+ 节点半径的余量
+    expect(minOther - maxAi).toBeGreaterThan(0.15);
+  });
+
+  it("角度字段与坐标一致（前端据 angle 把标签朝环外放）", () => {
+    for (const n of graph.nodes) {
+      const cy = n.category === "ai" ? AI_CY : OTHER_CY;
+      const cx = n.category === "embedded" ? -0.5 : n.category === "hardware" ? 0.5 : 0;
+      const r = Math.hypot(n.x - cx, (n.y - cy) / 0.85);
+      const expectR = n.isolated ? 0.52 : n.category === "ai" ? 0.4 : 0.32;
+      expect(r).toBeCloseTo(expectR, 6);
+      // angle 必须真的是该点的极角，否则标签会放到环内那一侧
+      expect(Math.cos(n.angle)).toBeCloseTo((n.x - cx) / r, 6);
+      expect(Math.sin(n.angle)).toBeCloseTo((n.y - cy) / 0.85 / r, 6);
+    }
+  });
+
+  it("ai 圆弧在正下方留缺口：没有节点落在 90°±30° 区间", () => {
+    for (const n of aiGraph.nodes.filter((x) => x.category === "ai")) {
+      const deg = (((n.angle * 180) / Math.PI) % 360 + 360) % 360;
+      const off = Math.min(Math.abs(deg - 90), 360 - Math.abs(deg - 90));
+      expect(off).toBeGreaterThanOrEqual(30);
+    }
+  });
+
+  it("ai 分类的节点数与输入一致，坐标为有限数", () => {
+    const aiNodes = aiGraph.nodes.filter((n) => n.category === "ai");
+    expect(aiNodes).toHaveLength(2);
+    for (const n of aiNodes) {
+      expect(Number.isFinite(n.x)).toBe(true);
+      expect(Number.isFinite(n.y)).toBe(true);
+    }
+  });
+
+  it("自链被忽略：ai/self-attention → ai/overview 成立，自指不在边集", () => {
+    expect(aiGraph.edges).toContainEqual({
+      source: "ai/self-attention",
+      target: "ai/overview",
+    });
+    expect(
+      aiGraph.edges.some((e) => e.source === e.target),
+    ).toBe(false);
   });
 });

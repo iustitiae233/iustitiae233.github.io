@@ -14,8 +14,10 @@
   --text-3: #5d6b84;
   --accent: #22d3ee;
   --accent-2: #a78bfa;
+  --accent-3: #fbbf24;
   --accent-glow: rgba(34, 211, 238, 0.22);
   --accent-2-glow: rgba(167, 139, 250, 0.2);
+  --accent-3-glow: rgba(251, 191, 36, 0.2);
   --ok: #34d399;
 
   /* 尺寸 */
@@ -59,8 +61,10 @@
   --text-3: #8391a8;
   --accent: #0e8ea8;
   --accent-2: #7c3aed;
+  --accent-3: #b45309;
   --accent-glow: rgba(14, 142, 168, 0.16);
   --accent-2-glow: rgba(124, 58, 237, 0.14);
+  --accent-3-glow: rgba(180, 83, 9, 0.14);
   color-scheme: light;
 }
 

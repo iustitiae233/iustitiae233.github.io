@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
-import { getPublishedPosts } from "../lib/collections";
+import { getPublishedPosts, getAllNotes } from "../lib/collections";
+import { groupNotesByCategory } from "../lib/notes";
 
 const posts = (await getPublishedPosts()).map((p) => ({
   slug: p.id,
@@ -10,9 +11,15 @@ const posts = (await getPublishedPosts()).map((p) => ({
   pubDate: p.data.pubDate,
   body: p.body ?? "",
 }));
+
+const groups = groupNotesByCategory(await getAllNotes());
+const totalNotes = groups.reduce((n, g) => n + g.notes.length, 0);
+
+// 分类主色：与关系图谱的节点配色同源（accent / accent-2 / accent-3 按分类顺序）
+const CAT_ACCENT = ["var(--accent)", "var(--accent-2)", "var(--accent-3)"];
 ---
 
-<BaseLayout title="我的博客" description="极致流畅的暗色科技风个人博客">
+<BaseLayout title="我的博客" description="嵌入式、硬件与 AI 原理的学习笔记库">
   <section class="hero">
     <div class="hero-glow" aria-hidden="true"></div>
     <p class="hero-hi">你好，我是 👋</p>
@@ -20,19 +27,50 @@ const posts = (await getPublishedPosts()).map((p) => ({
       写点<span class="grad">代码</span>，聊点<span class="grad">技术</span>
     </h1>
     <p class="hero-sub">
-      关于 Web 性能、动画与工程实践的写作实验场。
+      技术笔记与工程记录——嵌入式、硬件电路与 AI 底层原理，都是从零学起时留下的路标。
     </p>
   </section>
 
-  <section aria-label="文章列表">
-    <h2 class="section-title">最新文章</h2>
-    <div class="grid">
-      {posts.map((p, i) => (
-        <div class="cell" style={`--reveal-delay: ${(i * 60).toString()}ms;`}>
-          <PostCard {...p} />
-        </div>
+  <section class="kb" aria-label="知识库">
+    <h2 class="section-title">
+      知识库
+      <span class="kb-count">{totalNotes} 篇 · {groups.length} 个分类</span>
+    </h2>
+
+    <div class="kb-grid">
+      {groups.map((g, i) => (
+        <a
+          class="kb-card"
+          href={`/notes/${g.category}/overview/`}
+          style={`--cat-accent: ${CAT_ACCENT[i % CAT_ACCENT.length]}; --reveal-delay: ${(i * 60).toString()}ms;`}
+        >
+          <span class="kb-cat">{g.label}</span>
+          <span class="kb-num">{g.notes.length}<i>篇</i></span>
+          <span class="kb-latest">最近：{g.notes[0]?.data.title ?? "—"}</span>
+        </a>
       ))}
     </div>
+
+    <nav class="kb-links" aria-label="知识库入口">
+      <a href="/notes/">全部笔记</a>
+      <a href="/notes/graph/">关系图谱</a>
+      <a href="/tags/">标签云</a>
+    </nav>
+  </section>
+
+  <section aria-label="文章列表">
+    <h2 class="section-title">文章</h2>
+    {posts.length > 0 ? (
+      <div class="grid">
+        {posts.map((p, i) => (
+          <div class="cell" style={`--reveal-delay: ${(i * 60).toString()}ms;`}>
+            <PostCard {...p} />
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p class="empty">暂未发布——正在整理成体系的长文，先看知识库。</p>
+    )}
   </section>
 </BaseLayout>
 
@@ -77,6 +115,9 @@ const posts = (await getPublishedPosts()).map((p) => ({
   }
 
   .section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.625rem;
     font-size: 1.1rem;
     color: var(--text-2);
     font-weight: 600;
@@ -90,4 +131,94 @@ const posts = (await getPublishedPosts()).map((p) => ({
     gap: 1.25rem;
   }
   .cell { display: grid; }
+
+  /* 知识库区块——本站主体 */
+  .kb { margin-bottom: 3.5rem; }
+  .kb-count {
+    font-size: 0.8rem;
+    color: var(--text-3);
+    font-weight: 500;
+  }
+  .kb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .kb-card {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1.25rem 1.25rem 1.125rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    /* 分类色作为卡片左侧标记，与图谱节点配色一一对应 */
+    box-shadow: inset 3px 0 0 var(--cat-accent);
+    transition:
+      border-color var(--t-fast) var(--ease-out),
+      background-color var(--t-fast) var(--ease-out),
+      transform var(--t-med) var(--ease-out);
+  }
+  .kb-card:hover {
+    border-color: color-mix(in srgb, var(--cat-accent) 45%, var(--border));
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+  }
+  .kb-cat {
+    font-size: 0.9rem;
+    color: var(--text-2);
+  }
+  .kb-num {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--cat-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .kb-num i {
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 0.25rem;
+    color: var(--text-3);
+  }
+  .kb-latest {
+    font-size: 0.8rem;
+    color: var(--text-3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .kb-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .kb-links a {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--text-2);
+    transition:
+      color var(--t-fast) var(--ease-out),
+      border-color var(--t-fast) var(--ease-out);
+  }
+  .kb-links a:hover {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  }
+
+  .empty {
+    padding: 1.5rem;
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius-md);
+    color: var(--text-3);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kb-card { transition: none; }
+  }
 </style>

@@ -1,12 +1,13 @@
 import { sortPostsByDateDesc, type PostLike } from "./posts";
 
-/** 笔记分类：embedded=嵌入式，hardware=硬件基础（固定展示顺序） */
-export const NOTE_CATEGORY_VALUES = ["embedded", "hardware"] as const;
+/** 笔记分类：embedded=嵌入式，hardware=硬件基础，ai=AI 原理（固定展示顺序，新分类追加在末尾） */
+export const NOTE_CATEGORY_VALUES = ["embedded", "hardware", "ai"] as const;
 export type NoteCategory = (typeof NOTE_CATEGORY_VALUES)[number];
 
 export const NOTE_CATEGORY_LABELS: Record<NoteCategory, string> = {
   embedded: "嵌入式",
   hardware: "硬件基础",
+  ai: "AI 原理",
 };
 
 export interface NoteLike extends PostLike {

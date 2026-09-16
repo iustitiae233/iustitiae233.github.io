@@ -23,6 +23,7 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
       <div class="graph-legend" aria-hidden="true">
         <span class="legend-item"><i class="dot dot-embedded"></i>嵌入式</span>
         <span class="legend-item"><i class="dot dot-hardware"></i>硬件基础</span>
+        <span class="legend-item"><i class="dot dot-ai"></i>AI 原理</span>
       </div>
     </header>
     <div class="graph-canvas" id="graph-canvas" aria-label="笔记关系图谱"></div>
@@ -60,6 +61,7 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
   }
   .dot-embedded { background: var(--accent); }
   .dot-hardware { background: var(--accent-2); }
+  .dot-ai { background: var(--accent-3); }
 
   .graph-canvas {
     border: 1px solid var(--border);
@@ -92,6 +94,7 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
   }
   .graph-canvas :global(.cat-embedded circle) { fill: color-mix(in srgb, var(--accent) 80%, transparent); stroke: var(--accent); }
   .graph-canvas :global(.cat-hardware circle) { fill: color-mix(in srgb, var(--accent-2) 80%, transparent); stroke: var(--accent-2); }
+  .graph-canvas :global(.cat-ai circle) { fill: color-mix(in srgb, var(--accent-3) 80%, transparent); stroke: var(--accent-3); }
   .graph-canvas :global(.dimmed) { opacity: 0.12; }
   .graph-canvas :global(.graph-node.isolated circle) { fill: color-mix(in srgb, var(--text-3) 30%, transparent); stroke: var(--text-3); }
   @media (prefers-reduced-motion: reduce) {
@@ -102,13 +105,17 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
 <script>
   interface GraphNodeJson {
     id: string; label: string; url: string;
-    category: "embedded" | "hardware";
+    category: "embedded" | "hardware" | "ai";
     x: number; y: number; degree: number; isolated: boolean;
+    angle: number; // 环上角度（弧度），决定标签朝哪一侧放
+    stagger: 0 | 1; // 奇偶错行，避免上下弧相邻标签咬在一起
   }
   interface GraphEdgeJson { source: string; target: string }
 
   const SVG_NS = "http://www.w3.org/2000/svg";
-  const VB = { w: 1000, h: 660, pad: 70 };
+  // 高度给足：三个分类环要在纵向排开，而纵向每单位只有横向的约 3/4。
+  // 减到 660 会把三环挤回互相压标签的状态（见 lib/graph.ts 的 CENTER/RING 注释）。
+  const VB = { w: 1000, h: 800, pad: 90 };
   // 归一化坐标 [-1,1] → viewBox
   const px = (x: number) => ((x + 1) / 2) * (VB.w - VB.pad * 2) + VB.pad;
   const py = (y: number) => ((y + 1) / 2) * (VB.h - VB.pad * 2) + VB.pad;
@@ -168,6 +175,26 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
       }
     };
 
+    // 标签独占一层、且在所有节点圆之后绘制：同层逐个 append 时，后画的圆会盖住
+    // 先画的标签文字（表现为标题被圆"截断"），与标签怎么放无关
+    const labelLayer = document.createElementNS(SVG_NS, "g");
+    svg.appendChild(labelLayer);
+
+    /** 标签相对节点的偏移：朝环外放（上半环朝上、下半环朝下、两侧走水平）。
+     *  一律「正上方居中」会把标签压到同环相邻节点上——环内间距小于一个中文标题。 */
+    const labelOffset = (node: GraphNodeJson) => {
+      const R = Math.min(6 + node.degree * 1.4, 13);
+      const cosA = Math.cos(node.angle);
+      const sinA = Math.sin(node.angle);
+      // 两侧的节点在 y 上拉开了（相邻差约 38px），横向放标签不会撞；
+      // 上下弧的相邻节点只在 x 上差一个环步长（约 62px），短于 12 字标题，
+      // 所以按奇偶错开一行（13px > 11px 行高，两行就不重叠了）
+      if (cosA > 0.45) return { dx: R + 6, dy: 4, anchor: "start" };
+      if (cosA < -0.45) return { dx: -(R + 6), dy: 4, anchor: "end" };
+      const fold = node.stagger ? 13 : 0;
+      return { dx: 0, dy: sinA > 0 ? R + 15 + fold : -(R + 7 + fold), anchor: "middle" };
+    };
+
     for (const n of data.nodes) {
       const x = px(n.x);
       const y = py(n.y);
@@ -189,23 +216,28 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
       const title = document.createElementNS(SVG_NS, "title");
       title.textContent = `${n.label}（${n.degree} 条链接）`;
 
-      const text = document.createElementNS(SVG_NS, "text");
-      text.setAttribute("x", String(x));
-      text.setAttribute("y", String(y - 14));
-      text.textContent = n.label;
-
       a.appendChild(circle);
       a.appendChild(title);
       g.appendChild(a);
-      g.appendChild(text);
       svg.appendChild(g);
+
+      const off = labelOffset(n);
+      const text = document.createElementNS(SVG_NS, "text");
+      text.setAttribute("x", String(x + off.dx));
+      text.setAttribute("y", String(y + off.dy));
+      text.setAttribute("text-anchor", off.anchor);
+      // 画布横向余量有限，长标题会顶出边界被裁；完整标题留在 <title> 里（悬停可见）
+      text.textContent = n.label.length > 12 ? `${n.label.slice(0, 12)}…` : n.label;
+      labelLayer.appendChild(text);
       nodesById.set(n.id, { g, circle, text });
 
       // hover 高亮邻接，其余淡出
       g.addEventListener("mouseenter", () => {
         const near = adjacent.get(n.id) ?? new Set<string>();
-        for (const [id, { g: el }] of nodesById) {
-          el.classList.toggle("dimmed", id !== n.id && !near.has(id));
+        for (const [id, { g: el, text: tx }] of nodesById) {
+          const dim = id !== n.id && !near.has(id);
+          el.classList.toggle("dimmed", dim);
+          tx.classList.toggle("dimmed", dim);
         }
         for (const line of edgeEls) {
           line.classList.toggle(
@@ -215,7 +247,10 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
         }
       });
       g.addEventListener("mouseleave", () => {
-        for (const { g: el } of nodesById.values()) el.classList.remove("dimmed");
+        for (const { g: el, text: tx } of nodesById.values()) {
+          el.classList.remove("dimmed");
+          tx.classList.remove("dimmed");
+        }
         for (const line of edgeEls) line.classList.remove("dimmed");
       });
 
@@ -232,8 +267,8 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
           nodePos.set(n.id, { x: nx, y: ny });
           circle.setAttribute("cx", String(nx));
           circle.setAttribute("cy", String(ny));
-          text.setAttribute("x", String(nx));
-          text.setAttribute("y", String(ny - 14));
+          text.setAttribute("x", String(nx + off.dx));
+          text.setAttribute("y", String(ny + off.dy));
           syncEdges(n.id);
         };
         const up = () => {

@@ -75,7 +75,13 @@ function makeNode(tk: WikilinkToken, ctx: Ctx): PhrasingContent {
     const url = tk.target.startsWith("/")
       ? tk.target
       : `/images/${basename(tk.target.replace(/\\/g, "/"))}`;
-    return { type: "image", url, alt: tk.alias ?? "" };
+    // 笔记里嵌的是动图/大图，惰性加载避免首屏被拖住（mdast → hast 会带上这两个属性）
+    return {
+      type: "image",
+      url,
+      alt: tk.alias ?? "",
+      data: { hProperties: { loading: "lazy", decoding: "async" } },
+    };
   }
   if (tk.embed) {
     warn(ctx, tk, "笔记 embed 暂不支持，仅支持图片附件");
