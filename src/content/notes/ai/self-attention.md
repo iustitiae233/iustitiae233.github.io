@@ -6,7 +6,7 @@ category: ai
 tags: [注意力机制, Transformer, FlashAttention]
 ---
 
-注意力是 Transformer 里唯一不可替代的部件——它让序列中的每个位置都能直接看到其他任意位置。**这是本站关于注意力机制的唯一详解**，其余笔记遇到它一律指回本篇。整体架构见 [[transformer-architecture]]，视觉侧的同类改造见 [[vit]]，入口在 [[ai/overview]]。
+注意力是 Transformer 里唯一不可替代的部件——它让序列中的每个位置都能直接看到其他任意位置。**这是本站关于注意力机制的唯一详解**，其余笔记遇到它一律指回本篇。整体架构见 [[transformer-architecture]]，视觉侧的同类改造见 [[vit]]，本分类全部笔记见 [AI 原理](/notes/ai/)。
 
 ## 一、为什么需要注意力
 

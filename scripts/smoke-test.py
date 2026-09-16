@@ -1,6 +1,8 @@
 """端到端冒烟测试：暗色科技风博客（serve dist @ 127.0.0.1:4327）
 适配 ClientRouter 软导航：断言一律用 DOM 状态，不依赖 page.url。"""
+import re
 import sys
+from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
 
@@ -9,6 +11,8 @@ from urllib.parse import quote
 from playwright.sync_api import sync_playwright
 
 BASE = "http://127.0.0.1:4327"
+# 产物目录：用来做页面级断言看不见的全站扫描（死链 / 该消失的页面）
+DIST = Path(__file__).resolve().parents[1] / "dist"
 results = []
 
 
@@ -27,7 +31,7 @@ with sync_playwright() as p:
     check("首页渲染知识库分类卡", page.locator(".kb-card").count() == 3,
           f"cards={page.locator('.kb-card').count()}")
     kb_count = page.locator(".kb-count").text_content() or ""
-    check("首页知识库统计 40 篇 · 3 个分类", "40 篇" in kb_count and "3 个分类" in kb_count,
+    check("首页知识库统计 37 篇 · 3 个分类", "37 篇" in kb_count and "3 个分类" in kb_count,
           f"text={kb_count!r}")
     check("首页知识库入口齐全",
           page.locator(".kb-links a[href='/notes/']").count() == 1
@@ -38,23 +42,18 @@ with sync_playwright() as p:
           f"empty={page.locator('.empty').count()}")
     check("跟随系统暗色偏好", page.evaluate("document.documentElement.dataset.theme") == "dark")
 
-    # 2. 分类卡进入**自动分类页**（列表由 collection 推导，不是手写总览——
-    #    总览是策展文章，不再承担「列出本分类全部笔记」的索引职责）
+    # 2. 分类卡进入**自动分类页**（列表完全由 collection 推导，是各分类唯一的索引）
     page.click(".kb-card")  # 首张 = 嵌入式（NOTE_CATEGORY_VALUES 顺序）
     page.wait_for_selector(".cat-page h1", timeout=10000)
     check("分类卡进入自动分类页",
           (page.locator(".cat-page h1").text_content() or "").strip() == "嵌入式",
           f"h1={page.locator('.cat-page h1').text_content()!r}")
     cat_rows = page.locator(".cat-page .note-row")
-    check("分类页列出该分类全部 11 篇笔记", cat_rows.count() == 11, f"rows={cat_rows.count()}")
+    check("分类页列出该分类全部 10 篇笔记", cat_rows.count() == 10, f"rows={cat_rows.count()}")
     cat_hrefs = [a.get_attribute("href") for a in cat_rows.all()]
     check("分类页每条都链到本分类笔记",
           bool(cat_hrefs) and all(h and h.startswith("/notes/embedded/") for h in cat_hrefs),
           f"hrefs={cat_hrefs[:3]}")
-    # 头部单独给一个总览入口（策展阅读路径，与日期序列表不是一回事）；
-    # 总览自身也是本分类的一篇笔记，所以列表里还会再出现一次 —— 这里只断言头部那处
-    check("分类页头部给出分类总览入口",
-          page.locator(".cat-page .cat-sub a[href='/notes/embedded/overview/']").count() == 1)
 
     # 2.5 分类页→笔记软导航：上下篇链路 + persist 侧栏的 active 必须在新页面上重算
     first_title = (page.locator(".cat-page .note-row .note-title").first.text_content() or "").strip()
@@ -103,7 +102,7 @@ with sync_playwright() as p:
     page.click(".sidebar .nav-link[href='/notes/']")
     page.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
     check("笔记索引按分类分组", page.locator("h2.cat-title").count() == 3)
-    check("笔记列表共 40 篇", page.locator(".note-row").count() == 40,
+    check("笔记列表共 37 篇", page.locator(".note-row").count() == 37,
           f"rows={page.locator('.note-row').count()}")
     page.click("a[href='/notes/hardware/mosfet-basics/']")
     page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
@@ -343,7 +342,6 @@ with sync_playwright() as p:
     bl = page.locator("section.backlinks .backlink-link")
     bl_titles = [bl.nth(i).text_content() for i in range(bl.count())]
     check("反链面板列出 wikilink 来源", any("PWM" in t for t in bl_titles), f"sources={bl_titles}")
-    check("MOC 总览出现在反链面板", any("总览" in t for t in bl_titles), f"sources={bl_titles}")
 
     page.goto(f"{BASE}/notes/hardware/diode-basics/", wait_until="networkidle")
     bl2 = page.locator("section.backlinks .backlink-link")
@@ -353,13 +351,15 @@ with sync_playwright() as p:
 
     # ---- 知识库：关系图谱页 ----
     page.goto(f"{BASE}/notes/graph/", wait_until="networkidle")
-    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 40,
+    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 37,
           f"nodes={page.locator('svg .graph-node').count()}")
     check("图谱页边渲染", page.locator("svg .graph-edge").count() > 0)
     check("图谱页图例三项", page.locator(".legend-item").count() == 3)
-    # 孤立节点（degree=0）是**合法状态**：新加一篇没互链的笔记就会出现，淡显即可。
+    # 孤立节点（degree=0）是**合法状态**：新加一篇没写正文互链的笔记就会出现，淡显即可。
     # 这里只断言「淡显标记与真实度数一致」，不再要求 0 孤立——旧断言等于强迫每次加笔记
     # 都必须挂进分类总览，正是把索引职责压给手写文章的那根绳子。
+    # 顺带记一笔：标签**不**产生图谱的边（graph.ts 只读 extractOutgoingLinks 的正文链接），
+    # 所以给孤立笔记补标签不会让它脱离孤立——只能靠正文互链。
     iso = page.evaluate(
         """() => {
           const d = JSON.parse(document.getElementById('graph-data').textContent);
@@ -440,13 +440,26 @@ with sync_playwright() as p:
     page.wait_for_timeout(500)
     check("点击胶囊软导航进标签页", page.locator(".tag-page .note-row").count() >= 1)
 
-    # ---- 知识库：MOC 总览（策展文章，只断言渲染出双链——
-    #      加笔记不需要回来改它，别再断言条数）----
-    page.goto(f"{BASE}/notes/embedded/overview/", wait_until="networkidle")
-    check("MOC 总览渲染双链列表", page.locator("a.wikilink").count() >= 1,
-          f"wikilinks={page.locator('a.wikilink').count()}")
+    # ---- 知识库：三个分类总览（MOC）已删除 ----
+    # 删文章只是第一步：正文里原有 15 处 [[<分类>/overview]]，漏改一处就是死链，
+    # 而那种链接点下去才 404——页面级断言看不见。直接扫产物，一次覆盖全站（正文 /
+    # 侧栏 / 搜索索引 / 上下篇……），不用逐个页面访问。
+    html_files = sorted(DIST.rglob("*.html"))  # 产物缺失时下面两条会一起挂，不会假绿
+    stale_pages = []
+    for p in html_files:
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        if any(f"/notes/{c}/overview/" in text for c in ("embedded", "hardware", "ai")):
+            stale_pages.append(p.relative_to(DIST).as_posix())
+    check("全站无指向已删除分类总览的死链", bool(html_files) and not stale_pages,
+          f"html={len(html_files)} pages={stale_pages[:3]}")
+    left = [
+        f"{c}/overview"
+        for c in ("embedded", "hardware", "ai")
+        if (DIST / "notes" / c / "overview" / "index.html").exists()
+    ]
+    check("分类总览页面已从产物中消失", bool(html_files) and not left, f"left={left}")
 
-    # ---- 知识库：AI 分类（第三分类的 MOC / 配图 / 公式 / 反链 / 上下篇不越类）----
+    # ---- 知识库：AI 分类（第三分类的配图 / 公式 / 反链 / 上下篇不越类）----
     AI_NOTES = [
         "neuron-and-activation", "loss-and-optimization", "backpropagation",
         "training-stability-and-regularization", "tokenization-and-embedding",
@@ -454,11 +467,11 @@ with sync_playwright() as p:
         "llm-inference-and-decoding", "scaling-laws", "cnn-basics", "vit",
         "diffusion-models", "multimodal-models",
     ]
-    # 「覆盖全部」的职责已从手写 MOC 移交给自动分类页——这里断言的是分类页
+    # 「覆盖全部」的职责在自动分类页；MOC 删除后 AI 分类的篇数 == 正文篇数
     page.goto(f"{BASE}/notes/ai/", wait_until="networkidle")
     ai_rows = page.locator(".cat-page .note-row")
     ai_cat_hrefs = {a.get_attribute("href") for a in ai_rows.all()}
-    check("AI 分类页列出全部 15 篇（含总览）", ai_rows.count() == 15, f"rows={ai_rows.count()}")
+    check("AI 分类页列出全部 14 篇", ai_rows.count() == 14, f"rows={ai_rows.count()}")
     cat_missing = [s for s in AI_NOTES if f"/notes/ai/{s}/" not in ai_cat_hrefs]
     check("AI 分类页覆盖全部 14 篇正文", not cat_missing, f"missing={cat_missing}")
 
@@ -480,7 +493,15 @@ with sync_playwright() as p:
           f"katex={page.locator('.katex').count()}")
     ai_bl = [page.locator("section.backlinks .backlink-link").nth(i).text_content()
              for i in range(page.locator("section.backlinks .backlink-link").count())]
-    check("AI 笔记反链指向 MOC", any("总览" in t for t in ai_bl), f"sources={ai_bl}")
+    # 反链只能来自正文互链（wikilink）——原来这条断言靠 ai/overview 链过来，MOC 删了就必须
+    # 换成真实互链来源。用「≥3 条且含已知来源」而不是写死条数：再加互链不该让冒烟挂。
+    check("AI 笔记反链来自正文互链（不再依赖已删的 MOC）",
+          len(ai_bl) >= 3 and any("Transformer" in t for t in ai_bl), f"sources={ai_bl}")
+    # 每篇 AI 笔记开头那句「本分类全部笔记见 …」，MOC 删除时从 [[ai/overview]] 改指分类页
+    ai_cat_link = page.locator(".post-content a[href='/notes/ai/']")
+    check("AI 笔记正文链到自动分类页",
+          ai_cat_link.count() == 1 and (ai_cat_link.first.text_content() or "").strip() == "AI 原理",
+          f"n={ai_cat_link.count()}")
 
     # ---- 知识库：笔记配图（![[x.png|alt]] → /images/，点击开灯箱）----
     page.goto(f"{BASE}/notes/hardware/rc-circuit-applications/", wait_until="networkidle")

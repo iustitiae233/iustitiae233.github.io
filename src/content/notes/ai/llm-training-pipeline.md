@@ -6,7 +6,7 @@ category: ai
 tags: [预训练, 微调, RLHF, 大语言模型]
 ---
 
-一个能对话的模型不是一次训练出来的，而是**三段目标完全不同**的训练接力：预训练灌知识、SFT 教格式、RLHF 对齐偏好。算力与数据规模如何配比见 [[scaling-laws]]，生成时的解码策略见 [[llm-inference-and-decoding]]。入口在 [[ai/overview]]。
+一个能对话的模型不是一次训练出来的，而是**三段目标完全不同**的训练接力：预训练灌知识、SFT 教格式、RLHF 对齐偏好。算力与数据规模如何配比见 [[scaling-laws]]，生成时的解码策略见 [[llm-inference-and-decoding]]。本分类全部笔记见 [AI 原理](/notes/ai/)。
 
 ## 一、阶段一：预训练——"读完整个互联网"
 

@@ -6,7 +6,7 @@ category: ai
 tags: [反向传播, 链式法则, 梯度]
 ---
 
-如果说梯度下降回答"往哪走"，反向传播回答的是"**每一步该往哪走**"——它把微积分里的链式法则变成了一台可工业化的求导机器。更新规则本身见 [[loss-and-optimization]]，让梯度在深层网络里不消失的手段见 [[training-stability-and-regularization]]。入口在 [[ai/overview]]。
+如果说梯度下降回答"往哪走"，反向传播回答的是"**每一步该往哪走**"——它把微积分里的链式法则变成了一台可工业化的求导机器。更新规则本身见 [[loss-and-optimization]]，让梯度在深层网络里不消失的手段见 [[training-stability-and-regularization]]。本分类全部笔记见 [AI 原理](/notes/ai/)。
 
 ## 一、四步流程
 

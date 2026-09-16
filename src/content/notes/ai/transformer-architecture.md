@@ -6,7 +6,7 @@ category: ai
 tags: [Transformer, 前馈网络, LayerNorm]
 ---
 
-Transformer 的宏大叙事只有一种砖块：**注意力子层 + 前馈子层，各自裹上残差与归一化**，然后重复几十上百次。注意力本身见 [[self-attention]]，残差与归一化的原理见 [[training-stability-and-regularization]]，层数堆叠带来的能力变化见 [[scaling-laws]]。入口在 [[ai/overview]]。
+Transformer 的宏大叙事只有一种砖块：**注意力子层 + 前馈子层，各自裹上残差与归一化**，然后重复几十上百次。注意力本身见 [[self-attention]]，残差与归一化的原理见 [[training-stability-and-regularization]]，层数堆叠带来的能力变化见 [[scaling-laws]]。本分类全部笔记见 [AI 原理](/notes/ai/)。
 
 ## 一、一个 Transformer 层的结构
 

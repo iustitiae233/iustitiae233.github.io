@@ -6,7 +6,7 @@ category: ai
 tags: [ViT, 视觉Transformer, Patch]
 ---
 
-CNN 把"局部性"写死在结构里，ViT 把这条假设整个删掉——**把图像切成块，当成一句话交给 Transformer**。它证明的不是"注意力更好"，而是"当数据足够多时，先验反而是负担"。注意力机制本身见 [[self-attention]]，CNN 的先验从哪里来见 [[cnn-basics]]。入口在 [[ai/overview]]。
+CNN 把"局部性"写死在结构里，ViT 把这条假设整个删掉——**把图像切成块，当成一句话交给 Transformer**。它证明的不是"注意力更好"，而是"当数据足够多时，先验反而是负担"。注意力机制本身见 [[self-attention]]，CNN 的先验从哪里来见 [[cnn-basics]]。本分类全部笔记见 [AI 原理](/notes/ai/)。
 
 ## 一、为什么 CNN 不够了
 

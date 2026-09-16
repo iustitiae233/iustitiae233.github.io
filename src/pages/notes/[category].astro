@@ -10,8 +10,8 @@ import {
 } from "../../lib/notes";
 
 /** 分类页：列表完全由 collection 推导，加笔记不用改这里。
- *  分类总览（<分类>/overview）是**策展文章**，只讲线索和阅读顺序，不再承担
- *  「列出本分类全部笔记」的索引职责——那份职责归这里。 */
+ *  这是各分类的**唯一**索引——原先并存的「分类总览」（<分类>/overview）已删除，
+ *  它同时被当成策展文章和索引，导致每加一篇笔记都要回去改手写列表。 */
 export function getStaticPaths() {
   return NOTE_CATEGORY_VALUES.map((category) => ({ params: { category } }));
 }
@@ -20,8 +20,6 @@ const category = Astro.params.category as NoteCategory;
 const notes = await getAllNotes();
 const list = notesInCategory(notes, category);
 const label = NOTE_CATEGORY_LABELS[category];
-// 有手写总览就给出入口；没有也不影响——列表本身就是完整索引
-const overview = notes.find((n) => n.id === `${category}/overview`);
 ---
 
 <BaseLayout
@@ -34,7 +32,6 @@ const overview = notes.find((n) => n.id === `${category}/overview`);
       <h1>{label}</h1>
       <p class="cat-sub">
         {list.length} 篇笔记 · <a href="/notes/graph/">关系图谱</a>
-        {overview && <> · <a href={`/notes/${overview.id}/`}>分类总览</a></>}
       </p>
     </header>
     <NoteList notes={list} />

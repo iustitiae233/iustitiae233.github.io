@@ -6,7 +6,7 @@ category: ai
 tags: [自回归, KV Cache, 解码参数, 推理加速]
 ---
 
-训练好的模型怎么把概率变成文字？**一个 token 一个 token 地猜，猜完接回去再猜。** 这篇讲生成过程的工程细节——决定了同一个模型是"又快又好用"还是"又慢又复读"。训练管线见 [[llm-training-pipeline]]，注意力本身见 [[self-attention]]。入口在 [[ai/overview]]。
+训练好的模型怎么把概率变成文字？**一个 token 一个 token 地猜，猜完接回去再猜。** 这篇讲生成过程的工程细节——决定了同一个模型是"又快又好用"还是"又慢又复读"。训练管线见 [[llm-training-pipeline]]，注意力本身见 [[self-attention]]。本分类全部笔记见 [AI 原理](/notes/ai/)。
 
 ## 一、自回归生成
 
