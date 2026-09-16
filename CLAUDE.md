@@ -11,7 +11,7 @@ npm run build              # 先拉 GitHub 头像（失败沿用旧文件不阻�
 npm run profile            # 手动刷新 GitHub 头像/昵称（scripts/fetch-github-profile.mjs）
 npm run preview            # 本地预览 dist
 npx serve dist -l 4327     # 冒烟测试依赖的静态服务器（保持 4327 端口）
-python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 87 项，需先起 serve）
+python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 89 项，需先起 serve）
 ```
 
 **门禁**：改动后跑 check → test → build → smoke，全绿才提交。commit message 用中文，格式 `类型: 描述`（feat/fix/test/docs/ci）。
@@ -24,7 +24,7 @@ python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 87 项
 - 搜索：标题索引由 BaseLayout 构建期内联到页面（`<script type="application/json">` + `set:html`；`<` 写成 JSON 转义序列防 `</script>` 逃逸——script 是原始文本元素，不能用 Astro 表达式转义，`&quot;` 不会解码回引号）；`Search.astro` 每次搜索从 DOM 现读索引，过滤逻辑在纯函数 `src/lib/search.ts`
 - GitHub 联动：`scripts/fetch-github-profile.mjs <用户名>` 生成 `src/data/github-profile.json` + `public/images/github-avatar.*`（均提交进 git，离线可构建）；Sidebar 构建期读 JSON 渲染头像+昵称，读不到回退「博/我的博客」占位
 - KaTeX（remark-math + rehype-katex）全局启用，但 `katex/dist/katex.min.css` **只在 notes 路由引入**——公式字体不得泄漏到文章/首页
-- 知识库（2026-09）：wikilink 解析纯逻辑在 `src/lib/wikilinks.ts`，remark 薄壳 `src/plugins/remark-wikilinks.ts`（fs 扫 notes 建 id/basename/主标题三路索引，进程内惰性一次）。三形态：`[[mcu-gpio]]`/`[[二极管基础]]`（主标题，title 剥「——」副题后索引）/`[[x|别名]]`；歧义多候选拒绝猜（警告列出候选），未命中渲染纯文本+构建警告不 fail build。反链 `src/lib/backlinks.ts`（双语法：wikilink + 手写 `/notes/<id>/` 标准链接，source→target 去重、自链忽略），`collections.ts#getBacklinkIndex()` 是唯一入口。图谱 `src/lib/graph.ts`（确定性分类多圆环布局——`CENTER`/`PHASE` 是 `Record<NoteCategory,…>`，**加分类必须同时补这两处**，否则类型检查失败且运行时 `TypeError`；**禁随机性**，同输入同输出有 vitest 断言），页面 `/notes/graph/`（SVG，静态段优先于 [...slug] 无冲突）。全文搜索双层索引：标题索引内联（首屏）+ `/search-index.json`（`src/pages/search-index.json.ts` 端点，`markdownToPlainText` 去语法），客户端模块级 promise 缓存按需 fetch，失败降级标题搜索。`.claude/skills/` 有 obsidian-markdown/defuddle skill；本地 Obsidian vault 即本仓库（附件文件夹 `public/images/`，![[x.png]] 渲染为 /images/x.png）
+- 知识库（2026-09）：wikilink 解析纯逻辑在 `src/lib/wikilinks.ts`，remark 薄壳 `src/plugins/remark-wikilinks.ts`（fs 扫 notes 建 id/basename/主标题三路索引，进程内惰性一次）。三形态：`[[mcu-gpio]]`/`[[二极管基础]]`（主标题，title 剥「——」副题后索引）/`[[x|别名]]`；歧义多候选拒绝猜（警告列出候选），未命中渲染纯文本+构建警告不 fail build。反链 `src/lib/backlinks.ts`（双语法：wikilink + 手写 `/notes/<id>/` 标准链接，source→target 去重、自链忽略），`collections.ts#getBacklinkIndex()` 是唯一入口。图谱 `src/lib/graph.ts`（确定性分类多圆环布局——`CENTER`/`RING` 是 `Record<NoteCategory,…>`，**加分类必须同时补这两处**，否则类型检查失败且运行时 `TypeError`；`RING` 的圆弧缺口给节点最多、标题最长的 ai 环让开中线；**禁随机性**，同输入同输出有 vitest 断言），页面 `/notes/graph/`（SVG，静态段优先于 [...slug] 无冲突）。图谱标签在独立图层 `labelLayer`（class `graph-labels`）里、**不在 `.graph-node` 内部**——改图层结构必须同步改 CSS 选择器，否则文字命中 0 个元素、退回 SVG 默认黑字 16px，在暗底上完全隐形（踩坑：87 项冒烟全绿而图上一个字都没有）；标签重叠靠客户端一遍确定性竖直避让兜底（环间隙 148px < 12 字标题 142px，错行补不满）。全文搜索双层索引：标题索引内联（首屏）+ `/search-index.json`（`src/pages/search-index.json.ts` 端点，`markdownToPlainText` 去语法），客户端模块级 promise 缓存按需 fetch，失败降级标题搜索。`.claude/skills/` 有 obsidian-markdown/defuddle skill；本地 Obsidian vault 即本仓库（附件文件夹 `public/images/`，![[x.png]] 渲染为 /images/x.png）
 
 ## 关键约定
 

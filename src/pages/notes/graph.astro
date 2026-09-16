@@ -85,10 +85,13 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
     stroke-width: 1.5;
     transition: opacity 150ms var(--ease-out);
   }
-  .graph-canvas :global(.graph-node text) {
+  /* 标签在独立图层 labelLayer 里（见脚本），不在 .graph-node 内部——选择器必须跟着走。
+     写成 .graph-node text 会命中 0 个元素，文字退回 SVG 默认的黑色 16px，暗底上等于隐形。
+     这里也不设 text-anchor：锚点由脚本按节点在环上的方位逐条写进属性，而 CSS 优先级高于
+     表现属性，留一条 text-anchor: middle 会把朝外的锚点全部覆盖掉。 */
+  .graph-canvas :global(.graph-labels text) {
     fill: var(--text-2);
     font-size: 11px;
-    text-anchor: middle;
     pointer-events: none;
     transition: opacity 150ms var(--ease-out);
   }
@@ -162,6 +165,11 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
 
     const nodesById = new Map<string, { g: SVGGElement; circle: SVGCircleElement; text: SVGTextElement }>();
     const nodePos = new Map<string, { x: number; y: number }>();
+    // 避让用：标签元素 → 当前 y / 所属节点 / 已累计位移（拖拽时要把位移带上）
+    const labelItems: SVGTextElement[] = [];
+    const labelY = new Map<SVGTextElement, number>();
+    const textToId = new Map<SVGTextElement, string>();
+    const nudgeById = new Map<string, number>();
 
     const syncEdges = (id: string) => {
       for (const line of edgeEls) {
@@ -178,6 +186,7 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
     // 标签独占一层、且在所有节点圆之后绘制：同层逐个 append 时，后画的圆会盖住
     // 先画的标签文字（表现为标题被圆"截断"），与标签怎么放无关
     const labelLayer = document.createElementNS(SVG_NS, "g");
+    labelLayer.setAttribute("class", "graph-labels");
     svg.appendChild(labelLayer);
 
     /** 标签相对节点的偏移：朝环外放（上半环朝上、下半环朝下、两侧走水平）。
@@ -229,6 +238,9 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
       // 画布横向余量有限，长标题会顶出边界被裁；完整标题留在 <title> 里（悬停可见）
       text.textContent = n.label.length > 12 ? `${n.label.slice(0, 12)}…` : n.label;
       labelLayer.appendChild(text);
+      labelItems.push(text);
+      labelY.set(text, y + off.dy);
+      textToId.set(text, n.id);
       nodesById.set(n.id, { g, circle, text });
 
       // hover 高亮邻接，其余淡出
@@ -268,7 +280,7 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
           circle.setAttribute("cx", String(nx));
           circle.setAttribute("cy", String(ny));
           text.setAttribute("x", String(nx + off.dx));
-          text.setAttribute("y", String(ny + off.dy));
+          text.setAttribute("y", String(ny + off.dy + (nudgeById.get(n.id) ?? 0)));
           syncEdges(n.id);
         };
         const up = () => {
@@ -292,6 +304,45 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
     }
 
     canvas.appendChild(svg);
+
+    // 标签避让：必须等 svg 进文档——getBBox 依赖布局。
+    // 光靠 labelOffset 的「朝环外 + 错行」补不满，因为撞车是结构性的：
+    // embedded 环最右到 hardware 环最左只有约 148px，环内相邻节点相距约 74px，
+    // 而 12 字中文标题宽 142px——面对面的两个长标签、同环相邻的两个长标签都放不下。
+    // 这里按固定顺序（左边界→下边界）找出第一对重叠，把靠后的那个沿 y 推开
+    // （朝远离对方那一侧，位移取最小可行值），重算包围盒再找下一对，直到无重叠。
+    // 顺序固定、方向由几何决定，**无随机**，同输入同输出。若拿不到布局（getBBox
+    // 全 0）则检测不到重叠、直接跳过，退化成避让前的样子，不会把标签画歪。
+    for (let round = 0; round < 10; round++) {
+      const boxes = labelItems
+        .map((el) => ({ el, b: el.getBBox() }))
+        .sort((p, q) => p.b.x - q.b.x || p.b.y - q.b.y);
+      let hit: { el: SVGTextElement; dy: number } | null = null;
+      for (let i = 0; i < boxes.length && !hit; i++) {
+        for (let j = i + 1; j < boxes.length; j++) {
+          const a = boxes[i].b;
+          const c = boxes[j].b;
+          const ox = Math.min(a.x + a.width, c.x + c.width) - Math.max(a.x, c.x);
+          const oy = Math.min(a.y + a.height, c.y + c.height) - Math.max(a.y, c.y);
+          if (ox <= 1 || oy <= 1) continue; // 1px 以内算擦边，不值得动
+          const down = c.y + c.height / 2 >= a.y + a.height / 2;
+          hit = { el: boxes[j].el, dy: (down ? 1 : -1) * (oy + 2) };
+          break;
+        }
+      }
+      if (!hit) break;
+      const cur = labelY.get(hit.el) ?? 0;
+      // 别把标签推出画布：顶到边缘就停住，并退出避让（宁可有重叠也不丢字）
+      const next = Math.min(Math.max(cur + hit.dy, 14), VB.h - 6);
+      if (next === cur) {
+        labelItems.splice(labelItems.indexOf(hit.el), 1);
+        continue;
+      }
+      labelY.set(hit.el, next);
+      hit.el.setAttribute("y", String(next));
+      const id = textToId.get(hit.el)!;
+      nudgeById.set(id, (nudgeById.get(id) ?? 0) + hit.dy);
+    }
   }
 
   init();

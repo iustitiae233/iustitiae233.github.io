@@ -334,6 +334,39 @@ with sync_playwright() as p:
           page.locator("svg .graph-node.isolated").count() == 0,
           f"isolated={page.locator('svg .graph-node.isolated').count()}")
     check("图谱节点是可点链接", page.locator("svg .graph-node a").first.get_attribute("href") is not None)
+    # 标签在独立图层 labelLayer 里，不在 .graph-node 内部：CSS 选择器一旦没跟着搬，
+    # 文字就退回 SVG 默认的黑色 16px，在暗底上等于隐形——而节点数断言完全看不出来
+    # （已踩坑：87 项全绿，图上一个字都没有）
+    labels = page.evaluate(
+        """() => {
+          const ts = [...document.querySelectorAll('#graph-canvas svg .graph-labels text')];
+          const cs = ts[0] && getComputedStyle(ts[0]);
+          return { n: ts.length, fill: cs && cs.fill, size: cs && cs.fontSize };
+        }"""
+    )
+    check("图谱标签渲染且未退回 SVG 默认样式（黑字/16px 即失效）",
+          labels["n"] == page.locator("svg .graph-node").count()
+          and labels["fill"] not in (None, "rgb(0, 0, 0)")
+          and labels["size"] == "11px",
+          f"labels={labels}")
+    # 标签撞车是结构性的：embedded 环最右到 hardware 环最左只有约 148px，环内相邻节点
+    # 相距约 74px，而 12 字中文标题宽 142px——错行补不满，靠客户端那步确定性竖直避让兜底
+    overlaps = page.evaluate(
+        """() => {
+          const bs = [...document.querySelectorAll('#graph-canvas svg .graph-labels text')]
+            .map(t => t.getBBox());
+          let n = 0;
+          for (let i = 0; i < bs.length; i++)
+            for (let j = i + 1; j < bs.length; j++) {
+              const a = bs[i], c = bs[j];
+              const ox = Math.min(a.x + a.width, c.x + c.width) - Math.max(a.x, c.x);
+              const oy = Math.min(a.y + a.height, c.y + c.height) - Math.max(a.y, c.y);
+              if (ox > 0 && oy > 0 && ox * oy > 8) n++;
+            }
+          return n;
+        }"""
+    )
+    check("图谱标签无重叠（确定性避让生效）", overlaps == 0, f"overlaps={overlaps}")
 
     # ---- 知识库：全文搜索（wait_for_function 等 fetch 完成，不固定 sleep）----
     page.goto(BASE, wait_until="networkidle")
