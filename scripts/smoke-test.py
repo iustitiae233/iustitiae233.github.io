@@ -75,7 +75,7 @@ with sync_playwright() as p:
     page.click(".sidebar .nav-link[href='/notes/']")
     page.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
     check("笔记索引按分类分组", page.locator("h2.cat-title").count() == 2)
-    check("笔记列表共 18 篇", page.locator(".note-row").count() == 18,
+    check("笔记列表共 25 篇", page.locator(".note-row").count() == 25,
           f"rows={page.locator('.note-row').count()}")
     page.click("a[href='/notes/hardware/mosfet-basics/']")
     page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
@@ -306,7 +306,7 @@ with sync_playwright() as p:
 
     # ---- 知识库：关系图谱页 ----
     page.goto(f"{BASE}/notes/graph/", wait_until="networkidle")
-    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 18,
+    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 25,
           f"nodes={page.locator('svg .graph-node').count()}")
     check("图谱页边渲染", page.locator("svg .graph-edge").count() > 0)
     check("图谱页图例两项", page.locator(".legend-item").count() == 2)
@@ -346,6 +346,16 @@ with sync_playwright() as p:
     page.goto(f"{BASE}/notes/embedded/overview/", wait_until="networkidle")
     check("MOC 总览渲染双链列表", page.locator("a.wikilink").count() == 10,
           f"wikilinks={page.locator('a.wikilink').count()}")
+
+    # ---- 知识库：笔记配图（![[x.png|alt]] → /images/，点击开灯箱）----
+    page.goto(f"{BASE}/notes/hardware/rc-circuit-applications/", wait_until="networkidle")
+    imgs = page.locator(".post-content img")
+    check("笔记配图全部渲染", imgs.count() == 9, f"imgs={imgs.count()}")
+    check("配图 alt 为中文描述（进全文搜索索引）",
+          all(len(imgs.nth(i).get_attribute("alt") or "") > 4 for i in range(imgs.count())))
+    imgs.first.click()
+    page.wait_for_timeout(400)
+    check("点击配图打开灯箱", page.evaluate("document.getElementById('lightbox')?.open === true"))
 
     browser.close()
 

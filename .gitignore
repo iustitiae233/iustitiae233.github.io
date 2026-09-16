@@ -26,3 +26,6 @@ reports/
 
 # Obsidian 工作区缓存（窗口布局等机器相关状态）
 .obsidian/
+
+# 讲义原始扫描图（微信导出，仅本地裁剪用；裁剪结果收进 public/images/）
+/image/
