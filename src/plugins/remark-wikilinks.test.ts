@@ -5,6 +5,13 @@ import type { Root } from "mdast";
 /** 集成测试：跑真实 notes 目录扫描 + mdast 变换全链路（不依赖 astro:content）。
  *  依赖仓库真实内容 mcu-gpio / mcu-pwm 两篇笔记的存在与标题格式。 */
 
+// Plugin 类型带 Processor this 上下文与可选 transformer 签名，直接调用过不了
+// 严格检查 —— 测试里按运行时真实形态收窄成无 this 的纯函数签名
+const createTransformer = remarkWikilinks as unknown as () => (
+  tree: Root,
+  file: { history: string[] },
+) => void;
+
 function transform(text: string) {
   const tree: Root = {
     type: "root",
@@ -12,7 +19,7 @@ function transform(text: string) {
       { type: "paragraph", children: [{ type: "text", value: text }] },
     ],
   };
-  remarkWikilinks()(tree, { history: ["test.md"] } as never);
+  createTransformer()(tree, { history: ["test.md"] });
   const para = tree.children[0];
   if (!("children" in para)) throw new Error("unexpected node");
   return para.children;
@@ -25,7 +32,9 @@ describe("remarkWikilinks（真实目录集成）", () => {
     expect(link).toBeDefined();
     if (link?.type === "link") {
       expect(link.url).toBe("/notes/embedded/mcu-gpio/");
-      expect(link.data?.hProperties).toEqual({ class: "wikilink" });
+      // hProperties 不在 @types/mdast 的 Data 里（是 mdast-util-to-hast 的扩展）——cast 断言
+      const data = link.data as Record<string, unknown> | undefined;
+      expect(data?.hProperties).toEqual({ class: "wikilink" });
       expect(link.children[0]).toMatchObject({
         type: "text",
         value: "单片机GPIO原理与实战", // 主标题——副标题 剥取后的短主标题
