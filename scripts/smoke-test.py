@@ -23,7 +23,7 @@ with sync_playwright() as p:
 
     # 1. 首页加载与卡片
     cards = page.locator(".card")
-    check("首页渲染文章卡片", cards.count() == 5, f"cards={cards.count()}")
+    check("首页渲染文章卡片", cards.count() == 3, f"cards={cards.count()}")
     check("跟随系统暗色偏好", page.evaluate("document.documentElement.dataset.theme") == "dark")
 
     # 2. 卡片点击进入文章页（软导航：以文章 DOM 为准）
@@ -42,7 +42,7 @@ with sync_playwright() as p:
 
     # 2.5 文章→文章软导航：TOC 滚动追踪与侧栏高亮必须在新页面上重新初始化
     page.click(".pn-link")  # 最新一篇只有"下一篇"
-    page.wait_for_selector("h1:has-text('你好，Astro')", timeout=10000, state="attached")
+    page.wait_for_selector("h1:has-text('大语言模型的实现原理')", timeout=10000, state="attached")
     check("下一篇软导航到旧文章", page.locator(".post-header h1").count() == 1)
     page.mouse.wheel(0, 350)
     page.wait_for_timeout(250)
@@ -53,7 +53,7 @@ with sync_playwright() as p:
     check("软导航后 TOC 滚动追踪仍生效", page.locator(".toc-item a.active").count() >= 1,
           f"active={page.locator('.toc-item a.active').count()}")
     side_active = page.evaluate(
-        "document.querySelector(\".sidebar .nav-link[href='/posts/hello-astro/']\")"
+        "document.querySelector(\".sidebar .nav-link[href='/posts/llm-transformer-gpt/']\")"
         "?.classList.contains('active')")
     check("软导航后侧栏高亮同步", side_active is True)
 
@@ -97,7 +97,7 @@ with sync_playwright() as p:
     # 4. 搜索：Ctrl+K 唤起 → 输入 → Enter 进入（标题索引内联，结果即时渲染）
     page.keyboard.press("Control+k")
     check("Ctrl+K 打开搜索模态", page.locator("#search-modal:not([hidden])").count() == 1)
-    page.fill("#search-input", "Astro")
+    page.fill("#search-input", "原理")
     page.wait_for_timeout(150)
     n_results = page.locator("#search-results .result").count()
     check("搜索出结果", n_results >= 1, f"results={n_results}")
@@ -110,7 +110,7 @@ with sync_playwright() as p:
             page.wait_for_timeout(150)
             sel_url = page.evaluate(
                 "document.querySelector('#search-results .result.selected .r-title')?.textContent")
-            if sel_url and sel_url.startswith("你好，Astro"):
+            if sel_url and sel_url.startswith("大语言模型的实现原理"):
                 break
         page.keyboard.press("Enter")
         try:
