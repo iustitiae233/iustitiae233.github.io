@@ -38,11 +38,32 @@ with sync_playwright() as p:
           f"empty={page.locator('.empty').count()}")
     check("跟随系统暗色偏好", page.evaluate("document.documentElement.dataset.theme") == "dark")
 
-    # 2. 分类卡进入该分类 MOC（软导航：以内容页 DOM 为准）
+    # 2. 分类卡进入**自动分类页**（列表由 collection 推导，不是手写总览——
+    #    总览是策展文章，不再承担「列出本分类全部笔记」的索引职责）
     page.click(".kb-card")  # 首张 = 嵌入式（NOTE_CATEGORY_VALUES 顺序）
-    page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
-    check("分类卡点击进入分类总览", page.locator(".post-header h1").count() == 1)
-    check("总览页 TOC 渲染", page.locator(".toc-item").count() > 0,
+    page.wait_for_selector(".cat-page h1", timeout=10000)
+    check("分类卡进入自动分类页",
+          (page.locator(".cat-page h1").text_content() or "").strip() == "嵌入式",
+          f"h1={page.locator('.cat-page h1').text_content()!r}")
+    cat_rows = page.locator(".cat-page .note-row")
+    check("分类页列出该分类全部 11 篇笔记", cat_rows.count() == 11, f"rows={cat_rows.count()}")
+    cat_hrefs = [a.get_attribute("href") for a in cat_rows.all()]
+    check("分类页每条都链到本分类笔记",
+          bool(cat_hrefs) and all(h and h.startswith("/notes/embedded/") for h in cat_hrefs),
+          f"hrefs={cat_hrefs[:3]}")
+    # 头部单独给一个总览入口（策展阅读路径，与日期序列表不是一回事）；
+    # 总览自身也是本分类的一篇笔记，所以列表里还会再出现一次 —— 这里只断言头部那处
+    check("分类页头部给出分类总览入口",
+          page.locator(".cat-page .cat-sub a[href='/notes/embedded/overview/']").count() == 1)
+
+    # 2.5 分类页→笔记软导航：上下篇链路 + persist 侧栏的 active 必须在新页面上重算
+    first_title = (page.locator(".cat-page .note-row .note-title").first.text_content() or "").strip()
+    page.locator(".cat-page .note-row").first.click()
+    page.wait_for_selector(".post-header h1", timeout=10000)
+    check("分类页点击进入笔记详情",
+          (page.locator(".post-header h1").text_content() or "").strip() == first_title,
+          f"h1={page.locator('.post-header h1').text_content()!r} want={first_title!r}")
+    check("笔记页 TOC 渲染", page.locator(".toc-item").count() > 0,
           f"toc={page.locator('.toc-item').count()}")
     check("阅读进度条存在", page.locator(".reading-progress").count() == 1)
     check("上下篇导航存在", page.locator(".pn-link").count() >= 1)
@@ -52,10 +73,13 @@ with sync_playwright() as p:
           and avatar.first.evaluate("el => el.complete && el.naturalWidth > 0"),
           f"count={avatar.count()}")
 
-    # 2.5 总览→笔记软导航：上下篇链路 + persist 侧栏的 active 必须在新页面上重算
-    page.click(".pn-link")  # 嵌入式组首篇只有「下一篇」
-    page.wait_for_selector("h1:has-text('有关嵌入式产品编号烧录')", timeout=10000, state="attached")
-    check("上下篇软导航到邻近笔记", page.locator(".post-header h1").count() == 1)
+    # 软导航：点上下篇，页面必须真的换掉，且 persist 侧栏的高亮要在新页面上重算
+    title_before = (page.locator(".post-header h1").text_content() or "").strip()
+    page.click(".pn-link")
+    page.wait_for_selector(".post-header h1", timeout=10000)
+    check("上下篇软导航到邻近笔记",
+          (page.locator(".post-header h1").text_content() or "").strip() != title_before,
+          f"仍停在 {title_before!r}")
     side_active = page.evaluate(
         "document.querySelector(\".sidebar .nav-link[href='/notes/']\")"
         "?.classList.contains('active')")
@@ -169,7 +193,8 @@ with sync_playwright() as p:
 
     # 7.5 软导航后汉堡按钮仍可打开抽屉（按钮是新 DOM，监听必须重新生效）
     mob.click(".kb-card")
-    mob.wait_for_selector(".post-header h1", timeout=10000, state="attached")
+    mob.wait_for_selector(".cat-page h1", timeout=10000, state="attached")
+    check("移动端软导航进入分类页", mob.locator(".cat-page .note-row").count() >= 1)
     mob.click("#menu-btn")
     mob.wait_for_timeout(500)
     t3 = mob.evaluate("getComputedStyle(document.getElementById('sidebar')).transform")
@@ -217,8 +242,10 @@ with sync_playwright() as p:
     page.wait_for_timeout(1300)
     mt = page.locator("[data-pomo-mini-time]").text_content()
     check("迷你卡计时走动", mt == "04:59", f"time={mt!r}")
-    page.click(".kb-card")  # 软导航进笔记：迷你卡必须跨页常驻（每页重挂 body）
-    page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
+    page.click(".kb-card")  # 软导航进分类页：迷你卡必须跨页常驻（每页重挂 body）
+    page.wait_for_selector(".cat-page h1", timeout=10000, state="attached")
+    check("软导航进入分类页（迷你卡常驻的前置条件）",
+          page.locator(".cat-page .note-row").count() >= 1)
     check("软导航后迷你卡仍常驻", page.locator("#pomodoro-mini:not([hidden])").count() == 1)
     page.click("[data-pomo-mini-unpin]")
     page.wait_for_timeout(300)
@@ -330,9 +357,18 @@ with sync_playwright() as p:
           f"nodes={page.locator('svg .graph-node').count()}")
     check("图谱页边渲染", page.locator("svg .graph-edge").count() > 0)
     check("图谱页图例三项", page.locator(".legend-item").count() == 3)
-    check("图谱无孤立节点（各分类 MOC 把网连通）",
-          page.locator("svg .graph-node.isolated").count() == 0,
-          f"isolated={page.locator('svg .graph-node.isolated').count()}")
+    # 孤立节点（degree=0）是**合法状态**：新加一篇没互链的笔记就会出现，淡显即可。
+    # 这里只断言「淡显标记与真实度数一致」，不再要求 0 孤立——旧断言等于强迫每次加笔记
+    # 都必须挂进分类总览，正是把索引职责压给手写文章的那根绳子。
+    iso = page.evaluate(
+        """() => {
+          const d = JSON.parse(document.getElementById('graph-data').textContent);
+          return { zero: d.nodes.filter(n => n.degree === 0).length,
+                   flag: d.nodes.filter(n => n.isolated).length,
+                   cls: document.querySelectorAll('#graph-canvas svg .graph-node.isolated').length };
+        }"""
+    )
+    check("图谱孤立标记与真实度数一致", iso["zero"] == iso["flag"] == iso["cls"], f"{iso}")
     check("图谱节点是可点链接", page.locator("svg .graph-node a").first.get_attribute("href") is not None)
     # 标签在独立图层 labelLayer 里，不在 .graph-node 内部：CSS 选择器一旦没跟着搬，
     # 文字就退回 SVG 默认的黑色 16px，在暗底上等于隐形——而节点数断言完全看不出来
@@ -404,9 +440,10 @@ with sync_playwright() as p:
     page.wait_for_timeout(500)
     check("点击胶囊软导航进标签页", page.locator(".tag-page .note-row").count() >= 1)
 
-    # ---- 知识库：MOC 总览 ----
+    # ---- 知识库：MOC 总览（策展文章，只断言渲染出双链——
+    #      加笔记不需要回来改它，别再断言条数）----
     page.goto(f"{BASE}/notes/embedded/overview/", wait_until="networkidle")
-    check("MOC 总览渲染双链列表", page.locator("a.wikilink").count() == 10,
+    check("MOC 总览渲染双链列表", page.locator("a.wikilink").count() >= 1,
           f"wikilinks={page.locator('a.wikilink').count()}")
 
     # ---- 知识库：AI 分类（第三分类的 MOC / 配图 / 公式 / 反链 / 上下篇不越类）----
@@ -417,10 +454,13 @@ with sync_playwright() as p:
         "llm-inference-and-decoding", "scaling-laws", "cnn-basics", "vit",
         "diffusion-models", "multimodal-models",
     ]
-    page.goto(f"{BASE}/notes/ai/overview/", wait_until="networkidle")
-    moc_hrefs = {a.get_attribute("href") for a in page.locator("a.wikilink").all()}
-    moc_missing = [s for s in AI_NOTES if f"/notes/ai/{s}/" not in moc_hrefs]
-    check("AI MOC 双链覆盖全部 14 篇", not moc_missing, f"missing={moc_missing}")
+    # 「覆盖全部」的职责已从手写 MOC 移交给自动分类页——这里断言的是分类页
+    page.goto(f"{BASE}/notes/ai/", wait_until="networkidle")
+    ai_rows = page.locator(".cat-page .note-row")
+    ai_cat_hrefs = {a.get_attribute("href") for a in ai_rows.all()}
+    check("AI 分类页列出全部 15 篇（含总览）", ai_rows.count() == 15, f"rows={ai_rows.count()}")
+    cat_missing = [s for s in AI_NOTES if f"/notes/ai/{s}/" not in ai_cat_hrefs]
+    check("AI 分类页覆盖全部 14 篇正文", not cat_missing, f"missing={cat_missing}")
 
     page.goto(f"{BASE}/notes/ai/cnn-basics/", wait_until="networkidle")
     ai_imgs = page.locator(".post-content img")

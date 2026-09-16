@@ -1,8 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NoteList from "../../components/NoteList.astro";
 import { getAllNotes } from "../../lib/collections";
 import { groupNotesByCategory } from "../../lib/notes";
-import { formatDate } from "../../lib/format";
 
 const groups = groupNotesByCategory(await getAllNotes());
 const total = groups.reduce((n, g) => n + g.notes.length, 0);
@@ -20,21 +20,10 @@ const total = groups.reduce((n, g) => n + g.notes.length, 0);
     {groups.map((g) => (
       <section aria-label={g.label}>
         <h2 class="cat-title">
-          {g.label}
+          <a href={`/notes/${g.category}/`}>{g.label}</a>
           <span class="cat-count">{g.notes.length}</span>
         </h2>
-        <ul class="note-list">
-          {g.notes.map((n) => (
-            <li>
-              <a class="note-row" href={`/notes/${n.id}/`}>
-                <span class="note-title">{n.data.title}</span>
-                <time class="note-date" datetime={n.data.pubDate.toISOString()}>
-                  {formatDate(n.data.pubDate)}
-                </time>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <NoteList notes={g.notes} />
       </section>
     ))}
   </section>
@@ -66,32 +55,6 @@ const total = groups.reduce((n, g) => n + g.notes.length, 0);
     color: var(--text-3);
     font-weight: 500;
   }
-
-  .note-list {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 2px;
-  }
-  .note-row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.625rem 0.75rem;
-    border-radius: var(--radius-sm);
-    color: var(--text-2);
-    transition: color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
-  }
-  .note-row:hover {
-    color: var(--text-1);
-    background: color-mix(in srgb, var(--accent) 8%, transparent);
-  }
-  .note-title { font-size: 0.95rem; }
-  .note-date {
-    flex-shrink: 0;
-    font-size: 0.8rem;
-    color: var(--text-3);
-    font-variant-numeric: tabular-nums;
-  }
+  .cat-title a { color: inherit; }
+  .cat-title a:hover { color: var(--accent); }
 </style>

@@ -1,0 +1,54 @@
+---
+import { formatDate } from "../lib/format";
+
+/** 笔记列表（分类页 / 笔记索引共用）。
+ *  抽出来是因为这已经是第三份同样的标记 + 样式了，写第三份拷贝必然会各自漂移。 */
+interface Props {
+  notes: { id: string; data: { title: string; pubDate: Date } }[];
+}
+
+const { notes } = Astro.props;
+---
+
+<ul class="note-list">
+  {notes.map((n) => (
+    <li>
+      <a class="note-row" href={`/notes/${n.id}/`}>
+        <span class="note-title">{n.data.title}</span>
+        <time class="note-date" datetime={n.data.pubDate.toISOString()}>
+          {formatDate(n.data.pubDate)}
+        </time>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .note-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .note-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-2);
+    transition: color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+  }
+  .note-row:hover {
+    color: var(--text-1);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+  .note-title { font-size: 0.95rem; }
+  .note-date {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

@@ -41,7 +41,7 @@ const CAT_ACCENT = ["var(--accent)", "var(--accent-2)", "var(--accent-3)"];
       {groups.map((g, i) => (
         <a
           class="kb-card"
-          href={`/notes/${g.category}/overview/`}
+          href={`/notes/${g.category}/`}
           style={`--cat-accent: ${CAT_ACCENT[i % CAT_ACCENT.length]}; --reveal-delay: ${(i * 60).toString()}ms;`}
         >
           <span class="kb-cat">{g.label}</span>
