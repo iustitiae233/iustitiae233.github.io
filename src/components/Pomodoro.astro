@@ -770,9 +770,13 @@ body{display:grid;place-content:center;background:var(--bg);color:var(--text-1);
     }
     if (window.documentPictureInPicture) {
       try {
+        // 高度按实测内容定：`.pip` 盒子 206px（padding 16+17.6 + 环 110 + 两处 gap 11.2×2
+        // + 圆点 6 + 按钮行 ≈ 29；浏览器实测 206，各状态等高空稳定）。
+        // 上下各留 27px 给琥珀态的 box-shadow（0 0 24px 3px 恰好外扩 27px，贴边会被窗口裁掉）。
+        // 原先填的 400 是随手写的，body 垂直居中 → 上下各空出约 97px 白。
         const win = await window.documentPictureInPicture.requestWindow({
           width: 260,
-          height: 400,
+          height: 260,
         });
         pipWin = win;
         win.document.title = PIP_TITLE;
