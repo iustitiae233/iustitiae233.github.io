@@ -37,6 +37,19 @@
     <div class="pomo-dots" aria-hidden="true">
       <span class="dot" data-pomo-dot></span><span class="dot" data-pomo-dot></span><span class="dot" data-pomo-dot></span><span class="dot" data-pomo-dot></span>
     </div>
+    <div class="pomo-stand">
+      <button
+        type="button"
+        role="switch"
+        aria-checked="false"
+        class="pomo-btn stand-switch"
+        data-stand-toggle
+      >
+        <span class="stand-dot" aria-hidden="true"></span>
+        整点提醒
+      </button>
+      <p class="stand-next" data-stand-next>每小时提醒你站起来活动</p>
+    </div>
     <div class="pomo-actions">
       <button type="button" class="pomo-btn primary" data-pomo-start>开始</button>
       <button type="button" class="pomo-btn" data-pomo-skip>跳过</button>
@@ -146,6 +159,23 @@
     50% { box-shadow: 0 0 18px 2px var(--accent-2-glow); }
   }
 
+  /* 整点提醒态：琥珀（第三语义，与专注青 / 休息紫正交，可叠加在任意计时状态上）。
+     选择器里的 [data-state] 不是装饰：Astro 会给两条规则都加一个作用域属性，
+     上游 running/awaiting 规则是 id(1)+attr(3)，只写 [data-stand="1"] 是 id(1)+attr(2)，
+     会输掉（琥珀边框在计时中完全不生效）。补一个属性凑平后靠书写顺序取胜。 */
+  #pomodoro-pill[data-stand="1"][data-state] {
+    color: var(--text-1);
+    border-color: color-mix(in srgb, var(--accent-3) 55%, transparent);
+    background: color-mix(in srgb, var(--accent-3) 18%, transparent);
+    /* 整条 animation 必须一起替换：只写 box-shadow 会被 pomo-breathe-cyan 的关键帧压掉
+       （动画来源优先于普通声明）。代价是闪烁期间 awaiting 的呼吸被顶掉，60 秒后恢复。 */
+    animation: pomo-breathe-amber 1.6s var(--ease-out) infinite;
+  }
+  @keyframes pomo-breathe-amber {
+    0%, 100% { box-shadow: 0 0 0 0 transparent; }
+    50% { box-shadow: 0 0 18px 2px var(--accent-3-glow); }
+  }
+
   /* 面板：锚定胶囊下方。z-90 在 topbar(z-30) 上下文内，搜索 modal(z-100, body 级) 仍盖其上 */
   .pomo-panel {
     position: absolute;
@@ -234,6 +264,40 @@
     padding: 0;
   }
 
+  /* 整点提醒行：与上面的番茄钟控件以一道分隔线区分（两者互不影响） */
+  .pomo-stand {
+    display: grid;
+    justify-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+  .pomo-btn.stand-switch { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .stand-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    transition: background-color var(--t-fast) var(--ease-out),
+      border-color var(--t-fast) var(--ease-out);
+  }
+  .pomo-btn[data-stand-toggle][aria-checked="true"] {
+    color: var(--text-1);
+    border-color: color-mix(in srgb, var(--accent-3) 45%, transparent);
+  }
+  .pomo-btn[data-stand-toggle][aria-checked="true"] .stand-dot {
+    background: var(--accent-3);
+    border-color: var(--accent-3);
+  }
+  .stand-next {
+    margin: 0;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: var(--text-3);
+    text-align: center;
+  }
+
   /* 迷你悬浮卡：fixed 定位。脚本会把它挂到 body —— topbar 的 backdrop-filter
      会成为 fixed 后代的包含块，留在 topbar 里会被错误锚定到顶栏 */
   .pomo-mini {
@@ -258,6 +322,11 @@
   .pomo-mini[data-state="awaiting"][data-phase="short"],
   .pomo-mini[data-state="awaiting"][data-phase="long"] {
     animation: pomo-breathe-purple 2s var(--ease-out) infinite;
+  }
+  /* 同胶囊的琥珀提醒态（固定态下胶囊被收走，提醒得在卡片上可见） */
+  .pomo-mini[data-stand="1"][data-state] {
+    border-color: color-mix(in srgb, var(--accent-3) 55%, transparent);
+    animation: pomo-breathe-amber 1.6s var(--ease-out) infinite;
   }
   .mini-ring-track { fill: none; stroke: var(--border); stroke-width: 4; }
   .mini-ring {
@@ -318,10 +387,16 @@
     .pomo-label { display: none; }
   }
 
+  /* 减动效：这几条 animation:none 必须凑到与目标动画**同特异性**才有用。
+     曾写成 `#pomodoro-pill[data-state="awaiting"]`（(1,2,0)）与 `.pomo-mini`（(0,2,0)），
+     双双输给呼吸规则的 (1,3,0) / (0,4,0)——规则在产物里却一次也没生效过。
+     琥珀提醒态此处只关动画、保留琥珀边框与底色：静态可见，不会变成毫无提示。 */
   @media (prefers-reduced-motion: reduce) {
-    #pomodoro-pill[data-state="awaiting"] { animation: none; }
+    #pomodoro-pill[data-state="awaiting"][data-phase],
+    #pomodoro-pill[data-stand="1"][data-state] { animation: none; }
     .pomo-panel { animation: none; }
-    .pomo-mini { animation: none; }
+    .pomo-mini[data-state][data-phase],
+    .pomo-mini[data-stand="1"][data-state] { animation: none; }
     .ring-bar { transition: none; }
     .mini-ring { transition: none; }
   }
@@ -344,6 +419,8 @@
     type Phase,
     type PomodoroState,
   } from "../lib/pomodoro";
+  import { createStandReminder } from "../lib/stand-reminder-client";
+  import { formatHour, hourIndexOf } from "../lib/stand-reminder";
 
   const KEY = "pomodoro";
   const PHASE_LABEL: Record<Phase, string> = { focus: "专注", short: "短休", long: "长休" };
@@ -445,6 +522,7 @@
     const st = pillStateOf(state);
     pill.dataset.state = st;
     pill.dataset.phase = state.phase;
+    pill.dataset.stand = standFlash ? "1" : "0"; // 整点提醒态（琥珀），与计时状态正交
     pill.style.setProperty("--p", String(1 - ms / fullMs(state.phase)));
     const showTime = st !== "idle";
     // toggleAttribute 而非 .hidden 属性赋值 —— svg 上 hidden 是 HTMLElement 的
@@ -457,14 +535,20 @@
       time.toggleAttribute("hidden", !showTime);
     }
     const panel = getPanel();
-    if (panel && !panel.hasAttribute("hidden")) renderPanel(ms);
+    if (panel && !panel.hasAttribute("hidden")) {
+      renderPanel(ms);
+      renderStand(); // 「下次 HH:00」跨整点会过期，面板开着就顺带刷新
+    }
     // 悬浮卡必须脱离 topbar（backdrop-filter 是 fixed 的包含块）→ 挂到 body；
     // 软导航后节点重建在新 topbar 里，这里幂等重挂
     const mini = getMini();
     if (mini && mini.parentElement !== document.body) document.body.appendChild(mini);
     if (mini) {
+      mini.dataset.stand = standFlash ? "1" : "0";
       mini.toggleAttribute("hidden", !pinned);
-      if (pinned) renderMini(ms, st);
+      // 未固定时也跑 renderMini：卡片虽隐藏，但 data-phase/state 得与胶囊同步，
+      // 否则琥珀规则的 [data-state] 部分无据可依（写入极廉价，且只在 render 时发生）
+      renderMini(ms, st);
     }
     if (pipWin && !pipWin.closed) renderPip(ms, st);
     syncTitle(st, ms);
@@ -487,17 +571,56 @@
     }
   }
 
-  function commit(next: PomodoroState, announce?: string) {
+  // 播报：主面板 live 区 + 小窗 live 区（PiP 是独立 document）
+  function announce(msg: string) {
+    const live = document.querySelector<HTMLElement>("[data-pomo-live]");
+    if (live) live.textContent = msg;
+    const pipLive = pipWin?.document.querySelector<HTMLElement>("[data-pip-live]");
+    if (pipLive) pipLive.textContent = msg;
+  }
+
+  function commit(next: PomodoroState, msg?: string) {
     state = next;
     persist();
     ensureTicker();
     render();
-    if (announce) {
-      const live = document.querySelector<HTMLElement>("[data-pomo-live]");
-      if (live) live.textContent = announce;
-      const pipLive = pipWin?.document.querySelector<HTMLElement>("[data-pip-live]");
-      if (pipLive) pipLive.textContent = announce;
+    if (msg) announce(msg);
+  }
+
+  // —— 整点站立提醒 ——
+  // 与番茄钟正交：计时器可以不开，提醒照样走。状态/定时器/通知全在 stand-reminder-client，
+  // 这里只负责把它的两个钩子接到本页的渲染上。
+  let standFlash = false;
+
+  const stand = createStandReminder({
+    onFlash(active) {
+      standFlash = active;
+      render(); // 胶囊与 PiP 的琥珀态都挂在 render 上
+      // 通知不可用（或用户没点开）时，这条播报是屏幕阅读器唯一能听到的提醒
+      if (active) announce("该站起来了");
+    },
+    onState: () => renderStand(),
+  });
+
+  /** 面板开关 + 文案。四态：关 / 开 / 通知被拒 / 浏览器不支持通知 */
+  function renderStand() {
+    const panel = getPanel();
+    if (!panel) return;
+    const st = stand.state();
+    panel
+      .querySelector<HTMLButtonElement>("[data-stand-toggle]")
+      ?.setAttribute("aria-checked", st.enabled ? "true" : "false");
+    const next = panel.querySelector<HTMLElement>("[data-stand-next]");
+    if (!next) return;
+    if (!st.enabled) {
+      next.textContent = "每小时提醒你站起来活动";
+      return;
     }
+    const at = `下次 ${formatHour(hourIndexOf(Date.now()) + 1)}`;
+    const perm = stand.permission();
+    if (perm === "denied") next.textContent = `${at} · 通知已被拒绝，仅站内闪烁`;
+    else if (perm === "unsupported") next.textContent = `${at} · 浏览器不支持通知，仅站内闪烁`;
+    else next.textContent = at;
   }
 
   function setPinned(next: boolean) {
@@ -599,6 +722,9 @@ body{display:grid;place-content:center;background:var(--bg);color:var(--text-1);
 .pip[data-state="awaiting"][data-phase="long"] .pip-ring-row{animation:pip-breathe-purple 2s var(--ease-out) infinite}
 @keyframes pip-breathe-cyan{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 16px 2px var(--accent-glow)}}
 @keyframes pip-breathe-purple{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 16px 2px var(--accent-2-glow)}}
+.pip[data-stand="1"]{animation:pip-breathe-amber 1.6s var(--ease-out) infinite}
+.pip[data-stand="1"] .pip-time{color:var(--accent-3)}
+@keyframes pip-breathe-amber{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 24px 3px var(--accent-3-glow)}}
 .pip-dots{display:flex;gap:0.4rem}
 .pip-dot{width:6px;height:6px;border-radius:50%;border:1px solid var(--border-strong);transition:background-color var(--t-fast) var(--ease-out),border-color var(--t-fast) var(--ease-out)}
 .pip-dot.fill{background:var(--accent);border-color:var(--accent)}
@@ -608,7 +734,7 @@ body{display:grid;place-content:center;background:var(--bg);color:var(--text-1);
 .pip-btn.primary{border-color:color-mix(in srgb,var(--accent) 50%,transparent);color:var(--accent)}
 .pip-btn.primary:hover{background:color-mix(in srgb,var(--accent) 10%,transparent)}
 .pip-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-@media (prefers-reduced-motion:reduce){.pip-ring-row{animation:none}.pip-ring-bar{transition:none}}`;
+@media (prefers-reduced-motion:reduce){.pip[data-state="awaiting"][data-phase] .pip-ring-row{animation:none}.pip[data-stand="1"]{animation:none}.pip-ring-bar{transition:none}}`;
   }
 
   function renderPip(ms: number, st: PillState) {
@@ -616,6 +742,7 @@ body{display:grid;place-content:center;background:var(--bg);color:var(--text-1);
     if (!root) return;
     root.dataset.phase = state.phase;
     root.dataset.state = st;
+    root.dataset.stand = standFlash ? "1" : "0";
     const time = root.querySelector<HTMLElement>("[data-pip-time]");
     if (time) time.textContent = formatMs(ms);
     const label = root.querySelector<HTMLElement>("[data-pip-phase-label]");
@@ -677,6 +804,11 @@ body{display:grid;place-content:center;background:var(--bg);color:var(--text-1);
   document.addEventListener("click", (e) => {
     const t = e.target as HTMLElement;
     if (t.closest("[data-pomodoro-open]")) {
+      // 点胶囊顺手收掉整点提醒态。必须在这里（pinned 的早返回之前），否则固定态下点不掉
+      if (standFlash) {
+        standFlash = false;
+        render();
+      }
       if (pinned) {
         setPinned(false); // 固定态点胶囊 = 取消固定并回面板
         return;
@@ -701,6 +833,11 @@ body{display:grid;place-content:center;background:var(--bg);color:var(--text-1);
     }
     if (t.closest("[data-pomo-mini-toggle]")) {
       commit(state.running ? pause(state, Date.now()) : start(state, Date.now()));
+      return;
+    }
+    if (t.closest("[data-stand-toggle]")) {
+      // 必须排在下面 `!panel.contains(t)` 的关闭兜底之前，否则点开关会顺手关掉面板
+      void stand.toggle();
       return;
     }
     const panel = getPanel();
@@ -733,6 +870,7 @@ body{display:grid;place-content:center;background:var(--bg);color:var(--text-1);
     lastTitle = document.title;
     render();
     ensureTicker();
+    stand.sync(); // 软导航后开关是旧 DOM —— 重新武装并刷新文案
   }
   onPageLoad();
   document.addEventListener("astro:page-load", onPageLoad);

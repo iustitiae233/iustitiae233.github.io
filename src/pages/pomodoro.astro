@@ -105,6 +105,20 @@ import "../styles/global.css";
     50% { box-shadow: 0 0 22px 3px var(--accent-2-glow); }
   }
 
+  /* 整点提醒态：琥珀（第三语义，与专注青 / 休息紫正交）。
+     刻意只动 border-color 与 background —— awaiting 的关键帧动的正是 box-shadow，
+     用它做闪烁会被整条吃掉（动画来源优先于普通声明）。动这两个属性则互不干扰，
+     连特异性都不必争。 */
+  .pop[data-stand="1"] {
+    background: color-mix(in srgb, var(--accent-3) 16%, var(--surface));
+    animation: pop-breathe-amber 1.6s var(--ease-out) infinite;
+  }
+  .pop[data-stand="1"] .pop-big { color: var(--accent-3); }
+  @keyframes pop-breathe-amber {
+    0%, 100% { border-color: color-mix(in srgb, var(--accent-3) 35%, transparent); }
+    50% { border-color: var(--accent-3); }
+  }
+
   .pop-dots { display: flex; gap: 0.5rem; }
   .dot {
     width: 8px;
@@ -145,8 +159,11 @@ import "../styles/global.css";
     border: 0;
   }
 
+  /* 减动效：这两条要凑同特异性才有用。原先写的 `.pop{animation:none}`（(0,2,0)）输给
+     呼吸规则的 (0,4,0)，规则在产物里却从未生效。琥珀态这里只关动画、保留底色与常亮边框。 */
   @media (prefers-reduced-motion: reduce) {
-    .pop { animation: none; }
+    .pop[data-state="awaiting"][data-phase],
+    .pop[data-stand="1"] { animation: none; }
     .ring-bar { transition: none; }
   }
 </style>
@@ -168,6 +185,7 @@ import "../styles/global.css";
     type Phase,
     type PomodoroState,
   } from "../lib/pomodoro";
+  import { createStandReminder } from "../lib/stand-reminder-client";
 
   const KEY = "pomodoro";
   const PHASE_LABEL: Record<Phase, string> = { focus: "专注", short: "短休", long: "长休" };
@@ -183,6 +201,22 @@ import "../styles/global.css";
   }
   let ticker: ReturnType<typeof setInterval> | null = null;
   let lastTitle = document.title;
+
+  // 整点站立提醒：与番茄钟正交。Document PiP 随主标签页关闭而消失，所以这个
+  // window.open 降级页是 Firefox/Safari 下唯一能长驻的窗口 —— 它必须自带调度器，
+  // 不能只等主标签页广播。逻辑复用 stand-reminder-client，这里只接渲染。
+  let standFlash = false;
+  const stand = createStandReminder({
+    onFlash(active) {
+      standFlash = active;
+      render();
+      if (active) {
+        const live = document.querySelector<HTMLElement>("[data-pop-live]");
+        if (live) live.textContent = "该站起来了";
+      }
+    },
+  });
+  stand.sync();
 
   function render(now = Date.now()) {
     // 自然结束检测在渲染统一结算（tick 或后台唤醒都会走到这里）
@@ -200,6 +234,7 @@ import "../styles/global.css";
     const st = state.awaiting ? "awaiting" : state.running ? "running" : "paused";
     root.dataset.phase = state.phase;
     root.dataset.state = st;
+    root.dataset.stand = standFlash ? "1" : "0"; // 整点提醒态（琥珀），与计时状态正交
     const time = root.querySelector<HTMLElement>("[data-pop-time]");
     if (time) time.textContent = formatMs(ms);
     const label = root.querySelector<HTMLElement>("[data-pop-phase-label]");
@@ -216,8 +251,10 @@ import "../styles/global.css";
     const startBtn = root.querySelector<HTMLButtonElement>("[data-pop-start]");
     if (startBtn) startBtn.textContent = state.running ? "暂停" : "开始";
 
+    // 提醒暂压过倒计时：它是 60 秒的瞬时状态，而小窗标题栏是最不会被遮挡的一条信息通道
     let t = BASE_TITLE;
-    if (st === "running") t = `${formatMs(ms)} ${PHASE_LABEL[state.phase]} · ${BASE_TITLE}`;
+    if (standFlash) t = `🚶 该站起来了 · ${BASE_TITLE}`;
+    else if (st === "running") t = `${formatMs(ms)} ${PHASE_LABEL[state.phase]} · ${BASE_TITLE}`;
     else if (st === "awaiting") {
       t = `${state.phase === "focus" ? "🍅 该专注了" : "☕ 该休息了"} · ${BASE_TITLE}`;
     }

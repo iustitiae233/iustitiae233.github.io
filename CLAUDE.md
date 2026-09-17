@@ -11,7 +11,7 @@ npm run build              # 先拉 GitHub 头像（失败沿用旧文件不阻�
 npm run profile            # 手动刷新 GitHub 头像/昵称（scripts/fetch-github-profile.mjs）
 npm run preview            # 本地预览 dist
 npx serve dist -l 4327     # 冒烟测试依赖的静态服务器（保持 4327 端口）
-python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 96 项，需先起 serve）
+python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 110 项，需先起 serve）
 ```
 
 **门禁**：改动后跑 check → test → build → smoke，全绿才提交。commit message 用中文，格式 `类型: 描述`（feat/fix/test/docs/ci）。
@@ -19,7 +19,8 @@ python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 96 项
 ## 架构
 
 - `src/content/posts/` 文章集 + `src/content/notes/{embedded,hardware,ai}/` 笔记集（glob loader，id 可含斜杠，由 rest 路由 `[...slug].astro` 承接）
-- `src/lib/` 分两类：**纯逻辑**（posts.ts / notes.ts / path.ts / format.ts / reading-time.ts，vitest 直接测）与 **astro:content 封装**（只有 collections.ts——vitest 不加载 Astro 插件，`astro:content` 导入绝不能进纯逻辑模块）
+- `src/lib/` 分三类：**纯逻辑**（posts.ts / notes.ts / path.ts / format.ts / reading-time.ts / pomodoro.ts / stand-reminder.ts，vitest 直接测）· **astro:content 封装**（只有 collections.ts——vitest 不加载 Astro 插件，`astro:content` 导入绝不能进纯逻辑模块）· **DOM 适配层**（`pomodoro.ts` 之外的 `stand-reminder-client.ts`：摸 localStorage / Notification / 定时器，与两个宿主页面共用，无 vitest，靠冒烟覆盖）
+- 整点站立提醒（2026-09-17）：**独立于番茄钟**——存储 key `stand-reminder`（不吃 `pomodoro` 的版本化 payload）、面板里独立开关、默认关闭、番茄钟不开也提醒。`Pomodoro.astro` 与 `pages/pomodoro.astro` 各自建一份 `createStandReminder()`（降级小窗可能是主标签页关掉后唯一活着的窗口，必须有自带调度器）；Document PiP 不需要调度代码，由主页面 `renderPip` 驱动。通知用 `tag` + **`renotify: true` 成对出现**（只有 tag 时浏览器静默替换上一条，第二条不响 = 功能失效）；`new Notification` 必须 try/catch（Chrome Android 没实现构造函数，但 permission 仍是 granted）。CSS 有坑：`[data-stand="1"]` 单独写会输给 `[data-state][data-phase]` 的特异性；整条 `animation` 要一起替掉，单独加 `box-shadow` 会被既有呼吸关键帧吃掉；`prefers-reduced-motion` 的 `animation:none` 必须写**完整选择器**凑同特异性，否则是空操作（站内曾有三处这种哑弹）
 - 路由：`pages/posts/[...slug].astro` 与 `pages/notes/[...slug].astro` 镜像结构，共用 `PostLayout`（Props 是 `ContentEntryLike` 结构类型 + `basePath` 区分前缀）。`pages/notes/[category].astro` 是**自动分类页**（列表由 collection 推导，加笔记不用改它），`params` 只生成 `NOTE_CATEGORY_VALUES` 里那三个，与 rest 路由无冲突
 - 索引职责划分：**分类页 `pages/notes/[category].astro` 是各分类唯一的索引**（列表完全由 collection 推导）。曾经并存的「分类总览」（`<分类>/overview`）**已删除**——它同时被当成策展文章和索引，结果每加一篇笔记都要回去改手写列表，并被冒烟断言和图谱连通性一起锁死。**不要再引入手写索引**：加笔记不需要动任何手写文件。笔记列表组件 `components/NoteList.astro`（分类页与笔记索引共用；tags 页样式有分叉，未合并）
 - 索引页不是笔记：`/notes/<分类>/` 是路由不是内容，正文里写 `[AI 原理](/notes/ai/)` 这种标准链接是安全的——`backlinks.ts` 的 `NOTE_LINK_RE` 命中后会查 `index.byId`，查不到就静默忽略（无幻影边、无构建警告）
@@ -45,6 +46,7 @@ python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 96 项
 - TOC 滚动追踪断言必须**渐进滚动**（多次 350px + 等待）——单次大跳跃会让所有标题落在 IntersectionObserver 的 15%-30% 视口带之外，必挂
 - 搜索用例按**标题文本**定位目标结果（内容量增大后命中数会变，不能假定固定位次）
 - C 代码高亮的标记是 `pre[data-language="c"]`（Shiki 把语言放 data 属性）
+- 假时钟（`page.clock`）三个坑：`install(time=)` 的**数字单位是 Unix 秒**（传毫秒会 ×1000 落到公元 57000 年，表现是「什么都没发生」）；它挂在 **context 上且无法卸载**，会污染之后所有用例，必须开独立 context；新 context 存储为空，靠 `add_init_script` 播种（它在页面脚本之前跑，正好在读 localStorage 之前）。快进字符串要略大于定时器延时（`"30:01"` 而不是 `"30:00"`），差一秒就是不触发
 - **产物级扫描**（直接读 `dist/**/*.html`，`DIST` 常量）用来覆盖页面级断言看不见的一类问题：**删内容后残留的死链**。删一篇笔记时正文里的引用若漏改一处就是 404，但没有任何页面级断言会红——只有访问到那一页、点到那个链接才会。现有两条：`全站无指向已删除分类总览的死链`、`分类总览页面已从产物中消失`。加扫描断言时记得 `bool(html_files)` 兜底：产物不存在时 `rglob` 返回空，断言会**假绿**
 
 ## 历史包袱提示

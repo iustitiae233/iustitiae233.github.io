@@ -2,6 +2,7 @@
 适配 ClientRouter 软导航：断言一律用 DOM 状态，不依赖 page.url。"""
 import re
 import sys
+import time
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -23,7 +24,8 @@ def check(name: str, cond: bool, detail: str = ""):
 
 with sync_playwright() as p:
     browser = p.chromium.launch(channel="msedge", headless=True)
-    ctx = browser.new_context(color_scheme="dark")  # 系统偏好暗色
+    # notifications：让整点提醒的开关走「已授权」路径（headless 下 requestPermission 行为不稳）
+    ctx = browser.new_context(color_scheme="dark", permissions=["notifications"])
     page = ctx.new_page()
     page.goto(BASE, wait_until="networkidle")
 
@@ -319,6 +321,82 @@ with sync_playwright() as p:
         t_main2 = page.locator("#pomodoro-pill .pomo-time").text_content()
         check("小窗暂停同步到主页胶囊", t_main2 == t_main, f"{t_main!r} -> {t_main2!r}")
         popup.close()
+
+    # 8.9 整点站立提醒：面板里的独立开关（与番茄钟互不影响）
+    page.goto(BASE, wait_until="networkidle")
+    page.click("#pomodoro-pill")
+    page.wait_for_timeout(200)
+    check("面板含整点提醒开关", page.locator("[data-stand-toggle]").count() == 1)
+    check("整点提醒默认关闭", page.locator('[data-stand-toggle][aria-checked="false"]').count() == 1)
+    off_text = page.locator("[data-stand-next]").text_content() or ""
+    check("关闭态提示文案", "站起来" in off_text, f"text={off_text!r}")
+    page.click("[data-stand-toggle]")
+    # toggle 是 async（即便权限已 granted 也至少一个微任务），等状态而不是裸断言
+    page.wait_for_selector('[data-stand-toggle][aria-checked="true"]', timeout=5000)
+    check("点开关不顺手关面板", page.locator("#pomodoro-panel:not([hidden])").count() == 1)
+    on_text = page.locator("[data-stand-next]").text_content() or ""
+    check("开启后显示下次整点", "下次 " in on_text and ":00" in on_text, f"text={on_text!r}")
+    raw = page.evaluate("localStorage.getItem('stand-reminder')") or ""
+    check("开启落盘（独立于 pomodoro key）", '"enabled":true' in raw, f"raw={raw!r}")
+    page.click("[data-stand-toggle]")
+    page.wait_for_selector('[data-stand-toggle][aria-checked="false"]', timeout=5000)
+    raw = page.evaluate("localStorage.getItem('stand-reminder')") or ""
+    check("关闭落盘", '"enabled":false' in raw, f"raw={raw!r}")
+    page.keyboard.press("Escape")
+
+    # 8.9b 触发路径：假时钟快进到整点 —— 通知 + 胶囊琥珀态 + 落盘推进。
+    # 必须用【独立 context】：page.clock 挂在 context 上且无法卸载（Playwright 实现里
+    # Page.clock 就是 browser_context.clock），在共享 context 里装会让本节之后所有页面
+    # 全部跑在被定死的时间里。顺带隔离存储，不污染后续用例。
+    HOUR_MS = 3_600_000
+    grid = (int(time.time() * 1000) // HOUR_MS) * HOUR_MS
+    base = grid + 30 * 60_000  # 停在 :30 —— 距下一个整点整整 30 分钟真实时间余量，避开实时竞态
+    h_index_next = base // HOUR_MS + 1
+    h_next = time.localtime((base + HOUR_MS) / 1000).tm_hour  # 断言用的本地小时，别写死
+
+    ctx2 = browser.new_context(color_scheme="dark", permissions=["notifications"])
+    p2 = ctx2.new_page()
+    # 新 context 存储为空，必须靠 init script 播种 —— 它先于页面脚本执行，即先于读盘。
+    # pomodoro 也播成闲置态，这条用例才真的证明「提醒与番茄钟互不影响」。
+    p2.add_init_script("""
+      localStorage.setItem("pomodoro", JSON.stringify({version:1,phase:"focus",running:false,
+        endsAt:null,remainingMs:1500000,completedFocus:0,awaiting:false}));
+      localStorage.setItem("stand-reminder", JSON.stringify({version:1,enabled:true,lastFiredHour:-1}));
+      window.__notes = [];
+      function FakeNotification(title, opts){
+        var o = opts || {};
+        window.__notes.push({title:title, body:o.body, tag:o.tag, renotify:o.renotify === true});
+      }
+      FakeNotification.permission = "granted";
+      FakeNotification.requestPermission = function(){ return Promise.resolve("granted"); };
+      window.Notification = FakeNotification;
+    """)
+    # 注意：install(time=) 的数值单位是【Unix 秒】，不是毫秒（Playwright 的 parse_time
+    # 对数字一律 ×1000）。传毫秒会再乘一次、落到公元 57000 年，表现是「什么都没发生」。
+    p2.clock.install(time=base / 1000)
+    p2.goto(BASE, wait_until="networkidle")
+    p2.wait_for_selector("#pomodoro-pill", timeout=10000)
+    check("未到整点不触发提醒（番茄钟处于闲置态）",
+          p2.evaluate("window.__notes.length") == 0
+          and p2.locator('#pomodoro-pill[data-stand="1"]').count() == 0)
+    # "30:01" = 30 分 1 秒，越过边界与 250ms 余量；写成 "30:00" 定时器【不会】触发
+    p2.clock.fast_forward("30:01")
+    p2.wait_for_timeout(300)
+    notes = p2.evaluate("window.__notes")
+    check("整点触发系统通知", len(notes) == 1, f"notes={notes!r}")
+    check("通知标题带整点与诉求",
+          bool(notes) and f"{h_next:02d}:00" in notes[0]["title"] and "站起来" in notes[0]["title"],
+          f"title={notes[0]['title']!r}" if notes else "无通知")
+    # tag + renotify 成对才有意义：只有 tag 时浏览器会静默替换上一条，第二条就不响
+    check("通知带 tag+renotify（否则下一条静默）",
+          bool(notes) and notes[0]["tag"] == "stand-reminder" and notes[0]["renotify"] is True,
+          f"tag={notes[0]['tag']!r} renotify={notes[0]['renotify']!r}" if notes else "无通知")
+    check("胶囊进入琥珀提醒态", p2.locator('#pomodoro-pill[data-stand="1"]').count() == 1)
+    check("播报进入 aria-live", "站起来" in (p2.locator("[data-pomo-live]").text_content() or ""))
+    fired = p2.evaluate("JSON.parse(localStorage.getItem('stand-reminder')).lastFiredHour")
+    check("落盘推进到已提醒的整点（同整点不再重复）", fired == h_index_next,
+          f"lastFiredHour={fired!r} 期望={h_index_next}")
+    ctx2.close()
 
     # ---- 知识库：wikilink 渲染（三种形态）----
     page.goto(f"{BASE}/notes/embedded/mcu-pwm/", wait_until="networkidle")
