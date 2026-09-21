@@ -8,7 +8,9 @@ import { remarkWikilinks } from "./src/plugins/remark-wikilinks";
 export default defineConfig({
   // GitHub Pages 用户站点仓 + 自定义域名（沿用旧站 CNAME），根路径部署无 base 前缀
   site: "https://www.iustitiae.top",
-  // 全站链接 hover 即预取目标页 —— 点击瞬间渲染，感知性能的最大杠杆
+  // 分层预取：内容链接 hover（默认），侧栏 6 个主导航链接由 Sidebar.astro 单独
+  // 标 data-astro-prefetch="viewport" —— 国内到 GitHub Pages 往返常超过 hover→click
+  // 的间隙（移动端干脆没有 hover），常驻视口的侧栏进页面即预取，首次点击也是热的
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "hover",

@@ -48,10 +48,14 @@ const knowledgeBase = [
       <ul class="nav-list">
         {nav.map((item) => (
           <li>
+            {/* viewport 预取：国内到 GitHub Pages 往返常超 hover→click 的间隙，
+                hover 策略点下去时预取还没回来（移动端更是没有 hover）。侧栏常驻
+                视口内，进页面即预取，点击必然命中 —— 只有 6 个链接，代价可忽略 */}
             <a
               href={item.href}
               class:list={["nav-link", { active: isActive(item.href) }]}
               aria-current={isActive(item.href) ? "page" : undefined}
+              data-astro-prefetch="viewport"
             >
               {item.label}
             </a>
@@ -87,6 +91,7 @@ const knowledgeBase = [
               href={item.href}
               class:list={["nav-link", "sub", { active: item.active }]}
               aria-current={item.active ? "page" : undefined}
+              data-astro-prefetch="viewport"
             >
               {item.label}
             </a>
