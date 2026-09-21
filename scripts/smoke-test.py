@@ -18,12 +18,20 @@ ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 results = []
 
-# 项目页断言不写死仓库数：直接读构建期数据文件 —— 加减仓库 / 改忽略列表都不用动测试
+# 项目页断言不写死仓库数：直接读构建期数据文件 —— 加减仓库 / 改忽略列表都不用动测试。
+# 合并规则与 src/lib/projects.ts#mergeRepoFiles 同款：同名镜像保留 GitHub 版。
 try:
-    repo_total = len(json.loads((ROOT / "src" / "data" / "github-repos.json")
-                                .read_text(encoding="utf-8"))["repos"])
+    gh_repos = json.loads((ROOT / "src" / "data" / "github-repos.json")
+                          .read_text(encoding="utf-8"))["repos"]
+    try:
+        gitee_repos = json.loads((ROOT / "src" / "data" / "gitee-repos.json")
+                                 .read_text(encoding="utf-8"))["repos"]
+    except Exception:
+        gitee_repos = []  # gitee 文件缺失不该让 GitHub 侧断言一起崩
+    gh_names = {r["name"] for r in gh_repos}
+    repo_total = len(gh_repos) + sum(1 for r in gitee_repos if r["name"] not in gh_names)
 except Exception:
-    repo_total = -1  # 文件缺失 / 损坏时让项目页断言红，而不是整个脚本崩掉
+    repo_total = -1  # 主数据文件缺失 / 损坏时让项目页断言红，而不是整个脚本崩掉
 # hero 署名读同一份源（侧栏品牌区读的也是它）——两处写死必然漂移
 try:
     profile_name = json.loads((ROOT / "src" / "data" / "github-profile.json")
@@ -94,8 +102,9 @@ with sync_playwright() as p:
                   and "noopener" in (a.get_attribute("rel") or "")
                   for a in proj_cards.all()),
           f"hrefs={proj_hrefs[:2]}")
-    check("项目页标出数据来源（GitHub）",
-          "GitHub" in (page.locator(".projects-source").text_content() or ""))
+    check("项目页标出数据来源（GitHub 与 Gitee）",
+          "GitHub" in (page.locator(".projects-source").text_content() or "")
+          and "Gitee" in (page.locator(".projects-source").text_content() or ""))
     proj_side = page.evaluate(
         "const q = s => document.querySelector(`.sidebar .nav-link[href='${s}']`);"
         "({ projects: q('/projects/')?.classList.contains('active'),"

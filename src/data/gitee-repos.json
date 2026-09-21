@@ -1,0 +1,22 @@
+{
+  "platform": "gitee",
+  "username": "liang-jiacheng111",
+  "fetchedAt": "2026-09-21",
+  "ignored": [
+    "Notes"
+  ],
+  "repos": [
+    {
+      "platform": "gitee",
+      "name": "Hcon",
+      "fullName": "liang-jiacheng111/hcon",
+      "url": "https://gitee.com/liang-jiacheng111/hcon",
+      "description": null,
+      "language": null,
+      "stars": 0,
+      "forks": 0,
+      "fork": false,
+      "pushedAt": "2026-06-16T14:35:22+08:00"
+    }
+  ]
+}

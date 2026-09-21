@@ -3,9 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { getPublishedPosts, getAllNotes } from "../lib/collections";
-import { topRepos, type RepoLike } from "../lib/projects";
+import { mergeRepoFiles, topRepos, type RepoLike } from "../lib/projects";
 import profile from "../data/github-profile.json";
-import repoData from "../data/github-repos.json";
+import ghRepoData from "../data/github-repos.json";
+import giteeRepoData from "../data/gitee-repos.json";
 
 const posts = (await getPublishedPosts()).map((p) => ({
   slug: p.id,
@@ -18,8 +19,11 @@ const posts = (await getPublishedPosts()).map((p) => ({
 // hero 副标题的篇数必须由 collection 推导，不能写死
 const totalNotes = (await getAllNotes()).length;
 
-// 首页项目预览：最近 3 个（排序规则在 src/lib/projects.ts，有 vitest）
-const projects = topRepos(repoData.repos as RepoLike[], 3);
+// 首页项目预览：最近 3 个（合并/排序规则都在 src/lib/projects.ts，有 vitest）
+const projects = topRepos(
+  mergeRepoFiles(ghRepoData, giteeRepoData) as RepoLike[],
+  3,
+);
 ---
 
 <BaseLayout title="我的博客" description="嵌入式、硬件电路与 AI 底层原理的学习笔记库">

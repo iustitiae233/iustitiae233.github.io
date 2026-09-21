@@ -3,21 +3,10 @@
   "username": "iustitiae233",
   "fetchedAt": "2026-09-21",
   "ignored": [
-    "Comments"
+    "Comments",
+    "iustitiae233.github.io"
   ],
   "repos": [
-    {
-      "platform": "github",
-      "name": "iustitiae233.github.io",
-      "fullName": "iustitiae233/iustitiae233.github.io",
-      "url": "https://github.com/iustitiae233/iustitiae233.github.io",
-      "description": null,
-      "language": "Astro",
-      "stars": 1,
-      "forks": 0,
-      "fork": false,
-      "pushedAt": "2026-09-21T06:14:14Z"
-    },
     {
       "platform": "github",
       "name": "esp32-s3-solder-inspector",

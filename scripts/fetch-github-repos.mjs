@@ -22,7 +22,7 @@ const PER_PAGE = 100;
  *  漂移），**改 JSON 里的 ignored 不生效**，要排除仓库只改这里。 */
 const IGNORE = new Set([
   "Comments",  // 空仓库（无描述/无语言），只是拿来做 giscus 存储的，不是项目
-  // "iustitiae233.github.io",  // 博客源码本身：只想留硬件/工具项目就取消注释
+  "iustitiae233.github.io",  // 博客源码本身，不是要展示的项目
 ]);
 
 const username = process.argv[2];

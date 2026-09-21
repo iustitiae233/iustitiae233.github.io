@@ -13,7 +13,7 @@ export interface RepoLike {
   pushedAt: string; // ISO 8601
 }
 
-/** 抓取产物文件 src/data/github-repos.json 的顶层结构 */
+/** 抓取产物文件 src/data/github-repos.json / gitee-repos.json 的顶层结构 */
 export interface RepoFile {
   platform: string;
   username: string;
@@ -45,4 +45,23 @@ export function sortReposByPushed<T extends RepoLike>(repos: T[]): T[] {
 /** 首页预览：最近 N 个 */
 export function topRepos<T extends RepoLike>(repos: T[], n: number): T[] {
   return sortReposByPushed(repos).slice(0, n);
+}
+
+/** 合并各平台的抓取产物：拼接后按仓库名去重，**同名时靠前的参数赢**（调用方
+ *  固定按 (github, gitee) 传入 → 镜像仓库展示 GitHub 版，Gitee 只补充独有项目）。
+ *
+ *  去重键故意是裸 `name` 而不是 platform+name：同一平台内 owner 的仓库名本就唯一，
+ *  跨平台同名恰好就是「同一项目的镜像」这层语义本身 —— 正是要折叠的对象。
+ *  （各脚本自己的 IGNORE 名单仍只作用于本平台，与本函数无关。） */
+export function mergeRepoFiles(...files: RepoFile[]): RepoLike[] {
+  const seen = new Set<string>();
+  const out: RepoLike[] = [];
+  for (const file of files) {
+    for (const repo of file.repos) {
+      if (seen.has(repo.name)) continue;
+      seen.add(repo.name);
+      out.push(repo);
+    }
+  }
+  return out;
 }
