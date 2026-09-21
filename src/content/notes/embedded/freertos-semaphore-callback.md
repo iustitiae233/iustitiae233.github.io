@@ -1,5 +1,5 @@
 ---
-title: 'FreeRTOS信号量与回调函数——任务间的对话'
+title: 'FreeRTOS信号量与回调函数'
 description: ''
 pubDate: '2026-06-27 17:00:00'
 category: embedded

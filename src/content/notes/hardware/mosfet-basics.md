@@ -1,5 +1,5 @@
 ---
-title: 'MOS管基础——从电压控制的电子开关到电源开关与防反接'
+title: 'MOS管基础'
 description: '讲清MOS管的基本结构与导通条件、Rds(on)与Vgs的关系、DS双向导电、寄生电容与米勒效应、NMOS低边开关、PMOS高边电源开关、PMOS防反接电路原理，以及栅极驱动、防振荡与并联均流的实用设计要点'
 pubDate: '2026-08-03 12:00:00'
 category: hardware

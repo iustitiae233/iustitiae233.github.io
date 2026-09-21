@@ -1,5 +1,5 @@
 ---
-title: 'LLM 训练三阶段——预训练、SFT 与 RLHF 各自在做什么'
+title: 'LLM 训练三阶段'
 description: '预训练的数据构成与成本、基座模型为什么不会对话，监督微调如何教出对话格式，RLHF 的偏好数据—奖励模型—PPO 三段流程与 KL 约束的作用，以及 DPO 为什么能省掉奖励模型'
 pubDate: '2026-09-16 16:07:00'
 category: ai

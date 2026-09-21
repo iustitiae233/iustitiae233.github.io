@@ -230,10 +230,12 @@ with sync_playwright() as p:
     n_results = page.locator("#search-results .result").count()
     check("搜索出结果", n_results >= 2, f"results={n_results}")
     if n_results >= 2:
-        # 标题命中排在正文命中之前，且 selected 初始为 0 —— 默认选中的就是首条
+        # 标题命中排在正文命中之前，且 selected 初始为 0 —— 默认选中的就是首条。
+        # 只断言「首条是标题命中」（标题含查询词），不断言具体是哪篇 —— 标题改写
+        # （如剥副题）会改变谁命中标题，位次不是机制本身
         first = sel_title()
         check("搜索结果默认选中首条（标题命中优先）",
-              bool(first) and first.startswith("自注意力"), f"first={first!r}")
+              bool(first) and "transformer" in first.lower(), f"first={first!r}")
         page.keyboard.press("ArrowDown")
         page.wait_for_timeout(150)
         moved = sel_title()

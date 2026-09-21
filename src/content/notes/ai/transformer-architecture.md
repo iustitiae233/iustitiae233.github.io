@@ -1,5 +1,5 @@
 ---
-title: 'Transformer 架构——一个层的内部构造与 Pre-Norm 之争'
+title: 'Transformer 架构'
 description: 'Transformer 层的两个子层（多头自注意力与前馈网络）、残差连接与 LayerNorm 的位置之争、FFN 为什么存储了模型大部分事实知识、SwiGLU 门控激活的作用，以及各位置激活函数的选择理由'
 pubDate: '2026-09-16 16:08:00'
 category: ai

@@ -1,5 +1,5 @@
 ---
-title: 'LC 电路的作用——滤波、谐振与选频'
+title: 'LC 电路的作用'
 description: 'LC 电路的五种作用：LC 低通与高通滤波、Π 型与 T 型 LC 滤波器的适用场合、串联与并联 LC 谐振的特性曲线与谐振频率公式，以及 LC 作为选频、陷波、阻波核心的用法'
 pubDate: '2026-09-16 15:04:00'
 category: hardware

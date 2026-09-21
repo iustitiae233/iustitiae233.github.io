@@ -1,5 +1,5 @@
 ---
-title: 'Vision Transformer——当注意力直接用在像素块上'
+title: 'Vision Transformer'
 description: 'CNN 的局部性归纳偏置为什么在数据充足时变成限制、ViT 把图像切成 Patch 当句子处理的完整流程、CNN 与 ViT 在归纳偏置/数据需求/复杂度上的逐项对比，以及 Swin 等层次化 Transformer 如何补回多尺度能力'
 pubDate: '2026-09-16 16:03:00'
 category: ai

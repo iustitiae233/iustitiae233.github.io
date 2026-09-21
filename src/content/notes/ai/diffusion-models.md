@@ -1,5 +1,5 @@
 ---
-title: '扩散模型——前向加噪与反向去噪的那个不对称设计'
+title: '扩散模型'
 description: 'GAN 的对抗博弈为什么训练不稳、扩散模型的三步流程（前向加噪、反向去噪训练目标、采样生成）、预测噪声这个简单目标为什么有效、Cross-Attention 如何接入文本控制、Stable Diffusion 的潜空间扩散为什么让它能跑在消费级显卡上，以及 ControlNet 等扩展方向'
 pubDate: '2026-09-16 16:02:00'
 category: ai

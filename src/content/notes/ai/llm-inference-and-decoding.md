@@ -1,5 +1,5 @@
 ---
-title: '推理与解码——自回归生成、温度参数与 KV Cache'
+title: '推理与解码'
 description: '自回归生成为什么无法并行、Temperature/Top-p/Top-k/Repetition Penalty 四个解码参数各管什么、贪心解码为什么会陷入重复，KV Cache 如何把每步复杂度从 O(n²) 降到 O(n)，以及量化对显存的实际影响'
 pubDate: '2026-09-16 16:06:00'
 category: ai

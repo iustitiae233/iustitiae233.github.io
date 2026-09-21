@@ -1,5 +1,5 @@
 ---
-title: '训练稳定性与正则化——梯度消失、归一化与残差连接'
+title: '训练稳定性与正则化'
 description: '梯度消失与梯度爆炸的成因、ReLU/初始化/BatchNorm/LayerNorm/残差连接这一系列解决方案的演进脉络，残差连接为什么能让上千层网络可训练，以及 L2 权重衰减、Dropout、数据增强、Early Stopping 与 Label Smoothing 这些防止过拟合的手段'
 pubDate: '2026-09-16 16:11:00'
 category: ai

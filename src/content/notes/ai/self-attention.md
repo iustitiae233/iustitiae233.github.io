@@ -1,5 +1,5 @@
 ---
-title: '自注意力——Transformer 的灵魂与它的 O(n²) 代价'
+title: '自注意力'
 description: '注意力要解决什么问题、Query/Key/Value 三组向量的含义、缩放点积注意力的逐步计算与 √dₖ 的作用、多头注意力捕捉的不同关注模式、O(n²) 复杂度与 Flash Attention 如何用 SRAM 分块把它变得可承受'
 pubDate: '2026-09-16 16:09:00'
 category: ai

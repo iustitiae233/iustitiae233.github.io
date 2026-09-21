@@ -1,5 +1,5 @@
 ---
-title: 'FreeRTOS入门——配置与任务管理'
+title: 'FreeRTOS入门'
 description: ''
 pubDate: '2026-06-27 16:00:00'
 category: embedded

@@ -1,5 +1,5 @@
 ---
-title: '分词与嵌入——文本如何变成模型能算的数字'
+title: '分词与嵌入'
 description: '语言模型的唯一任务"预测下一个 token"、从 n-gram 到 Transformer 的语言建模进化史、Token 与 BPE 分词算法、词汇表大小的权衡、Embedding 查找表的本质，以及正弦编码到 RoPE 的位置编码三代演进'
 pubDate: '2026-09-16 16:10:00'
 category: ai

@@ -1,5 +1,5 @@
 ---
-title: '损失函数与优化器——从 SGD 到 AdamW 的六十年'
+title: '损失函数与优化器'
 description: '损失函数在衡量什么、MSE/MAE/交叉熵各适合什么任务，梯度下降的公式与学习率的意义、BGD/SGD/Mini-batch 三种实现，以及优化器从 SGD、Momentum、AdaGrad、RMSprop 到 Adam 与 AdamW 的完整演进路线'
 pubDate: '2026-09-16 16:13:00'
 category: ai

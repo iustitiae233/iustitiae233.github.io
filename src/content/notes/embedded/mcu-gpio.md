@@ -1,5 +1,5 @@
 ---
-title: '单片机GPIO原理与实战——从寄存器到HAL库'
+title: '单片机GPIO原理与实战'
 description: ''
 pubDate: '2026-06-27 10:00:00'
 category: embedded
