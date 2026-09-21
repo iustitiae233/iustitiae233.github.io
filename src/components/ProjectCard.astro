@@ -1,0 +1,155 @@
+---
+import { formatDate } from "../lib/format";
+import { platformLabel, type RepoLike } from "../lib/projects";
+
+interface Props {
+  repo: RepoLike;
+  /** 首页项目区在 section-title 之下 → h3；/projects/ 的 h1 之下 → h2 */
+  headingLevel?: "h2" | "h3";
+}
+const { repo, headingLevel = "h3" } = Astro.props;
+const Tag = headingLevel;
+
+// 防御性：pushedAt 被手改坏时不要渲染出「NaN 年 NaN 月」
+const pushed = new Date(repo.pushedAt);
+const pushedLabel = Number.isNaN(pushed.getTime()) ? null : formatDate(pushed);
+---
+
+<a class="proj-card" href={repo.url} target="_blank" rel="noopener noreferrer">
+  <span class="proj-head">
+    <Tag class="proj-name">{repo.name}</Tag>
+    {repo.stars > 0 && (
+      <span class="proj-stars" aria-label={`${repo.stars} 个 star`}>
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+          <path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8Z" />
+        </svg>
+        {repo.stars}
+      </span>
+    )}
+  </span>
+
+  <span class:list={["proj-desc", { "is-empty": !repo.description }]}>
+    {repo.description ?? "暂无简介"}
+  </span>
+
+  <span class="proj-meta">
+    {repo.language && (
+      <>
+        <span class="proj-lang"><i aria-hidden="true"></i>{repo.language}</span>
+        <span aria-hidden="true">·</span>
+      </>
+    )}
+    {pushedLabel && (
+      <>
+        <span>更新于 <time datetime={repo.pushedAt}>{pushedLabel}</time></span>
+        <span aria-hidden="true">·</span>
+      </>
+    )}
+    <span>{platformLabel(repo.platform)}</span>
+  </span>
+</a>
+
+<style>
+  /* 注意：根元素上故意不加 .reveal —— 由调用方加在外层包裹元素上。
+     .reveal.in-view { transform: translateY(0) } 与下面的 :hover 特异性同为
+     (0,2,0)，同元素上并列时只有样式表顺序能决定胜负，hover 抬升会静默失效。 */
+  .proj-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 100%;
+    padding: 1.25rem 1.35rem 1.1rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    color: inherit;
+    transition:
+      transform var(--t-med) var(--ease-out),
+      border-color var(--t-med) var(--ease-out),
+      box-shadow var(--t-med) var(--ease-out);
+  }
+  /* 左侧渐变标记：与 PostCard 的「鼠标跟随光晕」形成两种身份 */
+  .proj-card::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(var(--accent), var(--accent-2));
+    opacity: 0.45;
+    pointer-events: none;
+    transition: opacity var(--t-med) var(--ease-out);
+  }
+  .proj-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-strong);
+    box-shadow: 0 12px 40px -14px var(--accent-glow);
+  }
+  .proj-card:hover::after { opacity: 1; }
+
+  .proj-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .proj-name {
+    /* 仓库名是标识符 —— 等宽体比正文体贴切 */
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--text-1);
+    overflow-wrap: anywhere; /* iustitiae233.github.io 这类长名不撑破卡片 */
+  }
+  .proj-stars {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.78rem;
+    color: var(--accent-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .proj-desc {
+    flex: 1;
+    color: var(--text-2);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .proj-desc.is-empty {
+    color: var(--text-3);
+    font-style: italic;
+  }
+  .proj-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-3);
+    font-size: 0.78rem;
+  }
+  .proj-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  /* 单一强调色，不做 GitHub linguist 的按语言配色 —— 那是一张会漂移的硬编码色表，
+     而本站刻意只有三个强调色 */
+  .proj-lang i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proj-card,
+    .proj-card::after { transition: none; }
+    .proj-card:hover { transform: none; }
+  }
+</style>

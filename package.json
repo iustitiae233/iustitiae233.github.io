@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "astro dev",
     "profile": "node scripts/fetch-github-profile.mjs iustitiae233",
-    "build": "node scripts/fetch-github-profile.mjs iustitiae233 && astro build",
+    "repos": "node scripts/fetch-github-repos.mjs iustitiae233",
+    "fetch": "npm run profile && npm run repos",
+    "build": "npm run fetch && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",

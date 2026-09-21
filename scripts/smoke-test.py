@@ -1,5 +1,6 @@
 """端到端冒烟测试：暗色科技风博客（serve dist @ 127.0.0.1:4327）
 适配 ClientRouter 软导航：断言一律用 DOM 状态，不依赖 page.url。"""
+import json
 import re
 import sys
 import time
@@ -12,9 +13,23 @@ from urllib.parse import quote
 from playwright.sync_api import sync_playwright
 
 BASE = "http://127.0.0.1:4327"
+ROOT = Path(__file__).resolve().parents[1]
 # 产物目录：用来做页面级断言看不见的全站扫描（死链 / 该消失的页面）
-DIST = Path(__file__).resolve().parents[1] / "dist"
+DIST = ROOT / "dist"
 results = []
+
+# 项目页断言不写死仓库数：直接读构建期数据文件 —— 加减仓库 / 改忽略列表都不用动测试
+try:
+    repo_total = len(json.loads((ROOT / "src" / "data" / "github-repos.json")
+                                .read_text(encoding="utf-8"))["repos"])
+except Exception:
+    repo_total = -1  # 文件缺失 / 损坏时让项目页断言红，而不是整个脚本崩掉
+# hero 署名读同一份源（侧栏品牌区读的也是它）——两处写死必然漂移
+try:
+    profile_name = json.loads((ROOT / "src" / "data" / "github-profile.json")
+                              .read_text(encoding="utf-8"))["name"]
+except Exception:
+    profile_name = ""
 
 
 def check(name: str, cond: bool, detail: str = ""):
@@ -29,23 +44,83 @@ with sync_playwright() as p:
     page = ctx.new_page()
     page.goto(BASE, wait_until="networkidle")
 
-    # 1. 首页加载：以知识库为主体（文章区当前为空）
-    check("首页渲染知识库分类卡", page.locator(".kb-card").count() == 3,
-          f"cards={page.locator('.kb-card').count()}")
-    kb_count = page.locator(".kb-count").text_content() or ""
-    check("首页知识库统计 37 篇 · 3 个分类", "37 篇" in kb_count and "3 个分类" in kb_count,
-          f"text={kb_count!r}")
-    check("首页知识库入口齐全",
-          page.locator(".kb-links a[href='/notes/']").count() == 1
-          and page.locator(".kb-links a[href='/notes/graph/']").count() == 1
-          and page.locator(".kb-links a[href='/tags/']").count() == 1)
-    check("首页文章区为空时显示占位而非空网格",
-          page.locator(".card").count() == 0 and page.locator(".empty").count() == 1,
-          f"empty={page.locator('.empty').count()}")
+    # 1. 首页：hero（固定文案 + 构建期推导的篇数）→ 项目预览 → 文章（空则整块不渲染）
+    hero_h1 = (page.locator(".hero h1").text_content() or "").strip()
+    check("首页 hero 主标题为固定文案", hero_h1 == "嵌入式 · 硬件电路 · AI 底层原理",
+          f"h1={hero_h1!r}")
+    hero_hi = (page.locator(".hero-hi").text_content() or "").strip()
+    check("首页 hero 署名取自 github-profile.json",
+          hero_hi == f"你好，我是 {profile_name}", f"hi={hero_hi!r} name={profile_name!r}")
+    hero_sub = (page.locator(".hero-sub").text_content() or "").strip()
+    check("首页 hero 副标题的篇数来自笔记 collection",
+          hero_sub == "37 篇从零学起的学习笔记，持续更新中", f"sub={hero_sub!r}")
+    check("首页 hero 装饰图存在且对辅助技术隐藏",
+          page.locator("svg.hero-motif[aria-hidden='true']").count() == 1)
+    # 这条是机制断言：内联 svg 根元素不是 LCP 候选，里面也没有 <image>，
+    # 所以首屏 LCP 只可能是文本（结果由 Lighthouse 人工验，这里锁构造）
+    check("首页 hero 装饰图不含 LCP 候选元素（无 <image>）",
+          page.locator("svg.hero-motif image").count() == 0)
     check("跟随系统暗色偏好", page.evaluate("document.documentElement.dataset.theme") == "dark")
 
-    # 2. 分类卡进入**自动分类页**（列表完全由 collection 推导，是各分类唯一的索引）
-    page.click(".kb-card")  # 首张 = 嵌入式（NOTE_CATEGORY_VALUES 顺序）
+    check("首页项目区渲染项目卡（最多 3 张，与数据文件一致）",
+          page.locator(".proj-card").count() == min(3, repo_total),
+          f"cards={page.locator('.proj-card').count()} repos={repo_total}")
+    check("首页项目区提供「全部项目」入口",
+          page.locator(".home-projects a[href='/projects/']").count() == 1)
+    # 文章区按有无文章自动显隐：section 与 .card 同真同假 —— 发布第一篇后不用改这条。
+    # 顺带锁死「项目卡不得复用 .card」：项目卡若也叫 .card，这条立刻红。
+    card_n = page.locator(".card").count()
+    article_n = page.locator("section[aria-label='文章列表']").count()
+    check("首页文章区按有无文章自动显隐", article_n == (1 if card_n > 0 else 0),
+          f"sections={article_n} cards={card_n}")
+    # 知识库入口已从首页挪到侧栏（首页不再重建分类卡）
+    check("侧栏知识库入口齐全",
+          page.locator(".sidebar a[href='/notes/']").count() == 1
+          and page.locator(".sidebar a[href='/notes/graph/']").count() == 1
+          and page.locator(".sidebar a[href='/tags/']").count() == 1)
+
+    # 1.6 项目页 /projects/（数据来自构建期抓取的 src/data/github-repos.json）
+    page.goto(f"{BASE}/projects/", wait_until="networkidle")
+    check("项目页 h1", (page.locator(".projects-page h1").text_content() or "").strip() == "项目",
+          f"h1={page.locator('.projects-page h1').text_content()!r}")
+    proj_cards = page.locator(".proj-card")
+    check("项目页列出全部仓库（与数据文件一致）", proj_cards.count() == repo_total,
+          f"cards={proj_cards.count()} repos={repo_total}")
+    proj_hrefs = [a.get_attribute("href") for a in proj_cards.all()]
+    check("项目卡全部指向外部 https 且新窗口打开",
+          bool(proj_hrefs)
+          and all(h and h.startswith("https://") for h in proj_hrefs)
+          and all(a.get_attribute("target") == "_blank"
+                  and "noopener" in (a.get_attribute("rel") or "")
+                  for a in proj_cards.all()),
+          f"hrefs={proj_hrefs[:2]}")
+    check("项目页标出数据来源（GitHub）",
+          "GitHub" in (page.locator(".projects-source").text_content() or ""))
+    proj_side = page.evaluate(
+        "const q = s => document.querySelector(`.sidebar .nav-link[href='${s}']`);"
+        "({ projects: q('/projects/')?.classList.contains('active'),"
+        "  aria: q('/projects/')?.getAttribute('aria-current'),"
+        "  home: q('/')?.classList.contains('active') })")
+    check("项目页侧栏高亮且首页不误高亮",
+          proj_side.get("projects") is True and proj_side.get("aria") == "page"
+          and proj_side.get("home") is not True, f"{proj_side}")
+    check("项目页面包屑为中文", "首页 / 项目" in (page.locator(".breadcrumb").text_content() or ""))
+
+    # 软导航（不是 goto）点进项目页：persist 侧栏的 active 是构建期烘焙值，
+    # 必须在 astro:page-load 后按当前路径重算 —— 这是新 nav href 唯一的失效面
+    page.goto(BASE, wait_until="networkidle")
+    page.click(".home-projects a[href='/projects/']")
+    page.wait_for_selector(".projects-page h1", timeout=10000, state="attached")
+    soft_side = page.evaluate(
+        "const q = document.querySelector(\".sidebar .nav-link[href='/projects/']\");"
+        "({ active: q?.classList.contains('active'), aria: q?.getAttribute('aria-current') })")
+    check("软导航进项目页后侧栏高亮同步",
+          soft_side.get("active") is True and soft_side.get("aria") == "page", f"{soft_side}")
+
+    # 2. 侧栏 → 笔记索引 → **自动分类页**（列表完全由 collection 推导，是各分类唯一的索引）
+    page.click(".sidebar .nav-link[href='/notes/']")
+    page.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
+    page.click(".cat-title a[href='/notes/embedded/']")
     page.wait_for_selector(".cat-page h1", timeout=10000)
     check("分类卡进入自动分类页",
           (page.locator(".cat-page h1").text_content() or "").strip() == "嵌入式",
@@ -193,9 +268,14 @@ with sync_playwright() as p:
     check("点击外部抽屉收起", t2 != "matrix(1, 0, 0, 1, 0, 0)", t2)
 
     # 7.5 软导航后汉堡按钮仍可打开抽屉（按钮是新 DOM，监听必须重新生效）
-    mob.click(".kb-card")
-    mob.wait_for_selector(".cat-page h1", timeout=10000, state="attached")
-    check("移动端软导航进入分类页", mob.locator(".cat-page .note-row").count() >= 1)
+    mob.click("#menu-btn")
+    mob.wait_for_timeout(500)
+    mob.click(".sidebar .nav-link[href='/notes/']")
+    mob.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
+    check("移动端软导航进入笔记索引", mob.locator("h2.cat-title").count() == 3,
+          f"cats={mob.locator('h2.cat-title').count()}")
+    # 抽屉已关时 Escape 是空操作 —— 这样断言在「.open 跨软导航残留」和「已修」两种情况下都成立
+    mob.keyboard.press("Escape")
     mob.click("#menu-btn")
     mob.wait_for_timeout(500)
     t3 = mob.evaluate("getComputedStyle(document.getElementById('sidebar')).transform")
@@ -243,7 +323,12 @@ with sync_playwright() as p:
     page.wait_for_timeout(1300)
     mt = page.locator("[data-pomo-mini-time]").text_content()
     check("迷你卡计时走动", mt == "04:59", f"time={mt!r}")
-    page.click(".kb-card")  # 软导航进分类页：迷你卡必须跨页常驻（每页重挂 body）
+    # 软导航进分类页：迷你卡必须跨页常驻（每页重挂 body）。
+    # 用固定定位的侧栏而不是首页链接 —— 这条测的是迷你卡常驻，导航路径该选最不脆的那个
+    # （侧栏 z-index 40，不会被 sticky 顶栏截获）
+    page.click(".sidebar .nav-link[href='/notes/']")
+    page.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
+    page.click(".cat-title a[href='/notes/embedded/']")
     page.wait_for_selector(".cat-page h1", timeout=10000, state="attached")
     check("软导航进入分类页（迷你卡常驻的前置条件）",
           page.locator(".cat-page .note-row").count() >= 1)

@@ -1,8 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 import { getPublishedPosts, getAllNotes } from "../lib/collections";
-import { groupNotesByCategory } from "../lib/notes";
+import { topRepos, type RepoLike } from "../lib/projects";
+import profile from "../data/github-profile.json";
+import repoData from "../data/github-repos.json";
 
 const posts = (await getPublishedPosts()).map((p) => ({
   slug: p.id,
@@ -12,55 +15,89 @@ const posts = (await getPublishedPosts()).map((p) => ({
   body: p.body ?? "",
 }));
 
-const groups = groupNotesByCategory(await getAllNotes());
-const totalNotes = groups.reduce((n, g) => n + g.notes.length, 0);
+// hero 副标题的篇数必须由 collection 推导，不能写死
+const totalNotes = (await getAllNotes()).length;
 
-// 分类主色：与关系图谱的节点配色同源（accent / accent-2 / accent-3 按分类顺序）
-const CAT_ACCENT = ["var(--accent)", "var(--accent-2)", "var(--accent-3)"];
+// 首页项目预览：最近 3 个（排序规则在 src/lib/projects.ts，有 vitest）
+const projects = topRepos(repoData.repos as RepoLike[], 3);
 ---
 
-<BaseLayout title="我的博客" description="嵌入式、硬件与 AI 原理的学习笔记库">
+<BaseLayout title="我的博客" description="嵌入式、硬件电路与 AI 底层原理的学习笔记库">
   <section class="hero">
     <div class="hero-glow" aria-hidden="true"></div>
-    <p class="hero-hi">你好，我是 👋</p>
-    <h1>
-      写点<span class="grad">代码</span>，聊点<span class="grad">技术</span>
-    </h1>
-    <p class="hero-sub">
-      技术笔记与工程记录——嵌入式、硬件电路与 AI 底层原理，都是从零学起时留下的路标。
-    </p>
-  </section>
+    <!-- 装饰母题：内联 SVG，零网络请求。svg 根元素不是 LCP 候选，里面也没有 <image>，
+         所以首屏 LCP 只可能是下面的 <h1> 文本 —— 构造上保证，不靠调优。 -->
+    <svg
+      class="hero-motif"
+      viewBox="0 0 1200 380"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <defs>
+        <!-- 数字方波 → 模拟正弦，共端点 (510,54)，linecap:round 让接缝看不出来 -->
+        <path
+          id="hero-square"
+          d="M90 54H120V38H160V70H200V38H240V70H280V38H320V70H360V38H400V70H440V38H470V54H510"
+        />
+        <path
+          id="hero-sine"
+          d="M510 54C530 33 550 33 570 54C590 75 610 75 630 54C650 33 670 33 690 54C710 75 730 75 750 54C770 33 790 33 810 54C830 75 850 75 870 54C890 33 910 33 930 54C950 75 970 75 990 54C1010 33 1030 33 1050 54C1070 75 1090 75 1110 54"
+        />
+      </defs>
 
-  <section class="kb" aria-label="知识库">
-    <h2 class="section-title">
-      知识库
-      <span class="kb-count">{totalNotes} 篇 · {groups.length} 个分类</span>
-    </h2>
+      <!-- 上带：信号链 -->
+      <use class="m-trace" href="#hero-square"></use>
+      <use class="m-signal" href="#hero-sine"></use>
 
-    <div class="kb-grid">
-      {groups.map((g, i) => (
-        <a
-          class="kb-card"
-          href={`/notes/${g.category}/`}
-          style={`--cat-accent: ${CAT_ACCENT[i % CAT_ACCENT.length]}; --reveal-delay: ${(i * 60).toString()}ms;`}
-        >
-          <span class="kb-cat">{g.label}</span>
-          <span class="kb-num">{g.notes.length}<i>篇</i></span>
-          <span class="kb-latest">最近：{g.notes[0]?.data.title ?? "—"}</span>
-        </a>
-      ))}
+      <!-- 下带：PCB 总线（45° 折弯是布线惯例），中间留缺口暗示此处有元件 -->
+      <path class="m-trace" d="M60 355V330H260L290 300H520"></path>
+      <path class="m-trace" d="M680 300H900L930 330H1140V355"></path>
+
+      <!-- 铺铜区 -->
+      <rect class="m-region" x="966" y="14" width="124" height="66" rx="10"></rect>
+      <rect class="m-region" x="26" y="300" width="150" height="66" rx="10"></rect>
+
+      <!-- 焊盘 / 过孔 -->
+      <circle class="m-pad" cx="60" cy="355" r="5"></circle>
+      <circle class="m-pad" cx="1140" cy="355" r="5"></circle>
+      <circle class="m-pad" cx="520" cy="300" r="4"></circle>
+      <circle class="m-pad" cx="680" cy="300" r="4"></circle>
+      <circle class="m-via" cx="510" cy="54" r="3"></circle>
+      <circle class="m-via" cx="290" cy="300" r="2.5"></circle>
+      <circle class="m-via" cx="930" cy="330" r="2.5"></circle>
+
+      <!-- 信号包：同一条正弦再叠两遍（粗淡当光晕、细亮当包本体，不用 filter） -->
+      <use class="m-flow-glow" href="#hero-sine"></use>
+      <use class="m-flow" href="#hero-sine"></use>
+    </svg>
+
+    <div class="hero-copy">
+      <p class="hero-hi">你好，我是 {profile.name}</p>
+      <h1>嵌入式 · 硬件电路 · AI 底层原理</h1>
+      <p class="hero-sub">{totalNotes} 篇从零学起的学习笔记，持续更新中</p>
     </div>
-
-    <nav class="kb-links" aria-label="知识库入口">
-      <a href="/notes/">全部笔记</a>
-      <a href="/notes/graph/">关系图谱</a>
-      <a href="/tags/">标签云</a>
-    </nav>
   </section>
 
-  <section aria-label="文章列表">
-    <h2 class="section-title">文章</h2>
-    {posts.length > 0 ? (
+  {projects.length > 0 && (
+    <section class="home-projects" aria-label="项目">
+      <h2 class="section-title">
+        项目
+        <a class="section-more" href="/projects/">全部项目 →</a>
+      </h2>
+      <div class="grid">
+        {projects.map((r, i) => (
+          <div class="cell reveal" style={`--reveal-delay: ${(i * 60).toString()}ms;`}>
+            <ProjectCard repo={r} headingLevel="h3" />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {posts.length > 0 && (
+    <section aria-label="文章列表">
+      <h2 class="section-title">文章</h2>
       <div class="grid">
         {posts.map((p, i) => (
           <div class="cell" style={`--reveal-delay: ${(i * 60).toString()}ms;`}>
@@ -68,16 +105,15 @@ const CAT_ACCENT = ["var(--accent)", "var(--accent-2)", "var(--accent-3)"];
           </div>
         ))}
       </div>
-    ) : (
-      <p class="empty">暂未发布——正在整理成体系的长文，先看知识库。</p>
-    )}
-  </section>
+    </section>
+  )}
 </BaseLayout>
 
 <style>
   .hero {
+    /* 不加 overflow: hidden —— hero-glow 的 top:-40% 是有意外溢的，裁掉会变样 */
     position: relative;
-    padding: 4.5rem 0 3.5rem;
+    padding: 5rem 0 4.5rem;
     text-align: center;
   }
   .hero-glow {
@@ -92,6 +128,83 @@ const CAT_ACCENT = ["var(--accent)", "var(--accent-2)", "var(--accent-3)"];
     opacity: 0.6;
     pointer-events: none;
   }
+  /* 注意：hero 内的文字块刻意不加 .reveal —— .reveal 初始 opacity: 0，
+     而 opacity 为 0 的元素不计入 LCP，指标要等过渡结束才登记。
+     装饰层也不参与 LCP（见模板注释）。 */
+
+  .hero-motif {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* hero-glow 无 z-index 且 DOM 在前 → 光斑在下、走线在上 */
+    pointer-events: none; /* 不吞任何点击 / 文本选择 */
+    opacity: 0.55;
+    /* 兜底：SVG 的 fill 初始值是 black，漏写规则就是一团黑块。
+       fill 是可继承属性，这里声明一次就传进 <use> 的影子树。 */
+    fill: none;
+  }
+  /* 色值全走设计令牌 + color-mix → 亮色主题自动跟随，不需要第二套规则。 */
+  .hero-motif .m-trace {
+    stroke: color-mix(in srgb, var(--accent) 55%, transparent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .hero-motif .m-signal {
+    stroke: color-mix(in srgb, var(--accent-2) 70%, transparent);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .hero-motif .m-region { fill: color-mix(in srgb, var(--accent) 5%, transparent); }
+  .hero-motif .m-pad {
+    fill: var(--surface);
+    stroke: color-mix(in srgb, var(--accent) 65%, transparent);
+    stroke-width: 1.5;
+  }
+  .hero-motif .m-via { fill: color-mix(in srgb, var(--accent-3) 85%, transparent); }
+
+  /* 信号包：dasharray 的周期 742 == 动画位移 742 → 循环无缝（742 是自身整数倍，
+     与路径实长无关）。粗而淡的一层当光晕、细而亮的一层当包本体，不用 filter。 */
+  .hero-motif .m-flow,
+  .hero-motif .m-flow-glow {
+    stroke-linecap: round;
+    stroke-dasharray: 44 698;
+  }
+  .hero-motif .m-flow-glow {
+    stroke: color-mix(in srgb, var(--accent) 35%, transparent);
+    stroke-width: 6;
+  }
+  .hero-motif .m-flow {
+    stroke: var(--accent);
+    stroke-width: 1.75;
+  }
+
+  @keyframes hero-signal-flow {
+    from { stroke-dashoffset: 742; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* 只在「未要求减少动效」时挂上动画：这样根本不存在需要覆盖的规则，
+     直接绕开「reduced-motion 覆盖选择器写不全就是空操作」那个老坑。 */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-motif .m-flow,
+    .hero-motif .m-flow-glow {
+      animation: hero-signal-flow 6s linear infinite;
+    }
+  }
+
+  /* 窄屏：3.16:1 的构图会被压成一条正好压在标题上的窄带 —— 干脆不画，
+     顺带省掉手机上每帧的合成开销。 */
+  @media (max-width: 767px) {
+    .hero-motif { display: none; }
+  }
+
+  .hero-copy {
+    position: relative;
+    z-index: 1;
+  }
   .hero-hi {
     color: var(--text-2);
     margin-bottom: 1rem;
@@ -102,18 +215,13 @@ const CAT_ACCENT = ["var(--accent)", "var(--accent-2)", "var(--accent-3)"];
     letter-spacing: -0.02em;
     margin-bottom: 1rem;
   }
-  .grad {
-    background: linear-gradient(120deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
   .hero-sub {
     color: var(--text-2);
     max-width: 34em;
     margin-inline: auto;
   }
 
+  .home-projects { margin-bottom: 3.5rem; }
   .section-title {
     display: flex;
     align-items: baseline;
@@ -125,100 +233,15 @@ const CAT_ACCENT = ["var(--accent)", "var(--accent-2)", "var(--accent-3)"];
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--border);
   }
+  .section-more {
+    margin-left: auto; /* section-title 是 flex —— 入口贴右端的分隔线上方 */
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.25rem;
   }
   .cell { display: grid; }
-
-  /* 知识库区块——本站主体 */
-  .kb { margin-bottom: 3.5rem; }
-  .kb-count {
-    font-size: 0.8rem;
-    color: var(--text-3);
-    font-weight: 500;
-  }
-  .kb-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-  }
-  .kb-card {
-    display: grid;
-    gap: 0.25rem;
-    padding: 1.25rem 1.25rem 1.125rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--surface);
-    /* 分类色作为卡片左侧标记，与图谱节点配色一一对应 */
-    box-shadow: inset 3px 0 0 var(--cat-accent);
-    transition:
-      border-color var(--t-fast) var(--ease-out),
-      background-color var(--t-fast) var(--ease-out),
-      transform var(--t-med) var(--ease-out);
-  }
-  .kb-card:hover {
-    border-color: color-mix(in srgb, var(--cat-accent) 45%, var(--border));
-    background: var(--surface-hover);
-    transform: translateY(-2px);
-  }
-  .kb-cat {
-    font-size: 0.9rem;
-    color: var(--text-2);
-  }
-  .kb-num {
-    font-size: 1.75rem;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--cat-accent);
-    font-variant-numeric: tabular-nums;
-  }
-  .kb-num i {
-    font-style: normal;
-    font-size: 0.8rem;
-    font-weight: 500;
-    margin-left: 0.25rem;
-    color: var(--text-3);
-  }
-  .kb-latest {
-    font-size: 0.8rem;
-    color: var(--text-3);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .kb-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  .kb-links a {
-    padding: 0.375rem 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    font-size: 0.85rem;
-    color: var(--text-2);
-    transition:
-      color var(--t-fast) var(--ease-out),
-      border-color var(--t-fast) var(--ease-out);
-  }
-  .kb-links a:hover {
-    color: var(--accent);
-    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
-  }
-
-  .empty {
-    padding: 1.5rem;
-    border: 1px dashed var(--border-strong);
-    border-radius: var(--radius-md);
-    color: var(--text-3);
-    font-size: 0.9rem;
-    text-align: center;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .kb-card { transition: none; }
-  }
 </style>

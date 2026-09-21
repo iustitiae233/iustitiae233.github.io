@@ -1,0 +1,56 @@
+{
+  "platform": "github",
+  "username": "iustitiae233",
+  "fetchedAt": "2026-09-21",
+  "ignored": [],
+  "repos": [
+    {
+      "platform": "github",
+      "name": "iustitiae233.github.io",
+      "fullName": "iustitiae233/iustitiae233.github.io",
+      "url": "https://github.com/iustitiae233/iustitiae233.github.io",
+      "description": null,
+      "language": "Astro",
+      "stars": 1,
+      "forks": 0,
+      "fork": false,
+      "pushedAt": "2026-09-17T06:36:33Z"
+    },
+    {
+      "platform": "github",
+      "name": "esp32-s3-solder-inspector",
+      "fullName": "iustitiae233/esp32-s3-solder-inspector",
+      "url": "https://github.com/iustitiae233/esp32-s3-solder-inspector",
+      "description": "基于 ESP32-S3、OV2640 和 2.8 英寸触摸屏的便携式 PCB 焊点缺陷检测系统。",
+      "language": "Python",
+      "stars": 1,
+      "forks": 0,
+      "fork": false,
+      "pushedAt": "2026-09-11T03:01:00Z"
+    },
+    {
+      "platform": "github",
+      "name": "android-code",
+      "fullName": "iustitiae233/android-code",
+      "url": "https://github.com/iustitiae233/android-code",
+      "description": "实现使用手机远程控制claudecode",
+      "language": "Kotlin",
+      "stars": 1,
+      "forks": 0,
+      "fork": false,
+      "pushedAt": "2026-08-07T13:24:18Z"
+    },
+    {
+      "platform": "github",
+      "name": "Comments",
+      "fullName": "iustitiae233/Comments",
+      "url": "https://github.com/iustitiae233/Comments",
+      "description": null,
+      "language": null,
+      "stars": 1,
+      "forks": 0,
+      "fork": false,
+      "pushedAt": "2026-07-02T03:26:51Z"
+    }
+  ]
+}

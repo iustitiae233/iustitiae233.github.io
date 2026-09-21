@@ -11,6 +11,7 @@
 import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { githubHeaders } from "./lib/github-auth.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const IMAGES_DIR = join(ROOT, "public", "images");
@@ -27,22 +28,18 @@ if (!username) {
 }
 
 async function main() {
-  const headers = {
-    // GitHub API 要求 User-Agent，否则 403
-    "User-Agent": "blog-profile-fetch",
-    Accept: "application/vnd.github+json",
-  };
-
-  const res = await fetch(`https://api.github.com/users/${username}`, {
-    headers,
+  const apiUrl = `https://api.github.com/users/${username}`;
+  const res = await fetch(apiUrl, {
+    headers: githubHeaders(apiUrl),
     signal: AbortSignal.timeout(TIMEOUT_MS),
   });
   if (!res.ok) throw new Error(`GitHub API ${res.status}`);
   const { login, name, html_url, avatar_url } = await res.json();
 
   // avatar_url 形如 https://avatars.githubusercontent.com/u/xxx?v=4，追加尺寸参数
+  // 非 api.github.com 主机 → githubHeaders 不带 token（凭证不跨主机送）
   const avatarRes = await fetch(`${avatar_url}&s=${AVATAR_SIZE}`, {
-    headers: { "User-Agent": "blog-profile-fetch" },
+    headers: githubHeaders(avatar_url, "*/*"),
     signal: AbortSignal.timeout(TIMEOUT_MS),
   });
   if (!avatarRes.ok) throw new Error(`头像下载 ${avatarRes.status}`);

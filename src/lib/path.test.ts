@@ -17,4 +17,10 @@ describe("formatPath", () => {
   it("笔记详情页（嵌套 id 取末段）", () => {
     expect(formatPath("/notes/embedded/mcu-gpio/")).toBe("首页 / 笔记 / mcu-gpio");
   });
+  it("项目页（定向分支，不是通用标签表）", () => {
+    expect(formatPath("/projects/")).toBe("首页 / 项目");
+  });
+  it("未映射的段仍原样渲染——上面那条分支不得扩散", () => {
+    expect(formatPath("/tags/")).toBe("首页 / tags");
+  });
 });

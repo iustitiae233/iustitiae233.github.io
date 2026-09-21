@@ -21,6 +21,11 @@ jobs:
       - run: npm run check
       - run: npm run test
       - run: npm run build
+        env:
+          # 未认证配额是「每出口 IP」共享的，而 Actions runner 出口 IP 与他人共用 ——
+          # 不注入时构建会偶发 403（脚本会静默沿用已提交的 JSON，不 fail，所以是静默劣化）。
+          # 注入后 5000 次/小时。读公开仓库元数据不需要任何 scope，permissions 不用改。
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # 仅 main 推送时打包站点产物供部署（PR 只验证不部署）
       - name: 上传站点产物
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'

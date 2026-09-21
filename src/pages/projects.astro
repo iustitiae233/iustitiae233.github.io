@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { sortReposByPushed, type RepoFile } from "../lib/projects";
+import data from "../data/github-repos.json";
+
+// 结构标注而非 as 强转：JSON 形状漂移时 npm run check 当场报错
+const file: RepoFile = data;
+const repos = sortReposByPushed(file.repos);
+---
+
+<BaseLayout title="项目" description="GitHub 上的开源仓库与硬件实践记录">
+  <section class="projects-page">
+    <header class="projects-header">
+      <h1>项目</h1>
+      <p class="projects-sub">
+        共 {repos.length} 个公开仓库 ·
+        <a href={`https://github.com/${file.username}`} target="_blank" rel="noopener noreferrer">
+          在 GitHub 上查看
+        </a>
+      </p>
+    </header>
+
+    {repos.length > 0 ? (
+      <ul class="proj-grid">
+        {repos.map((r, i) => (
+          <li class="reveal" style={`--reveal-delay: ${(i * 60).toString()}ms;`}>
+            <ProjectCard repo={r} headingLevel="h2" />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="proj-empty">
+        暂时没有可展示的仓库 —— 本地跑 <code>npm run repos</code> 拉取后重新构建。
+      </p>
+    )}
+
+    <p class="projects-source">
+      数据来自 {file.platform === "github" ? "GitHub API" : file.platform}，构建时同步（{file.fetchedAt}），仅收录公开仓库。
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-page { padding: 3rem 0; }
+  .projects-header { margin-bottom: 2rem; }
+  .projects-header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .projects-sub { color: var(--text-2); }
+
+  /* 与 index.astro 的 .grid 是同一套网格（auto-fill / minmax(300px)）。
+     两处不合并：只有两份，抽到 global.css 的收益还不抵改 PostCard 消费方的风险。 */
+  .proj-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+  .proj-grid > li { display: grid; } /* 卡片等高 */
+
+  .proj-empty { color: var(--text-2); }
+  .proj-empty code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--accent);
+  }
+
+  .projects-source {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-3);
+    font-size: 0.8rem;
+  }
+</style>
