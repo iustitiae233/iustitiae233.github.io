@@ -21,6 +21,7 @@ const PER_PAGE = 100;
  *  产物 JSON 里的 ignored 只是导出快照：页面既不读它也不按它过滤（两条同义规则必然
  *  漂移），**改 JSON 里的 ignored 不生效**，要排除仓库只改这里。 */
 const IGNORE = new Set([
+  "Comments",  // 空仓库（无描述/无语言），只是拿来做 giscus 存储的，不是项目
   // "iustitiae233.github.io",  // 博客源码本身：只想留硬件/工具项目就取消注释
 ]);
 
