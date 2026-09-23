@@ -61,7 +61,7 @@ with sync_playwright() as p:
           hero_hi == f"你好，我是 {profile_name}", f"hi={hero_hi!r} name={profile_name!r}")
     hero_sub = (page.locator(".hero-sub").text_content() or "").strip()
     check("首页 hero 副标题的篇数来自笔记 collection",
-          hero_sub == "41 篇从零学起的学习笔记，持续更新中", f"sub={hero_sub!r}")
+          hero_sub == "35 篇从零学起的学习笔记，持续更新中", f"sub={hero_sub!r}")
     check("首页 hero 装饰图存在且对辅助技术隐藏",
           page.locator("svg.hero-motif[aria-hidden='true']").count() == 1)
     # 这条是机制断言：内联 svg 根元素不是 LCP 候选，里面也没有 <image>，
@@ -188,7 +188,7 @@ with sync_playwright() as p:
     page.click(".sidebar .nav-link[href='/notes/']")
     page.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
     check("笔记索引按分类分组", page.locator("h2.cat-title").count() == 3)
-    check("笔记列表共 41 篇", page.locator(".note-row").count() == 41,
+    check("笔记列表共 35 篇", page.locator(".note-row").count() == 35,
           f"rows={page.locator('.note-row').count()}")
     page.click("a[href='/notes/hardware/mosfet-basics/']")
     page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
@@ -525,7 +525,7 @@ with sync_playwright() as p:
 
     # ---- 知识库：关系图谱页 ----
     page.goto(f"{BASE}/notes/graph/", wait_until="networkidle")
-    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 41,
+    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 35,
           f"nodes={page.locator('svg .graph-node').count()}")
     check("图谱页边渲染", page.locator("svg .graph-edge").count() > 0)
     check("图谱页图例三项", page.locator(".legend-item").count() == 3)
@@ -635,21 +635,19 @@ with sync_playwright() as p:
 
     # ---- 知识库：AI 分类（第三分类的配图 / 公式 / 反链 / 上下篇不越类）----
     AI_NOTES = [
-        "neuron-and-activation", "loss-and-optimization", "backpropagation",
-        "training-stability-and-regularization", "tokenization-and-embedding",
-        "self-attention", "transformer-architecture", "llm-training-pipeline",
-        "llm-inference-and-decoding", "scaling-laws", "cnn-basics", "vit",
-        "diffusion-models", "multimodal-models",
+        "neural-network-basics", "optimization-and-stability", "transformer",
+        "tokens-and-decoding", "llm-training", "vision-models",
+        "multimodal-models", "diffusion-models",
     ]
     # 「覆盖全部」的职责在自动分类页；MOC 删除后 AI 分类的篇数 == 正文篇数
     page.goto(f"{BASE}/notes/ai/", wait_until="networkidle")
     ai_rows = page.locator(".cat-page .note-row")
     ai_cat_hrefs = {a.get_attribute("href") for a in ai_rows.all()}
-    check("AI 分类页列出全部 14 篇", ai_rows.count() == 14, f"rows={ai_rows.count()}")
+    check("AI 分类页列出全部 8 篇", ai_rows.count() == 8, f"rows={ai_rows.count()}")
     cat_missing = [s for s in AI_NOTES if f"/notes/ai/{s}/" not in ai_cat_hrefs]
-    check("AI 分类页覆盖全部 14 篇正文", not cat_missing, f"missing={cat_missing}")
+    check("AI 分类页覆盖全部 8 篇正文", not cat_missing, f"missing={cat_missing}")
 
-    page.goto(f"{BASE}/notes/ai/cnn-basics/", wait_until="networkidle")
+    page.goto(f"{BASE}/notes/ai/vision-models/", wait_until="networkidle")
     ai_imgs = page.locator(".post-content img")
     check("AI 笔记配图全部渲染（含 2 张 GIF）", ai_imgs.count() == 4, f"imgs={ai_imgs.count()}")
     check("AI 配图 alt 为中文描述",
@@ -662,7 +660,7 @@ with sync_playwright() as p:
     check("AI 笔记上下篇不越分类",
           bool(ai_pn) and all(h and h.startswith("/notes/ai/") for h in ai_pn), f"{ai_pn}")
 
-    page.goto(f"{BASE}/notes/ai/self-attention/", wait_until="networkidle")
+    page.goto(f"{BASE}/notes/ai/transformer/", wait_until="networkidle")
     check("AI 笔记 KaTeX 公式渲染", page.locator(".katex").count() > 0,
           f"katex={page.locator('.katex').count()}")
     ai_bl = [page.locator("section.backlinks .backlink-link").nth(i).text_content()
