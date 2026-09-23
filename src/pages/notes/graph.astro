@@ -313,7 +313,9 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
     // （朝远离对方那一侧，位移取最小可行值），重算包围盒再找下一对，直到无重叠。
     // 顺序固定、方向由几何决定，**无随机**，同输入同输出。若拿不到布局（getBBox
     // 全 0）则检测不到重叠、直接跳过，退化成避让前的样子，不会把标签画歪。
-    for (let round = 0; round < 10; round++) {
+    // 轮数上限 40：每轮只修一对，embedded 环 14 节点后一轮一对的 10 轮修不完
+    //（一次 41 标签 O(n²) 的 getBBox 比较，40 轮也是微秒级，不在交互热路径上）。
+    for (let round = 0; round < 40; round++) {
       const boxes = labelItems
         .map((el) => ({ el, b: el.getBBox() }))
         .sort((p, q) => p.b.x - q.b.x || p.b.y - q.b.y);
@@ -324,7 +326,10 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
           const c = boxes[j].b;
           const ox = Math.min(a.x + a.width, c.x + c.width) - Math.max(a.x, c.x);
           const oy = Math.min(a.y + a.height, c.y + c.height) - Math.max(a.y, c.y);
-          if (ox <= 1 || oy <= 1) continue; // 1px 以内算擦边，不值得动
+          // 擦边豁免按重叠面积算（≤8px² 不值得动）：长标签水平咬几十像素、
+          // 垂直只咬 1px 以内的「宽 × 薄」交叠照样碍眼，也要推——冒烟断言
+          // 用的就是面积阈值，两处判定必须一致，否则这种对永远漏修。
+          if (ox <= 0 || oy <= 0 || ox * oy <= 8) continue;
           const down = c.y + c.height / 2 >= a.y + a.height / 2;
           hit = { el: boxes[j].el, dy: (down ? 1 : -1) * (oy + 2) };
           break;
