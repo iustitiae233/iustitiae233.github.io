@@ -16,7 +16,7 @@ tags: [FOC, 电机控制, STM32, SVPWM, 坐标变换]
 
 以下模块图显示了一个磁场定向控制架构，包括以下组件：
 
-![[foc-architecture.png|FOC 完整控制框图：蓝色为控制算法、灰色为物理系统；转速环输出 T_ref 送入电流参考发生器，与反馈的 i_d、i_q 比较后经两个电流 PI 控制器输出 v_d_ref、v_q_ref，再经逆 Park 变换（d,q → α,β）、SVPWM 发生器（输出六路 G_au~G_cl 门极信号）驱动功率逆变器带动 PMSM；相电流经 Park/Clarke 变换（a,b,c → d,q）反馈回电流环]]
+![[foc-architecture.webp|FOC 完整控制框图：蓝色为控制算法、灰色为物理系统；转速环输出 T_ref 送入电流参考发生器，与反馈的 i_d、i_q 比较后经两个电流 PI 控制器输出 v_d_ref、v_q_ref，再经逆 Park 变换（d,q → α,β）、SVPWM 发生器（输出六路 G_au~G_cl 门极信号）驱动功率逆变器带动 PMSM；相电流经 Park/Clarke 变换（a,b,c → d,q）反馈回电流环]]
 
 *图：FOC 整体架构。控制算法的边界很清晰——**只有两个电流 PI 在 dq 域**，往右全是坐标变换与 PWM 生成，往左是可选的外环（速度环/位置环）。*$v_{DC}$ *被同时送给 SVPWM 发生器与保护逻辑，正是欠压/过流保护要盯着的那一路。*
 
@@ -43,7 +43,7 @@ Clarke Transform 模块计算 $abc$ 参考系中平衡三相分量的克拉克�
 
 使用双输入配置时，该模块接受三相（$abc$）中的两个信号，自动计算第三个信号，并输出 $\alpha\beta$ 参考系中的对应分量。例如，该模块接受 $a$ 和 $b$ 输入值或多路复用输入值 $abc$，其中相位 $a$ 轴与 $\alpha$ 轴对齐。
 
-![[foc-clarke-axes.png|Clarke 变换的矢量关系图：a、b、c 三相轴互差 120°，其中 a 轴与 α 轴重合，β 轴垂直于 α 轴，b、c 在 β 轴两侧对称分布]]
+![[foc-clarke-axes.webp|Clarke 变换的矢量关系图：a、b、c 三相轴互差 120°，其中 a 轴与 α 轴重合，β 轴垂直于 α 轴，b、c 在 β 轴两侧对称分布]]
 
 *图：$abc \to \alpha\beta$ 的几何含义。$a$ 轴与 $\alpha$ 轴重合，$\beta$ 轴与之正交——这就是"静止两相正交坐标系"里"正交"二字的来源（图中 $a$、$c$ 分别与 $\alpha$ 轴成 120°）。*
 
@@ -65,7 +65,7 @@ Inverse Clarke Transform 模块计算静止 $\alpha\beta$ 参考系中平衡的�
 
 该模块接受 $\alpha$-$\beta$ 轴分量作为输入，并输出对应的三相信号，其中相位 $a$ 轴与 $\alpha$ 轴对齐。
 
-![[foc-alphabeta-frame.png|静止 αβ 两相正交坐标系的示意图：α 轴水平向右，β 轴竖直向上，两者构成直角]]
+![[foc-alphabeta-frame.webp|静止 αβ 两相正交坐标系的示意图：α 轴水平向右，β 轴竖直向上，两者构成直角]]
 
 *图：静止的 $\alpha\beta$ 坐标系本身——$\alpha$ 轴水平、$\beta$ 轴竖直，是不随转子旋转的"地面参照系"。*
 
@@ -94,7 +94,7 @@ Park Transform 模块计算静止 $\alpha\beta$ 参考系中两相正交分量�
 
 下列各图显示在以下情形下 $\alpha\beta$ 参考系和旋转 $dq$ 参考系中的 $\alpha$-$\beta$ 轴分量：
 
-![[foc-park-dq-frame.png|Park 变换的两个坐标系：静止的 α 轴与旋转的 d 轴成 θ 角，q 轴超前 d 轴 90°，转子以角速度 ω 旋转]]
+![[foc-park-dq-frame.webp|Park 变换的两个坐标系：静止的 α 轴与旋转的 d 轴成 θ 角，q 轴超前 d 轴 90°，转子以角速度 ω 旋转]]
 
 *图：$\alpha\beta$（黄色，静止）与 $dq$（黑色，旋转）两套坐标系的关系。$\theta$ 就是"电角度"——Park 变换的输入之一，也是为什么无传感器 FOC 的难点在于**估准这个角**。*
 
@@ -158,19 +158,19 @@ $$
 
 **1）Clarke 变换**
 
-![[foc-code-clarke.png|编辑器截图：clarkeTransform 函数，31~35 行；注释给出 Iα = Ia、Iβ = (Ia + 2Ib) / sqrt(3)，函数体为 alphaBeta->alpha = abc->Ua 与 alphaBeta->beta = (abc->Ua + 2 * abc->Ub) * SQRT_3]]
+![[foc-code-clarke.webp|编辑器截图：clarkeTransform 函数，31~35 行；注释给出 Iα = Ia、Iβ = (Ia + 2Ib) / sqrt(3)，函数体为 alphaBeta->alpha = abc->Ua 与 alphaBeta->beta = (abc->Ua + 2 * abc->Ub) * SQRT_3]]
 
 **2）Clarke 逆变换**
 
-![[foc-code-inverse-clarke.png|编辑器截图：inverseClarkeTransform 函数，71~76 行；注释给出 Ua = Uα、Ub = -1/2 * Uα + sqrt(3)/2 * Uβ、Uc = -1/2 * Uα - sqrt(3)/2 * Uβ，函数体用 DIV_1 与 SQRT_3_DIV_2 两个宏实现]]
+![[foc-code-inverse-clarke.webp|编辑器截图：inverseClarkeTransform 函数，71~76 行；注释给出 Ua = Uα、Ub = -1/2 * Uα + sqrt(3)/2 * Uβ、Uc = -1/2 * Uα - sqrt(3)/2 * Uβ，函数体用 DIV_1 与 SQRT_3_DIV_2 两个宏实现]]
 
 **3) Park 变换**
 
-![[foc-code-park.png|编辑器截图：parkTransform 函数，37~50 行；先算 sinAngle、cosAngle，再用 dq->d = cosAngle * alpha + sinAngle * beta、dq->q = -sinAngle * alpha + cosAngle * beta 完成变换]]
+![[foc-code-park.webp|编辑器截图：parkTransform 函数，37~50 行；先算 sinAngle、cosAngle，再用 dq->d = cosAngle * alpha + sinAngle * beta、dq->q = -sinAngle * alpha + cosAngle * beta 完成变换]]
 
 **4) park 逆变换**
 
-![[foc-code-inverse-park.png|编辑器截图：inverseParkTransform 函数，50~64 行；alphaBeta->alpha = d * cosAngle - q * sinAngle、alphaBeta->beta = d * sinAngle + q * cosAngle]]
+![[foc-code-inverse-park.webp|编辑器截图：inverseParkTransform 函数，50~64 行；alphaBeta->alpha = d * cosAngle - q * sinAngle、alphaBeta->beta = d * sinAngle + q * cosAngle]]
 
 ### 3.2 测试代码实现
 
@@ -180,7 +180,7 @@ $$
 > 代码 224 行：实现 park 逆变换，将 D、Q 坐标转变至 α、β 坐标系上
 > 代码 229 行：将经过逆 park 生成的 ia、ib、ic，生成 svpwm
 
-![[foc-code-test.png|编辑器截图：foc_test 函数，205~240 行；外层 while(run_cnt--) 跑 10 次，内层 for 让 theta 从 0 递增到 2π、步长 0.275f，循环体内依次调用逆 Park、逆 Clarke 与 SVPWM，最后用 printf 输出 alphaBeta_t.alpha、beta 和 phase_t.Ua、Ub、Uc 五个值]]
+![[foc-code-test.webp|编辑器截图：foc_test 函数，205~240 行；外层 while(run_cnt--) 跑 10 次，内层 for 让 theta 从 0 递增到 2π、步长 0.275f，循环体内依次调用逆 Park、逆 Clarke 与 SVPWM，最后用 printf 输出 alphaBeta_t.alpha、beta 和 phase_t.Ua、Ub、Uc 五个值]]
 
 *图：测试代码把 $\theta$ 从 $0$ 扫到 $2\pi$，每步算出 $\alpha\beta$ 与三相电压并打印——这是**开环**的变换链路验证，不接电机也不需要 ADC 反馈，光靠串口输出就能画出后面那几张波形图。*
 
@@ -188,15 +188,15 @@ $$
 
 1. **D、Q 坐标系中的值经过逆 park 变换生成的 α、β 坐标系上的波形图**，$\alpha$、$\beta$ 的波形相位相差 90°
 
-![[foc-wave-alpha-beta.png|示波器截图：两条正弦波形（洋红与绿色）频率相同、相位相差 90°，横轴为时间刻度]]
+![[foc-wave-alpha-beta.webp|示波器截图：两条正弦波形（洋红与绿色）频率相同、相位相差 90°，横轴为时间刻度]]
 
 2. **α、β 坐标系经过逆 Clark 生成的 ia、ib、ic 的波形图**，$ia$、$ib$、$ic$ 三个波形之间相位相差 120°
 
-![[foc-wave-ia-ib-ic.png|示波器截图：三条正弦波形（蓝、紫、黄）频率相同、彼此相位相差 120°，横轴为时间刻度]]
+![[foc-wave-ia-ib-ic.webp|示波器截图：三条正弦波形（蓝、紫、黄）频率相同、彼此相位相差 120°，横轴为时间刻度]]
 
 3. **将 α、β 坐标系和 ia、ib、ic 的波形图放在同一个图像中进行参照**
 
-![[foc-wave-combined.png|上下两个子图并排的示波器截图：上图为相位相差 90° 的两路 αβ 波形，下图为相位相差 120° 的三路 ia/ib/ic 波形，横轴时间刻度对齐，可直接对照]]
+![[foc-wave-combined.webp|上下两个子图并排的示波器截图：上图为相位相差 90° 的两路 αβ 波形，下图为相位相差 120° 的三路 ia/ib/ic 波形，横轴时间刻度对齐，可直接对照]]
 
 *图：三相波形互差 120°、两相波形互差 90°——这正是逆 Clarke 矩阵里 $-\frac{1}{2}$ 与 $\pm\frac{\sqrt{3}}{2}$ 这几个系数要达到的效果。三个波形在同一时间刻度下对齐，说明整条变换链路没有引入额外相移。*
 
