@@ -632,6 +632,14 @@ with sync_playwright() as p:
         if (DIST / "notes" / c / "overview" / "index.html").exists()
     ]
     check("分类总览页面已从产物中消失", bool(html_files) and not left, f"left={left}")
+    # 内容图必须走无损 WebP 管线（PNG→WebP 省传输；github-avatar 是抓取脚本再生成的 PNG，豁免）
+    stale_img = []
+    for p in html_files:
+        for m in re.finditer(r'src="(/images/[^"]+)"', p.read_text(encoding="utf-8", errors="ignore")):
+            if re.search(r"\.(png|gif)$", m.group(1)) and "github-avatar" not in m.group(1):
+                stale_img.append(f"{p.relative_to(DIST).as_posix()}:{m.group(1)}")
+    check("内容图无 PNG/GIF 残留（全走 WebP）", bool(html_files) and not stale_img,
+          f"stale={stale_img[:3]}")
 
     # ---- 知识库：AI 分类（第三分类的配图 / 公式 / 反链 / 上下篇不越类）----
     AI_NOTES = [
@@ -649,7 +657,7 @@ with sync_playwright() as p:
 
     page.goto(f"{BASE}/notes/ai/vision-models/", wait_until="networkidle")
     ai_imgs = page.locator(".post-content img")
-    check("AI 笔记配图全部渲染（含 2 张 GIF）", ai_imgs.count() == 4, f"imgs={ai_imgs.count()}")
+    check("AI 笔记配图全部渲染（含 2 张动图）", ai_imgs.count() == 4, f"imgs={ai_imgs.count()}")
     check("AI 配图 alt 为中文描述",
           all(len(ai_imgs.nth(i).get_attribute("alt") or "") > 4
               for i in range(ai_imgs.count())))
@@ -679,6 +687,11 @@ with sync_playwright() as p:
     page.goto(f"{BASE}/notes/hardware/rc-circuit-applications/", wait_until="networkidle")
     imgs = page.locator(".post-content img")
     check("笔记配图全部渲染", imgs.count() == 9, f"imgs={imgs.count()}")
+    # 构建期 rehype-image-size 注入的宽高 —— 惰性图片载入前预留纵横比，不顶开正文（CLS）
+    dims = [(imgs.nth(i).get_attribute("width"), imgs.nth(i).get_attribute("height"))
+            for i in range(imgs.count())]
+    check("配图带 width/height（防 CLS）",
+          all(w and h and int(w) > 0 and int(h) > 0 for w, h in dims), f"dims={dims[:3]}")
     check("配图 alt 为中文描述（进全文搜索索引）",
           all(len(imgs.nth(i).get_attribute("alt") or "") > 4 for i in range(imgs.count())))
     imgs.first.click()

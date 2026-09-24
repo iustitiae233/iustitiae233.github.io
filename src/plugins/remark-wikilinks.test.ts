@@ -56,12 +56,12 @@ describe("remarkWikilinks（真实目录集成）", () => {
   });
 
   it("![[图.png|中文 alt]] → image 节点：basename 路径 + alt + 惰性加载属性", () => {
-    const nodes = transform("![[sub/dir/ai-pooling.png|2×2 池化降采样示意]]");
+    const nodes = transform("![[sub/dir/ai-pooling.webp|2×2 池化降采样示意]]");
     const img = nodes.find((n) => n.type === "image");
     expect(img).toBeDefined();
     if (img?.type === "image") {
       // 附件平铺在 public/images/，路径前缀（Obsidian 的附件目录）必须被剥掉
-      expect(img.url).toBe("/images/ai-pooling.png");
+      expect(img.url).toBe("/images/ai-pooling.webp");
       expect(img.alt).toBe("2×2 池化降采样示意");
       const data = img.data as Record<string, unknown> | undefined;
       expect(data?.hProperties).toEqual({ loading: "lazy", decoding: "async" });

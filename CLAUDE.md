@@ -10,8 +10,8 @@ Astro 7 静态博客（zh-CN，暗色科技风）。零框架 JS——交互全�
 
 1. **首屏 LCP 只能是 `<h1>` 文本**。hero 装饰件用内联 `<svg>`、里面没有 `<image>`、不放 `<text>`——这不是风格偏好，是"构造上不可能是 LCP 候选"（已验证 LCP=h1）。别改成 `background-image: data-URI`，那反而会把它变成候选。
 2. **零框架 JS 的边界不松**。要加任何第三方脚本或 CSS 之前，先回答"原生能不能做"——能就不加。KaTeX 的 CSS 至今只在 notes 路由引，公式字体不许泄漏到文章页/首页。
-3. **`public/` 下的资源不过 Astro 优化管线**，图片是手工优化后才提交的。进仓库前必须无损压缩：PNG → WebP lossless（PIL 存 `lossless=True, quality=100, method=6`；实测一批截图省 45%，用 SHA-256 比对解码后 RGB 确认像素零差异）。**不许靠降分辨率换体积**——正文栏 `70ch`（约 600–700px）而图源普遍 590–1203px，缩放比已在 1–2× 之间，再压就是拿高清屏观感换字节。调色板 PNG 和 PNG 重编码都试过，反而更大或有损，别走回头路。
-4. **冒烟即性能守卫**。`scripts/smoke-test.py` 里有惰性加载、LCP 构造、图谱标签渲染等性能断言，122 项必须全绿。新增重量级特性时**顺手加一条对应的性能断言**，否则下一个人改坏了没人会发现。
+3. **`public/` 下的资源不过 Astro 优化管线**，图片是手工优化后才提交的。进仓库前必须无损压缩：PNG → WebP lossless（PIL 存 `lossless=True, quality=100, method=6`；实测一批截图省 45%，用 SHA-256 比对解码后 RGB 确认像素零差异）。动图 GIF 同管线转**动画 WebP lossless**（`save_all=True` 收齐帧 + 逐帧 `duration`，逐帧 RGBA 比对校验；实测卷积动画 573K→296K）。**不许靠降分辨率换体积**——正文栏 `70ch`（约 600–700px）而图源普遍 590–1203px，缩放比已在 1–2× 之间，再压就是拿高清屏观感换字节。调色板 PNG 和 PNG 重编码都试过，反而更大或有损，别走回头路。
+4. **冒烟即性能守卫**。`scripts/smoke-test.py` 里有惰性加载、LCP 构造、图谱标签渲染等性能断言，124 项必须全绿。新增重量级特性时**顺手加一条对应的性能断言**，否则下一个人改坏了没人会发现。
 5. **热点路径按实测结果走，不按"更省事"走**：软导航重初始化、`transition:persist` 侧栏的 active 重算、转场 70ms 出 / 180ms 入（不做交叉淡化）、侧栏导航 viewport 预取——这些都是调过的结果，改回简单版本就是退步。
 
 ## 常用命令
@@ -26,7 +26,7 @@ npm run gitee              # 手动刷新 Gitee 仓库清单（scripts/fetch-git
 npm run fetch              # profile + repos + gitee（build 就是它 + astro build）
 npm run preview            # 本地预览 dist
 npx serve dist -l 4327     # 冒烟测试依赖的静态服务器（保持 4327 端口）
-python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 122 项，需先起 serve）
+python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 124 项，需先起 serve）
 ```
 
 **门禁**：改动后跑 check → test → build → smoke，全绿才提交。commit message 用中文，格式 `类型: 描述`（feat/fix/test/docs/ci）。
@@ -45,6 +45,7 @@ python scripts/smoke-test.py   # Playwright/Edge headless 冒烟（当前 122 �
 - 首页 hero 的 SVG 母题：`<use href="#id">` 复用路径几何（改一处即可，抄两份必然漂移）。**构造上不可能是 LCP**——内联 `<svg>` 根元素不是 LCP 候选、里面没有 `<image>`，所以首屏 LCP 只可能是 `<h1>` 文本（已验证 LCP=h1）。两条推论：不要改成 `background-image: data-URI`（那反而成为候选）、SVG 里不放 `<text>`。动效只在 `@media (prefers-reduced-motion: no-preference)` 里挂 `stroke-dashoffset` 动画（**没有需要覆盖的规则，就没有写错的机会**——绕开 reduced-motion 覆盖选择器写不全那个老坑）；窄屏 `display:none`。已实测动画开销为零（帧时长 p50/p95 与关闭时一致、零长帧），不用加回退
 - 项目页 `/projects/`：读 `src/data/github-repos.json` + `src/data/gitee-repos.json`（两个抓取脚本的产物，均提交进 git；`fetchedAt` 只到日 → 同一天重复构建产物字节一致，不会每次 build 都脏一个文件）；跨平台合并去重在纯逻辑 `src/lib/projects.ts#mergeRepoFiles`（vitest）——**参数顺序即优先级**，调用方固定 `(github, gitee)` → 同名镜像折叠为 GitHub 版，Gitee 只补充独有项目；去重键是裸 `name`（同一平台内 owner 仓库名本就唯一，跨平台同名恰好就是镜像语义）。排序/取前 N 同文件 `sortReposByPushed`/`topRepos`。**忽略名单的唯一事实来源是各抓取脚本顶部的 `IGNORE`（github/gitee 各一份，只作用于本平台）——改 JSON 里的 `ignored` 不生效**（脚本每次成功都覆写整个文件）。Gitee 平台怪癖吸收在脚本 `toRepo`：`html_url` 天生带 `.git` 后缀要剥、无描述给的是 `""` 不是 null
 - KaTeX（remark-math + rehype-katex）全局启用，但 `katex/dist/katex.min.css` **只在 notes 路由引入**——公式字体不得泄漏到文章/首页
+- 内容图宽高（2026-09-24）：`src/plugins/rehype-image-size.ts` 在构建期读 `public/images` 文件头（手写 PNG/GIF/WebP 三种头部解析，零依赖）给内容 `<img>` 注入 width/height——惰性图片载入前预留纵横比，不把下方正文顶下去（CLS）。文件缺失/解析不了只告警不 fail build；全局 `img{max-width:100%;height:auto}` 保证窄屏不变形
 - 知识库（2026-09）：wikilink 解析纯逻辑在 `src/lib/wikilinks.ts`，remark 薄壳 `src/plugins/remark-wikilinks.ts`（fs 扫 notes 建 id/basename/主标题三路索引，进程内惰性一次）。三形态：`[[mcu-gpio]]`/`[[二极管基础]]`（主标题，title 剥「——」副题后索引）/`[[x|别名]]`；歧义多候选拒绝猜（警告列出候选），未命中渲染纯文本+构建警告不 fail build。反链 `src/lib/backlinks.ts`（双语法：wikilink + 手写 `/notes/<id>/` 标准链接，source→target 去重、自链忽略），`collections.ts#getBacklinkIndex()` 是唯一入口。图谱 `src/lib/graph.ts`（确定性分类多圆环布局——`CENTER`/`RING` 是 `Record<NoteCategory,…>`，**加分类必须同时补这两处**，否则类型检查失败且运行时 `TypeError`；`RING` 的圆弧缺口给节点最多、标题最长的 ai 环让开中线；**禁随机性**，同输入同输出有 vitest 断言），页面 `/notes/graph/`（SVG，静态段优先于 [...slug] 无冲突）。图谱标签在独立图层 `labelLayer`（class `graph-labels`）里、**不在 `.graph-node` 内部**——改图层结构必须同步改 CSS 选择器，否则文字命中 0 个元素、退回 SVG 默认黑字 16px，在暗底上完全隐形（踩坑：87 项冒烟全绿而图上一个字都没有）；标签重叠靠客户端一遍确定性竖直避让兜底（环间隙 148px < 12 字标题 142px，错行补不满）。**图谱的边只来自正文链接**（`extractOutgoingLinks`：wikilink + 手写 `/notes/<id>/`）——`tags` 完全不参与构图，只喂 `/tags/` 页，所以给孤立节点补标签**不会**让它脱离孤立，只能靠正文互链（孤立是合法状态，淡显即可，冒烟只断言标记与真实度数一致）。全文搜索双层索引：标题索引内联（首屏）+ `/search-index.json`（`src/pages/search-index.json.ts` 端点，`markdownToPlainText` 去语法），客户端模块级 promise 缓存按需 fetch，失败降级标题搜索。`.claude/skills/` 有 obsidian-markdown/defuddle skill；本地 Obsidian vault 即本仓库（附件文件夹 `public/images/`，![[x.png]] 渲染为 /images/x.png）
 
 ## 关键约定

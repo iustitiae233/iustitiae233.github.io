@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import { remarkWikilinks } from "./src/plugins/remark-wikilinks";
+import { rehypeImageSize } from "./src/plugins/rehype-image-size";
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,6 +25,10 @@ export default defineConfig({
     // throwOnError:false 保证个别坏公式只渲染红色错误文本而不中断构建。
     // wikilinks 在 math 之后 —— 公式已转成 math/inlineMath 节点，扫描不会踩进 $...$
     remarkPlugins: [remarkMath, remarkWikilinks],
-    rehypePlugins: [[rehypeKatex, { strict: false, throwOnError: false }]],
+    rehypePlugins: [
+      [rehypeKatex, { strict: false, throwOnError: false }],
+      // 内容图回填 width/height（CLS）——放最后，wikilink 生成的 /images/ img 也在这一步拿到尺寸
+      rehypeImageSize,
+    ],
   },
 });

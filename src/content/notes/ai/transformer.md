@@ -34,7 +34,7 @@ $$\mathrm{Attention}(Q, K, V) = \mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k
 
 ## 三、一个块的解剖
 
-![[ai-transformer-block.png|Transformer 编码器块结构示意：输入先经多头注意力再逐位置前馈网络，两条通路上都有残差连接与归一化层]]
+![[ai-transformer-block.webp|Transformer 编码器块结构示意：输入先经多头注意力再逐位置前馈网络，两条通路上都有残差连接与归一化层]]
 
 *图：一个 Transformer 块 = 注意力子层 + 前馈子层，各配残差与归一化。整个模型是 N 个这样的块堆叠。*
 
