@@ -61,7 +61,7 @@ with sync_playwright() as p:
           hero_hi == f"你好，我是 {profile_name}", f"hi={hero_hi!r} name={profile_name!r}")
     hero_sub = (page.locator(".hero-sub").text_content() or "").strip()
     check("首页 hero 副标题的篇数来自笔记 collection",
-          hero_sub == "35 篇从零学起的学习笔记，持续更新中", f"sub={hero_sub!r}")
+          hero_sub == "36 篇从零学起的学习笔记，持续更新中", f"sub={hero_sub!r}")
     check("首页 hero 装饰图存在且对辅助技术隐藏",
           page.locator("svg.hero-motif[aria-hidden='true']").count() == 1)
     # 这条是机制断言：内联 svg 根元素不是 LCP 候选，里面也没有 <image>，
@@ -188,7 +188,7 @@ with sync_playwright() as p:
     page.click(".sidebar .nav-link[href='/notes/']")
     page.wait_for_selector("h2.cat-title", timeout=10000, state="attached")
     check("笔记索引按分类分组", page.locator("h2.cat-title").count() == 3)
-    check("笔记列表共 35 篇", page.locator(".note-row").count() == 35,
+    check("笔记列表共 36 篇", page.locator(".note-row").count() == 36,
           f"rows={page.locator('.note-row').count()}")
     page.click("a[href='/notes/hardware/mosfet-basics/']")
     page.wait_for_selector(".post-header h1", timeout=10000, state="attached")
@@ -525,7 +525,7 @@ with sync_playwright() as p:
 
     # ---- 知识库：关系图谱页 ----
     page.goto(f"{BASE}/notes/graph/", wait_until="networkidle")
-    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 35,
+    check("图谱页 SVG 节点渲染", page.locator("svg .graph-node").count() == 36,
           f"nodes={page.locator('svg .graph-node').count()}")
     check("图谱页边渲染", page.locator("svg .graph-edge").count() > 0)
     check("图谱页图例三项", page.locator(".legend-item").count() == 3)
