@@ -170,6 +170,8 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
     const labelY = new Map<SVGTextElement, number>();
     const textToId = new Map<SVGTextElement, string>();
     const nudgeById = new Map<string, number>();
+    // 避让方向锁：id → true=只准向下推 / false=只准向上推（见下方避让循环注释）
+    const dirById = new Map<string, boolean>();
 
     const syncEdges = (id: string) => {
       for (const line of edgeEls) {
@@ -307,15 +309,19 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
 
     // 标签避让：必须等 svg 进文档——getBBox 依赖布局。
     // 光靠 labelOffset 的「朝环外 + 错行」补不满，因为撞车是结构性的：
-    // embedded 环最右到 hardware 环最左只有约 148px，环内相邻节点相距约 74px，
+    // embedded 环最右到 hardware 环最左只有约 150px，环内相邻节点相距约 74px，
     // 而 12 字中文标题宽 142px——面对面的两个长标签、同环相邻的两个长标签都放不下。
-    // 这里按固定顺序（左边界→下边界）找出第一对重叠，把靠后的那个沿 y 推开
-    // （朝远离对方那一侧，位移取最小可行值），重算包围盒再找下一对，直到无重叠。
+    // 这里按固定顺序（x 升序，同 x 按 y）找出第一对重叠，把靠后的那个沿 y 推开，
+    // 重算包围盒再找下一对，直到无重叠。两条防振荡规则（47 篇时踩过：走廊里的
+    // 标签上下都有邻居，一对一修会被两边来回拉扯，±16px 抖到轮数耗尽一个都修不掉）：
+    // 1) 推量一次清空该标签**当前全部**重叠伙伴——只清触发对会把它正好摞到下一个
+    //    邻居身上，下一轮的修法就可能反向；
+    // 2) 推方向一经确定永久锁死（单调）——只允许一个标签一直朝同一侧走。
     // 顺序固定、方向由几何决定，**无随机**，同输入同输出。若拿不到布局（getBBox
     // 全 0）则检测不到重叠、直接跳过，退化成避让前的样子，不会把标签画歪。
-    // 轮数上限 40：每轮只修一对，embedded 环 14 节点后一轮一对的 10 轮修不完
-    //（一次 41 标签 O(n²) 的 getBBox 比较，40 轮也是微秒级，不在交互热路径上）。
-    for (let round = 0; round < 40; round++) {
+    // 轮数上限 96 是安全阀：防振荡规则下每轮净清掉一个标签的全部重叠，实际
+    // 几轮就收敛；O(n²) 的 getBBox 比较是微秒级，不在交互热路径上。
+    for (let round = 0; round < 96; round++) {
       const boxes = labelItems
         .map((el) => ({ el, b: el.getBBox() }))
         .sort((p, q) => p.b.x - q.b.x || p.b.y - q.b.y);
@@ -330,8 +336,24 @@ const graphJson = JSON.stringify(graph).replace(/</g, "\\u003c");
           // 垂直只咬 1px 以内的「宽 × 薄」交叠照样碍眼，也要推——冒烟断言
           // 用的就是面积阈值，两处判定必须一致，否则这种对永远漏修。
           if (ox <= 0 || oy <= 0 || ox * oy <= 8) continue;
-          const down = c.y + c.height / 2 >= a.y + a.height / 2;
-          hit = { el: boxes[j].el, dy: (down ? 1 : -1) * (oy + 2) };
+          const el = boxes[j].el;
+          const id = textToId.get(el)!;
+          const down = dirById.has(id)
+            ? dirById.get(id)!
+            : c.y + c.height / 2 >= a.y + a.height / 2;
+          dirById.set(id, down);
+          // 清空每个重叠伙伴所需的位移：向下推要到对方底部之下，向上要到对方顶部之上
+          let push = 0;
+          for (const cand of boxes) {
+            if (cand.el === el) continue;
+            const p = cand.b;
+            const ox2 = Math.min(c.x + c.width, p.x + p.width) - Math.max(c.x, p.x);
+            const oy2 = Math.min(c.y + c.height, p.y + p.height) - Math.max(c.y, p.y);
+            if (ox2 <= 0 || oy2 <= 0 || ox2 * oy2 <= 8) continue;
+            const need = down ? p.y + p.height - c.y + 2 : c.y + c.height - p.y + 2;
+            push = Math.max(push, need);
+          }
+          hit = { el, dy: (down ? 1 : -1) * (push || oy + 2) };
           break;
         }
       }
